@@ -56,7 +56,7 @@ const routes = [
     },
     children: [
       {
-        path: '',
+        path: '/',
         name: 'OnBoarding',
         component: OnBoarding,
       },

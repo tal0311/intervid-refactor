@@ -4,6 +4,7 @@ const clickOutside = {
    if (!el.contains(ev.target)) {
     //change to close modal 
     // itemService.setModalType('')
+
    }
   }
   setTimeout(() => {
