@@ -8,16 +8,16 @@
     <div class="filter-btn" :class="{ selected: isFilterModalOpen }">
       <button @click="toggleModal('Filter')">
         <i class="material-icons">tune</i>
-        {{getTrans('filter-btn')}}
+        {{ getTrans('filter-btn') }}
       </button>
 
       <div class="filter-modal" :class="{ open: isFilterModalOpen }" v-clickaway="onResetFilter">
         <div v-if="isApplicantOverview" class="filter-container status-filter">
-          <h3 class="filter-title">{{getTrans('by-status')}}</h3>
+          <h3 class="filter-title">{{ getTrans('by-status') }}</h3>
           <div class="filter-list">
             <label v-for="(status, idx) in statuses" :key="status.label" @input="onSelectStatus(idx)">
               <input type="checkbox" :checked="isStatusSelected(idx)" />
-              <span>{{getTrans(`${status.label }`)}}</span>
+              <span>{{ getTrans(`${status.label }`)}}</span>
             </label>
           </div>
         </div>
@@ -96,6 +96,7 @@
 <script>
 import { statusMap, filterDates } from '@/services/constData'
 import MobileModal from '@/cmps/common/modals/MobileModal.vue'
+// convert to utilService.deepEqual
 import isEqual from 'lodash.isequal'
 import cloneDeep from 'lodash.clonedeep'
 
