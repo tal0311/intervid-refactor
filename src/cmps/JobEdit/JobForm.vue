@@ -51,34 +51,34 @@
 
       <div class="toggle-container">
         <div class="main-toggle">
-          <label> {{ getTrans('candidate-cv') }}</label>
+          <label> {{getTrans('candidate-cv')}}</label>
           <input type="checkbox" id="cv" name="cv" v-model="job.rule.isCvRequired" />
           <div class="outer">
             <div class="inner"></div>
-            <p>{{ getTrans('not-required') }}</p>
-            <p>{{ getTrans('required') }}</p>
+            <p>{{getTrans('not-required')}}</p>
+            <p>{{getTrans('required')}}</p>
           </div>
         </div>
 
         <div class="main-toggle">
-          <label> {{ getTrans('video-recording') }}</label>
+          <label> {{getTrans('video-recording')}}</label>
           <input type="checkbox" id="one-try" name="one-try" v-model="job.rule.isOneTry" />
           <div class="outer">
             <div class="inner"></div>
-            <p>{{ getTrans('allow-multiple-tries') }}</p>
-            <p>{{ getTrans('allow-only-once') }}</p>
+            <p>{{getTrans('allow-multiple-tries')}}</p>
+            <p>{{getTrans('allow-only-once')}}</p>
           </div>
         </div>
       </div>
 
       <div class="add add-desc" @click="isDesc = !isDesc" v-if="!isDesc">
         <i class="material-icons">add_circle_outline</i>
-        {{ getTrans('add-description') }}
+        {{getTrans('add-description')}}
       </div>
 
       <div v-if="!job.info.coverUrl" class="add add-desc" @click="toggleModal('change-cover')">
         <i class="material-icons">add_circle_outline</i>
-        {{ getTrans('add-cover') }}
+        {{getTrans('add-cover')}}
       </div>
     </section>
   </div>

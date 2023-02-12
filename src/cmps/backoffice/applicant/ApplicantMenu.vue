@@ -6,10 +6,10 @@
 
     <div class="menu-modal" :class="{ open: isOpen && !isMobile }">
       <button @click="$emit('on-archive-applicant')">
-        <i class="archive-btn material-icons">archive</i> {{ getTrans('archive') }}
+        <i class="archive-btn material-icons">archive</i> {{getTrans('archive')}}
       </button>
       <button @click="$emit('on-edit-applicant')">
-        <i class="archive-btn material-icons">edit</i>{{ getTrans('edit-applicant') }}
+        <i class="archive-btn material-icons">edit</i>{{getTrans('edit-applicant')}}
       </button>
     </div>
 

@@ -4,14 +4,14 @@
       <avatar :size="35" :src="loggedInUser.imgUrl || loggedInUser.logoUrl" :username="userFullName" />
     </div>
     <div :class="{ open: isOpen && !isMobile && loggedInUser }" class="user-modal">
-      <button @click="onGoTo('ApplicantOverview')">{{ getTrans('backoffice') }}</button>
-      <button v-if="isAdmin" @click="onGoTo('AccountOverview')">{{ getTrans('accounts') }}</button>
-      <button v-if="isAdmin" @click="onGoTo('RecordOverview')">{{ getTrans('logs') }}</button>
+      <button @click="onGoTo('ApplicantOverview')">{{getTrans('backoffice')}}</button>
+      <button v-if="isAdmin" @click="onGoTo('AccountOverview')">{{getTrans('accounts')}}</button>
+      <button v-if="isAdmin" @click="onGoTo('RecordOverview')">{{getTrans('logs')}}</button>
       <!-- <button v-if="isAdmin" @click="onGoTo('ActivityOverview')">{{ getTrans('activity') }}</button> -->
-      <button @click="onGoTo('UserMgmt')">{{ getTrans('profile') }}</button>
-      <button @click="onLogout">{{ getTrans('logout') }}</button>
+      <button @click="onGoTo('UserMgmt')">{{getTrans('profile')}}</button>
+      <button @click="onLogout">{{getTrans('logout')}}</button>
     </div>
-    <router-link v-if="!loggedInUser" class="link" :to="authPath.to">{{ authPath.txt }}</router-link>
+    <router-link v-if="!loggedInUser" class="link" :to="authPath.to">{{authPath.txt}}</router-link>
 
     <mobile-modal v-if="isOpen && isMobile" cmpName="user-menu" @on-close="toggleModal" />
   </div>

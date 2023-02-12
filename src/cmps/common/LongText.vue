@@ -1,7 +1,7 @@
 <template>
   <div>
-    {{ textToDisplay }}
-    <a class="read-more-btn" @click.stop="toggleReadMore()">{{ btnText }}</a>
+    {{textToDisplay}}
+    <a class="read-more-btn" @click.stop="toggleReadMore()">{{btnText}}</a>
   </div>
 </template>
 

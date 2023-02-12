@@ -1,15 +1,15 @@
 <template>
   <section class="activity-preview">
     <div class="preview-item">
-      {{ startTime }}
+      {{startTime}}
     </div>
 
     <div class="preview-item">
-      {{ activity.user ? activity.user.email : 'Guest' }}
+      {{activity.user ? activity.user.email : 'Guest'}}
     </div>
 
     <div class="preview-item">
-      {{ action }}
+      {{action}}
     </div>
   </section>
 </template>

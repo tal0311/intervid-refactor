@@ -14,15 +14,10 @@
       </video>
     </div>
 
-    <draggable-video
-      class="face-container small"
-      :className="{
-        aspect: !playerState.isFullScreen,
-        loading: playerState.isLoading,
-      }"
-      :isShown="secVideoSrc && isDraggableShown"
-      v-show="secVideoSrc && isDraggableShown"
-    >
+    <draggable-video class="face-container small" :className="{
+      aspect: !playerState.isFullScreen,
+      loading: playerState.isLoading,
+    }" :isShown="secVideoSrc && isDraggableShown" v-show="secVideoSrc && isDraggableShown">
       <button class="material-icons" @click="toggleIsDraggableShown">close</button>
       <video :src="secVideoSrc" :class="{ cover: secVideoName === 'faceUrl' }" ref="secVideo"  playsinline>
         Your browser does not support the video tag.
@@ -51,8 +46,7 @@
       <svg class="play" width="76" height="77" viewBox="0 0 76 77" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M0 38.5V72.0279C0 75.0014 3.12925 76.9354 5.78885 75.6056L72.8446 42.0777C75.7928 40.6036 75.7928 36.3964 72.8446 34.9223L5.78886 1.39443C3.12926 0.064628 0 1.99861 0 4.97214V38.5Z"
-          fill="white"
-        />
+          fill="white" />
       </svg>
       <svg class="pause" width="60" height="80" viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="40" width="20" height="80" rx="4" fill="white" />
@@ -110,6 +104,13 @@ export default {
     playerState() {
       return this.$store.getters['player/playerState']
     },
+    jumpToPoint() {
+      return this.$store.getters['player/getJumpToPoint']
+    },
+    facePos() {
+      const { right, top } = this.playerState.facePos
+      return { left: right + 'px', top: top + 'px' }
+    },
 
     elMainVideo() {
       return this.$refs.mainVideo
@@ -146,7 +147,6 @@ export default {
       return this.ans.resTime
     },
   },
-
   methods: {
     initVideos() {
       this.elMainVideo.addEventListener('timeupdate', this.progressLoop)
@@ -259,7 +259,7 @@ export default {
     },
 
     async togglePlay() {
-      const { isPlaying } = this.playerState
+      const { isPlaying, currTime } = this.playerState
       if (!this.isPlayerReady) return
       if (!this.secVideoSrc) this.elSecVideo.pause()
       if (isPlaying) {
@@ -267,13 +267,19 @@ export default {
         if (this.secVideoSrc) this.elSecVideo.pause()
         this.setPlayerState('isPlaying', false)
       } else if (!this.isBuffering) {
+        this.elMainVideo.currentTime = currTime
+        console.log('in togglePlay')
         await this.elMainVideo.play()
-        if (this.secVideoSrc) await this.elSecVideo.play()
+        if (this.secVideoSrc) {
+          this.elMainVideo.currentTime = currTime
+          await this.elSecVideo.play()
+        }
         this.setPlayerState('isPlaying', true)
       }
     },
 
     async progressLoop() {
+      console.log('progLoop')
       const { totalDuration } = this.playerState
       const currTime = this.elMainVideo.currentTime
       if (!totalDuration) return
@@ -380,6 +386,16 @@ export default {
         this.togglePlay()
       }
     },
+
+    jumpToPoint: {
+      handler(timePoint) {
+        if (timePoint) {
+          this.seekTo(timePoint)
+          this.$store.commit({ type: 'player/setJumpToPoint', jumpToPoint: null })
+        }
+      },
+    }
+
   },
 
   components: { PlayerControls, DraggableVideo, VideoLoader },

@@ -4,23 +4,23 @@
       >expand_more</i
     >
     <div class="preview-item">
-      {{ formattedRecordDate }}
+      {{formattedRecordDate}}
     </div>
 
     <div class="preview-item">
-      {{ record.meta.source }}
+      {{record.meta.source}}
     </div>
 
     <div class="preview-item">
-      {{ record.level }}
+      {{record.level}}
     </div>
 
     <div :title="record.message" class="preview-item long">
-      {{ clippedMessage }}
+      {{clippedMessage}}
     </div>
 
     <div class="preview-item">
-      {{ record.meta.traceID || '-' }}
+      {{record.meta.traceID || '-'}}
     </div>
     <record-details v-if="selectedRecordId === record._id" :record="record" />
   </section>

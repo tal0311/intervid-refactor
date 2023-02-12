@@ -8,8 +8,8 @@
     >
       <span class="circle"></span>
       <div class="step-content">
-        <span>{{ step.title }}</span>
-        <span v-if="step.desc">{{ step.desc }}</span>
+        <span>{{step.title}}</span>
+        <span v-if="step.desc">{{step.desc}}</span>
       </div>
     </div>
   </div>

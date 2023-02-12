@@ -21,7 +21,6 @@ export const jobService = {
   getEmptyJob,
   getApplicants,
   getJobWithApplicant,
-  getJobsInfo,
   getExpectedApplicantCount,
   getExpectedJobCount
   // updateApplicants,
@@ -46,11 +45,6 @@ function getApplicants(filterBy, sort) {
   const url = ROUTE + '/applicant' + urlParams
   return httpService.customRequest('get', url, null, { cancelToken: token })
 
-}
-
-function getJobsInfo(filterBy, sort) {
-  const urlParams = getUrlParamsFromObj({ ...filterBy, ...sort })
-  return httpService.get(ROUTE + '/jobsInfo' + urlParams)
 }
 
 function getById(jobId) {

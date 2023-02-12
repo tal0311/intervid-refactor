@@ -2,7 +2,7 @@
   <section class="overview job-overview">
     <div class="title-container">
       <h2 class="overview-title">
-        {{ getTrans('jobs') }}
+        {{getTrans('jobs')}}
         <div class="view-btns">
           <i
             class="material-icons info-tooltip"
@@ -23,13 +23,13 @@
 
       <button class="create-job-btn" @click="$router.push({ name: 'JobEdit' })">
         <i class="material-icons">add</i>
-        <span>{{ getTrans('create-new-job') }}</span>
+        <span>{{getTrans('create-new-job')}}</span>
       </button>
     </div>
 
     <template-picker v-if="viewType === 'cards'" />
 
-    <h2 v-if="viewType === 'cards'" class="overview-subtitle">{{ getTrans('my-jobs') }}</h2>
+    <h2 v-if="viewType === 'cards'" class="overview-subtitle">{{getTrans('my-jobs')}}</h2>
     <div class="overview-header">
       <div class="search-filter-container">
         <search-box :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-jobs" />
@@ -55,11 +55,11 @@
     </div>
 
     <div class="filter-count" :class="{ shown: tagList.length || filterBy.txt }">
-      <span>{{ tagList.length || filterBy.txt ? filterCount : '' }}</span>
+      <span>{{tagList.length || filterBy.txt ? filterCount : ''}}</span>
 
       <div class="tag-list">
         <div class="tag-preview" v-for="tag in tagList" :key="tag.name">
-          <span>{{ tag.name }}</span>
+          <span>{{tag.name}}</span>
           <i class="material-icons" @click="onRemoveTag(tag)"> close </i>
         </div>
       </div>

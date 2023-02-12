@@ -2,7 +2,7 @@
   <section class="overview applicant-overview">
     <h2 class="overview-title">
       <router-link v-if="job" class="material-icons" to="/backoffice/job">chevron_left</router-link>
-      {{ overviewTitle }}
+      {{overviewTitle}}
     </h2>
     <div class="overview-header">
       <div class="search-filter-container">
@@ -35,10 +35,10 @@
     </div>
 
     <div class="filter-count" :class="{ shown: tagList.length || filterBy.txt }">
-      <span>{{ tagList.length || filterBy.txt ? filterCount : '' }}</span>
+      <span>{{tagList.length || filterBy.txt ? filterCount : ''}}</span>
       <div class="tag-list">
         <div class="tag-preview" v-for="tag in tagList" :key="tag.name">
-          <span>{{ tag.name }}</span>
+          <span>{{tag.name}}</span>
           <i class="material-icons" @click="onRemoveTag(tag)"> close </i>
         </div>
       </div>

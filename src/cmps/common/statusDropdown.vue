@@ -10,7 +10,7 @@
       ref="status-btn"
       @click="toggleModal"
     >
-      {{ getTrans(statusBtnTxt) }}
+      {{getTrans(statusBtnTxt)}}
       <i v-if="!isDisabled && !isShowArchived" class="material-icons">expand_more</i>
     </button>
 
@@ -26,7 +26,7 @@
         @click="onSetStatus(idx)"
         :data-label="idx === '0' ? getTrans('evaluation') : idx === '5' ? getTrans('recruitment') : ''"
       >
-        {{ getTrans(status.label) }}
+        {{getTrans(status.label)}}
       </button>
     </div>
 

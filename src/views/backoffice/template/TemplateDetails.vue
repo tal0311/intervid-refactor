@@ -2,12 +2,12 @@
   <section class="template-details" v-if="!isFetching">
     <div class="template-nav" @click="onGoBack">
       <i class="material-icons">chevron_left</i>
-      <span>{{ getTrans('go-back') }}</span>
+      <span>{{getTrans('go-back')}}</span>
     </div>
     <div class="template-header">
-      <h3>{{ template.title }}</h3>
+      <h3>{{template.title}}</h3>
       <div class="btn-container">
-        <button class="use-template-btn">{{ getTrans('use-template') }}</button>
+        <button class="use-template-btn">{{getTrans('use-template')}}</button>
         <template-menu :template="template" @archive="onToggleArchive" @default="onToggleIsDefault" />
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div v-if="alertData" class="notification-box" :class="`${alertData.type} ${displayClass}`">
-    <i class="material-icons">{{ iconName }}</i>
-    <span class="notification-txt">{{ alertData.txt }}</span>
+    <i class="material-icons">{{iconName}}</i>
+    <span class="notification-txt">{{alertData.txt}}</span>
     <button v-if="alertData.isUndo" class="undo-btn" @click="onUndo">Undo</button>
     <button v-else class="material-icons" @click="hideAlert">close</button>
   </div>

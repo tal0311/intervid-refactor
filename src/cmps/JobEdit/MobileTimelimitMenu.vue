@@ -9,7 +9,7 @@
         selected: selectedTimelimit.value === timelimit.value,
       }"
     >
-      {{ timelimit.txt }}
+      {{timelimit.txt}}
     </button>
   </div>
 </template>

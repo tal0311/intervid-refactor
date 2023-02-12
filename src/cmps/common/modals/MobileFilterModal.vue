@@ -2,21 +2,21 @@
   <section class="mobile-filter-modal">
     <div class="content">
       <div v-if="isApplicantOverview" class="filter-container status-filter">
-        <h3 class="filter-title">{{ getTrans('by-status') }}</h3>
+        <h3 class="filter-title">{{getTrans('by-status')}}</h3>
         <div class="filter-list">
           <label v-for="(status, idx) in statuses" :key="status.label" @input="$emit('select-status', idx)">
             <input type="checkbox" :checked="isStatusSelected(idx)" />
-            <span>{{ getTrans(`${status.label}`) }}</span>
+            <span>{{getTrans(`${status.label}`)}}</span>
           </label>
         </div>
       </div>
 
       <div class="filter-container date-filter">
-        <h3 class="filter-title">{{ getTrans('by-date') }}</h3>
+        <h3 class="filter-title">{{getTrans('by-date')}}</h3>
         <div class="filter-list">
           <label :class="{ selected: !updatedFilterBy.daysAgo }" @input="$emit('edit-filter', 'daysAgo', '')">
             <input type="radio" value="" :checked="!updatedFilterBy.daysAgo" v-model="updatedFilterBy.daysAgo" />
-            {{ getTrans('all') }}
+            {{getTrans('all')}}
           </label>
           <label
             v-for="date in filterDates"
@@ -30,13 +30,13 @@
               :checked="updatedFilterBy.daysAgo == date.daysAgo"
               v-model="updatedFilterBy.daysAgo"
             />
-            {{ getTrans(date.label) }}
+            {{getTrans(date.label)}}
           </label>
         </div>
       </div>
 
       <div class="filter-container view-filter">
-        <h3 class="filter-title">{{ getTrans('view-only') }}</h3>
+        <h3 class="filter-title">{{getTrans('view-only')}}</h3>
         <div class="filter-list">
           <label
             :class="{ selected: updatedFilterBy.incomplete === undefined }"
@@ -53,7 +53,7 @@
               :value="undefined"
               v-model="updatedFilterBy.incomplete"
             />
-            {{ getTrans('show-all') }}
+            {{getTrans('show-all')}}
           </label>
 
           <label
@@ -67,7 +67,7 @@
               :checked="updatedFilterBy.incomplete === false"
               v-model="updatedFilterBy.incomplete"
             />
-            {{ getTrans('show-incomplete') }}
+            {{getTrans('show-incomplete')}}
           </label>
           <label
             v-if="isApplicantOverview"
@@ -80,7 +80,7 @@
               :checked="updatedFilterBy.incomplete"
               v-model="updatedFilterBy.incomplete"
             />
-            {{ getTrans('show-complete') }}
+            {{getTrans('show-complete')}}
           </label>
 
           <!-- <label :class="{ selected: isShowArchived }"
@@ -91,7 +91,7 @@
         </div>
       </div>
       <div class="filter-container archive-filter">
-        <h3 class="filter-title">{{ getTrans('show-archived') }}</h3>
+        <h3 class="filter-title">{{getTrans('show-archived')}}</h3>
         <div class="toggle-option">
           <div class="main-toggle">
             <label for="show-archived">
@@ -115,7 +115,7 @@
     <div class="modal-footer">
       <p @click="onClearFilter">Clear all</p>
       <button class="set-filter-btn" @click="onSetFilter">
-        {{ showCount }}
+        {{showCount}}
       </button>
       <!-- <button @click="onSetFilter">Filter</button> -->
     </div>

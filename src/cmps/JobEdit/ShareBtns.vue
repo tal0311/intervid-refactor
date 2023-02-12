@@ -1,10 +1,10 @@
 <template>
   <div class="share-btns-container">
-    <p>{{ getTrans('invitation-msg') }}</p>
+    <p>{{getTrans('invitation-msg')}}</p>
     <div class="invitation-url-container">
-      <span>{{ invitationUrl }}</span>
+      <span>{{invitationUrl}}</span>
       <button class="copy" @click="copyLink">
-        {{ getTrans('copy-link') }}
+        {{getTrans('copy-link')}}
       </button>
     </div>
     <div class="media-btns-container">
@@ -12,7 +12,7 @@
         <button @click="onCopyEmbed">
           <i class="material-icons">code</i>
         </button>
-        <span>{{ getTrans('embed') }}</span>
+        <span>{{getTrans('embed')}}</span>
       </div>
 
       <div class="media-wrapper">
@@ -38,7 +38,7 @@
               /></svg
           ></i>
         </share-network>
-        <span>{{ getTrans('whatsapp') }}</span>
+        <span>{{getTrans('whatsapp')}}</span>
       </div>
 
       <div class="media-wrapper">
@@ -57,7 +57,7 @@
             />
           </svg>
         </share-network>
-        <span>{{ getTrans('facebook') }}</span>
+        <span>{{getTrans('facebook')}}</span>
       </div>
 
       <div class="media-wrapper">
@@ -71,7 +71,7 @@
         >
           <i class="material-icons">mail_outline</i>
         </share-network>
-        <span>{{ getTrans('email') }}</span>
+        <span>{{getTrans('email')}}</span>
       </div>
     </div>
   </div>

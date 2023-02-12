@@ -37,10 +37,10 @@
       spellcheck="false"
     />
 
-    <label v-if="label" :for="inputName">{{ label }}</label>
+    <label v-if="label" :for="inputName">{{label}}</label>
 
     <span v-if="$attrs.type === 'password'" class="material-icons eye" @click="togglePassword">
-      {{ isPasswordShown ? 'visibility_off' : 'visibility' }}
+      {{isPasswordShown ? 'visibility_off' : 'visibility'}}
     </span>
 
     <validation-msg :error="error" />

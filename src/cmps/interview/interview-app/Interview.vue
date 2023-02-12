@@ -44,19 +44,19 @@
           />
 
           <div class="quest-num">
-            {{ getTrans('question') }} {{ currQuestIdx + 1 }} {{ getTrans('of') }} {{ this.job.quests.length }}
+            {{getTrans('question')}} {{currQuestIdx + 1}} {{getTrans('of')}} {{this.job.quests.length}}
           </div>
         </div>
 
         <div class="bottom" v-if="currQuest.txt">
-          <h4>{{ currQuest.txt }}</h4>
+          <h4>{{currQuest.txt}}</h4>
           <p class="quest-desc html-container" ref="questDesc" v-html="currQuest.desc"></p>
         </div>
 
         <!-- <text-ans v-if="currQuest.ansRule.isTxtAns" :txt="currAns.txt" @save-ans="setAns" /> -->
         <div class="btn-container">
           <button v-if="!isRecording && isAllowRetake" class="main-btn" @click="onStartRecording">
-            {{ getTrans('start-recording') }}
+            {{getTrans('start-recording')}}
           </button>
           <button
             v-if="isAllowRetake && isRecording"
@@ -65,7 +65,7 @@
             :disabled="!isMinTimePassed && !lastRecordedVideo"
             @click="lastRecordedVideo ? retakeQuest() : onFinishQuest()"
           >
-            {{ lastRecordedVideo ? getTrans('retake-question') : getTrans('stop-recording') }}
+            {{lastRecordedVideo ? getTrans('retake-question') : getTrans('stop-recording')}}
           </button>
           <button
             v-if="!isAllowRetake || lastRecordedVideo"
@@ -75,7 +75,7 @@
             :disabled="!isMinTimePassed && !lastRecordedVideo"
             @click="isAlmostDone ? onFinishQuest(true) : toggleConfirmation()"
           >
-            {{ isLastQuest ? getTrans('finish-interview') : getTrans('save-and-proceed') }}
+            {{isLastQuest ? getTrans('finish-interview') : getTrans('save-and-proceed')}}
           </button>
         </div>
       </section>
@@ -86,13 +86,13 @@
         <div class="confirmation-dialogue">
           <i class="material-icons">warning_amber</i>
           <div>
-            <p>{{ getTrans('continue-to-next-question-title') }}</p>
-            <p>{{ getTrans('you-have-time-to-answer') }}</p>
+            <p>{{getTrans('continue-to-next-question-title')}}</p>
+            <p>{{getTrans('you-have-time-to-answer')}}</p>
           </div>
         </div>
         <div class="btns">
-          <button @click="toggleConfirmation()" data-ans="no">{{ getTrans('stay-on-current-question') }}</button>
-          <button @click="onFinishQuest(true)">{{ getTrans('yes-im-sure') }}</button>
+          <button @click="toggleConfirmation()" data-ans="no">{{getTrans('stay-on-current-question')}}</button>
+          <button @click="onFinishQuest(true)">{{getTrans('yes-im-sure')}}</button>
         </div>
       </div>
     </div>

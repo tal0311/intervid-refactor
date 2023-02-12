@@ -4,9 +4,9 @@
       <div :id="'toolbar' + _uid">
         <span class="ql-formats">
           <select class="ql-header" @click.stop="">
-            <option value="2">{{ getTrans('heading1') }}</option>
-            <option value="3">{{ getTrans('heading2') }}</option>
-            <option value="">{{ getTrans('normal') }}</option>
+            <option value="2">{{getTrans('heading1')}}</option>
+            <option value="3">{{getTrans('heading2')}}</option>
+            <option value="">{{getTrans('normal')}}</option>
           </select>
         </span>
 
@@ -21,7 +21,7 @@
         </span>
       </div>
 
-      <span v-if="charLimit" class="char-limit">{{ textLength }}/{{ charLimit }}</span>
+      <span v-if="charLimit" class="char-limit">{{textLength}}/{{charLimit}}</span>
     </div>
     <div ref="editor"></div>
   </div>

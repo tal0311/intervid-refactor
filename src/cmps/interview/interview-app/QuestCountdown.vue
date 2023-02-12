@@ -1,10 +1,10 @@
 <template>
   <section class="quest-countdown">
-    <span>{{ getTrans('recording-start-in') }}</span>
-    <div class="counter">{{ counter }}</div>
+    <span>{{getTrans('recording-start-in')}}</span>
+    <div class="counter">{{counter}}</div>
     <span
-      >{{ getTrans('time-limit-for-answer') }}: {{ currQuest.timeLimit }}
-      {{ currQuest.timeLimit > 1 ? getTrans('minutes') : getTrans('minute') }}</span
+      >{{getTrans('time-limit-for-answer')}}: {{currQuest.timeLimit}}
+      {{currQuest.timeLimit > 1 ? getTrans('minutes') : getTrans('minute')}}</span
     >
   </section>
 </template>

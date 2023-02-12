@@ -5,7 +5,7 @@
     </button>
 
     <div class="menu-modal" :class="{ open: isOpen && !isMobile }">
-      <button @click="$emit('on-remove-note-event')">{{ getTrans('remove') }}</button>
+      <button @click="$emit('on-remove-note-event')">{{getTrans('remove')}}</button>
     </div>
 
     <mobile-modal

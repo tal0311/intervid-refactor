@@ -30,7 +30,7 @@
 
       <div class="add add-quest" @click="onAddQuest">
         <i class="material-icons">add_circle_outline</i>
-        {{ getTrans('add-question') }}
+        {{getTrans('add-question')}}
       </div>
 
       <button
@@ -38,7 +38,7 @@
         :class="[{disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length)},{selected:onShare}]"
         @click.prevent="onShare"
       >
-        {{ getTrans('send') }}
+        {{getTrans('send')}}
       </button>
     </form>
 

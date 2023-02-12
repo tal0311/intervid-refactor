@@ -11,11 +11,12 @@ export const timelineService = {
     }
   },
 
-  noteEvent(txt, noteId) {
+  noteEvent(txt, noteId, timeStamp = null) {
     return {
       ..._getTimeEvent('note'),
       txt,
       noteId,
+      timeStamp
     }
   },
 

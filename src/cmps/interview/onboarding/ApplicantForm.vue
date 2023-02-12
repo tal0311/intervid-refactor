@@ -6,20 +6,20 @@
         <div class="content">
           <img v-if="coverUrl" :src="coverUrl" alt="job-cover" />
           <div class="greeting" :class="{ 'no-cover': !coverUrl }">
-            <h2>{{ getTrans('smile') }}</h2>
-            <p class="color">{{ getTrans('you-about-to-be-on-camera') }} ;)</p>
+            <h2>{{getTrans('smile')}}</h2>
+            <p class="color">{{getTrans('you-about-to-be-on-camera')}} ;)</p>
             <div class="time-container">
-              <p>{{ getTrans('please-make-sure-you-have') }}</p>
-              <span class="color">{{ `${totalDuration} ${getTrans('minutes')}` }}</span>
-              <p>{{ getTrans('to-complete-the-interview') }}</p>
+              <p>{{getTrans('please-make-sure-you-have')}}</p>
+              <span class="color">{{`${totalDuration} ${getTrans('minutes')}`}}</span>
+              <p>{{getTrans('to-complete-the-interview')}}</p>
             </div>
           </div>
         </div>
       </div>
-      <h3>{{ getTrans('before-the-interview-we-need-to-know-you') }}</h3>
+      <h3>{{getTrans('before-the-interview-we-need-to-know-you')}}</h3>
       <application />
       <form ref="form" novalidate @submit.prevent="validateForm">
-        <p class="form-title">{{ getTrans('fill-in-your-personal-details') }}</p>
+        <p class="form-title">{{getTrans('fill-in-your-personal-details')}}</p>
         <div class="inputs">
           <div class="input-group">
             <main-input
@@ -80,8 +80,8 @@
           </div>
         </div>
         <div class="btn-container">
-          <button class="main-btn">{{ getTrans('continue') }}</button>
-          <span>{{ getTrans('the-interview-will-not-start-yet') }}</span>
+          <button class="main-btn">{{getTrans('continue')}}</button>
+          <span>{{getTrans('the-interview-will-not-start-yet')}}</span>
         </div>
       </form>
     </div>

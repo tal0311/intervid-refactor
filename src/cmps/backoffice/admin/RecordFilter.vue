@@ -68,7 +68,7 @@
           }"
           @click="onLevelChange(level)"
         >
-          {{ level.toUpperCase() }}
+          {{level.toUpperCase()}}
         </button>
       </div>
     </div>

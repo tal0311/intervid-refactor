@@ -2,7 +2,7 @@
   <div class="btn-container">
     <button class="share" @click="toggleModal">
     <i class="material-icons">share</i>
-      {{ getTrans('share') }}
+      {{getTrans('share')}}
     </button>
     <share-btns :job="job" :class="{ open: modal.type === 'share' }" />
   </div>

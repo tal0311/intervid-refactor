@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>{{ getTrans('change-your-password') }}</h1>
+    <h1>{{getTrans('change-your-password')}}</h1>
     <form class="change-password-form" @submit.prevent="handleSubmit">
       <main-input
         inputName="password"
@@ -21,7 +21,7 @@
         styled="basic"
       />
       <slot></slot>
-      <button>{{ getTrans('change-password') }}</button>
+      <button>{{getTrans('change-password')}}</button>
     </form>
   </section>
 </template>

@@ -13,16 +13,16 @@
     </div>
 
     <div class="applicant-name">
-      {{ applicantFullName }}
-      <span v-if="applicant.info.isPreview">({{ getTrans('demo') }})</span>
+      {{applicantFullName}}
+      <span v-if="applicant.info.isPreview">({{getTrans('demo')}})</span>
     </div>
 
     <div class="job-title">
-      {{ applicant.jobInfo.title }}
+      {{applicant.jobInfo.title}}
     </div>
 
     <div class="hometown">
-      {{ applicant.info.hometown || 'N/A' }}
+      {{applicant.info.hometown || 'N/A'}}
     </div>
 
     <div @click.stop="" class="status">
@@ -30,7 +30,7 @@
     </div>
 
     <div class="date">
-      {{ getFinishDate() }}
+      {{getFinishDate()}}
     </div>
   </section>
 </template>

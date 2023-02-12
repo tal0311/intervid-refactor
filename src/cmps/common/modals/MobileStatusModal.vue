@@ -7,7 +7,7 @@
       @click="onSetStatus(idx)"
       :data-label="idx === '0' ? getTrans('evaluation') : idx === '5' ? getTrans('recruitment') : ''"
     >
-      {{ getTrans(status.label) }}
+      {{getTrans(status.label)}}
     </button>
   </div>
 </template>

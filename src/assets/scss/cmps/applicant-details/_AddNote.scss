@@ -1,8 +1,6 @@
 .add-note {
   display: flex;
   flex-direction: column;
-  // padding-block-end: 20px;
-
   padding-block: 20px;
   padding-inline: 0.5rem;
 
@@ -13,7 +11,6 @@
   .note-input {
     background: #fff;
     border: 1px solid $lightest-gray;
-    // margin-block-start: 20px;
     padding: 10px;
     border-radius: 4px;
     flex-grow: 1;
@@ -27,8 +24,90 @@
       transition: color 0.1s;
     }
 
-    &:focus,
-    &:active {
+    &:not(:placeholder-shown)~.btn-container .save-btn {
+      background: $dark-gray;
+      color: #fff;
+      pointer-events: all;
+    }
+
+  }
+
+
+
+
+
+  .btn-container {
+    display: flex;
+    justify-content: space-between;
+
+    .save-btn {
+      height: 0px;
+      width: 75px;
+      pointer-events: none;
+      opacity: 0;
+      background: $btn-disable-background;
+      color: $btn-disable-color;
+      border-radius: 4px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      transition: opacity 0.1s linear, height 0.15s linear 0.1s;
+    }
+
+    .bookmark-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      height: 0px;
+      pointer-events: none;
+
+      .video-limit-warning {
+        bottom: -30px;
+        font-size: 14px;
+        position: absolute;
+        color: red;
+      }
+
+      .ts-btn {
+        transition: opacity 0.1s linear, height 0.15s linear 0.1s;
+        background: $btn-disable-background;
+        color: $btn-disable-color;
+        border-radius: 4px;
+        margin-inline-start: 10px;
+        height: 30px;
+        width: 30px;
+        font-size: em(19px);
+
+        &.active {
+          background: $dark-gray;
+          color: #fff;
+        }
+      }
+
+      .ts-input-container {
+        display: flex;
+        align-items: center;
+
+        .input-seperator {
+          margin: 0 3px;
+          line-height: 1em;
+        }
+
+        input {
+          margin: 0 1px;
+          width: 32px;
+          height: 30px;
+          text-align: center;
+          border: 1px solid $lightest-gray;
+          border-radius: 4px;
+        }
+      }
+
+    }
+  }
+
+  &:focus-within {
+    .note-input {
       min-height: 100px;
       transition: min-height 0.15s;
       cursor: text;
@@ -38,29 +117,17 @@
       }
     }
 
-    &:focus~.save-btn {
+    .btn-container .save-btn {
       height: 30px;
       opacity: 1;
       transition: height 0.15s linear, opacity 0.1s linear 0.15s;
     }
 
-    &.active~.save-btn {
-      background: $dark-gray;
-      color: #fff;
+    .bookmark-container {
+      opacity: 1;
+      height: fit-content;
       pointer-events: all;
     }
   }
 
-  .save-btn {
-    height: 0px;
-    width: 75px;
-    pointer-events: none;
-    opacity: 0;
-    background: $btn-disable-background;
-    color: $btn-disable-color;
-    border-radius: 4px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    transition: opacity 0.1s linear, height 0.15s linear 0.1s;
-  }
 }

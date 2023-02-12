@@ -4,23 +4,23 @@
       <div class="application-header">
         <img loading="lazy" :src="logoUrl" alt="logo" />
         <div class="job-info">
-          <p>{{ job.company.name }}</p>
-          <p>{{ job.info.title }}</p>
+          <p>{{job.company.name}}</p>
+          <p>{{job.info.title}}</p>
         </div>
       </div>
 
       <div class="application-info">
         <div class="job-title">
-          <p>{{ getTrans('job-title') }}</p>
-          <p>{{ job.info.title }}</p>
+          <p>{{getTrans('job-title')}}</p>
+          <p>{{job.info.title}}</p>
         </div>
         <div class="job-location" v-if="job.info.location">
-          <p>{{ getTrans('location') }}</p>
-          <p>{{ job.info.location }}</p>
+          <p>{{getTrans('location')}}</p>
+          <p>{{job.info.location}}</p>
         </div>
         <div class="job-decription" v-if="job.info.desc">
-          <p>{{ getTrans('job-description') }}</p>
-          <p>{{ job.info.desc }}</p>
+          <p>{{getTrans('job-description')}}</p>
+          <p>{{job.info.desc}}</p>
         </div>
       </div>
       <slot></slot>

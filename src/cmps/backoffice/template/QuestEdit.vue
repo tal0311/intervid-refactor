@@ -1,7 +1,7 @@
 <template>
   <section class="quest-edit" v-if="quest">
     <div class="quest-header">
-      <h4>{{ getTrans('question') }} #{{ idx + 1 }}</h4>
+      <h4>{{getTrans('question')}} #{{idx + 1}}</h4>
       <quest-menu @on-remove-quest="onRemoveQuest" :quest="quest" />
     </div>
 
@@ -22,8 +22,8 @@
       </div>
 
       <p class="toggle-desc-btn" @click="isDesc = !isDesc">
-        <i class="material-icons md-16">{{ isDesc ? 'remove' : 'add' }}</i>
-        <span>{{ isDesc ? getTrans('remove-description') : getTrans('add-description') }}</span>
+        <i class="material-icons md-16">{{isDesc ? 'remove' : 'add'}}</i>
+        <span>{{isDesc ? getTrans('remove-description') : getTrans('add-description')}}</span>
       </p>
     </div>
 
@@ -44,7 +44,7 @@
           max="30"
           min="1"
         />
-        <span>{{ pluralMinute }}</span>
+        <span>{{pluralMinute}}</span>
       </div>
     </div>
   </section>

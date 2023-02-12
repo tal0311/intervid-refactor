@@ -1,6 +1,6 @@
 <template>
   <div class="note-app">
-    <h4>{{ getTrans('note') }}</h4>
+    <h4>{{getTrans('note')}}</h4>
     <add-note :loggedInUser="loggedInUser" @add-note="onAddNote" />
     <note-preview v-if="lastNote" :note="lastNote" />
   </div>
@@ -32,7 +32,7 @@ export default {
 
   methods: {
     onAddNote(note) {
-      const timeEvent = timelineService.noteEvent(note.txt, note.id)
+      const timeEvent = timelineService.noteEvent(note.txt, note.id, note.timeStamp)
       const notes = [note, ...this.notes]
       // this.addActivity('add', note)
       this.$emit('save-notes', notes, timeEvent)

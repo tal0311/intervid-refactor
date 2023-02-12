@@ -1,6 +1,6 @@
 <template>
   <section class="template-edit" v-if="!isFetching">
-    <h2>{{ getTrans('create-new-template') }}</h2>
+    <h2>{{getTrans('create-new-template')}}</h2>
     <form novalidate @submit.prevent="onSaveTemplate" class="template-container">
       <main-input
         v-if="templateToEdit"
@@ -28,17 +28,17 @@
         </div>
 
         <div class="action-container">
-          <button class="save-btn">{{ getTrans('save') }}</button>
-          <button type="button" class="add-quest" @click="onAddQuest">{{ getTrans('add-question') }}</button>
+          <button class="save-btn">{{getTrans('save')}}</button>
+          <button type="button" class="add-quest" @click="onAddQuest">{{getTrans('add-question')}}</button>
         </div>
       </div>
     </form>
 
     <div class="confirmation-modal" v-if="isDialogOpen">
-      <p>{{ getTrans('confirmation-modal') }}</p>
+      <p>{{getTrans('confirmation-modal')}}</p>
       <div>
-        <button data-ans="yes" @click="onDialogAns">{{ getTrans('confirmation-modal-ans-yes') }}</button>
-        <button data-ans="no" @click="onDialogAns">{{ getTrans('confirmation-modal-ans-no') }}</button>
+        <button data-ans="yes" @click="onDialogAns">{{getTrans('confirmation-modal-ans-yes')}}</button>
+        <button data-ans="no" @click="onDialogAns">{{getTrans('confirmation-modal-ans-no')}}</button>
       </div>
     </div>
   </section>

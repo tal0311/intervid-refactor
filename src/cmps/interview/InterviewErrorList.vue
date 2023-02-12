@@ -5,20 +5,18 @@
         <div>
           <i class="material-icons" :style="{ color: error.isBlocking ? '#ff5a5a' : '#fffa55' }"> warning_amber </i>
           <p>
-            {{ getTrans(`${error.type}_TXT`) }}
-            <span @click="toggleDescription(idx)" v-if="error.desc">{{
-              openDescIdx === idx ? getTrans('read-less') : getTrans('read-more')
-            }}</span>
+            {{getTrans(`${error.type}_TXT`)}}
+            <span @click="toggleDescription(idx)" v-if="error.desc">{{openDescIdx === idx ? getTrans('read-less') : getTrans('read-more')}}</span>
           </p>
         </div>
       </div>
       <div class="error-desc" v-if="openDescIdx === idx">
-        <pre>{{ getTrans(`${error.type}_DESC${getAdditionTag(error.type)}`) }}</pre>
+        <pre>{{getTrans(`${error.type}_DESC${getAdditionTag(error.type)}`)}}</pre>
       </div>
       <button class="material-icons" v-if="!error.isBlocking" @click="$emit('remove-error', error)">close</button>
     </div>
     <button class="reload-btn" v-if="this.errors.length && reloadTxt" @click="$emit('reload')">
-      {{ getTrans(reloadTxt) }}
+      {{getTrans(reloadTxt)}}
     </button>
   </section>
 </template>

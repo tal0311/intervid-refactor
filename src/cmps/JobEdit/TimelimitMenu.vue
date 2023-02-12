@@ -2,7 +2,7 @@
   <section class="timelimit-container" v-if="selectedTimelimit" @click="toggleModal" :class="{ open: isOpen }">
     <i class="material-icons">schedule</i>
     <button type="button">
-      {{ selectedTimelimit.txt }}
+      {{selectedTimelimit.txt}}
       <i class="expand material-icons">expand_more</i>
     </button>
 
@@ -16,7 +16,7 @@
           selected: selectedTimelimit.value === timelimit.value,
         }"
       >
-        {{ timelimit.txt }}
+        {{timelimit.txt}}
       </button>
     </div>
 

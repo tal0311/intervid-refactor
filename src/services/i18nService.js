@@ -959,7 +959,7 @@ const gTrans = {
     en: 'All changes saved',
     he: 'כל השינויים נשמרו',
   },
-  'required-fields-missing':{
+  'required-fields-missing': {
     en: 'Required fields missing',
     he: 'שדות חובה חסרים',
   },
@@ -1498,6 +1498,11 @@ const gTrans = {
     en: 'Question title',
     he: 'כותרת השאלה',
   },
+  // @Rotem ask where to put it:
+  'time-stamp': {
+    en: 'Time stamp',
+    he: 'נקודת זמן'
+  },
   remove: {
     en: 'Remove',
     he: 'מחיקה', // from google forms
@@ -1749,8 +1754,7 @@ const gTrans = {
       'לא ניתן לזהות את המצלמה שלך או שהיא נמצאת בשימוש באפליקציה אחרת: אנא וודא שהמצלמה מחוברת כראוי ולא נמצאת בשימוש',
   },
   CAMERA_BUSY_DESC: {
-    en:
-      'Check your camera connection\nClose other applications that currently use your camera\nClick the button in the middle of the screen',
+    en: 'Check your camera connection\nClose other applications that currently use your camera\nClick the button in the middle of the screen',
     he: 'בדוק את חיבור המצלמה\nסגור אפליקציות אחרות שמשתמשות במצלמה שלך\nלחץ על כפתור "טען מצלמה מחדש" המופיע מטה',
   },
   CAMERA_BUSY_TITLE: {

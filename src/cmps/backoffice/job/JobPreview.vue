@@ -11,11 +11,11 @@
     </div>
 
     <div class="title">
-      {{ job.info.title }}
+      {{job.info.title}}
     </div>
 
     <div class="location">
-      {{ job.info.location || 'N/A' }}
+      {{job.info.location || 'N/A'}}
     </div>
 
     <div class="avatars">
@@ -27,17 +27,17 @@
           :src="applicant.img"
           :username="applicant.username"
         />
-        <div v-if="job.applicantSummary.applicantCount > 2">+{{ job.applicantSummary.applicantCount }}</div>
+        <div v-if="job.applicantSummary.applicantCount > 2">+{{job.applicantSummary.applicantCount}}</div>
       </template>
     </div>
 
     <div class="date">
-      {{ jobCreationDate }}
+      {{jobCreationDate}}
     </div>
 
     <div class="link" @click.stop="onCopyUrl">
       <i class="material-icons" :title="getTrans('copy-link')">link</i>
-      <p>{{ getTrans('copy-link') }}</p>
+      <p>{{getTrans('copy-link')}}</p>
     </div>
 
     <div class="actions" @click.stop="">
@@ -65,9 +65,9 @@
     <div class="bottom">
       <div class="top-line">
         <div class="info">
-          <div class="title">{{ job.info.title }}</div>
+          <div class="title">{{job.info.title}}</div>
           <span>|</span>
-          <div class="location">{{ job.info.location || 'N/A' }}</div>
+          <div class="location">{{job.info.location || 'N/A'}}</div>
         </div>
         <div class="actions" @click.stop="">
           <job-menu
@@ -81,12 +81,12 @@
         </div>
       </div>
 
-      <div class="bottom-line">{{ job.applicantSummary.applicantCount }} {{ getTrans('applicants') }}</div>
+      <div class="bottom-line">{{job.applicantSummary.applicantCount}} {{getTrans('applicants')}}</div>
     </div>
 
     <div class="link" @click.stop="onCopyUrl">
       <i class="material-icons" :title="getTrans('copy-link')">link</i>
-      <p>{{ getTrans('copy-link') }}</p>
+      <p>{{getTrans('copy-link')}}</p>
     </div>
   </section>
 </template>

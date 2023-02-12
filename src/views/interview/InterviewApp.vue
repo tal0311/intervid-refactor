@@ -10,8 +10,8 @@
         </div>
         <div class="btn-container">
           <div class="job-info">
-            <p>{{ job.company.name }}</p>
-            <p>{{ jobTitle }}</p>
+            <p>{{job.company.name}}</p>
+            <p>{{jobTitle}}</p>
           </div>
           <img v-if="!isFirstPage" loading="lazy" :src="logoUrl" alt="company-logo" />
         </div>

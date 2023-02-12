@@ -11,8 +11,8 @@
         selected: selectedAnsRule === ansRule.type,
       }"
     >
-      <i class="icon material-icons">{{ ansRule.icon }}</i>
-      {{ getTrans(ansRule.txt) }}
+      <i class="icon material-icons">{{ansRule.icon}}</i>
+      {{getTrans(ansRule.txt)}}
     </button>
   </div>
 </template>

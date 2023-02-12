@@ -10,10 +10,10 @@
       :style="{ top: modalTop, insetInlineStart: modalInlineStart }"
       :class="{ open: isOpen && !isMobile, top: isBottom }"
     >
-      <div @click.stop="onEditTemplate">{{ getTrans('edit') }}</div>
-      <div v-if="!isDefault" @click="emitAction('default')">{{ getTrans('make-default') }}</div>
+      <div @click.stop="onEditTemplate">{{getTrans('edit')}}</div>
+      <div v-if="!isDefault" @click="emitAction('default')">{{getTrans('make-default')}}</div>
       <div @click.stop="emitAction('archive')">
-        {{ template.archivedAt ? getTrans('restore') : getTrans('archive') }}
+        {{template.archivedAt ? getTrans('restore') : getTrans('archive')}}
       </div>
     </div>
 

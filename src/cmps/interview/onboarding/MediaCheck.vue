@@ -6,7 +6,7 @@
         <video v-if="!!lastRecordedVideo" ref="recorded-video" playsinline></video>
         <div v-if="!!lastRecordedVideo" :class="{playing: isPlaying}" class="recorded-video-btn-container">
           <i class="material-icons" @click="onPlay">play_arrow</i>
-          <p>{{ getTrans('play-the-video-clip-to-see-how-youll-look-and-sound') }}</p>
+          <p>{{getTrans('play-the-video-clip-to-see-how-youll-look-and-sound')}}</p>
 
           <div v-if="!!lastRecordedVideo" class="progress">
             <div class="inner" :style="{width: lastRecordedVideoProgress + '%'}"></div>
@@ -38,9 +38,9 @@
         <div :class="{center: isSettingsOpen}" class="settings-info-container">
           <button class="back-btn" @click="isSettingsOpen = false">
             <i class="material-icons">arrow_back_ios</i>
-            {{ getTrans('go-back') }}
+            {{getTrans('go-back')}}
           </button>
-          <h2>{{ getTrans('settings') }}</h2>
+          <h2>{{getTrans('settings')}}</h2>
           <div class="device-select-container">
             <device-select
               v-if="!!mediaDevice.audio && !!selectedDevice.audio"
@@ -57,7 +57,7 @@
               @set-device="onSelectDevice"
             />
           </div>
-          <button class="reload-btn" @click="initVideoMixin">{{ getTrans('reload-devices') }}</button>
+          <button class="reload-btn" @click="initVideoMixin">{{getTrans('reload-devices')}}</button>
         </div>
 
         <div
@@ -65,16 +65,16 @@
           :class="{center: !isSettingsOpen && currStep === 0, left: isSettingsOpen || currStep > 0}"
           v-if="!isLoading"
         >
-          <h2>{{ getTrans('preview-how-you-look-and-sound') }}</h2>
-          <p>{{ getTrans('record-and-play-a-short-video-sample-msg') }}</p>
+          <h2>{{getTrans('preview-how-you-look-and-sound')}}</h2>
+          <p>{{getTrans('record-and-play-a-short-video-sample-msg')}}</p>
           <div class="btn-container">
-            <button class="main-btn" @click="onNextStep">{{ getTrans('camera-and-audio-check') }}</button>
-            <button class="link-btn" @click="isSettingsOpen = true">{{ getTrans('update-settings') }}</button>
+            <button class="main-btn" @click="onNextStep">{{getTrans('camera-and-audio-check')}}</button>
+            <button class="link-btn" @click="isSettingsOpen = true">{{getTrans('update-settings')}}</button>
           </div>
         </div>
 
         <div class="check-info-content media-check-loader" v-else>
-          <span>{{ getTrans('getting-ready-media-check') }}</span>
+          <span>{{getTrans('getting-ready-media-check')}}</span>
           <video-loader />
         </div>
 
@@ -82,16 +82,16 @@
           class="check-info-content step-1"
           :class="{center: currStep === 1, right: currStep < 1, left: currStep > 1}"
         >
-          <h2>{{ getTrans('say-something') }}</h2>
+          <h2>{{getTrans('say-something')}}</h2>
           <div>
-            <p>{{ getTrans('for-example') }}</p>
-            <p class="bold">{{ getTrans('im-just-testing-my-audio-and-video') }}</p>
+            <p>{{getTrans('for-example')}}</p>
+            <p class="bold">{{getTrans('im-just-testing-my-audio-and-video')}}</p>
           </div>
           <div class="timer">
             <div class="progress">
               <div class="inner" :style="{width: (currTime / previewDuration) * 100 + '%'}"></div>
             </div>
-            <p>{{ formattedTime.currTime }} / {{ formattedTime.previewDuration }}</p>
+            <p>{{formattedTime.currTime}} / {{formattedTime.previewDuration}}</p>
           </div>
         </div>
 
@@ -105,12 +105,12 @@
         >
           <button class="back-btn" @click="resetCheck">
             <i class="material-icons">arrow_back_ios</i>
-            {{ getTrans('go-back') }}
+            {{getTrans('go-back')}}
           </button>
 
-          <h2>{{ getTrans('your-results') }}</h2>
+          <h2>{{getTrans('your-results')}}</h2>
 
-          <p v-if="!isAllReady">{{ getTrans('fix-the-issues-and-then-click-check-again') }}</p>
+          <p v-if="!isAllReady">{{getTrans('fix-the-issues-and-then-click-check-again')}}</p>
 
           <div class="device-list">
             <div
@@ -124,8 +124,8 @@
             >
               <i class="material-icons device">mic</i>
               <div class="device-status">
-                <p>{{ getTrans('microphone') }}</p>
-                <p>{{ microphoneStatus.txt }}</p>
+                <p>{{getTrans('microphone')}}</p>
+                <p>{{microphoneStatus.txt}}</p>
               </div>
               <i class="material-icons arrow">chevron_right</i>
             </div>
@@ -140,8 +140,8 @@
             >
               <i class="material-icons device">videocam</i>
               <div class="device-status">
-                <p>{{ getTrans('camera') }}</p>
-                <p>{{ cameraStatus.txt }}</p>
+                <p>{{getTrans('camera')}}</p>
+                <p>{{cameraStatus.txt}}</p>
               </div>
               <i class="material-icons arrow">chevron_right</i>
             </div>
@@ -156,8 +156,8 @@
             >
               <i class="material-icons device">monitor</i>
               <div class="device-status">
-                <p>{{ getTrans('screen') }}</p>
-                <p>{{ screenStatus.txt }}</p>
+                <p>{{getTrans('screen')}}</p>
+                <p>{{screenStatus.txt}}</p>
               </div>
               <i class="material-icons arrow">chevron_right</i>
             </div>
@@ -172,8 +172,8 @@
             >
               <i class="material-icons device">wifi</i>
               <div class="device-status">
-                <p>{{ getTrans('connection') }}</p>
-                <p>{{ connectionStatus.txt }}</p>
+                <p>{{getTrans('connection')}}</p>
+                <p>{{connectionStatus.txt}}</p>
               </div>
               <i class="material-icons arrow">chevron_right</i>
             </div>
@@ -182,12 +182,12 @@
           <div class="btn-container">
             <button class="link-btn" @click="checkAgain()" :class="{border: !isAllReady}">
               <i class="material-icons">cached</i>
-              <span>{{ getTrans('check-again') }}</span>
+              <span>{{getTrans('check-again')}}</span>
             </button>
 
             <button class="main-btn" @click="$emit('on-next-step')" v-if="isAllReady">
               <!-- <button class="main-btn" @click="$emit('on-next-step')"> -->
-              {{ getTrans('start-interview') }}
+              {{getTrans('start-interview')}}
             </button>
           </div>
         </div>
@@ -195,22 +195,22 @@
         <div class="error-info-container" :class="{center: !!selectedError}">
           <button class="back-btn" @click="selectedError = null">
             <i class="material-icons">arrow_back_ios</i>
-            {{ getTrans('go-back') }}
+            {{getTrans('go-back')}}
           </button>
           <div v-if="!!selectedError" class="error-info">
             <p class="error-title" :class="{'non-blocking': !selectedError.isBlocking}">
-              <i class="material-icons">{{ errorIcon }}</i>
-              {{ getTrans(`${selectedError.type}_TITLE`) }}
+              <i class="material-icons">{{errorIcon}}</i>
+              {{getTrans(`${selectedError.type}_TITLE`)}}
             </p>
             <p class="error-txt">
-              {{ getTrans(`${selectedError.type}_TXT`) }}
+              {{getTrans(`${selectedError.type}_TXT`)}}
             </p>
             <p v-if="selectedError.desc" class="error-desc">
-              {{ getTrans(`${selectedError.type}_DESC${getAdditionTag(selectedError.type)}`) }}
+              {{getTrans(`${selectedError.type}_DESC${getAdditionTag(selectedError.type)}`)}}
             </p>
           </div>
           <button v-if="selectedError && selectedError.device === 'screen'" class="share-screen" @click="shareScreen">
-            {{ getTrans('share-screen') }}
+            {{getTrans('share-screen')}}
           </button>
           <device-select
             v-else-if="

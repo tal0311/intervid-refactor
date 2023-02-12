@@ -14,15 +14,34 @@ export const player = {
       speed: 1,
       isPlayingNotes: false,
     },
+    jumpToPoint: null
   },
   getters: {
     playerState(state) {
       return state.playerState
     },
+    getCurrTime(state) {
+      return state.playerState.currTime
+    },
+    getTotalTime(state) {
+      return state.playerState.totalTime
+    },
+    getJumpToPoint(state) {
+      return state.jumpToPoint
+    }
   },
   mutations: {
     setPlayerState(state, { playerState }) {
       state.playerState = playerState
     },
+    setCurrTime(state, { currTime }) {
+      state.playerState.currTime = currTime
+    },
+    setIsPlaying(state, { isPlaying }) {
+      state.playerState.isPlaying = isPlaying
+    },
+    setJumpToPoint(state, { jumpToPoint }) {
+      state.jumpToPoint = jumpToPoint
+    }
   },
 }

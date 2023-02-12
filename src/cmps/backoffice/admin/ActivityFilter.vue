@@ -9,7 +9,7 @@
     />
     <div class="date-container">
       <label for="fromDate">
-        <p>{{ getTrans('from-date') }}</p>
+        <p>{{getTrans('from-date')}}</p>
         <input
           type="date"
           id="fromDate"
@@ -19,7 +19,7 @@
         />
       </label>
       <label for="toDate">
-        <p>{{ getTrans('to-date') }}</p>
+        <p>{{getTrans('to-date')}}</p>
         <input
           type="date"
           id="toDate"

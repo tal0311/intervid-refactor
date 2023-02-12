@@ -1,6 +1,6 @@
 <template>
   <application class="embeded-preview" v-if="job">
-    <button class="main-btn" @click="onApply">{{ getTrans('apply-for-this-job') }}</button>
+    <button class="main-btn" @click="onApply">{{getTrans('apply-for-this-job')}}</button>
   </application>
 </template>
 

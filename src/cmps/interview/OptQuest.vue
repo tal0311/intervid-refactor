@@ -7,7 +7,7 @@
       :checked="optIdxs.includes(idx)"
       @input="onChoseOpt(idx)"
     >
-      {{ opt.txt }}
+      {{opt.txt}}
     </checkbox>
   </div>
 </template>

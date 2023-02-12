@@ -1,8 +1,8 @@
 <template>
   <section>
-    <h1>{{ getTrans('forgot-password') }}</h1>
+    <h1>{{getTrans('forgot-password')}}</h1>
     <form @submit.prevent="handleSubmit" class="enter-email-form">
-      <h2>{{ getTrans('enter-email-address') }}</h2>
+      <h2>{{getTrans('enter-email-address')}}</h2>
       <main-input
         type="email"
         inputName="email"
@@ -17,15 +17,15 @@
       <div class="set-option-container">
         <label>
           <input type="radio" value="RMP" name="set_option" v-model="setOption" required />
-          <span>{{ getTrans('reset-my-password') }}</span>
+          <span>{{getTrans('reset-my-password')}}</span>
         </label>
         <label>
           <input type="radio" value="OTP" name="set_option" v-model="setOption" required />
-          <span>{{ getTrans('send-otp') }}</span>
+          <span>{{getTrans('send-otp')}}</span>
         </label>
       </div>
       <slot></slot>
-      <button>{{ getTrans('continue') }}</button>
+      <button>{{getTrans('continue')}}</button>
     </form>
   </section>
 </template>

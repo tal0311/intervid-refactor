@@ -7,9 +7,7 @@
       >keyboard_arrow_left</i
     >
     <div v-if="currPage > gap + 1" class="edge-num-container">
-      <span @click="currPage !== 0 && $emit('change-page', { to: 0, cmpName: $route.name })" class="circle">{{
-        1
-      }}</span>
+      <span @click="currPage !== 0 && $emit('change-page', { to: 0, cmpName: $route.name })" class="circle">{{1}}</span>
 
       ...
     </div>
@@ -21,7 +19,7 @@
         :key="index"
         :class="{ on: index - 1 === currPage }"
         class="circle"
-        >{{ formatNum(index) }}</span
+        >{{formatNum(index)}}</span
       >
     </div>
 
@@ -30,7 +28,7 @@
       <span
         @click="currPage !== pageCount - 1 && $emit('change-page', { to: pageCount - 1, cmpName: $route.name })"
         class="circle"
-        >{{ formatNum(pageCount) }}</span
+        >{{formatNum(pageCount)}}</span
       >
     </div>
 

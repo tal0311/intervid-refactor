@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-quest-edit-modal mobile-modal-content">
-    <button @click="onRemoveQuest">{{ getTrans('remove') }}</button>
+    <button @click="onRemoveQuest">{{getTrans('remove')}}</button>
   </div>
 </template>
 

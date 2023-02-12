@@ -1,7 +1,7 @@
 <template>
   <div :class="`pie-wrapper ${progressClass} style-2`">
     <span class="label"
-      >{{ textToShow }}
+      >{{textToShow}}
       <span v-if="!labelTxt" class="smaller">%</span>
     </span>
     <div class="pie">

@@ -2,7 +2,7 @@
   <section class="quest-edit">
     <i v-if="questsCount > 1" class="material-icons drag-indicator"> drag_indicator </i>
     <div class="quest-header">
-      <h4>{{ getTrans('question') }} {{ idx + 1 }}</h4>
+      <h4>{{getTrans('question')}} {{idx + 1}}</h4>
       <div class="quest-rules">
         <timelimit-menu :quest="quest" @change-timelimit="onUpdateQuest" />
         <ans-rule-menu :quest="quest" :isOneTry="isOneTry" @change-ans="onUpdateQuest" />
@@ -15,10 +15,10 @@
 
         <div class="answer-modal">
           <button type="button" class="menu-btn" @click="onDuplicateQuest">
-            <i class="material-icons">content_copy</i> {{ getTrans('duplicate') }}
+            <i class="material-icons">content_copy</i> {{getTrans('duplicate')}}
           </button>
           <button type="button" class="menu-btn remove" v-if="questsCount > 1" @click="onRemoveQuest">
-            <i class="material-icons"> delete_outline </i> {{ getTrans('remove') }}
+            <i class="material-icons"> delete_outline </i> {{getTrans('remove')}}
           </button>
         </div>
       </div>

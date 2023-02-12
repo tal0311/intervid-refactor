@@ -5,22 +5,22 @@
         <avatar :size="70" :src="applicant.info.imgUrl" :username="applicantFullName" />
         <div class="info-wrapper">
           <div class="main-info">
-            <h3>{{ applicantFullName }}</h3>
-            <p>{{ jobTitle }}</p>
+            <h3>{{applicantFullName}}</h3>
+            <p>{{jobTitle}}</p>
           </div>
           <div class="contact">
             <div class="applicant-contact">
               <p @click="onCopyField('email')" :class="{ muted: !applicant.info.email }">
                 <i class="material-icons">email</i>
-                <span>{{ applicant.info.email || 'N/A' }}</span>
+                <span>{{applicant.info.email || 'N/A'}}</span>
               </p>
               <p @click="onCopyField('phone')" :class="{ muted: !applicant.info.phone }">
                 <i class="material-icons">phone</i>
-                <span>{{ applicant.info.phone || 'N/A' }}</span>
+                <span>{{applicant.info.phone || 'N/A'}}</span>
               </p>
               <p @click="onCopyField('hometown')" :class="{ muted: !applicant.info.hometown }">
                 <i class="material-icons">home</i>
-                <span>{{ applicant.info.hometown || 'N/A' }}</span>
+                <span>{{applicant.info.hometown || 'N/A'}}</span>
               </p>
             </div>
             <div class="btn-container">
@@ -42,7 +42,7 @@
     <div class="content">
       <div class="candidate-container">
         <div class="interview-container">
-          <h4>{{ getTrans('interview') }}</h4>
+          <h4>{{getTrans('interview')}}</h4>
           <div class="video-container" :class="{ empty: !Object.keys(applicant.answerMap).length }">
             <div class="ans-player-container">
               <video-player

@@ -3,7 +3,7 @@
     <button type="button" class="menu-btn material-icons" @click="toggleModal">more_horiz</button>
 
     <div class="menu-modal" :class="{ open: isOpen && !isMobile }">
-      <button @click="onRemoveQuest">{{ getTrans('delete') }}</button>
+      <button @click="onRemoveQuest">{{getTrans('delete')}}</button>
     </div>
 
     <mobile-modal

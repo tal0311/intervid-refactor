@@ -2,7 +2,7 @@
   <section class="applicant-edit-wrapper" v-if="applicantToEdit.info" ref="edit-wrapper">
     <div class="applicant-edit" @click.stop="">
       <h2>
-        {{ getTrans('edit-applicant') }}
+        {{getTrans('edit-applicant')}}
         <button @click="closeModal" ref="close-btn" class="material-icons">close</button>
       </h2>
       <form @submit.prevent="onUpdateApplicant" novalidate>
@@ -48,7 +48,7 @@
           styled="main"
         />
 
-        <button>{{ getTrans('save') }}</button>
+        <button>{{getTrans('save')}}</button>
       </form>
     </div>
   </section>

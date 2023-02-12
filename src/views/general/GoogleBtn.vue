@@ -1,8 +1,6 @@
 <template>
   <div class="google-btn">
-    <google-login type="button" :params="params" :onSuccess="onSuccess" :onFailure="onFailure">{{
-      getTrans('continue-with-google')
-    }}</google-login>
+    <google-login type="button" :params="params" :onSuccess="onSuccess" :onFailure="onFailure">{{getTrans('continue-with-google')}}</google-login>
     <img
       loading="lazy"
       src="https://res.cloudinary.com/intervid/image/upload/v1661182402/Frontend/google-logo_wqcarj.png"

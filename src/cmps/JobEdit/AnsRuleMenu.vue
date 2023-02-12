@@ -6,11 +6,11 @@
       :class="{ open: isOpen, disabled: !isOneTry && selectedAnsRule === 'isScreenAns' }"
     >
       <i class="icon material-icons">
-        {{ selectedAnsRule === 'isVidAns' ? 'videocam' : 'desktop_windows' }}
+        {{selectedAnsRule === 'isVidAns' ? 'videocam' : 'desktop_windows'}}
       </i>
 
       <button type="button">
-        {{ getTrans(answerType) }}
+        {{getTrans(answerType)}}
         <i class="expand material-icons">expand_more</i>
       </button>
 
@@ -26,8 +26,8 @@
             selected: selectedAnsRule === ansRule.type,
           }"
         >
-          <i class="icon material-icons">{{ ansRule.icon }}</i>
-          {{ getTrans(ansRule.txt) }}
+          <i class="icon material-icons">{{ansRule.icon}}</i>
+          {{getTrans(ansRule.txt)}}
         </button>
       </div>
 
@@ -42,7 +42,7 @@
     </div>
 
     <p class="ans-rule-error" v-if="!isOneTry && selectedAnsRule === 'isScreenAns'">
-      {{ getTrans('answer-type-not-available') }}
+      {{getTrans('answer-type-not-available')}}
     </p>
   </section>
 </template>

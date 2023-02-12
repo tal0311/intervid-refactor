@@ -2,9 +2,9 @@
   <section class="device-select" ref="modal-wrapper">
     <div class="select-device-menu" @click="toggleAnswerModal(mediaType)" :class="{ open: isAnswerModalOpen }">
       <button class="device-select-btn">
-        <label>{{ getTrans(mediaType) }}</label>
+        <label>{{getTrans(mediaType)}}</label>
         <div>
-          <p>{{ selectedDeviceName }}</p>
+          <p>{{selectedDeviceName}}</p>
           <i v-if="devices.length > 1" class="expand material-icons">expand_more</i>
         </div>
       </button>
@@ -16,7 +16,7 @@
           :class="{ selected: selectedDeviceId === device.id }"
           @click.stop="onSetInputDevice(mediaType + 'input', device.id)"
         >
-          {{ device.name }}
+          {{device.name}}
         </p>
       </div>
     </div>

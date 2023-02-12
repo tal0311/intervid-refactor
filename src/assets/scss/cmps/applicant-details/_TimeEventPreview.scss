@@ -37,6 +37,7 @@
                     text-transform: capitalize;
                 }
 
+
             }
 
 
@@ -45,6 +46,15 @@
         >p {
             color: $light-gray;
             font-size: 0.9em;
+
+            a {
+                color: $blue;
+            }
+
+            a:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
         }
     }
 

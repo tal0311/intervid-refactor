@@ -6,7 +6,7 @@
         @click="$emit('archive')"
         :data-tooltip="filterBy.showArchived ? getTrans('restore') : getTrans('archive')"
       >
-        {{ filterBy.showArchived ? 'unarchive' : 'archive' }}
+        {{filterBy.showArchived ? 'unarchive' : 'archive'}}
       </i>
 
       <i
@@ -24,7 +24,7 @@
         :data-tooltip="`Mark as ${isRead ? 'unread' : 'read'}`"
         @click="$emit('toggle-read')"
       >
-        {{ isRead ? 'mail' : 'drafts' }}
+        {{isRead ? 'mail' : 'drafts'}}
       </i>
     </div>
 

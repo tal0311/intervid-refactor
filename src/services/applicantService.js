@@ -58,6 +58,7 @@ export function getNote(txt, user) {
     createdAt: Date.now(),
     owner: miniUser,
     txt,
+    timeStamp: null
   }
 }
 

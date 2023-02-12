@@ -1,6 +1,5 @@
 <template>
   <section class="filter-box">
-
     <button class="mobile-btn" :class="{ selected: isFiltering }" @click="toggleModal('MobileFilter')">
       <img loading="lazy" src="https://res.cloudinary.com/intervid/image/upload/v1661182219/Frontend/sliders_fwgagw.svg"
         alt="sliders" />
@@ -9,59 +8,59 @@
     <div class="filter-btn" :class="{ selected: isFilterModalOpen }">
       <button @click="toggleModal('Filter')">
         <i class="material-icons">tune</i>
-        {{ getTrans('filter-btn') }}
+        {{getTrans('filter-btn')}}
       </button>
 
       <div class="filter-modal" :class="{ open: isFilterModalOpen }" v-clickaway="onResetFilter">
         <div v-if="isApplicantOverview" class="filter-container status-filter">
-          <h3 class="filter-title">{{ getTrans('by-status') }}</h3>
+          <h3 class="filter-title">{{getTrans('by-status')}}</h3>
           <div class="filter-list">
             <label v-for="(status, idx) in statuses" :key="status.label" @input="onSelectStatus(idx)">
               <input type="checkbox" :checked="isStatusSelected(idx)" />
-              <span>{{ getTrans(`${status.label }`) }}</span>
+              <span>{{getTrans(`${status.label }`)}}</span>
             </label>
           </div>
         </div>
 
         <div class="filter-container date-filter">
-          <h3 class="filter-title">{{ getTrans('by-date') }}</h3>
+          <h3 class="filter-title">{{getTrans('by-date')}}</h3>
           <div class="filter-list">
-            <label :class="{ selected: !updatedFilterBy.daysAgo }">
+            <label :class="{selected: !updatedFilterBy.daysAgo}">
               <input type="radio" value="" :checked="!updatedFilterBy.daysAgo" v-model="updatedFilterBy.daysAgo" />
-              {{ getTrans('all') }}
+              {{getTrans('all')}}
             </label>
-            <label v-for="date in filterDates" :class="{ selected: updatedFilterBy.daysAgo == date.daysAgo }"
+            <label v-for="date in filterDates" :class="{selected: updatedFilterBy.daysAgo == date.daysAgo}"
               :key="date.id">
               <input type="radio" :value="date.daysAgo" :checked="updatedFilterBy.daysAgo == date.daysAgo"
                 v-model="updatedFilterBy.daysAgo" />
-              {{ getTrans(date.label) }}
+              {{getTrans(date.label)}}
             </label>
           </div>
         </div>
 
         <div class="filter-container view-filter" v-if="isApplicantOverview">
-          <h3 class="filter-title">{{ getTrans('view-only') }}</h3>
+          <h3 class="filter-title">{{getTrans('view-only')}}</h3>
           <div class="filter-list">
-            <label :class="{ selected: updatedFilterBy.incomplete === undefined }">
+            <label :class="{selected: updatedFilterBy.incomplete === undefined}">
               <input type="radio" :checked="updatedFilterBy.incomplete === undefined" :value="undefined"
                 v-model="updatedFilterBy.incomplete" />
-              {{ `${ getTrans('show-all') }` }}
+              {{`${ getTrans('show-all') }`}}
             </label>
 
-            <label :class="{ selected: updatedFilterBy.incomplete }">
+            <label :class="{selected: updatedFilterBy.incomplete}">
               <input type="radio" :value="true" :checked="updatedFilterBy.incomplete === false"
                 v-model="updatedFilterBy.incomplete" />
-              {{ getTrans('show-incomplete') }}
+              {{getTrans('show-incomplete')}}
             </label>
-            <label :class="{ selected: updatedFilterBy.incomplete === false }">
+            <label :class="{selected: updatedFilterBy.incomplete === false}">
               <input type="radio" :value="false" :checked="updatedFilterBy.incomplete"
                 v-model="updatedFilterBy.incomplete" />
-              {{ getTrans('show-complete') }}
+              {{getTrans('show-complete')}}
             </label>
           </div>
         </div>
         <div class="filter-container archive-filter">
-          <h3 class="filter-title">{{ getTrans('show-archived') }}</h3>
+          <h3 class="filter-title">{{getTrans('show-archived')}}</h3>
           <div class="toggle-option">
             <div class="main-toggle">
               <label for="show-archived">
@@ -76,11 +75,11 @@
         </div>
 
         <div class="filter-footer">
-          <a class="clear-filters-btn" :class="{ bold: isFiltering }" :disabled="!isFiltering" @click="onClearFilter">
-            {{ getTrans('clear-filters') }}
+          <a class="clear-filters-btn" :class="{bold: isFiltering}" :disabled="!isFiltering" @click="onClearFilter">
+            {{getTrans('clear-filters')}}
           </a>
           <button class="set-filter-btn" @click="onSetFilter">
-            {{ showCount }}
+            {{showCount}}
           </button>
         </div>
       </div>
@@ -186,10 +185,6 @@ export default {
       return this.$store.getters['app/isMobile']
     },
 
-    cancelRequestMap() {
-      return this.$store.getters['app/cancelRequestMap']
-    },
-
     showCount() {
       const { getTrans } = this
       if (this.expectedEntityCount > 1)
@@ -242,7 +237,6 @@ export default {
     },
 
     async getExpectedEntityCount(filterBy) {
-
       this.$store.dispatch(`job/getExpected${this.entity}Count`, { filterBy })
     },
     async onClearFilter() {
@@ -259,7 +253,7 @@ export default {
         this.getExpectedEntityCount(newFilter)
       },
       deep: true,
-      immediate: true
+      immediate: true,
     },
   },
 

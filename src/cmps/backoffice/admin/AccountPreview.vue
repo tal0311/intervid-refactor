@@ -1,23 +1,23 @@
 <template>
   <section class="account-preview">
     <div class="account-name">
-      {{ fullName }}
+      {{fullName}}
     </div>
 
     <div class="email">
-      {{ account.email }}
+      {{account.email}}
     </div>
 
     <div class="last-login">
-      {{ lastLoginDate }}
+      {{lastLoginDate}}
     </div>
 
     <div class="interview-count">
-      {{ account.interviewCount }}
+      {{account.interviewCount}}
     </div>
 
     <div class="permissions">
-      {{ account.perm }}
+      {{account.perm}}
     </div>
 
     <div class="actions">

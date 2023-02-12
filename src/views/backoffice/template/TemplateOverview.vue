@@ -1,7 +1,7 @@
 <template>
   <section class="overview template-overview">
     <h2 class="overview-title">
-      {{ overviewTitle }}
+      {{overviewTitle}}
     </h2>
     <div class="overview-header">
       <div class="search-filter-container">

@@ -3,36 +3,36 @@
     <div class="narrow-container">
       <div class="content">
         <div class="content-header">
-          <h1>{{ getTrans('signup-header') }}</h1>
-          <p>{{ getTrans('signup-subheading') }}</p>
+          <h1>{{getTrans('signup-header')}}</h1>
+          <p>{{getTrans('signup-subheading')}}</p>
         </div>
 
         <div class="advantages">
           <p>
             <i class="material-icons"> check_circle </i>
-            <span>{{ getTrans('free-10-video-trial') }}</span>
+            <span>{{getTrans('free-10-video-trial')}}</span>
           </p>
           <p>
             <i class="material-icons"> check_circle </i>
-            <span>{{ getTrans('no-credit-card-required') }}</span>
+            <span>{{getTrans('no-credit-card-required')}}</span>
           </p>
           <p>
             <i class="material-icons"> check_circle </i>
-            <span>{{ getTrans('EasyToUse') }}</span>
+            <span>{{getTrans('EasyToUse')}}</span>
           </p>
           <p>
             <i class="material-icons"> check_circle </i>
-            <span>{{ getTrans('recruit-anywhere-with-mobile') }}</span>
+            <span>{{getTrans('recruit-anywhere-with-mobile')}}</span>
           </p>
         </div>
       </div>
 
       <div class="form-container">
-        <h2>{{ getTrans('create-your-account') }}</h2>
+        <h2>{{getTrans('create-your-account')}}</h2>
 
         <div class="small">
-          <p>{{ getTrans('get-10-video-for-free') }}</p>
-          <p>{{ getTrans('no-credit-card-required') }}</p>
+          <p>{{getTrans('get-10-video-for-free')}}</p>
+          <p>{{getTrans('no-credit-card-required')}}</p>
         </div>
         <form @submit.prevent="onSignup" novalidate>
           <div class="input-container">
@@ -92,18 +92,18 @@
           />
 
           <div v-if="authError" class="form-errors" :class="{ active: authError }">
-            {{ getTrans(authError) }}
+            {{getTrans(authError)}}
           </div>
 
-          <button>{{ getTrans('signup') }}</button>
+          <button>{{getTrans('signup')}}</button>
         </form>
         <div class="login-container">
           <span @click="$router.push({ name: 'Login' })">
-            {{ getTrans('already-have-an-account') }}
+            {{getTrans('already-have-an-account')}}
           </span>
         </div>
 
-        <div class="seperator">{{ getTrans('or') }}</div>
+        <div class="seperator">{{getTrans('or')}}</div>
 
         <div class="auth-providers">
           <google-btn ref="google-btn" @google-success="onGoogleSignup"></google-btn>

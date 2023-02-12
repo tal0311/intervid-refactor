@@ -11,11 +11,11 @@
     <div class="btn-container">
       <div class="controls">
         <button class="play" :disabled="!isPlayerReady" @click="$emit('toggle-play')">
-          <i class="material-icons">{{ playerState.isPlaying ? 'pause' : 'play_arrow' }}</i>
+          <i class="material-icons">{{playerState.isPlaying ? 'pause' : 'play_arrow'}}</i>
         </button>
 
         <div class="volume">
-          <i class="material-icons" @click="toggleMute">{{ volumeIcon }}</i>
+          <i class="material-icons" @click="toggleMute">{{volumeIcon}}</i>
           <input
             type="range"
             class="volume-input"
@@ -26,14 +26,14 @@
           />
         </div>
 
-        <span class="total-time">{{ formattedCurrTime }} / {{ formattedTotalDuration }}</span>
+        <span class="total-time">{{formattedCurrTime}} / {{formattedTotalDuration}}</span>
       </div>
 
       <div class="settings-container">
         <div class="speed-container">
           <button class="setting-btn speed-btn" @click="toggleSpeedModal">
             <i class="material-icons">speed</i>
-            <span>{{ getTrans('speed') }}</span>
+            <span>{{getTrans('speed')}}</span>
           </button>
 
           <div class="speed-modal" :class="{ open: isSpeedOpen }">
@@ -44,7 +44,7 @@
               :key="idx"
               @click="onSetSpeed(speedStr)"
             >
-              {{ speedStr }}
+              {{speedStr}}
             </p>
           </div>
         </div>
@@ -55,7 +55,7 @@
           @click="$emit('toggle-is-draggable-shown')"
         >
           <i class="material-icons">desktop_windows</i>
-          <span>{{ getTrans('add-screen') }}</span>
+          <span>{{getTrans('add-screen')}}</span>
         </button>
 
         <button
@@ -64,12 +64,12 @@
           @click="$emit('toggle-main-video')"
         >
           <i class="material-icons">cameraswitch</i>
-          <span>{{ getTrans('switch-screen') }}</span>
+          <span>{{getTrans('switch-screen')}}</span>
         </button>
 
         <button class="setting-btn fullscreen-btn" @click="$emit('toggle-fullscreen')">
-          <i class="material-icons">{{ playerState.isFullScreen ? 'fullscreen' : 'fullscreen_exit' }}</i>
-          <span>{{ getTrans('full-screen') }}</span>
+          <i class="material-icons">{{playerState.isFullScreen ? 'fullscreen' : 'fullscreen_exit'}}</i>
+          <span>{{getTrans('full-screen')}}</span>
         </button>
       </div>
     </div>

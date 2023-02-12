@@ -13,7 +13,7 @@
         styled="basic"
       />
     </div>
-    <button @click.native="verifyCode">{{ btnMsgs[currStep] }}</button>
+    <button @click.native="verifyCode">{{btnMsgs[currStep]}}</button>
     <p>(Interview will not yet start)</p>
   </section>
 </template>

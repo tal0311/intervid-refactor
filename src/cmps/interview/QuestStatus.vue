@@ -1,6 +1,6 @@
 <template>
   <section class="quest-status">
-    <p v-if="!!formattedTimeLeft">{{ formattedTimeLeft }} / {{ formattedTimeLimit }}</p>
+    <p v-if="!!formattedTimeLeft">{{formattedTimeLeft}} / {{formattedTimeLimit}}</p>
     <div class="progress">
       <div
         class="inner"

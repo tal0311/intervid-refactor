@@ -5,20 +5,20 @@
     </div>
 
     <div class="title">
-      {{ template.title }}
+      {{template.title}}
     </div>
 
     <div class="owner">
-      {{ ownerFullName }}
+      {{ownerFullName}}
     </div>
 
     <div class="created-at">
-      {{ templateCreationDate }}
+      {{templateCreationDate}}
     </div>
 
     <div class="use-template" @click.stop="">
       <button v-if="!$route.path.includes('archive')" class="use-template-btn" @click="onUseTemplate">
-        {{ getTrans('use') }}
+        {{getTrans('use')}}
       </button>
     </div>
 
