@@ -2,6 +2,8 @@ const clickOutside = {
  mounted(el) {
   el.clickOutside = (ev) => {
    if (!el.contains(ev.target)) {
+    //change to close modal 
+    // itemService.setModalType('')
 
    }
   }
