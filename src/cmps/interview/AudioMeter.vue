@@ -28,7 +28,7 @@ export default {
     this.getAudioLevel()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.cleanMeter()
   },
 

@@ -32,7 +32,7 @@ export default {
       },
     ],
   },
-  destroyed() {
+  unmounted() {
     socketService.off(SOCKET_ON_SAVE_APPLICANT, this.saveApplicant)
     socketService.off(SOCKET_ON_DONE_INTERVIEW, this.alertInterviewStatus)
   },

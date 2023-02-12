@@ -90,7 +90,7 @@ export default {
     this.addNetworkListener()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     if (!this.isUploadDone) {
       this.$emit('handle-quit')
     } // Send quit timeEvent when navigated out (only interview inner routes navigation)

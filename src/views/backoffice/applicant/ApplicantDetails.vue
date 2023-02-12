@@ -132,7 +132,7 @@ export default {
     socketService.on(SOCKET_ON_SAVE_APPLICANT, this.saveApplicantLocal)
   },
 
-  destroyed() {
+  unmounted() {
     socketService.off(SOCKET_ON_SAVE_APPLICANT, this.saveApplicantLocal)
     this.$store.dispatch('app/toggleModal', { type: null })
   },

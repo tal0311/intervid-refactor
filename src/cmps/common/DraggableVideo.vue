@@ -38,7 +38,7 @@ export default {
     this.calcLastBoundaries()
   },
 
-  destroyed() {
+  unmounted() {
     if (!this.isShown) return
     window.removeEventListener('resize', this.isOutOfBoundaries)
     document.removeEventListener('fullscreenchange', this.handleFullScreen)

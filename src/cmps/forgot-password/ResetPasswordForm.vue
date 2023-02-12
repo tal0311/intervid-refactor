@@ -44,7 +44,7 @@ export default {
     this.$refs.digitInput0[0].$el.focus()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.dispatch('auth/clearAuthErr')
   },
 

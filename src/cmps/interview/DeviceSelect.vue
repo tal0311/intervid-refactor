@@ -33,7 +33,7 @@ export default {
 
   props: ['selectedDeviceId', 'devices', 'type'],
 
-  destroyed() {
+  unmounted() {
     if (this.isAnswerModalOpen) this.toggleAnswerModal()
   },
 

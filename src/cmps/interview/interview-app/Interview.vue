@@ -158,7 +158,7 @@ export default {
     })
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     if (!this.isInterviewDone) {
       this.$emit('handle-quit')
     } // Send quit timeEvent when navigated out (only interview inner routes navigation)
@@ -166,7 +166,7 @@ export default {
     document.body.onunload = null
   },
 
-  destroyed() {
+  unmounted() {
     if (this._cameraPermission) this._cameraPermission.onchange = null
     if (this._micPermission) this._micPermission.onchange = null
     this.stopVideoStream()

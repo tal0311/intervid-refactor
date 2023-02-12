@@ -42,7 +42,7 @@ export default {
     }
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.dispatch('auth/clearAuthErr')
   },
 

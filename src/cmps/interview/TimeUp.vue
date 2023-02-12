@@ -29,7 +29,7 @@ export default {
     }
   },
 
-  destroyed() {
+  unmounted() {
     document.removeEventListener('visibilitychange', this.handleBackToTab)
   },
 

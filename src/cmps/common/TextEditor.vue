@@ -61,7 +61,7 @@ export default {
     this.editor.scroll.domNode.style.maxHeight = scrollHeight + 'px'
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.editor.off('text-change', this.update)
   },
 

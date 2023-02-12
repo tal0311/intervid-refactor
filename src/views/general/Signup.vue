@@ -130,7 +130,7 @@ export default {
     }
   },
 
-  destroyed() {
+  unmounted() {
     this.clearAuthErr()
   },
 

@@ -280,12 +280,12 @@ export default {
     await this.initFaceCapture()
   },
 
-  destroyed() {
+  unmounted() {
     if (this._cameraPermission) this._cameraPermission.onchange = null
     if (this._micPermission) this._micPermission.onchange = null
     this.stopVideoStream()
     this.removeNetworkListener()
-    loggerService.info('[onBoarding] [MediaCheck] Destroyed')
+    loggerService.info('[onBoarding] [MediaCheck] unmounted')
   },
 
   computed: {

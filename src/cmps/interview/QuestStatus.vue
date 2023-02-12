@@ -41,7 +41,7 @@ export default {
     this.startInterval()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.title = this.defaultTitle
     clearInterval(this.timeInterval)
   },

@@ -85,7 +85,7 @@ export default {
     }
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.onfullscreenchange = null
     const elVideos = this.getElVideos()
     elVideos.forEach((elVideo) => {

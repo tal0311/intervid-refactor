@@ -78,11 +78,11 @@ export default {
     this.$nextTick(this.validateForm)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.$root.$off('share-job', this.onShare)
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('job/setIsFirstChange', true)
   },
 
