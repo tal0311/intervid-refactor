@@ -2,7 +2,8 @@ const clickOutside = {
  mounted(el) {
   el.clickOutside = (ev) => {
    if (!el.contains(ev.target)) {
-    itemService.setModalType('')
+    //change to close modal 
+    // itemService.setModalType('')
    }
   }
   setTimeout(() => {

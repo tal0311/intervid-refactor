@@ -1,6 +1,6 @@
 import { ref, computed, onMounted } from 'vue'
 
-export default function useModal() {
+export default function UseModal() {
  const isBottom = ref(false)
  const modalWidth = ref(0)
  const modalTop = ref(0)
