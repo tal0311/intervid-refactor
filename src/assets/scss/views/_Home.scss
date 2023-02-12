@@ -1,0 +1,18 @@
+.home {
+  .hero {
+    height: calc(100vh - var(--header-height));
+    background-image: url('https://res.cloudinary.com/intervid/image/upload/v1661183391/Frontend/good-team_sbbjna.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+
+    &-content {
+      max-width: 1024px;
+      padding: 165px 0 0 145px;
+    }
+
+    span {
+      text-transform: capitalize;
+    }
+  }
+}

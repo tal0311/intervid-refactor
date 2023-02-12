@@ -1,0 +1,52 @@
+.note-preview {
+    display: flex;
+    gap: 15px;
+    padding: 0 20px 20px;
+    font-size: 0.875rem;
+
+    .note-icon {
+        color: #93959c;
+        font-size: 20px;
+    }
+
+    .note-content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex-grow: 1;
+        width: 0;
+
+        .note-txt {
+            width: 90%;
+            color: $dark-gray;
+            white-space: break-spaces;
+
+            &:first-letter {
+                text-transform: capitalize;
+            }
+        }
+
+        >div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: $btn-disable-color;
+            font-size: 0.9em;
+
+            .dot {
+                font-size: 3px;
+            }
+
+            >button {
+                >i {
+                    padding-top: 3px;
+                    font-size: 15px;
+
+                    &:hover {
+                        color: $dark-gray;
+                    }
+                }
+            }
+        }
+    }
+}

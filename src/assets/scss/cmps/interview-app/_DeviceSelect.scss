@@ -1,0 +1,144 @@
+.device-select {
+  .select-device-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    border-radius: 4px;
+    border: 1px solid $lightest-gray;
+    background-color: #fff;
+    height: 60px;
+    cursor: pointer;
+
+    >i {
+      font-size: 25px;
+      color: #aaadb5;
+    }
+
+    >select {
+      border: none;
+    }
+
+    &.disabled {
+      color: $btn-disable-color;
+
+      i {
+        color: $btn-disable-color;
+      }
+    }
+
+    .icon {
+      direction: inherit;
+      font-size: 24px;
+      color: $dark-gray;
+    }
+
+    &.open {
+      .device-select-btn {
+        .expand {
+          transform: rotate(180deg);
+        }
+      }
+
+      .device-modal {
+        transform: scaleY(1);
+      }
+    }
+
+    .device-select-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      width: 100%;
+      padding-inline: 10px;
+      padding-block: 0.5em;
+      border-radius: 4px;
+
+      label {
+        color: $light-gray;
+        font-size: 12px;
+
+        &::first-letter {
+          text-transform: uppercase;
+        }
+      }
+
+      >div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        width: 100%;
+        gap: 10px;
+
+        p {
+          width: 100%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          text-align: start;
+        }
+
+        .expand {
+          color: $dark-gray;
+          transition: 0.2s linear;
+          font-size: 22px;
+        }
+      }
+    }
+
+    .device-modal {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      top: 100%;
+      inset-inline-start: 0;
+      border: 1px solid $lightest-gray;
+      width: 100%;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.15s;
+      z-index: 205;
+
+      >p {
+        width: 100%;
+        padding-inline-start: 10px;
+        padding-inline-end: 10px;
+        padding-block: 1.25em;
+        font-size: 14px;
+        color: $dark-gray;
+        cursor: pointer;
+        text-align: start;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid $lightest-gray;
+        }
+
+        &:hover {
+          background-color: #eee;
+
+          &.disabled {
+            background: unset;
+          }
+        }
+
+        &.disabled {
+          color: $btn-disable-color;
+
+          // i {
+          //   color: $btn-disable-color;
+          // }
+        }
+
+        &.selected {
+          background-color: #1a73e814;
+        }
+      }
+    }
+  }
+}

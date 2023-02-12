@@ -1,0 +1,12 @@
+.screen {
+  position: fixed;
+  pointer-events: none;
+  inset: 0;
+  z-index: 203;
+  &.dark {
+    background-color: #000a;
+  }
+  &.on {
+    pointer-events: all;
+  }
+}

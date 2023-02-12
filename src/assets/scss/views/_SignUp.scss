@@ -1,0 +1,305 @@
+.sign-up {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  flex-grow: 1;
+  // min-height: calc(100vh - var(--header-height));
+  color: $darkest-gray;
+
+  @include from-mobile-layout {
+    background-image: url('https://res.cloudinary.com/intervid/image/upload/v1661183521/Frontend/login-background_xypzsg.png');
+    background-size: 100% 100%;
+    justify-content: center;
+  }
+
+  .narrow-container {
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem auto;
+    width: 100%;
+    padding: 0 0;
+
+    @include from-mini-layout {
+      padding-inline-start: 1rem;
+      padding-inline-end: 1rem;
+    }
+
+    @include from-mobile-layout {
+      padding-inline-start: 40px;
+      padding-inline-end: 40px;
+      margin: 1rem auto;
+    }
+
+    @include from-narrow-layout {
+      justify-content: space-between;
+    }
+
+    @include from-normal-layout {
+      padding-inline-start: 0px;
+      padding-inline-end: 0px;
+      max-width: $normal-breakpoint;
+      margin: 2rem auto;
+    }
+
+    .content {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 35px 40px;
+
+      @include from-mobile-layout {
+        padding-inline-start: 0;
+      }
+
+      @include from-narrow-layout {
+        display: flex;
+      }
+
+      @media (min-resolution: 1.25dppx) {
+        padding: 43px 40px 37px 0;
+      }
+
+      .content-header {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        max-width: 550px;
+
+        @media (min-resolution: 1.25dppx) {
+          font-size: 35px;
+          gap: 30px;
+        }
+
+        h1 {
+          font-size: 45px;
+          font-weight: 700;
+          line-height: 1.25em;
+
+          @media (min-resolution: 1.25dppx) {
+            font-size: 35px;
+          }
+        }
+
+        p {
+          font-size: 20px;
+          line-height: 1.5em;
+
+          @media (min-resolution: 1.25dppx) {
+            font-size: 16px;
+          }
+        }
+      }
+
+      .advantages {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+
+        p {
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: #fff;
+
+          > i {
+            font-size: 30px;
+          }
+
+          @media (min-resolution: 1.25dppx) {
+            font-size: 16px;
+
+            > i {
+              font-size: 25px;
+            }
+          }
+        }
+      }
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: #fff;
+      width: 100%;
+      padding: 15px 20px;
+      overflow-y: auto;
+
+      @include from-mobile-layout {
+        padding: 40px 30px;
+        // gap: 20px;
+        box-shadow: 0 0 50px -10px #00000020;
+        border-radius: 8px;
+        overflow-y: hidden;
+        height: auto;
+        max-width: 530px;
+      }
+
+      h2 {
+        font-size: 30px;
+        font-weight: 700;
+        align-self: center;
+        text-align: center;
+
+        @include from-mini-layout {
+          font-size: 35px;
+          margin-block-end: 10px;
+        }
+      }
+
+      .small {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        color: $dark-gray;
+
+        > p {
+          font-size: 14px;
+        }
+
+        @include from-mobile-layout {
+          margin-block-end: 10px;
+          gap: 5px;
+        }
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        // width: 100%;
+        height: 100%;
+        gap: 15px;
+
+        // @include from-mobile-layout {
+        //   gap: 10px;
+        // }
+
+        @media (min-resolution: 1.25dppx) {
+          gap: 12px;
+        }
+
+        .input-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 30px;
+
+          > * {
+            width: 0;
+            flex-grow: 1;
+          }
+        }
+
+        input {
+          border: none;
+          border-bottom: 1px solid $lightest-gray;
+          padding: 10px 0;
+          font-size: 14px;
+
+          @include from-mobile-layout {
+            font-size: 16px;
+          }
+
+          &::placeholder {
+            color: $btn-disable-color;
+          }
+        }
+
+        > span {
+          font-size: 16px;
+          color: $light-gray;
+          padding: 10px 0;
+          cursor: pointer;
+        }
+
+        > button {
+          background: $cta;
+          height: 50px;
+          border-radius: 4px;
+          color: #fff;
+          font-size: 18px;
+          font-weight: 700;
+          padding: 13px;
+          margin-block-start: 12px;
+        }
+
+        .sign-up-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .form-errors {
+          font-size: 13px;
+          color: $err-red;
+          min-height: 13px;
+          padding-inline-start: 5px;
+          margin-top: 2px;
+          opacity: 0;
+
+          &.active {
+            opacity: 1;
+          }
+        }
+      }
+
+      .seperator {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: $dark-gray;
+        margin: 8px 0;
+
+        @media (min-resolution: 1.25dppx) {
+          margin: 0;
+        }
+
+        &::before,
+        &::after {
+          content: '';
+          width: 40%;
+          height: 1px;
+          background: $lightest-gray;
+        }
+      }
+
+      .auth-providers {
+        display: flex;
+        flex-direction: column;
+
+        .google-btn {
+          box-shadow: unset;
+          border: 1px solid $light-gray;
+          border-radius: 4px;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $btn-disable-color;
+
+          > img {
+            z-index: 1;
+          }
+        }
+      }
+
+      .login-container {
+        text-align: center;
+
+        span {
+          font-size: 14px;
+          color: #1a73e8;
+          cursor: pointer;
+
+          @include from-mobile-layout {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

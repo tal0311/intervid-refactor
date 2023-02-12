@@ -1,0 +1,61 @@
+.account-overview {
+
+    .table-list {
+        .list-header {
+            display: none;
+
+            @include from-normal-layout {
+                display: grid;
+                grid-template-columns:repeat(4, 1fr) 70px 100px;
+                gap: 20px;
+                margin-inline-end: 40px;
+                border-bottom: 1px solid $lightest-gray;
+            }
+
+            >.checkbox{
+                display: none;
+            }
+
+        }
+
+        .list-content {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            font-size: 0.875rem;
+
+            >.account-preview{
+                &:hover{
+                    background: unset;
+                }
+            }
+
+            @include from-narrow-layout {
+                padding-inline-end: 40px;
+            }
+        }
+    }
+
+    .add-btn {
+        background: $cta;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        color: #fff;
+        border-radius: 50%;
+        bottom: 50px;
+        inset-inline-end: 50px;
+        z-index: 10;
+        cursor: pointer;
+
+        @include from-mobile-layout {
+            position: static;
+            height: 32px;
+            border-radius: 4px;
+            background-color: $dark-gray;
+        }
+    }
+}

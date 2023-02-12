@@ -1,0 +1,246 @@
+.applicant-form {
+  // background-color: $background-gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 40px;
+  padding-top: 40px;
+
+  .applicant-form-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 20px;
+    max-width: $mobile-breakpoint;
+    width: 100%;
+
+    @include from-narrow-layout {
+      max-width: calc(#{$narrow-breakpoint} - 80px);
+      gap: 20px 40px;
+    }
+
+    .header {
+      position: relative;
+      grid-column: 1/-1;
+      grid-row: 2;
+      margin: 1rem 0.5rem;
+
+      @include from-mini-layout {
+        margin: 1rem;
+      }
+
+      @include from-mobile-layout {
+        margin: unset;
+        grid-row: unset;
+      }
+
+      > .content {
+        width: 100%;
+        margin: auto;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        border: 1px solid rgba($cta, 0.3);
+
+        @include from-mini-layout {
+          border: none;
+          box-shadow: 0 0 20px -6px #0002;
+          background: #fff;
+        }
+
+        > * {
+          width: 0;
+
+          &:first-child {
+            display: none;
+          }
+
+          &:last-child {
+            flex-grow: 1;
+          }
+
+          @include from-mini-layout {
+            &:first-child {
+              display: initial;
+              flex-grow: 1;
+              max-height: 350px;
+            }
+          }
+        }
+
+        > img {
+          align-self: stretch;
+          object-fit: cover;
+        }
+
+        .greeting {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          font-size: 20px;
+          padding: 1em;
+
+          h2 {
+            font-size: 2em;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1em;
+
+            @include from-mobile-layout {
+              font-size: 2.5em;
+            }
+
+            @include from-narrow-layout {
+              font-size: 3.5em;
+            }
+          }
+
+          p {
+            font-size: 0.875em;
+
+            &.color {
+              text-align: center;
+              margin-block: 0.75em 1em;
+              font-size: 0.875em;
+
+              @include from-mobile-layout {
+                margin-block: 0.5em 2em;
+              }
+            }
+          }
+
+          span {
+            font-weight: 700;
+            margin-block: 10px;
+          }
+
+          .color {
+            color: $cta;
+          }
+
+          .time-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+
+          &.no-cover {
+            padding: 2em;
+
+            span {
+              @include from-mobile-layout {
+                margin-block: 0;
+              }
+            }
+
+            .time-container {
+              @include from-mobile-layout {
+                flex-direction: row;
+                gap: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    > h3 {
+      grid-column: 1/-1;
+      display: none;
+      justify-content: center;
+      font-size: 20px;
+      line-height: 1.5em;
+      color: $light-gray;
+      padding: 40px;
+      text-align: center;
+
+      @include from-mobile-layout {
+        display: flex;
+      }
+    }
+
+    .application {
+      margin-inline-start: 0.5rem;
+      margin-inline-end: 0.5rem;
+      grid-column: 1/-1;
+      grid-row: 1;
+
+      @include from-mini-layout {
+        margin-inline-end: 1rem;
+        margin-inline-start: 1rem;
+      }
+
+      @include from-mobile-layout {
+        margin-inline-end: unset;
+        margin-inline-start: unset;
+        grid-column: unset;
+        grid-row: unset;
+      }
+    }
+
+    form {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px -10px #0002;
+      margin: 0 0.5rem;
+      grid-column: 1/-1;
+
+      @include from-mini-layout {
+        margin: 0 1rem;
+      }
+
+      @include from-mobile-layout {
+        margin-inline-start: unset;
+        margin-inline-end: unset;
+        grid-column: unset;
+      }
+
+      @include from-narrow-layout {
+        padding: 40px;
+      }
+
+      .form-title {
+        font-size: 18px;
+        margin-bottom: 30px;
+
+        &::first-letter {
+          text-transform: capitalize;
+        }
+      }
+
+      .inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        @include from-mobile-layout {
+          gap: 25px;
+        }
+
+        .input-group {
+          display: flex;
+          justify-content: space-between;
+          gap: 15px;
+
+          > * {
+            width: 50%;
+          }
+        }
+      }
+
+      .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+        width: 100%;
+        gap: 5px;
+      }
+    }
+  }
+}

@@ -1,0 +1,151 @@
+.login {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  // height: calc(100vh - var(--header-height));
+  background-image: url('https://res.cloudinary.com/intervid/image/upload/v1661183521/Frontend/login-background_xypzsg.png');
+  background-size: 100% 100%;
+  margin: 0.5rem 0 0;
+  
+  @include from-mobile-layout {
+    margin: 1rem 0 0;
+    align-items: center;
+  }
+
+  @include from-mobile-layout {
+    margin: 2rem 0 0;
+    align-items: center;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 30px 20px;
+    box-shadow: 0 0 50px -10px #00000020;
+    border-radius: 0px;
+    min-width: 100%;
+    max-height: 700px;
+    gap: 30px;
+    text-align: center;
+
+    @include from-mobile-layout {
+      padding: 40px 20px;
+      border-radius: 8px;
+      // min-height: 70%;
+      min-width: 500px;
+      gap: 30px;
+    }
+
+    h2 {
+      font-size: 30px;
+      font-weight: 700;
+      color: $darkest-gray;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      @include from-mobile-layout {
+        gap: 15px;
+      }
+
+      @media (min-resolution: 1.25dppx) {
+        gap: 4px;
+      }
+
+      input {
+        border: none;
+        border-bottom: 1px solid $lightest-gray;
+        padding: 10px 0;
+        font-size: 16px;
+        padding-inline: 0.75em;
+
+        &::placeholder {
+          color: $btn-disable-color;
+        }
+
+      }
+
+      >span {
+        font-size: 14px;
+        color: $medium-gray;
+        padding: 10px 0;
+        cursor: pointer;
+        align-self: flex-end;
+
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+
+      .errors {
+        text-align: center;
+        color: red;
+        min-height: 20px;
+        font-size: 15px;
+      }
+
+      >button {
+        background: $cta;
+        padding: 12px;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700;
+        // margin-block-start: 20px;
+      }
+
+    }
+
+    .seperator {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: $dark-gray;
+      margin: 10px 0;
+
+      &::before,
+      &::after {
+        content: '';
+        width: 40%;
+        height: 1px;
+        background: $lightest-gray;
+      }
+    }
+
+    .auth-providers {
+      display: flex;
+      flex-direction: column;
+
+      .google-btn {
+        box-shadow: unset;
+        border: 1px solid $light-gray;
+        border-radius: 4px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $btn-disable-color;
+
+      }
+
+    }
+
+    .sign-up-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+
+      a {
+        color: #1a73e8;
+        cursor: pointer;
+      }
+    }
+  }
+}

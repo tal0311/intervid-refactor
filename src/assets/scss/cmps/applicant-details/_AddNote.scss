@@ -1,0 +1,66 @@
+.add-note {
+  display: flex;
+  flex-direction: column;
+  // padding-block-end: 20px;
+
+  padding-block: 20px;
+  padding-inline: 0.5rem;
+
+  @include from-mini-layout {
+    padding-inline: 20px;
+  }
+
+  .note-input {
+    background: #fff;
+    border: 1px solid $lightest-gray;
+    // margin-block-start: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    flex-grow: 1;
+    font-size: 15px;
+    min-height: 50px;
+    transition: min-height 0.1s 0.05s;
+    margin-bottom: 10px;
+
+    &::placeholder {
+      color: $dark-gray;
+      transition: color 0.1s;
+    }
+
+    &:focus,
+    &:active {
+      min-height: 100px;
+      transition: min-height 0.15s;
+      cursor: text;
+
+      &::placeholder {
+        color: $light-gray;
+      }
+    }
+
+    &:focus~.save-btn {
+      height: 30px;
+      opacity: 1;
+      transition: height 0.15s linear, opacity 0.1s linear 0.15s;
+    }
+
+    &.active~.save-btn {
+      background: $dark-gray;
+      color: #fff;
+      pointer-events: all;
+    }
+  }
+
+  .save-btn {
+    height: 0px;
+    width: 75px;
+    pointer-events: none;
+    opacity: 0;
+    background: $btn-disable-background;
+    color: $btn-disable-color;
+    border-radius: 4px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    transition: opacity 0.1s linear, height 0.15s linear 0.1s;
+  }
+}

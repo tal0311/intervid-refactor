@@ -1,0 +1,57 @@
+.template-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 25px;
+  overflow-y: auto;
+  height: 100vh;
+  background-color: $background-gray;
+  padding-inline: 0.5rem;
+
+  @include from-mini-layout {
+    padding-inline: 1rem;
+  }
+
+  @include from-normal-layout {
+    padding-inline: 40px;
+  }
+
+  h2 {
+    color: $dark-gray;
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+  // .validation {
+  //   top: 70%;
+  // }
+  .template-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .main-input {
+      align-self: flex-start;
+      width: 400px;
+    }
+  }
+
+  .action-container {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    gap: 20px;
+    margin-bottom: 20px;
+
+    button {
+      padding: 0.5em 1.5em;
+      background: $dark-gray;
+      color: #fff;
+      border-radius: 4px;
+
+      &:first-child {
+        background: $cta;
+      }
+    }
+  }
+}

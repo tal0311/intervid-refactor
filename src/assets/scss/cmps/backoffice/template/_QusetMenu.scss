@@ -1,0 +1,36 @@
+.quest-menu {
+  .menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .menu-modal {
+    position: absolute;
+    top: 20px;
+    inset-inline-end: 0px;
+    background-color: #fff;
+    width: 200px;
+    border: 0.5px solid $lightest-gray;
+    border-radius: 3px;
+    padding: 0.5em;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: 0.1s;
+
+    button {
+      text-align: inherit;
+      height: 100%;
+      width: 100%;
+    }
+
+    &.open {
+      transform: scaleY(1);
+    }
+
+    &:hover {
+      background-color: $lightest-gray;
+    }
+  }
+}

@@ -1,0 +1,224 @@
+.interview {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+
+  @include from-narrow-layout {
+    justify-content: unset;
+  }
+
+  .interview-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: $mobile-breakpoint;
+    flex-grow: 1;
+    padding: 0.5rem;
+    margin-bottom: auto;
+    height: calc(100vh - #{$header-height});
+
+    @include from-mini-layout {
+      padding: 1rem;
+    }
+
+    @include from-narrow-layout {
+      margin: auto;
+      flex-direction: row;
+      max-width: $wide-breakpoint;
+      gap: 20px;
+      padding: 40px;
+      height: 605px;
+    }
+    
+    @include from-normal-layout{
+      gap: 40px;
+      
+    }
+
+    .quest-countdown {
+      border-radius: 8px;
+      aspect-ratio: 16/9;
+      border: 1px solid $lightest-gray;
+      box-shadow: 0 0 20px -10px #0002;
+    }
+
+    .video-wrapper {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid $lightest-gray;
+      box-shadow: 0 0 20px -10px #0002;
+      background-color: $background-gray;
+      width: 0;
+      flex-grow: 1;
+
+      .retake-video {
+        aspect-ratio: 16/9;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      > i {
+        position: absolute;
+        top: 20px;
+        inset-inline-start: 20px;
+        font-size: 31px;
+      }
+
+      .audio-meter {
+        position: absolute;
+        width: 6px;
+        opacity: 0.5;
+        height: 13px;
+        top: 28px;
+        inset-inline-start: 35px;
+        transform: translatex(calc(-50% * var(--dir))) translatey(-35%) rotate(180deg);
+        border-radius: 100vw;
+      }
+    }
+
+    .right {
+      position: relative;
+      flex-grow: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+
+      @include from-narrow-layout {
+        justify-content: center;
+        flex-grow: unset;
+        width: 400px;
+      }
+
+      .top {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        // align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+
+        @include from-mobile-layout {
+          font-size: 16px;
+        }
+
+        .quest-status {
+          // position: absolute;
+          // inset-inline-end: 0px;
+          // top: 0;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+          > p {
+            font-size: 0.875rem;
+            font-weight: 700;
+          }
+
+          .progress {
+            width: 100%;
+            height: 4px;
+            background: #e3ecf3;
+            border-radius: 50vw;
+
+            .inner {
+              height: 100%;
+              background: $green;
+              border-radius: 50vw;
+
+              &.half-time {
+                background: $yellow;
+              }
+
+              &.no-time {
+                background: $red;
+              }
+            }
+          }
+        }
+
+        .quest-num {
+          color: $cta;
+        }
+      }
+
+      .bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        flex-grow: 1;
+        overflow-y: auto;
+
+        @include from-mobile-layout {
+          gap: 20px;
+        }
+
+        h4 {
+          font-size: 20px;
+          font-weight: 400;
+          margin-top: 0.5em;
+
+          @include from-mobile-layout {
+            font-size: 26px;
+          }
+        }
+
+        > p {
+          font-size: 14px;
+          line-height: 1.7em;
+          flex-grow: 1;
+          // padding-bottom: 70px;
+          overflow-y: auto;
+          word-break: break-word;
+
+          >*{
+            unicode-bidi: plaintext;
+          }
+
+          @include from-mobile-layout {
+            font-size: 16px;
+          }
+
+          @include from-narrow-layout {
+            padding-inline-end: 1em;
+          }
+        }
+      }
+
+      > textarea {
+        margin-bottom: 65px;
+      }
+
+      .btn-container{
+        // margin-top: 0.5em;
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        
+        >button{
+          padding: 0;
+          height: 50px;
+        }
+
+        .secondary-btn{
+          width: 0;
+          flex-grow: 1;
+        }
+
+        .main-btn{
+          width: 0;
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+
+  .screen {
+    pointer-events: all;
+    background-color: #000a;
+  }
+}

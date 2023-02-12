@@ -1,0 +1,144 @@
+.status-dropdown {
+  position: relative;
+  color: #fff;
+  font-size: 1rem;
+  height: 100%;
+  text-align: end;
+
+  &.full-width{
+    .status-btn{
+      width: 100%;
+    }
+  }
+
+  .status-btn {
+    position: relative;
+    height: 100%;
+    letter-spacing: 0.3px;
+    padding: 5px;
+    white-space: nowrap;
+    font-weight: normal;
+    border-radius: 4px;
+
+    @include from-mobile-layout {
+      padding: 10px;
+      width: 100%;
+    }
+
+    &.recruitment {
+      &::after {
+        content: "R";
+        aspect-ratio: 1;
+        height: 100%;
+        background: #0002;
+        color: #fff7;
+        position: absolute;
+        top: 0;
+        inset-inline-start: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    i {
+      font-size: 1.5em;
+      position: absolute;
+      inset-inline-end: 5px;
+      top: 50%;
+      transform: translateY(-50%) scaley(1);
+      transition: transform 0.2s linear;
+
+      display: none;
+
+      @include from-mobile-layout{
+        display: initial;
+      }
+    }
+
+    &.open {
+      border-radius: 4px 4px 0 0;
+      &.top {
+        border-radius: 0 0 4px 4px;
+      }
+      i {
+        transform: translateY(-50%) scaley(-1);
+      }
+    }
+  }
+
+  .status-modal {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 1000;
+    padding: 0px 10px 10px;
+    background: #fff;
+    transform: scaleY(0);
+    transform-origin: top;
+    border: 1px solid $lightest-gray;
+    border-radius: 0 0 4px 4px;
+    transition: transform 0.15s;
+
+    &.top {
+      border-radius: 4px 4px 0 0;
+      transform-origin: bottom;
+    }
+
+    &.open {
+      transform: scaleY(1);
+    }
+
+    > button {
+      padding: 0.5em 10px;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+      position: relative;
+      transition: transform 0.15s;
+      border-radius: 4px;
+      font-weight: initial;
+
+      &:hover{
+        filter: brightness(1.05);
+      }
+
+      &:nth-child(6),
+      &:nth-child(7),
+      &:nth-child(8) {
+        &::after {
+          content: "R";
+          aspect-ratio: 1;
+          height: 100%;
+          background: #0002;
+          color: #fff7;
+          position: absolute;
+          top: 0;
+          inset-inline-end: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      &:nth-child(1),
+      &:nth-child(6) {
+        margin-top: 30px;
+
+        &::before {
+          content: attr(data-label);
+          position: absolute;
+          top: -20px;
+          inset-inline-start: 0;
+          color: $dark-gray;
+          font-weight: 700;
+          font-size: 12px;
+        }
+      }
+
+      &:nth-child(6) {
+        margin-top: 25px;
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+.text-editor {
+  border: 1px solid $lightest-gray;
+  border-radius: 8px;
+
+  .ql-tooltip.ql-editing {
+    inset-inline-start: 0 !important;
+  }
+
+  .toolbar-container {
+    display: flex;
+    align-items: center;
+    padding-inline-end: 8px;
+
+    > div {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+    }
+
+    .ql-toolbar {
+      border: none !important;
+
+      button {
+        margin: 0 !important;
+      }
+    }
+  }
+
+  .ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
+    right: unset !important;
+    inset-inline-end: 0 !important;
+  }
+
+  .ql-container {
+    border: none;
+    border-top: 1px solid $lightest-gray;
+    min-height: 100px;
+    font-size: 16px;
+
+    .ql-editor {
+      text-align: start !important;
+      overflow-y: hidden;
+      transition: max-height 0.2s linear;
+    }
+  }
+
+  .char-limit {
+    display: flex;
+    align-items: center;
+    margin-inline-start: auto;
+    height: 100%;
+  }
+
+  .ql-formats {
+    display: flex;
+    gap: 5px;
+
+    button {
+      position: relative;
+      height: 20px;
+      width: 20px;
+
+      svg {
+        height: 18px;
+        width: 18px;
+        position: absolute;
+        top: 50%;
+        inset-inline-start: 50%;
+        transform: translateX(calc(-50% * var(--dir))) translateY(-50%);
+      }
+    }
+
+    .ql-underline {
+      svg {
+        top: 55%;
+      }
+    }
+  }
+}
+
+// Text editor display
+.html-container {
+  a {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+
+  pre {
+    background-color: #23241f;
+    color: #f8f8f2;
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}

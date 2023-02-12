@@ -1,0 +1,61 @@
+.data-table {
+  border-collapse: collapse;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  thead {
+    tr {
+      display: flex;
+      width: 100%;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid $lightest-gray;
+
+      th {
+        width: 0;
+        flex-grow: 1;
+        text-align: start;
+
+        &.actions {
+          width: 100px;
+          flex-grow: unset;
+          text-align: end;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      display: flex;
+      width: 100%;
+      padding: 1rem 2rem;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $lightest-gray;
+      }
+
+      td {
+        width: 0;
+        flex-grow: 1;
+
+        &.actions {
+          display: flex;
+          flex-direction: row-reverse;
+          align-items: center;
+          gap: 5px;
+          width: 100px;
+          flex-grow: unset;
+
+          * {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .no-results {
+      text-align: center;
+    }
+  }
+}

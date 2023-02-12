@@ -1,0 +1,183 @@
+.interview-end {
+  height: calc(100vh - var(--header-height));
+  width: 100%;
+  color: $dark-gray;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 40px;
+  padding: 20px;
+  max-width: $narrow-breakpoint;
+
+  @include from-mobile-layout {
+    padding: 40px;
+  }
+
+  .goodbye {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    height: max-content;
+    padding-block-start: 20px;
+    
+    @include from-mobile-layout {
+      justify-content: flex-start;
+      flex-direction: row;
+      // height: 100%;
+    }
+
+    .content {
+      width: 100%;
+      flex-grow: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75em;
+      text-align: center;
+      
+      // height: 100%;
+      @include from-mobile-layout {
+        text-align: unset;
+        width: 10%;
+      }
+
+      h1 {
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 0.5em;
+        color: $cta;
+
+        @include from-mobile-layout {
+          font-size: 40px;
+        }
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.5em;
+        
+        @include from-mobile-layout {
+          font-size: 20px;
+        }
+      }
+    }
+
+    > img {
+      width: 40%;
+      flex-grow: 1;
+
+      @include from-mobile-layout {
+        width: 0;
+      }
+    }
+  }
+
+  .upload {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: space-around;
+    flex-direction: column;
+    height: max-content;
+    padding-block-start: 30px;
+    width: 100%;
+    height: 100%;
+    gap: 50px;
+
+    @include from-mobile-layout {
+      width: 50vw;
+    }
+
+    img {
+      height: 30vh;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+
+      .progress-bar {
+        width: 100%;
+        height: 40px;
+        position: relative;
+        background-color: gray;
+        border-radius: 8px;
+        overflow: hidden;
+
+        span {
+          color: #fff;
+          z-index: 1; //
+          position: absolute;
+          top: 50%;
+          inset-inline-start: 50%;
+          transform: translateX(calc(-50% * var(--dir))) translateY(-50%);
+        }
+
+        .inner {
+          position: absolute;
+          inset-inline-start: 0;
+          inset-inline-end: 0;
+          bottom: 0;
+          height: 100%;
+          background: $cta;
+          transition: width 1.5s;
+        }
+      }
+
+      .uploading-msg {
+        text-align: center;
+        font-size: 14px;
+        line-height: 20px;
+
+        p:first-child{
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .no-network-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    border-radius: 4px;
+    width: calc(100vw - 32px);
+    background-color: #fff;
+    position: fixed;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    transform: translateX(calc(-50% * var(--dir))) translateY(-50%);
+    border: 1px solid $light-gray;
+    padding: 30px 20px;
+
+    .head-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    i {
+      font-size: 2rem;
+    }
+
+    p {
+      text-align: center;
+      line-height: 1.625rem;
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
+
+    @include from-mobile-layout {
+      width: 450px;
+    }
+  }
+}

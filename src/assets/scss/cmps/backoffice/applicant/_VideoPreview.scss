@@ -1,0 +1,121 @@
+.video-preview {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid $lightest-gray;
+
+    &:last-child{
+        border-radius: 0 0 8px 8px;
+    }
+
+    &:hover {
+        background: rgba($lightest-gray, 0.75);
+    }
+
+    &.selected {
+        background: rgba($lightest-gray, 0.75);
+        cursor: initial;
+
+        .answer-info {
+            .bottom {
+                .desc {
+                    display: -webkit-box;
+                }
+            }
+        }
+    }
+
+    .answer-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding-inline: 0.5rem;
+        padding-block: 1.25em;
+        gap: 0.5em;
+        border-radius: 0 4px 4px 0;
+        flex-grow: 1;
+        
+        @include from-mini-layout{
+            padding-inline: 20px;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+            p {
+                font-size: 1rem;
+                line-height: 1em;
+                font-weight: 700;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            .icons-container {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                i {
+                    font-size: 18px;
+                    color: #adb0b9;
+                }
+            }
+        }
+
+        .bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            justify-content: space-between;
+            overflow: hidden;
+
+            >* {
+                font-size: 12px;
+            }
+
+            .duration {
+                color: $light-gray;
+            }
+
+            .desc {
+                display: none;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 5;
+                color: $dark-gray;
+
+                p {
+                    line-height: 1.5em;
+                }
+
+                &.expand {
+                    -webkit-line-clamp: unset;
+                }
+            }
+
+        }
+
+        .show-more-btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 12px;
+            gap: 0.5em;
+            cursor: initial;
+            color: $blue;
+
+            span {
+                cursor: pointer;
+            }
+
+            i {
+                font-size: inherit;
+            }
+        }
+    }
+}

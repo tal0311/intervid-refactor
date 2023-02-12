@@ -1,0 +1,46 @@
+.skeleton-preview {
+  grid-template-columns: 35px minmax(140px, 1fr) minmax(140px, 300px);
+  grid-template-rows: 1fr 1fr;
+  gap: 5px 10px;
+  height: 80px;
+
+  .avatar {
+    grid-row: 1/-1;
+    display: flex;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    line-height: 36px;
+    background-color: gray;
+  }
+
+  .skeleton-name {
+    // width: 140px;
+    height: 17px;
+    background-color: gray;
+  }
+
+  .skeleton-title {
+    grid-column: 2/3;
+    grid-row: 2/-1;
+    background: gray;
+    height: 17px;
+  }
+
+  .status {
+    height: 100%;
+    width: 100%;
+    grid-row: 2/-1;
+    grid-column: 3/-1;
+    background-color: gray;
+  }
+
+  .date {
+    grid-column: 3/-1;
+    grid-row: 1/2;
+    background-color: gray;
+    height: 17px;
+    width: 8ch;
+    justify-self: end;
+  }
+}

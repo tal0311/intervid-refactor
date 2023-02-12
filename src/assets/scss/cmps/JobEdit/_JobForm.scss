@@ -1,0 +1,194 @@
+.job-form {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid $lightest-gray;
+  box-shadow: 0 0 15px -10px #0005;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+
+  @include from-normal-layout {
+    max-width: $narrow-breakpoint;
+  }
+
+  .job-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+
+    @include from-mini-layout {
+      gap: 30px;
+      padding: 40px;
+    }
+
+    .form-title {
+      .main-input {
+        margin-block-end: 0;
+        width: 100%;
+      }
+
+      .main-input input {
+        border: none;
+        border-bottom: 1px solid $lightest-gray;
+        font-size: 26px;
+        color: #64666b;
+        font-family: inherit;
+      }
+    }
+
+    >* {
+      display: flex;
+    }
+
+    // .img-upload .img-preview img {
+    //     width: unset;
+    // }
+
+    .input-container {
+      gap: 40px;
+      flex-direction: column;
+
+      @include from-mini-layout {
+        // max-width: $normal-breakpoint;
+        flex-direction: row;
+        align-items: flex-end;
+      }
+
+      >.main-input {
+        flex-grow: 1;
+        margin-block-end: unset;
+      }
+    }
+
+    .toggle-container {
+      position: relative;
+      flex-direction: column;
+      gap: 30px;
+
+      @include from-mini-layout {
+        flex-direction: row;
+      }
+
+      .main-toggle {
+        height: unset;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 10px;
+
+        label {
+          user-select: none;
+          cursor: pointer;
+          color: #64666b;
+        }
+
+        input {
+          // display: none;
+          cursor: pointer;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          z-index: 5;
+          appearance: none;
+          background: transparent;
+          position: absolute;
+
+          &:checked {
+            &~.outer {
+              .inner {
+                // left: 50%;
+                inset-inline-start: 50%;
+              }
+
+              p:first-of-type {
+                color: #c1c1c1;
+              }
+
+              p:last-of-type {
+                color: $cta;
+              }
+            }
+          }
+        }
+
+        .outer {
+          position: relative;
+          display: flex;
+          border: 1px solid #c1c1c1;
+          border-radius: 100vw;
+          height: 40px;
+          width: 200px;
+          // overflow: hidden;
+
+          p {
+            width: 50%;
+            text-align: center;
+            z-index: 1;
+            font-size: 0.75em;
+            font-weight: 700;
+            color: #c1c1c1;
+            transition: color 0.2s;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:first-of-type {
+              color: $cta;
+            }
+          }
+
+          .inner {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            inset-inline-start: 0;
+            transition: left 0.2s, borderRadius 0.2s;
+            border: 1px solid $cta;
+            border-radius: 100vw;
+          }
+        }
+      }
+    }
+
+    .textarea-container {
+      position: relative;
+
+      .main-input {
+        margin-block-end: 0;
+        width: 100%;
+      }
+
+      .remove-btn {
+        background-color: #e34d4d;
+        color: #fff;
+        font-size: 10px;
+        height: 20px;
+        width: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        position: absolute;
+        inset-inline-end: 0;
+        top: 0;
+        transform: translate(50%, -50%) scale(0);
+        transition: transform 0.1s;
+        cursor: pointer;
+        z-index: 1;
+      }
+
+      &:hover {
+        .remove-btn {
+          transform: translate(50%, -50%) scale(1);
+        }
+      }
+    }
+
+    .add {
+      align-self: flex-start;
+    }
+  }
+}

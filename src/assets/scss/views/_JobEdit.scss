@@ -1,0 +1,92 @@
+.job-edit {
+  background-color: $background-gray;
+  flex-grow: 1;
+  padding: 0 0.5rem;
+  overflow-y: auto;
+
+  @include from-mini-layout {
+    padding: 0 1rem;
+  }
+
+  @include from-mobile-layout {
+    padding: 0 40px;
+  }
+
+  @include from-normal-layout {
+    padding: 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+
+    @include from-mini-layout {
+      gap: 30px;
+    }
+
+    .quest-list {
+      >div {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        @include from-mini-layout {
+          gap: 30px;
+        }
+
+        .ghost {
+          opacity: 0;
+        }
+
+        // .sortable-drag {
+        // }
+      }
+    }
+
+    .add {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      gap: 7px;
+    }
+
+    .add-quest {
+      color: $cta;
+      &:active{
+        color:$dark-gray;
+      }
+      @include from-mobile-layout {
+        padding-bottom: 30px;
+      }
+    }
+
+    .send-btn {
+      color: #fff;
+      font-size: 16px;
+      line-height: 19px;
+      border-radius: 4px;
+      height: 45px;
+      width: 200px;
+      width: 100%;
+      z-index: 1400;
+      margin-bottom: 20px;
+      align-self: center;
+      background-color: gray;
+      &.selected{
+        background-color:gray;
+      }
+      @include from-mobile-layout {
+        display: none;
+      }
+
+      &.disabled {
+        background: $btn-disable-background;
+        color: $btn-disable-color;
+      }
+    }
+  }
+}

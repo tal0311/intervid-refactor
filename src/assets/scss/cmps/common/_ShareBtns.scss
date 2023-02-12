@@ -1,0 +1,128 @@
+.share-btns-container {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+   padding: 30px;
+   width: 100%;
+   @include from-mini-layout {
+      width: unset;
+   }
+
+   p {
+      font-weight: bold;
+      text-align: center;
+      @include from-mini-layout {
+         text-align: unset;
+      }
+   }
+
+   .invitation-url-container {
+      border: 1px solid $lightest-gray;
+      padding: 6px 6px 6px 6px;
+      border-radius: 4px;
+      box-shadow: 0 0 2px 0px #d9dce7;
+      background: #fff;
+      width: 100%;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      span {
+         white-space: nowrap;
+         font-size: 13px;
+         overflow-x: hidden;
+         text-overflow: ellipsis;
+      }
+
+      .copy {
+         padding: 10px 24px;
+         height: unset;
+         width: max-content;
+      }
+   }
+
+   .media-btns-container {
+      display: flex;
+      gap: 30px;
+      align-self: center;
+
+      .media-wrapper {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: 5px;
+
+         &.embed {
+            >button {
+               width: 40px;
+               height: 40px;
+               border-radius: 50%;
+               background: $light-gray;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               color: #fff;
+            }
+         }
+
+         .share-network-whatsapp,
+         .share-network-facebook,
+         .share-network-email {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+
+            &.share-network-whatsapp {
+               background-color: rgb(37, 211, 102);
+
+               i {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+
+                  svg {
+                     width: 1.2rem;
+                     height: 1.2rem;
+                  }
+               }
+            }
+
+            &.share-network-facebook {
+               background-color: rgb(66, 103, 178);
+            }
+
+            &.share-network-email {
+               background-color: rgb(242, 105, 89);
+            }
+         }
+
+         >span {
+            font-size: 12px;
+         }
+      }
+   }
+
+   .copy {
+      position: relative;
+      background: $cta;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      border-radius: 4px;
+      color: #fff;
+      &:active{
+         background-color: $dark-gray;
+         color: #fff;
+      }
+      i {
+         position: absolute;
+         inset-inline-start: 20px;
+      }
+   }
+}

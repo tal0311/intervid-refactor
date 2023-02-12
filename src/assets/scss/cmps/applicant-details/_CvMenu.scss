@@ -1,0 +1,52 @@
+.cv-menu {
+ 
+  .menu-btn {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 100% 100%;
+   
+    &.view-cv {
+      display: block;
+      margin-block-start: 1px;
+      background-image: url('https://res.cloudinary.com/intervid/image/upload/v1661183353/Frontend/view-cv_winzn0.svg');
+    }
+
+    &.add-cv {
+      background-image: url('https://res.cloudinary.com/intervid/image/upload/v1661183353/Frontend/add-cv_jlvvub.svg');
+    }
+  }
+ // &.selected {
+    //   color: #fff;  
+    //   background-color: rgb(0 0 0 / 7%);
+    //   // border-radius: 50%;
+    // }
+  .menu-modal {
+    position: absolute;
+    background: #fff;
+    top: 100%;
+    inset-inline-end: 0;
+    width: 350px;
+    padding: 20px;
+    border: solid 1px $lightest-gray;
+    border-radius: 4px;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.15s;
+
+    &.open {
+      transform: scaleY(1);
+    }
+  
+  }
+  &.selected{
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.03);
+    color: #fff;
+    padding: 6px;
+  }
+}

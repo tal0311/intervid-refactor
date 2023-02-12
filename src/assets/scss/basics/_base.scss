@@ -1,0 +1,157 @@
+:root {
+  --dir: 1;
+  --header-height: 60px;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+// i'm another test comment
+body {
+  margin: 0;
+  padding: 0;
+  font-family: roboto, Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  color: $dark-gray;
+  direction: ltr;
+  -webkit-tap-highlight-color: transparent;
+
+  *::before,
+  *::after {
+    --dir: 1;
+  }
+
+  &.he {
+    direction: rtl;
+    --dir: -1;
+
+    *::before,
+    *::after {
+      --dir: -1;
+    }
+  }
+}
+
+button {
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background-color: inherit;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+small {
+  font-size: 14px;
+}
+
+textarea {
+  font: inherit;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+p {
+  margin: 0;
+}
+
+
+pre {
+  font-family: roboto, sans-serif;
+  margin: 0;
+  white-space: break-spaces;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+label {
+  text-align: initial;
+}
+
+input {
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+  color: inherit;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
+
+  &[type="password"] {
+    &::-ms-reveal {
+      display: none;
+    }
+    &::-ms-clear {
+      display: none;
+    }
+  }
+
+  :focus {
+    outline: none;
+  }
+}
+
+.material-icons {
+  direction: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@include from-narrow-layout {
+  ::-webkit-scrollbar {
+    width: 0.65rem;
+    height: 0.65rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $light-gray;
+    border-radius: 100vw;
+
+    &:hover {
+      background-color: lighten($light-gray, 5%);
+    }
+  }
+}
+
+[data-grammarly-shadow-root] {
+  // Fixes grammarly in hebrew mode
+  display: none !important;
+}

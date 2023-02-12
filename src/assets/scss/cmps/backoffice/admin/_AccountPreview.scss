@@ -1,0 +1,37 @@
+.account-preview {
+    grid-template-columns: repeat(3, 1fr) 70px 100px;
+    gap: 20px;
+    cursor: unset !important;
+
+    >.first-name,
+    >.last-name,
+    >.email,
+    >.last-login {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+    }
+
+    >.last-login {
+        display: none;
+    }
+
+    @include from-normal-layout {
+        grid-template-columns: repeat(4, 1fr) 70px 100px;
+
+        >.last-login {
+            display: initial;
+        }
+    }
+
+    >.actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 5px;
+
+        >* {
+            cursor: pointer;
+        }
+    }
+}

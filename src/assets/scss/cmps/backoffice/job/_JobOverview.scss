@@ -1,0 +1,131 @@
+.job-overview {
+    .title-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-inline-end: 40px;
+
+        .overview-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            gap: 20px;
+
+            .view-btns {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                i {
+                    cursor: pointer;
+                    color: $light-gray;
+
+                    &.selected,
+                    &:hover {
+                        color: $dark-gray;
+                    }
+                }
+            }
+        }
+
+        .create-job-btn {
+            position: relative;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: $cta;
+            height: 35px;
+            padding-inline: 1em;
+            border: 1px solid $cta;
+            // background: #fff;
+            border-radius: 4px;
+            align-self: flex-start;
+
+            @include from-narrow-layout {
+                display: flex;
+            }
+
+            i {
+                font-size: 1.5em;
+            }
+
+            // &::after {
+            //   content: "";
+            //   height: 100%;
+            //   width: 1px;
+            //   background: lighten($light-gray, 20%);
+            //   position: absolute;
+            //   inset-inline-end: -20px;
+            // }
+        }
+    }
+
+    .filter-count {
+        font-size: 12px;
+        line-height: 1em;
+        display: flex;
+        align-items: center;
+        min-height: 30px;
+        gap: 15px;
+
+        &.shown {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        @include from-mini-layout {
+
+            .tag-list {
+                height: 100%;
+
+                .tag-preview {
+                    height: 100%;
+                }
+            }
+        }
+
+        .tag-list {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .tag-preview {
+                display: flex;
+                gap: 5px;
+                height: 30px;
+                padding-inline: 10px;
+                border-radius: 50vw;
+                align-items: center;
+                background-color: #0001;
+
+                i {
+                    font-size: 1.2em;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .overview-subtitle {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .filter-count {
+        margin-top: 10px;
+        font-size: 12px;
+        height: 1em;
+        line-height: 1em;
+    }
+
+    .table-list {
+        .list-header {
+            @include from-normal-layout {
+                grid-template-columns: 19px 1fr 200px 200px 100px 120px 30px;
+            }
+        }
+    }
+}

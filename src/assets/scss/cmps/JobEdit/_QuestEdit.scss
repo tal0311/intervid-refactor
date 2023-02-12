@@ -1,0 +1,285 @@
+.quest-edit {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 20px;
+  margin: 0 auto;
+  border: 1px solid $lightest-gray;
+  box-shadow: 0 0 15px -10px #0005;
+  border-radius: 8px;
+  position: relative;
+
+  &:focus-within{
+    box-shadow:inset 5px 0 0 0 $cta ,0 0 15px -10px #0005;
+  }
+
+  @include from-mobile-layout {
+    padding: 20px 40px;
+  }
+
+  .drag-indicator {
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-start: 15px;
+    transform: rotate(90deg) translateX(-50%);
+    display: none;
+    cursor: move;
+    color: $light-gray;
+
+    &:hover {
+      color: $dark-gray;
+    }
+  }
+
+  &:hover {
+    .quest-header {
+      .remove-btn {
+        transform: translate(50%, -50%) scale(1);
+      }
+    }
+
+    .drag-indicator {
+      display: block;
+    }
+  }
+
+  @include from-normal-layout {
+    max-width: $narrow-breakpoint;
+  }
+
+  .quest-header {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    justify-content: space-between;
+
+    h4 {
+      font-size: 14px;
+      color: #63b1c2;
+    }
+
+    .quest-rules {
+      gap: 10px;
+      display: none;
+
+      @include from-mini-layout {
+        gap: 20px;
+      }
+
+      @include from-narrow-layout {
+        display: flex;
+      }
+    }
+  }
+
+  .quest-actions-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    @include from-mobile-layout {
+      display: none;
+    }
+
+    &.open {
+      .answer-modal {
+        transform: scaleY(1);
+      }
+    }
+
+    .answer-modal {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border: 1px solid $lightest-gray;
+      border-radius: 4px;
+      width: 150px;
+      transform: scaleY(0);
+      top: 100%;
+      transform-origin: top;
+      transition: transform 0.15s;
+      z-index: 205;
+
+      button {
+        height: 48px;
+        padding: 7px;
+        padding-inline-start: 10px;
+        padding-inline-end: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: $dark-gray;
+        cursor: pointer;
+
+        > i {
+          color: inherit;
+          font-size: 18px;
+        }
+
+        &.remove {
+          i {
+            font-size: 22px;
+            margin-inline-start: -2px;
+          }
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid $lightest-gray;
+        }
+
+        &:hover {
+          background-color: #eee;
+
+          &.disabled {
+            background: unset;
+          }
+        }
+
+        &.disabled {
+          color: $btn-disable-color;
+
+          i {
+            color: $btn-disable-color;
+          }
+        }
+
+        &.selected {
+          background-color: #1a73e814;
+        }
+      }
+    }
+  }
+
+  .time-limit-container {
+    position: relative;
+
+    > i {
+      position: absolute;
+      top: 50%;
+      transform: translate(calc(10px * var(--dir)), -50%);
+    }
+
+    .select-container {
+      .selected {
+        border: 1px solid #ebeef2;
+        font-size: 14px;
+        padding-inline-start: 40px;
+        padding-inline-end: 10px;
+        gap: 5px;
+
+        i {
+          color: $dark-gray;
+          transition: 0.2s linear;
+          font-size: 14px;
+        }
+      }
+
+      .items {
+        z-index: 1;
+        border-top: none;
+      }
+    }
+  }
+
+  .quest-content {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:focus-within) {
+      .ql-editor {
+        max-height: 85px !important;
+      }
+    }
+
+    .quest-title {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-block-end: 20px;
+      gap: 20px;
+
+      @include from-mini-layout {
+        flex-direction: row;
+      }
+
+      input {
+        padding: 0.5em 0 0em;
+        border: none;
+        border-bottom: 1px solid #ebeef2;
+        background: transparent;
+        line-height: 1.5em;
+        font-weight: 700;
+        font-size: 20px;
+        color: #6b6c70;
+      }
+
+      .main-input {
+        margin-block-end: 0;
+        flex-grow: 1;
+      }
+    }
+  }
+
+  .quest-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-block-start: 10px;
+    height: 48px;
+
+    @include from-mini-layout {
+      margin-block-start: 0;
+    }
+
+    @include from-narrow-layout {
+      justify-content: flex-end;
+    }
+
+    .quest-rules {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      width: 100%;
+
+      @include from-mini-layout {
+        width: unset;
+        justify-content: unset;
+        gap: 10px;
+      }
+
+      @include from-narrow-layout {
+        display: none;
+      }
+
+      .basic-select {
+        width: 100px;
+      }
+    }
+
+    .actions {
+      display: flex;
+
+      > i {
+        cursor: pointer;
+        width: 48px;
+        border-radius: 50%;
+        display: none;
+        font-size: 22px;
+        color: $dark-gray;
+
+        &:hover {
+          background-color: #f1f3f8;
+        }
+
+        @include from-mobile-layout {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.record-details {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: 1fr 100px 100px 1fr 1fr;
+  gap: 20px;
+  span {
+    font-weight: bold;
+  }
+  .user-info {
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    white-space: nowrap;
+    .user-info-item {
+      padding: 2px 0;
+    }
+  }
+  .error-info {
+    grid-column: 2 / -1;
+    .error-info-item {
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      white-space: nowrap;
+      padding: 2px 0;
+      &.pre {
+        white-space: pre;
+      }
+    }
+  }
+
+}

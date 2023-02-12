@@ -1,0 +1,46 @@
+.applicant-menu {
+  .menu-btn {
+    color: $dark-gray;
+  }
+
+  .menu-modal {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    top: 100%;
+    inset-inline-end: 0;
+    width: 250px;
+    border: solid 1px $lightest-gray;
+    border-radius: 4px;
+    // z-index: 205;
+    font-size: 14px;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.15s;
+
+    &.open {
+      transform: scaleY(1);
+    }
+
+    > button {
+      padding: 0.75em 1em;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+
+      i {
+        font-size: 1.5em;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $lightest-gray;
+      }
+
+      &:hover {
+        background: $lightest-gray;
+      }
+    }
+  }
+}

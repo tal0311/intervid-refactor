@@ -1,0 +1,42 @@
+.time-event-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .menu-btn {
+    cursor: pointer;
+    color: $dark-gray;
+    line-height: 0.4em;
+  }
+
+  .menu-modal {
+    position: absolute;
+    inset-inline-end: 0;
+    border: 1px solid $lightest-gray;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 200px;
+    top: 100%;
+    font-size: 14px;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.1s;
+
+    &.open {
+      transform: scaleY(1);
+    }
+
+    > button {
+      display: flex;
+      width: 100%;
+      padding: 10px 20px;
+      color: $dark-gray;
+      background: #fff;
+
+      &:hover {
+        background: $lightest-gray;
+      }
+    }
+  }
+}

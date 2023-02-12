@@ -1,0 +1,34 @@
+.template-preview {
+  grid-template-columns: 2fr 1fr 1fr 45px 30px;
+  gap: 10px;
+
+  >.checkbox {
+    display: none;
+  }
+
+  >.use-template {
+    >button {
+      background: $dark-gray;
+      padding: 0.5em 0.75em;
+      color: #fff;
+      border-radius: 4px;
+      width: 100%;
+
+      &:hover {
+        background: $light-gray;
+      }
+    }
+  }
+
+  @include from-mobile-layout {
+    gap: 20px;
+  }
+
+  @include from-narrow-layout {
+    grid-template-columns: 19px 2fr 1fr 1fr 70px 30px;
+
+    >.checkbox {
+      display: initial;
+    }
+  }
+}

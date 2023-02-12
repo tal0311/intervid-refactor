@@ -1,0 +1,76 @@
+.lng-menu {
+  position: relative;
+  color: $dark-gray;
+  cursor: pointer;
+
+  > button {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    &:hover, &.selected {
+      background-color: #0001;
+    }
+    i {
+      font-size: 20px;
+      color: #aaadb5;
+    }
+    &.on {
+      background: $dark-gray;
+      color: #fff;
+    }
+    
+  }
+
+  &.open {
+    > button {
+      .expand {
+        transform: rotate(180deg);
+      }
+    }
+
+    .lng-modal {
+      transform: scaleY(1);
+    }
+  }
+
+  .lng-modal {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    top: 100%;
+    inset-inline-start: 0;
+    border-radius: 4px;
+    border: 1px solid $lightest-gray;
+    width: 150px;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.15s;
+    z-index: 205;
+
+    p {
+      height: 48px;
+      padding: 7px;
+      padding-inline-start: 10px;
+      padding-inline-end: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: $dark-gray;
+      cursor: pointer;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $lightest-gray;
+      }
+
+      &:hover {
+        background-color: #eee;
+      }
+    }
+  }
+}

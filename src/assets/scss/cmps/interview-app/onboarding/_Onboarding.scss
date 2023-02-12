@@ -1,0 +1,10 @@
+.onboarding-container {
+  display: flex;
+  flex-grow: 1;
+  background-color: $background-gray;
+
+  > * {
+    flex-grow: 1;
+    width: 0;
+  }
+}

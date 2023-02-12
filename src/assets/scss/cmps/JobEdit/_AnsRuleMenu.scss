@@ -1,0 +1,146 @@
+.ans-rule-container {
+  .ans-rule {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    border-radius: 4px;
+    border: 1px solid $lightest-gray;
+    height: 48px;
+    width: 230px;
+    padding: 7px;
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+    cursor: pointer;
+
+    > i {
+      font-size: 25px;
+      color: #aaadb5;
+    }
+
+    > select {
+      border: none;
+    }
+
+    &.disabled {
+      color: $btn-disable-color;
+
+      i {
+        color: $btn-disable-color;
+      }
+    }
+
+    .icon {
+      direction: inherit;
+      font-size: 24px;
+      color: $dark-gray;
+    }
+
+    &.open {
+      > button {
+        .expand {
+          transform: rotate(180deg);
+        }
+      }
+
+      .answer-modal {
+        transform: scaleY(1);
+      }
+    }
+
+    > button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      height: 100%;
+      width: 100%;
+
+      .expand {
+        color: $dark-gray;
+        transition: 0.2s linear;
+        font-size: 14px;
+      }
+    }
+
+    .answer-modal {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      top: 100%;
+      inset-inline-start: 0;
+      border: 1px solid $lightest-gray;
+      width: 100%;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.15s;
+      z-index: 205;
+
+      button {
+        height: 48px;
+        padding: 7px;
+        padding-inline-start: 10px;
+        padding-inline-end: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: $dark-gray;
+        cursor: pointer;
+
+        > i {
+          color: inherit;
+          font-size: 24px;
+        }
+
+        &:not(:last-child) {
+          border-bottom: 1px solid $lightest-gray;
+        }
+
+        &:not(.disabled):hover {
+          background-color: #eee;
+        }
+
+        &.disabled {
+          color: $btn-disable-color;
+
+          i {
+            color: $btn-disable-color;
+          }
+        }
+
+        &.selected {
+          background-color: #1a73e814;
+        }
+      }
+    }
+  }
+
+  .ans-rule-error {
+    position: absolute;
+    padding-inline-end: 40px;
+    padding-top: 3px;
+    color: $cta;
+    font-size: 14px;
+
+    @include from-narrow-layout {
+      inset-inline-end: 0;
+      bottom: unset;
+    }
+  }
+
+  .mobile-ans-rule-modal {
+    .disabled {
+      color: $btn-disable-color;
+
+      i {
+        color: $btn-disable-color;
+      }
+    }
+
+    .selected {
+      background-color: #1a73e814;
+    }
+  }
+}

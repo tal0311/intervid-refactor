@@ -1,0 +1,43 @@
+.action-menu {
+  position: relative;
+
+  .menu-modal {
+    width: 200px;
+    // position: absolute;
+    position: fixed;
+    // top: 100%;
+    inset-inline-end: 0;
+    transform: translateX(calc(-5px * var(--dir))) scaleY(0);
+    transform-origin: top;
+    transition: transform 0.1s;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    box-shadow: 0 0 10px 0 #0002;
+    // z-index: 10;
+
+    >div {
+      height: 50px;
+      border-bottom: 1px solid $lightest-gray;
+      display: flex;
+      align-items: center;
+      padding: 0 25px;
+      cursor: pointer;
+
+      &:hover {
+        background: $lightest-gray;
+      }
+
+    }
+
+    &.top {
+      // top: unset;
+      // bottom: 100%;
+      transform-origin: bottom;
+    }
+
+    &.open {
+      transform: translateX(calc(-5px * var(--dir))) scaleY(1);
+    }
+  }
+}

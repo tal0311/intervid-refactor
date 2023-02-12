@@ -1,0 +1,29 @@
+.record-preview{
+    grid-template-columns: 1fr 100px 100px 1fr 1fr;
+    gap: 20px;
+    position: relative;
+    // cursor: unset !important;
+    &:hover{
+        .expand-icon{
+            display: inline-block;
+        }
+    }
+    .expand-icon{
+        display: none;
+        position: absolute;
+        inset-inline-end: 0px;
+        top: 0.25em;
+        transform: translateX(-50%);
+        transition: transform 0.1s;
+
+        &.selected{
+            transform: translateX(-50%) rotate(180deg); 
+        }
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+
+

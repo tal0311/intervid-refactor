@@ -1,0 +1,68 @@
+.interview-app {
+  min-height: 100vh;
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: $header-height;
+    min-height: $header-height;
+    color: $dark-gray;
+    box-shadow: $border-bottom-shadow;
+    z-index: 1;
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 2em;
+        img {
+          height: 30px;
+        }
+      }
+
+      .btn-container {
+        gap: 20px;
+        display: flex;
+        align-items: center;
+
+        img {
+          width: 40px;
+          height: 40px;
+          object-fit: contain;
+          border-radius: 4%;
+        }
+
+        .job-info {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: space-between;
+          height: 100%;
+          p {
+            &:first-of-type {
+              font-size: 1.1rem;
+            }
+
+            &:last-of-type {
+              color: $light-gray;
+              font-size: 0.75rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .interview-app-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,44 @@
+.main-app{
+    max-height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.container {
+    padding-inline-start: 0.5rem;
+    padding-inline-end: 0.5rem;
+
+    @include from-mini-layout {
+        padding-inline-start: 1rem;
+        padding-inline-end: 1rem;
+    }
+
+    @include from-narrow-layout {
+        padding-inline-start: 40px;
+        padding-inline-end: 40px;
+    }
+}
+
+.narrow-container {
+    padding-inline-start: 0.5rem;
+    padding-inline-end: 0.5rem;
+
+    @include from-mini-layout {
+        padding-inline-start: 1rem;
+        padding-inline-end: 1rem;
+    }
+
+    @include from-mobile-layout {
+        padding-inline-start: 40px;
+        padding-inline-end: 40px;
+    }
+
+    @include from-normal-layout {
+        padding-inline-start: 0px;
+        padding-inline-end: 0px;
+        max-width: $normal-breakpoint;
+        margin: 0 auto;
+    }
+}

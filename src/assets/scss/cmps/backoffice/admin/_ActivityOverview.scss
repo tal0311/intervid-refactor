@@ -1,0 +1,27 @@
+.activity-overview {
+    .table-list {
+        .list-header {
+            @include from-normal-layout {
+                grid-template-columns: 170px 1fr 1fr;
+
+                > .checkbox {
+                    display: none;
+                }
+
+                .date {
+                    .sortable {
+                        justify-content: flex-end;
+                    }
+                }
+            }
+        }
+
+        .list-content{
+            >.activity-preview{
+                &:hover{
+                    background: unset;
+                }
+            }
+        }
+    }
+}

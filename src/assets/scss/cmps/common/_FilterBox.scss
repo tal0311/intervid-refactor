@@ -1,0 +1,207 @@
+.filter-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  height: 32px;
+
+  .filter-btn {
+    position: relative;
+    color: $dark-gray;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    height: 100%;
+
+    > button {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      height: 100%;
+      padding-inline: 1em;
+      border: 1px solid $light-gray;
+      border-radius: 4px;
+      font-size: 14px;
+
+      i {
+        font-size: 1.08em;
+        font-weight: inherit;
+      }
+    }
+
+    &.selected {
+      > button {
+        font-weight: 700;
+        border: 1px solid $dark-gray;
+      }
+    }
+
+    .filter-modal {
+      cursor: initial;
+      position: absolute;
+      top: 110%;
+      inset-inline-start: 0;
+      min-width: 350px;
+      z-index: 205;
+      background: #fff;
+      border: 1px solid $lightest-gray;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.15s;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 30px -10px $lightest-gray;
+
+      &.open {
+        transform: scaleY(1);
+      }
+
+      &.small {
+        .filter-container {
+          padding: 10px 20px;
+        }
+
+        .filter-title {
+          display: none;
+        }
+      }
+
+      .filter-container {
+        // padding: 20px;
+        padding: 15px 20px;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid $lightest-gray;
+
+        .filter-title {
+          padding-bottom: 0.5em;
+          font-size: 18px;
+        }
+
+        .filter-list {
+          label {
+            padding-block: 0.75em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+
+            input {
+              accent-color: $dark-gray;
+              margin: 0;
+              cursor: pointer;
+            }
+          }
+        }
+
+        &.status-filter {
+          .filter-list {
+            //columns: 2
+            columns: 3;
+            column-gap: 20px;
+          }
+        }
+
+        &.date-filter {
+          .filter-list {
+            columns: 2;
+          }
+        }
+
+        &.view-filter {
+          .filter-list {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+
+        &.archive-filter {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+
+          .filter-title {
+            padding: 0;
+          }
+
+          .main-toggle {
+            height: unset;
+            width: unset;
+
+            .outer {
+              inset-inline-end: 0;
+            }
+          }
+        }
+      }
+
+      @media (min-height: 805px) {
+        .filter-container {
+          padding: 20px;
+
+          &.status-filter {
+            .filter-list {
+              columns: 2;
+              column-gap: unset;
+            }
+          }
+        }
+      }
+
+      .filter-footer {
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & > * {
+          cursor: pointer;
+        }
+
+        .clear-filters-btn {
+          text-decoration: underline;
+
+          // background: $dark-gray;
+          // color: #fff;
+          // padding: 0.5em 0.75em;
+          border-radius: 4px;
+
+          &[disabled] {
+            // background-color: $btn-disable-background;
+            // color: $btn-disable-color;
+          }
+
+          &.bold {
+            font-weight: 700;
+          }
+        }
+
+        .set-filter-btn {
+          background: $dark-gray;
+          color: #fff;
+          padding: 0.5em 0.75em;
+          border-radius: 4px;
+
+          &[disabled] {
+            background-color: $btn-disable-background;
+            color: $btn-disable-color;
+          }
+        }
+      }
+    }
+  }
+
+  // >button.clear-btn {
+  //   font-size: 12px;
+  //   text-decoration: underline;
+  //   display: none;
+
+  //   @include from-narrow-layout {
+  //     display: initial;
+  //   }
+
+  //   &.filtering {
+  //     font-weight: 700;
+  //   }
+  // }
+}

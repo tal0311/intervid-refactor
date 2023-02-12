@@ -1,0 +1,32 @@
+$google-blue: #4285f4;
+$button-active-blue: #1669f2;
+
+.google-btn {
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    color: $google-blue;
+    border-radius: 2px;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+    transition: 0.2s;
+    &:hover {
+        box-shadow: 0 0 6px $google-blue;
+    }
+    &:active {
+        background: $button-active-blue;
+    }
+
+    button {
+        width: 100%;
+        padding: 13px 0;
+    }
+
+    img {
+        position: absolute;
+        z-index: 1;
+        height: 25px;
+        inset-inline-start: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}

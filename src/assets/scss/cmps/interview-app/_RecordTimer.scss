@@ -1,0 +1,28 @@
+.record-timer {
+    position: absolute;
+    top: 5px;
+    inset-inline-end: 5px;
+    background-color: rgba(44, 43, 43, 0.6);
+    color: #fff;
+    border-radius: 25px;
+    padding: 3px 8px;
+    font-size: 13px;
+    .rec-sign {
+        display: inline-block;
+        margin-inline-end: 5px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background-color: #df3535b0;
+        animation: blinker 1s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+    }
+}
+
+@keyframes blinker {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

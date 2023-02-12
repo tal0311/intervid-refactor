@@ -1,0 +1,40 @@
+.quest-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+
+  .title {
+    line-height: 1.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .desc {
+    line-height: 1.5em;
+  }
+
+  .rule {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > * {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .answer-type {
+      p {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        i {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

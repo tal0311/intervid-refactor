@@ -1,0 +1,22 @@
+.note-app {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #fff;
+    // border-radius: 8px;
+
+    @include from-mini-layout{
+        border-radius: 8px;
+    }
+
+    h4{
+        border-bottom: 1px solid $lightest-gray;
+        padding-block: 10px;
+        font-size: 14px;
+        padding-inline: 0.5rem;
+
+        @include from-mini-layout{
+            padding-inline: 20px;
+        }
+    } 
+}

@@ -1,0 +1,206 @@
+@mixin from-mini-layout {
+  @media (min-width: $mini-breakpoint) {
+    @content;
+  }
+}
+
+@mixin from-mobile-layout {
+  @media (min-width: $mobile-breakpoint) {
+    @content;
+  }
+}
+
+@mixin from-narrow-layout {
+  @media (min-width: $narrow-breakpoint) {
+    @content;
+  }
+}
+
+@mixin from-normal-layout {
+  @media (min-width: $normal-breakpoint) {
+    @content;
+  }
+}
+
+@mixin from-wide-layout {
+  @media (min-width: $wide-breakpoint) {
+    @content;
+  }
+}
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    display: block;
+    content: '';
+    width: 100%;
+    padding-top: calc(#{$height} / #{$width} * 100%);
+    pointer-events: none;
+  }
+
+  &>video,
+  &>img,
+  &>iframe {
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    margin-block-end: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  >img,
+  >video {
+    object-fit: cover;
+  }
+}
+
+// Mixin for removing hover efects on iphone screen
+@mixin hover-supported {
+  @media not all and (pointer: coarse) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin blueRoundInput {
+  background-color: #fff;
+  border: none;
+  box-shadow: inset 0 0 0 1px #858585;
+  border-radius: 3px;
+  transition: margin 85ms ease-in, background 85ms ease-in;
+  padding: 8px 12px;
+
+  &:focus {
+    box-shadow: inset 0 0 0 2px #0079bf;
+    background-color: #fff;
+  }
+}
+
+@mixin mainInput {
+  font-family: inherit;
+  padding: 6px 8px;
+  font-size: inherit;
+  height: 100%;
+  color: #333333;
+  border: 0.5px solid rgba(53, 71, 90, 0.2);
+  transition: box-shadow 0.1s;
+
+  &:hover,
+  &:focus {
+    border-color: rgba(30, 41, 51, 0.45);
+  }
+}
+
+@mixin textEditor {
+  white-space: pre-wrap;
+
+  img {
+    max-width: 150px;
+  }
+
+  pre {
+    background-color: #23241f;
+    color: #f8f8f2;
+    white-space: pre-wrap;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+
+  a {
+    text-decoration: underline;
+    color: #06c;
+  }
+}
+
+@mixin transRoundBorder {
+  border-radius: 3px;
+  border: none;
+}
+
+@mixin background($imgpath, $position: 0 0, $repeat: no-repeat) {
+  background: {
+    image: url($imgpath);
+    position: $position;
+    repeat: $repeat;
+  }
+}
+
+@mixin roundedBtn {
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+@mixin mainBtn($bgc) {
+  @include roundedBtn;
+  background-color: $bgc;
+  color: #fff;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: darken($bgc, 10%);
+  }
+}
+
+@mixin padSides {
+  padding: 0 8px;
+}
+
+@mixin padSidesWide {
+  padding: 0 16px;
+}
+
+@mixin clipLine($maxLines) {
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  max-height: calc(#{$maxLines} * 20px);
+  display: -webkit-box;
+  -webkit-line-clamp: $maxLines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin niceScrollBar($width) {
+  &::-webkit-scrollbar {
+    background-color: #d6d7e0;
+    width: $width;
+    height: $width;
+
+    &-thumb {
+      background-color: $cta;
+    }
+  }
+}
+
+@mixin size($width, $height) {
+  height: $height;
+  width: $width;
+}
+
+@mixin scrollBar($width) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+    background-color: rgba(0, 0, 0, 0);
+    -webkit-border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar:hover {
+    background-color: rgba(0, 0, 0, 0.09);
+  }
+
+  &::-webkit-scrollbar-thumb:vertical {
+    background: rgba(0, 0, 0, 0.233);
+    -webkit-border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb:vertical:active {
+    -webkit-border-radius: 100px;
+  }
+}

@@ -1,0 +1,150 @@
+.org-user-edit {
+    display: flex;
+    flex-direction: column;
+
+    &>* {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1rem;
+        border-bottom: 1px solid $lightest-gray;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+
+
+        .form-content {
+
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+
+
+
+            @include from-narrow-layout {
+                flex-direction: row;
+                gap: 100px;
+            }
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+            min-width: 280px;
+        }
+
+        .input-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            // align-items: center;
+
+            gap: 20px;
+
+            // >* {
+            //     width: 0;
+            //     flex-grow: 1;
+            // }
+            &>div:last-child {
+                grid-column: 1/3;
+            }
+
+        }
+
+        .img-upload-container {
+            // padding-block-start: 40px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+
+            >* {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+
+                // .img-upload {
+                // img {
+                //     width: 100%;
+                //     object-fit: contain;
+                // }
+
+                // @include from-mobile-layout {
+                //     width: 200px;
+                // }
+                // }
+            }
+        }
+
+        .user-permissions {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            &>div {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+            }
+
+            p {
+                font-weight: 600;
+            }
+
+        }
+
+        .permission-types {
+            display: flex;
+            gap: 20px;
+
+            &>label {
+                display: flex;
+                gap: 2px;
+            }
+        }
+
+        .advanced-perms {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            &>div {
+                display: flex;
+                gap: 4px;
+
+                &.blocked{
+                   color: $light-gray;
+                }
+            }
+        }
+
+
+        &>button {
+            height: 50px;
+            background-color: $cta;
+            color: #fff;
+            font-weight: 700;
+            font-size: 20px;
+            border-radius: 4px;
+        }
+    }
+
+    small {
+        margin-bottom: 8px;
+    }
+
+    input[type=radio] {
+        margin: 0;
+    }
+}

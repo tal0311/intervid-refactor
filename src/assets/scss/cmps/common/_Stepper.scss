@@ -1,0 +1,76 @@
+.stepper {
+  $bulletSize: 2rem;
+  $bulletSizeHalf: calc(#{$bulletSize} / 2);
+  $stepTransition: background 0.5s,
+  color 0.5s;
+  $step-bar-bg: gray;
+  $step-bullet-bg: gray;
+  $bulletColor: #fff;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(1px, 1fr));
+  position: relative;
+  z-index: 1;
+
+  label {
+    position: relative;
+    text-align: center;
+    display: block;
+
+    // bullet
+    &::before {
+      content: '';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 0 calc(#{$bulletSizeHalf} / 2) 0;
+      height: $bulletSize;
+      width: $bulletSize;
+      border-radius: $bulletSize;
+      transition: $stepTransition;
+      background: $step-bar-bg;
+      color: $bulletColor;
+
+      @include from-mobile-layout {
+        margin: 0 0 calc(#{$bulletSizeHalf} / 2) auto;
+      }
+    }
+
+    // progress bar
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: calc(#{$bulletSizeHalf} / 2);
+      background: $step-bar-bg;
+      transition: $stepTransition;
+      top: $bulletSizeHalf;
+      transform: translateX(calc(-50% * var(--dir))) translateY(-50%);
+      z-index: -1;
+
+      @include from-mobile-layout {
+        transform: translateX(calc(50% * var(--dir))) translateY(-50%);
+      }
+    }
+
+    &.reached {
+      &::before {
+        background: $cta;
+      }
+    }
+
+    &.completed {
+      &::before {
+        content: '✔︎';
+      }
+
+      &::after {
+        background: $cta;
+      }
+    }
+  }
+
+  .step:last-child label::after {
+    display: none;
+  }
+}

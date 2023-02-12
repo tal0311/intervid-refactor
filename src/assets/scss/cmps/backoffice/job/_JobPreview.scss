@@ -1,0 +1,251 @@
+.job-preview.list {
+  grid-template-columns: 1fr 80px 30px 30px;
+  gap: 10px;
+
+  > *:empty {
+    background-color: $light-gray;
+    border-radius: 2px;
+    animation: skeleton 1.2s infinite alternate ease-in-out;
+  }
+
+  > .checkbox {
+    display: none;
+  }
+
+  > .title {
+    // font-weight: 700;
+
+    &:empty {
+      height: 16px;
+      width: 134px;
+    }
+  }
+
+  > .location {
+    display: none;
+    &:empty {
+      height: 16px;
+      width: 58px;
+    }
+  }
+
+  > .avatars {
+    display: none;
+    // display: flex;
+    align-items: center;
+
+    > img,
+    > div {
+      &:empty {
+        background-color: $light-gray;
+        border-radius: 50px;
+        animation: skeleton 1.2s infinite alternate ease-in-out;
+      }
+
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: contain;
+      border: white 1px solid;
+
+      &:not(:first-child) {
+        margin: -3px;
+      }
+
+      &:nth-child(3) {
+        background: gray;
+        color: white;
+        line-height: 30px;
+        text-align: center;
+      }
+    }
+  }
+
+  > .date {
+    // display: none;
+  }
+
+  > .link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    p {
+      display: none;
+    }
+  }
+
+  > .actions {
+    text-align: end;
+    height: 100%;
+
+    &:empty {
+      height: 15px;
+      width: 24px;
+      justify-self: flex-end;
+    }
+
+    .action-menu {
+      height: 100%;
+
+      .menu-btn {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  @include from-mini-layout {
+    grid-template-columns: 1fr 100px 80px 30px 30px;
+    gap: 20px;
+    > .avatars {
+      display: flex;
+    }
+  }
+
+  @include from-normal-layout {
+    grid-template-columns: 19px 1fr 200px 200px 100px 120px 30px;
+
+    > .checkbox {
+      display: initial;
+    }
+
+    > .location {
+      display: block;
+    }
+
+    > .date {
+      display: flex;
+    }
+
+    > .link {
+      &:hover{
+      color: $cta;
+      // font-weight: 700;
+      }
+
+      p {
+        display: initial;
+      }
+    }
+  }
+}
+
+.job-preview.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 20px -10px #0005;
+  cursor: pointer;
+  transition: scale 0.2s;
+
+  img,
+  .job-background {
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    aspect-ratio: 2/1;
+    object-fit: cover;
+    flex-grow: 1;
+
+    @include from-mobile-layout {
+      aspect-ratio: 5/3;
+    }
+  }
+
+  .job-background {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: darken($background-gray, 5%);
+    border-radius: 8px 8px 0 0;
+    font-size: 4rem;
+    color: $light-gray;
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 10px;
+    background-color: #fff;
+    border-radius: 0 0 8px 8px;
+
+    .top-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 1em;
+      gap: 1em;
+      overflow: hidden;
+
+      .info {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: $dark-gray;
+        flex-grow: 1;
+        width: 0;
+
+        .title {
+          font-weight: 700;
+          overflow-x: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+
+        .location {
+          white-space: nowrap;
+          &::first-letter {
+            text-transform: capitalize;
+          }
+        }
+      }
+
+      .actions {
+        width: 28px;
+        span {
+          font-size: 2em;
+        }
+      }
+    }
+  }
+
+  .link {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #fffa;
+    padding: 0.25em 0.5em;
+    border-radius: 4px;
+    top: 15px;
+    inset-inline-start: 15px;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background: #fff;
+      color: $cta;
+    }
+  }
+}
+
+@keyframes skeleton {
+  from {
+    background-color: lighten($light-gray, 10%);
+  }
+
+  to {
+    background-color: lighten($light-gray, 20%);
+  }
+}

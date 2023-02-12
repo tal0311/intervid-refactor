@@ -1,0 +1,230 @@
+.quest-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+
+  .quest-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+    h4 {
+      font-weight: 700;
+    }
+  }
+
+  .quest-content {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      padding: 0.5em 0 0em;
+      border: none;
+      border-bottom: 1px solid #ebeef2;
+      font-size: 16px;
+      background: transparent;
+      line-height: 1.5em;
+      // margin-bottom: 20px;
+    }
+
+    // .editor-container {
+    //   margin-bottom: 10px;
+    // }
+
+    .toggle-desc-btn {
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      padding: 5px 0;
+      font-size: 13px;
+      cursor: pointer;
+    }
+  }
+
+  .answer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: 14px;
+
+    @include from-mobile-layout {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .basic-select {
+      width: 200px;
+
+      .select-container {
+        height: inherit;
+
+        .selected {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          padding: 5px;
+          font-size: 14px;
+
+          &:after {
+            position: static;
+          }
+        }
+      }
+    }
+
+    .time-limit {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      input {
+        padding: 5px;
+        text-align: center;
+        border: 0.5px solid rgba(53, 71, 90, 0.2);
+      }
+    }
+  }
+}
+
+// .quest-edit {
+//   position: relative;
+//   display: flex;
+//   flex-direction: column;
+//   border-radius: 3px;
+//   padding-bottom: 40px;
+
+//   h4 {
+//     padding-block-end: 10px;
+//     font-weight: 700;
+//   }
+
+//   .menu-btn {
+//     position: absolute;
+//     inset-inline-end: 15px;
+//     top: 40px;
+//   }
+
+//   .menu {
+//     position: absolute;
+//     top: 5px;
+//     inset-inline-end: 5px;
+//     width: 120px;
+//     border: 0.5px solid rgba(53, 71, 90, 0.2);
+//     border-radius: 3px;
+//     // box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.141), 0 1px 3px 0 rgba(0, 0, 0, 0.122);
+//     background-color: #fff;
+//     header {
+//       text-align: center;
+//       border-bottom: 0.5px solid rgba(53, 71, 90, 0.2);
+//       margin-bottom: 8px;
+//       padding: 4px 0;
+//     }
+//     button {
+//       width: 100%;
+//       text-align: unset;
+//       padding: 8px 20px;
+//       &:hover {
+//         background-color: rgba(26, 115, 232, 0.078);
+//       }
+//     }
+//   }
+
+// .quest-content {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 100%;
+
+//   .title-input {
+//     border: 1px solid $lightest-gray;
+//     border-radius: 4px;
+//     padding: 10px 8px;
+//     margin-bottom: 1rem;
+//     width: 100%;
+//   }
+//   .editor-container {
+//     width: 100%;
+//     margin-block-end: 10px;
+//   }
+//   .toggle-desc-btn {
+//     display: flex;
+//     align-items: center;
+//     align-self: flex-start;
+//     gap: 5px;
+//     font-size: 0.8rem;
+//     margin-bottom: 1rem;
+//     cursor: pointer;
+//     color: $blue;
+
+//     i {
+//       font-size: 1.4em;
+//     }
+
+//     &:hover {
+//       span {
+//         text-decoration: underline;
+//       }
+//     }
+//   }
+// }
+
+//   .answer-details {
+//     display: flex;
+//     align-items: center;
+//     gap: 20px;
+//     flex-wrap: wrap;
+
+//     p {
+//       margin-block-end: 6px;
+//     }
+//     .icon {
+//       width: 24px;
+//       height: 24px;
+//       background-position: center;
+//       background-repeat: no-repeat;
+//       background-size: cover;
+//     }
+//     input {
+//       text-align: center;
+//       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+//       height: 2.3rem;
+//       width: 9.5rem;
+//     }
+//     .ans-media-select {
+//       display: flex;
+//       flex-direction: column;
+//       padding: 3px 3px 0px 3px;
+//       cursor: pointer;
+//       border-radius: 5px;
+//       user-select: none;
+
+//       > div.selected {
+//         background-color: lighten(#866fd9, 10%);
+//       }
+//       .basic-select {
+//         margin: 0;
+//         padding: 0;
+//         width: 10rem;
+
+//         .select-container {
+//           height: 2.3rem;
+//         }
+//         label {
+//           margin: 0;
+//         }
+//       }
+//     }
+//     .time-limit{
+//       display: flex;
+//       flex-direction: column;
+//     }
+//   }
+// }
