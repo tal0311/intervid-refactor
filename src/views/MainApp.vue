@@ -2,7 +2,7 @@
   <main class="main-app">
     <screen />
     <app-header />
-    <router-view />
+    <RouterView />
     <modal />
   </main>
 </template>

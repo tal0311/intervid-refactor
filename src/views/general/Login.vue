@@ -1,53 +1,35 @@
 <template>
   <div class="login">
     <div class="form-container">
-      <h2>{{getTrans('login-title')}}</h2>
+      <h2>{{ getTrans('login-title') }}</h2>
 
       <form @submit.prevent="onLogin" novalidate>
-        <main-input
-          inputName="email"
-          :placeholder="getTrans('email')"
-          type="email"
-          validate="required|email"
-          v-model.trim="email"
-          :onBlur="validateField"
-          :errors="errors"
-          styled="basic"
-          :disabled="isAuthing"
-          autocomplete="email"
-        />
+        <main-input inputName="email" :placeholder="getTrans('email')" type="email" validate="required|email"
+          v-model.trim="email" :onBlur="validateField" :errors="errors" styled="basic" :disabled="isAuthing"
+          autocomplete="email" />
 
-        <main-input
-          inputName="password"
-          :placeholder="getTrans('password')"
-          type="password"
-          validate="required"
-          v-model.trim="password"
-          :onBlur="validateField"
-          :errors="errors"
-          styled="basic"
-          :disabled="isAuthing"
-          autocomplete="current-password"
-        />
+        <main-input inputName="password" :placeholder="getTrans('password')" type="password" validate="required"
+          v-model.trim="password" :onBlur="validateField" :errors="errors" styled="basic" :disabled="isAuthing"
+          autocomplete="current-password" />
 
-        <span @click="openForgotPassword">{{getTrans('forgot-my-password')}}</span>
+        <span @click="openForgotPassword">{{ getTrans('forgot-my-password') }}</span>
 
         <div class="errors" v-if="authError">
-          {{getTrans(authError)}}
+          {{ getTrans(authError) }}
         </div>
 
-        <button>{{getTrans('login')}}</button>
+        <button>{{ getTrans('login') }}</button>
       </form>
 
-      <div class="seperator">{{getTrans('or')}}</div>
+      <div class="seperator">{{ getTrans('or') }}</div>
 
       <div class="auth-providers">
         <google-btn @google-success="onGoogleLogin" />
       </div>
 
       <div class="sign-up-container">
-        <p>{{getTrans('not-have-an-account-yet')}}</p>
-        <router-link to="/signup">{{getTrans('signup-and-get-10-interviews')}}</router-link>
+        <p>{{ getTrans('not-have-an-account-yet') }}</p>
+        <RouterLink to="/signup">{{ getTrans('signup-and-get-10-interviews') }}</RouterLink>
       </div>
     </div>
   </div>

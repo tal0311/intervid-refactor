@@ -1,152 +1,127 @@
 <template>
   <aside v-if="!isMobile" class="side-nav">
     <section class="nav-links">
-      <router-link class="nav-item" :to="'/backoffice/applicant'" :class="{ active: isActive('applicant') }">
+      <RouterLink class="nav-item" :to="'/backoffice/applicant'" :class="{ active: isActive('applicant') }">
         <div class="nav-item-header">
           <div class="nav-item-name">
-            <i
-              class="material-icons expand"
+            <i class="material-icons expand"
               :class="{ empty: applicantCount === 0, open: isApplicantOpen, hidden: applicantCount === 0 }"
-              @click.prevent="setIsOpen('isApplicantOpen')"
-            >
+              @click.prevent="setIsOpen('isApplicantOpen')">
               expand_less
             </i>
             <i class="material-icons">group</i>
-            <span>{{getTrans('applications')}}</span>
+            <span>{{ getTrans('applications') }}</span>
           </div>
           <span class="nav-item-count" v-if="applicantCount">
-            {{applicantCount}}
+            {{ applicantCount }}
           </span>
         </div>
 
         <div class="expand-list" :class="{ open: applicantCount > 0 && isApplicantOpen }">
-          <router-link
-            :to="`/backoffice/details/${applicant.jobId}/${applicant.id}`"
-            class="expand-item"
-            :class="{ active: isApplicantActive(applicant.id) }"
-            v-for="(applicant, idx) in applicants"
-            :key="idx"
-          >
-            {{applicant.fName + ' ' + applicant.lName}}
-          </router-link>
+          <RouterLink :to="`/backoffice/details/${applicant.jobId}/${applicant.id}`" class="expand-item"
+            :class="{ active: isApplicantActive(applicant.id) }" v-for="(applicant, idx) in applicants" :key="idx">
+            {{ applicant.fName + ' ' + applicant.lName }}
+          </RouterLink>
         </div>
-      </router-link>
+      </RouterLink>
 
-      <router-link class="nav-item" :to="'/backoffice/job'" :class="{ active: isActive('job') }">
+      <RouterLink class="nav-item" :to="'/backoffice/job'" :class="{ active: isActive('job') }">
         <div class="nav-item-header">
           <div class="nav-item-name">
-            <i
-              class="material-icons expand"
+            <i class="material-icons expand"
               :class="{ empty: jobs.length === 0, open: isJobOpen, hidden: jobs.length === 0 }"
-              @click.prevent="setIsOpen('isJobOpen')"
-            >
+              @click.prevent="setIsOpen('isJobOpen')">
               expand_less
             </i>
             <i class="material-icons">work</i>
-            <span>{{getTrans('jobs')}}</span>
+            <span>{{ getTrans('jobs') }}</span>
           </div>
 
           <span class="nav-item-count" v-if="totalJobCount">
-            {{totalJobCount}}
+            {{ totalJobCount }}
           </span>
         </div>
 
         <div class="expand-list" :class="{ open: jobs.length > 0 && isJobOpen }">
-          <router-link
-            :to="`/backoffice/applicant/${job._id}`"
-            class="expand-item"
-            :class="{ active: isJobActive(job._id) }"
-            v-for="(job, idx) in jobs"
-            :key="idx"
-          >
-            {{job.info.title}}
-          </router-link>
+          <RouterLink :to="`/backoffice/applicant/${job._id}`" class="expand-item"
+            :class="{ active: isJobActive(job._id) }" v-for="(job, idx) in jobs" :key="idx">
+            {{ job.info.title }}
+          </RouterLink>
         </div>
-      </router-link>
+      </RouterLink>
 
-      <router-link
-        v-if="verifyPerm(advancedPermsMap.TEMPLATES)"
-        :to="'/backoffice/template'"
-        class="nav-item"
-        :class="{ active: isActive('template') }"
-      >
+      <RouterLink v-if="verifyPerm(advancedPermsMap.TEMPLATES)" :to="'/backoffice/template'" class="nav-item"
+        :class="{ active: isActive('template') }">
         <div class="nav-item-header" @click="setIsOpen(null)">
           <div class="nav-item-name">
             <i class="material-icons expand"></i>
             <i class="material-icons">assignment</i>
-            <span>{{getTrans('templates')}}</span>
+            <span>{{ getTrans('templates') }}</span>
           </div>
         </div>
-      </router-link>
+      </RouterLink>
 
-      <router-link class="nav-item" :to="'/backoffice/archive/applicant'">
+      <RouterLink class="nav-item" :to="'/backoffice/archive/applicant'">
         <div class="nav-item-header" @click="setIsOpen('isArchiveOpen')">
           <div class="nav-item-name">
             <i class="material-icons expand" :class="{ open: isArchiveOpen }">expand_less</i>
             <i class="material-icons">inventory</i>
-            <span>{{getTrans('archive')}}</span>
+            <span>{{ getTrans('archive') }}</span>
           </div>
         </div>
 
         <div class="expand-list" :class="{ open: isArchiveOpen }">
-          <span
-            class="expand-item"
-            :class="{ active: isArchiveActive('applicant') }"
-            @click.prevent="onGoToArchive('applicant')"
-          >
-            {{getTrans('applications')}}
+          <span class="expand-item" :class="{ active: isArchiveActive('applicant') }"
+            @click.prevent="onGoToArchive('applicant')">
+            {{ getTrans('applications') }}
           </span>
           <span class="expand-item" :class="{ active: isArchiveActive('job') }" @click.prevent="onGoToArchive('job')">
-            {{getTrans('jobs')}}
+            {{ getTrans('jobs') }}
           </span>
-          <span
-            v-if="verifyPerm(advancedPermsMap.TEMPLATES)"
-            class="expand-item"
-            :class="{ active: isArchiveActive('template') }"
-            @click.prevent="onGoToArchive('template')"
-          >
-            {{getTrans('templates')}}
+          <span v-if="verifyPerm(advancedPermsMap.TEMPLATES)" class="expand-item"
+            :class="{ active: isArchiveActive('template') }" @click.prevent="onGoToArchive('template')">
+            {{ getTrans('templates') }}
           </span>
         </div>
-      </router-link>
+      </RouterLink>
     </section>
 
     <section v-if="isAdmin" class="admin-links">
-      <router-link class="nav-item" to="/backoffice/admin/account" :class="{ active: isActive('account') }">
+      <RouterLink class="nav-item" to="/backoffice/admin/account" :class="{ active: isActive('account') }">
         <div class="nav-item-header">
           <div class="nav-item-name" @click="setIsOpen('isAccountOpen')">
             <i class="expand"></i>
             <i class="material-icons">group</i>
-            <span>{{getTrans('accounts')}}</span>
+            <span>{{ getTrans('accounts') }}</span>
           </div>
         </div>
-      </router-link>
+      </RouterLink>
 
-      <router-link class="nav-item" to="/backoffice/admin/record" :class="{ active: isActive('record') }">
+      <RouterLink class="nav-item" to="/backoffice/admin/record" :class="{ active: isActive('record') }">
         <div class="nav-item-header">
           <div class="nav-item-name" @click="setIsOpen('isRecordOpen')">
             <i class="expand"></i>
             <i class="material-icons">admin_panel_settings</i>
-            <span>{{getTrans('logs')}}</span>
+            <span>{{ getTrans('logs') }}</span>
           </div>
         </div>
-      </router-link>
+      </RouterLink>
 
-      <router-link class="nav-item" to="/backoffice/admin/activity" :class="{ active: isActive('activity') }">
+      <RouterLink class="nav-item" to="/backoffice/admin/activity" :class="{ active: isActive('activity') }">
         <div class="nav-item-header">
           <div class="nav-item-name" @click="setIsOpen('isActivityOpen')">
             <i class="expand"></i>
             <i class="material-icons">analytics</i>
-            <span>{{getTrans('activity')}}</span>
+            <span>{{ getTrans('activity') }}</span>
           </div>
         </div>
-      </router-link>
+      </RouterLink>
     </section>
 
-    <router-link class="create-btn" to="/create">
+    <RouterLink class="create-btn" to="/create">
       <i class="material-icons">add</i>
-      <span>{{getTrans('create-new-job')}}</span>
-    </router-link>
+      <span>{{ getTrans('create-new-job') }}</span>
+    </RouterLink>
   </aside>
 </template>
 
