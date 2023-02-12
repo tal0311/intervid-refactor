@@ -2,11 +2,11 @@
   <section class="backoffice">
     <div class="backoffice-content" :class="{ 'no-header': isFullscreenLayout, 'no-overflow-y': isCardView }">
       <div class="mobile-toggle-wrapper" v-if="isMobileToggleShown">
-        <router-link class="mobile-create-btn" to="/create">
+        <RouterLink class="mobile-create-btn" to="/create">
           <i class="material-icons">add</i>
-        </router-link>
+        </RouterLink>
       </div>
-      <router-view></router-view>
+      <RouterView />
     </div>
   </section>
 </template>

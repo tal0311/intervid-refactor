@@ -10,8 +10,8 @@
         </div>
         <div class="btn-container">
           <div class="job-info">
-            <p>{{job.company.name}}</p>
-            <p>{{jobTitle}}</p>
+            <p>{{ job.company.name }}</p>
+            <p>{{ jobTitle }}</p>
           </div>
           <img v-if="!isFirstPage" loading="lazy" :src="logoUrl" alt="company-logo" />
         </div>
@@ -21,7 +21,7 @@
     <interview-error v-if="interviewErr" :interviewErr="interviewErr" />
 
     <div v-else-if="!!job" class="interview-app-content">
-      <router-view @handle-quit="handleQuit" />
+      <RouterView @handle-quit="handleQuit" />
     </div>
     <modal />
   </main>

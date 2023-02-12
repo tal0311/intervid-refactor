@@ -1,6 +1,6 @@
 <template>
   <section class="archive-overview overview">
-    <router-view></router-view>
+    <RouterView />
   </section>
 </template>
 

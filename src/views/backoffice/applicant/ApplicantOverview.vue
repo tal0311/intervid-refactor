@@ -1,66 +1,40 @@
 <template>
   <section class="overview applicant-overview">
     <h2 class="overview-title">
-      <router-link v-if="job" class="material-icons" to="/backoffice/job">chevron_left</router-link>
-      {{overviewTitle}}
+      <RouterLink v-if="job" class="material-icons" to="/backoffice/job">chevron_left</RouterLink>
+      {{ overviewTitle }}
     </h2>
     <div class="overview-header">
       <div class="search-filter-container">
         <search-box :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-applicants" />
-        <filter-box
-          @set-filter="onSetFilter"
-          @reset-filters="resetFilters"
-          :filterBy="filterBy"
-          :isApplicantOverview="true"
-          :filteredApplicantCount="filteredApplicantCount"
-        />
+        <filter-box @set-filter="onSetFilter" @reset-filters="resetFilters" :filterBy="filterBy"
+          :isApplicantOverview="true" :filteredApplicantCount="filteredApplicantCount" />
       </div>
       <div class="overview-actions">
-        <list-actions
-          :selectedItemCount="selectedItems && selectedItems.length"
-          :isLockedItemSelected="isLockedItemSelected"
-          :filterBy="filterBy"
-          :itemCount="filteredApplicantCount"
-          :currPage="filterBy.currPage || 0"
-          :itemsPerPage="filterBy.itemsPerPage"
-          :pageCount="pageCount || 0"
-          :isRead="isAllSelectedRead"
-          @archive="onArchiveSelected"
-          @remove="onRemoveSelected"
-          @change-page="onChangePage"
-          @toggle-read="toggleIsRead"
-        />
+        <list-actions :selectedItemCount="selectedItems && selectedItems.length"
+          :isLockedItemSelected="isLockedItemSelected" :filterBy="filterBy" :itemCount="filteredApplicantCount"
+          :currPage="filterBy.currPage || 0" :itemsPerPage="filterBy.itemsPerPage" :pageCount="pageCount || 0"
+          :isRead="isAllSelectedRead" @archive="onArchiveSelected" @remove="onRemoveSelected"
+          @change-page="onChangePage" @toggle-read="toggleIsRead" />
         <share-job v-if="job && job.applicantSummary.applicantCount" :job="job" />
       </div>
     </div>
 
     <div class="filter-count" :class="{ shown: tagList.length || filterBy.txt }">
-      <span>{{tagList.length || filterBy.txt ? filterCount : ''}}</span>
+      <span>{{ tagList.length || filterBy.txt ? filterCount : '' }}</span>
       <div class="tag-list">
         <div class="tag-preview" v-for="tag in tagList" :key="tag.name">
-          <span>{{tag.name}}</span>
+          <span>{{ tag.name }}</span>
           <i class="material-icons" @click="onRemoveTag(tag)"> close </i>
         </div>
       </div>
     </div>
 
-    <table-list
-      :items="applicants"
-      :selectedItemCount="selectedItems && selectedItems.length"
-      :totalItemCount="applicants && applicants.length"
-      :maxItemCount="applicantCount"
-      :filteredItemCount="filteredApplicantCount"
-      :itemsPerPage="filterBy.itemsPerPage"
-      :sort="sort"
-      :filterBy="filterBy"
-      :isFetching="isFetching"
-      :shouldGather="shouldGather"
-      :isSelected="isSelected"
-      @select-all="onSelectAll"
-      @sort="onSort"
-      @select="onSelectItem"
-      @load-next-items="onLoadNextApplicants"
-    />
+    <table-list :items="applicants" :selectedItemCount="selectedItems && selectedItems.length"
+      :totalItemCount="applicants && applicants.length" :maxItemCount="applicantCount"
+      :filteredItemCount="filteredApplicantCount" :itemsPerPage="filterBy.itemsPerPage" :sort="sort"
+      :filterBy="filterBy" :isFetching="isFetching" :shouldGather="shouldGather" :isSelected="isSelected"
+      @select-all="onSelectAll" @sort="onSort" @select="onSelectItem" @load-next-items="onLoadNextApplicants" />
   </section>
 </template>
 

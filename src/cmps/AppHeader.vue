@@ -2,55 +2,46 @@
   <header class="main-header">
     <div class="header-content" :class="isSmallContainer ? 'narrow-container' : 'container'">
       <div class="logo-container">
-        <router-link class="logo" :to="loggedInUser ? '/backoffice/applicant' : '/'">
+        <RouterLink class="logo" :to="loggedInUser ? '/backoffice/applicant' : '/'">
           <img loading="lazy" :src="logoURL" alt="logo" />
-        </router-link>
+        </RouterLink>
         <lng-menu v-if="!isJobEdit" />
       </div>
 
       <div class="btn-container">
         <div v-if="isJobEdit && jobToEdit" class="job-actions-container">
           <p v-if="!isFirstChange && !jobEditErrors.length" class="saving">
-            {{isSaving ? getTrans('saving') : getTrans('changes-saved')}}
+            {{ isSaving? getTrans('saving'): getTrans('changes-saved')}}
           </p>
           <p v-if="jobEditErrors.length" class="saving error">
-            {{getTrans('required-fields-missing')}}
+            {{ getTrans('required-fields-missing') }}
           </p>
           <i v-if="jobToEdit._id" class="material-icons" @click="openPreview">visibility</i>
-          <button
-            class="send-btn"
-            :class="[{disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length)}, {selected: this.modal.isDarkScreen}]"
-            @click="onShare"
-          >
-            {{getTrans('send')}}
+          <button class="send-btn"
+            :class="[{ disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length) }, { selected: this.modal.isDarkScreen }]"
+            @click="onShare">
+            {{ getTrans('send') }}
           </button>
           <share-btns :job="jobToEdit" v-if="modal.type === 'share'" />
         </div>
 
         <div class="backoffice-nav-container" v-if="!!loggedInUser">
-          <router-link
-            to="/backoffice/applicant"
-            class="backoffice-nav"
-            :class="{selected: currRouteName === 'ApplicantOverview'}"
-          >
+          <RouterLink to="/backoffice/applicant" class="backoffice-nav"
+            :class="{ selected: currRouteName === 'ApplicantOverview' }">
             <i class="material-icons">group</i>
-            <span>{{getTrans('applications')}}</span>
-          </router-link>
+            <span>{{ getTrans('applications') }}</span>
+          </RouterLink>
 
-          <router-link to="/backoffice/job" class="backoffice-nav" :class="{selected: currRouteName === 'JobOverview'}">
+          <RouterLink to="/backoffice/job" class="backoffice-nav" :class="{ selected: currRouteName === 'JobOverview' }">
             <i class="material-icons">work</i>
-            <span>{{getTrans('jobs')}}</span>
-          </router-link>
+            <span>{{ getTrans('jobs') }}</span>
+          </RouterLink>
 
-          <router-link
-            v-if="verifyPerm(advancedPermsMap.TEMPLATES)"
-            to="/backoffice/template"
-            class="backoffice-nav"
-            :class="{selected: currRouteName === 'TemplateOverview'}"
-          >
+          <RouterLink v-if="verifyPerm(advancedPermsMap.TEMPLATES)" to="/backoffice/template" class="backoffice-nav"
+            :class="{ selected: currRouteName === 'TemplateOverview' }">
             <i class="material-icons">assignment</i>
-            <span>{{getTrans('templates')}}</span>
-          </router-link>
+            <span>{{ getTrans('templates') }}</span>
+          </RouterLink>
         </div>
 
         <user-menu />
@@ -60,8 +51,8 @@
 </template>
 
 <script>
-import {userService} from '@/services/userService'
-import {advancedPermsMap} from '@/services/constData'
+import { userService } from '@/services/userService'
+import { advancedPermsMap } from '@/services/constData'
 
 import UserMenu from './common/UserMenu.vue'
 import ShareBtns from './JobEdit/ShareBtns.vue'
@@ -147,7 +138,7 @@ export default {
     },
   },
 
-  components: {UserMenu, ShareBtns, LngMenu},
+  components: { UserMenu, ShareBtns, LngMenu },
 }
 </script>
 ,
