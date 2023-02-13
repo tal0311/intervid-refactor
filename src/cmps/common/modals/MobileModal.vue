@@ -1,51 +1,25 @@
 <template>
-  <section
-    v-touch:moving="onDrag"
-    ref="modal"
-    class="mobile-modal"
-    :style="{ transform: `translateY(${dragPercent + '%'}` }"
-  >
+  <section v-touch:moving="onDrag" ref="modal" class="mobile-modal"
+    :style="{ transform: `translateY(${dragPercent + '%'}` }">
     <div class="modal-header" v-touch:start="onDown" v-touch:end="onUp">
-      <h4>{{getTrans(cmpName)}}</h4>
+      <h4>{{ getTrans(cmpName) }}</h4>
     </div>
 
-    <component
-      :is="cmpToShow"
-      :filterBy="filterBy"
-      :job="job"
-      :template="template"
-      :applicantFullName="applicantFullName"
-      :quest="quest"
-      :isRemoveShown="isRemoveShown"
-      :expectedEntityCount="expectedEntityCount"
-      :filteredJobCount="filteredJobCount"
-      :entity="entity"
-      :updatedFilterBy="updatedFilterBy"
-      :isOneTry="isOneTry"
-      :selectedAnsRule="selectedAnsRule"
-      :selectedTimelimit="selectedTimelimit"
-      @on-close="closeModal"
-      @edit-filter="(key, term) => $emit('edit-filter', key, term)"
-      @set-filter="onSetFilter"
-      @reset-filter="$emit('reset-filter')"
-      @set-status="$emit('set-status', $event)"
-      @select-status="$emit('select-status', $event)"
-      @emit-action="$emit('emit-action', $event)"
-      @on-archive-applicant="$emit('on-archive-applicant')"
-      @on-edit-applicant="$emit('on-edit-applicant')"
-      @on-edit-template="$emit('on-edit-template')"
-      @on-remove-quest="$emit('on-remove-quest')"
-      @on-remove-note-event="$emit('on-remove-note-event')"
-      @on-cv-upload="$emit('on-cv-upload', $event)"
-      @on-clone-job="$emit('on-clone-job')"
-      @on-open-preview="$emit('on-open-preview')"
-      @on-share="$emit('on-share')"
-      @on-toggle-archive="$emit('on-toggle-archive')"
-      @on-copy-url="$emit('on-copy-url')"
-      @on-go-to-page="$emit('on-go-to-page', $event)"
-      @set-ans-rule="$emit('set-ans-rule', $event)"
-      @set-timelimit="$emit('set-timelimit', $event)"
-    />
+    <component :is="cmpToShow" :filterBy="filterBy" :job="job" :template="template"
+      :applicantFullName="applicantFullName" :quest="quest" :isRemoveShown="isRemoveShown"
+      :expectedEntityCount="expectedEntityCount" :filteredJobCount="filteredJobCount" :entity="entity"
+      :updatedFilterBy="updatedFilterBy" :isOneTry="isOneTry" :selectedAnsRule="selectedAnsRule"
+      :selectedTimelimit="selectedTimelimit" @on-close="closeModal"
+      @edit-filter="(key, term) => $emit('edit-filter', key, term)" @set-filter="onSetFilter"
+      @reset-filter="$emit('reset-filter')" @set-status="$emit('set-status', $event)"
+      @select-status="$emit('select-status', $event)" @emit-action="$emit('emit-action', $event)"
+      @on-archive-applicant="$emit('on-archive-applicant')" @on-edit-applicant="$emit('on-edit-applicant')"
+      @on-edit-template="$emit('on-edit-template')" @on-remove-quest="$emit('on-remove-quest')"
+      @on-remove-note-event="$emit('on-remove-note-event')" @on-cv-upload="$emit('on-cv-upload', $event)"
+      @on-clone-job="$emit('on-clone-job')" @on-open-preview="$emit('on-open-preview')" @on-share="$emit('on-share')"
+      @on-toggle-archive="$emit('on-toggle-archive')" @on-copy-url="$emit('on-copy-url')"
+      @on-go-to-page="$emit('on-go-to-page', $event)" @set-ans-rule="$emit('set-ans-rule', $event)"
+      @set-timelimit="$emit('set-timelimit', $event)" />
   </section>
 </template>
 

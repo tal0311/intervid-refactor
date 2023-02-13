@@ -1,14 +1,7 @@
 <template>
-  <div class="search-box" @click="setFocus(true)" v-clickaway="() => setFocus(false)" :class="{ focused: isFocus }">
-    <input
-      type="search"
-      v-model.trim="txt"
-      :autofocus="autofocus"
-      @focus="isFocus = true"
-      :placeholder="getTrans(placeholder)"
-      autocomplete="off"
-      results="5"
-    />
+  <div class="search-box" @click="setFocus(true)" v-clickOutside="() => setFocus(false)" :class="{ focused: isFocus }">
+    <input type="search" v-model.trim="txt" :autofocus="autofocus" @focus="isFocus = true"
+      :placeholder="getTrans(placeholder)" autocomplete="off" results="5" />
     <i class="material-icons">search</i>
   </div>
 </template>

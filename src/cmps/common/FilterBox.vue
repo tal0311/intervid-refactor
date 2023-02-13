@@ -11,7 +11,7 @@
         {{ getTrans('filter-btn') }}
       </button>
 
-      <div class="filter-modal" :class="{ open: isFilterModalOpen }" v-clickaway="onResetFilter">
+      <div class="filter-modal" :class="{ open: isFilterModalOpen }" v-clickOutside="onResetFilter">
         <div v-if="isApplicantOverview" class="filter-container status-filter">
           <h3 class="filter-title">{{ getTrans('by-status') }}</h3>
           <div class="filter-list">
