@@ -56,7 +56,7 @@ function _createLog(level, line) {
     message: line,
     meta: {
       source: "frontend",
-      stack: new Error().stack.substr(10),
+      stack: new Error().stack.substring(10),
       referrer: window.location.href,
       enviroment: process.env.VUE_APP_ENV,
       browser: store.getters["app/browser"].name,
