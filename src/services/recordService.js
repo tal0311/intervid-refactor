@@ -15,9 +15,8 @@ function query(filterBy, sort) {
 
   return httpService.customRequest(
     "get",
-    `record?limit=${itemsPerPage}&skip=${
-      currPage * itemsPerPage
-    }&${filterQuery.substr(1)}`,
+    `record?limit=${itemsPerPage}&skip=${currPage * itemsPerPage
+    }&${filterQuery.substring(1)}`,
     null,
     { cancelToken: token }
   );
