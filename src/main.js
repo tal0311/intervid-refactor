@@ -1,9 +1,9 @@
 import { createApp } from "vue";
-import Vue from "vue";
+
 import Hotjar from "vue-hotjar";
-import VueAnalytics from "vue-analytics";
+// import VueAnalytics from "vue-analytics";
 import VueMeta from "vue-meta";
-import { directive as onclickOutside } from "vue-clickOutside2";
+// import { directive as onclickOutside } from "vue-clickOutside2";
 import { ObserveVisibility } from "vue-observe-visibility";
 import Vue3TouchEvents from "vue3-touch-events";
 
