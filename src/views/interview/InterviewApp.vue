@@ -3,11 +3,9 @@
     <header v-if="!!job">
       <div class="header-content container">
         <div class="logo-container">
-          <img
-            loading="lazy"
+          <img loading="lazy"
             src="https://res.cloudinary.com/intervid/image/upload/v1661181884/Frontend/logo-color_kftsor.png"
-            alt="logo"
-          />
+            alt="logo" />
           <lng-menu />
         </div>
         <div class="btn-container">
@@ -15,12 +13,7 @@
             <p>{{ job.company.name }}</p>
             <p>{{ jobTitle }}</p>
           </div>
-          <img
-            v-if="!isFirstPage"
-            loading="lazy"
-            :src="logoUrl"
-            alt="company-logo"
-          />
+          <img v-if="!isFirstPage" loading="lazy" :src="logoUrl" alt="company-logo" />
         </div>
       </div>
     </header>
@@ -153,7 +146,7 @@ export default {
       if (os === "iOS") {
         const agent = window.navigator.userAgent;
         const start = agent.indexOf("OS ");
-        const iosVersion = Number(agent.substr(start + 3, 3).replace("_", "."));
+        const iosVersion = Number(agent.substring(start + 3, 3).replace("_", "."));
         const supportedIosVersion = supportedBrowsersMap[name];
         return iosVersion >= supportedIosVersion;
       }
@@ -216,10 +209,9 @@ export default {
       const { applicantId } = this.$route.params;
       await this.$store.dispatch("applicant/loadApplicant", { applicantId });
       loggerService.info(
-        `[InterviewApp] [loadApplicant] ${
-          applicantId
-            ? "Applicant loaded - " + applicantId
-            : "New applicant created"
+        `[InterviewApp] [loadApplicant] ${applicantId
+          ? "Applicant loaded - " + applicantId
+          : "New applicant created"
         }`
       );
     },
@@ -275,7 +267,7 @@ export default {
       this.failedFiles.push(fileId);
       loggerService.info(
         "[InterviewApp] [onUploadError] failed to upload file - retryCount: " +
-          retryCount,
+        retryCount,
         {
           file,
           err,
@@ -326,8 +318,7 @@ export default {
       const ans = { ...this.applicant.answerMap[questId] };
       ans[isScreen ? "screenKey" : "faceKey"] = fileKey;
       loggerService.info(
-        `[InterviewApp] [saveAsset] Saving ${
-          isScreen ? "screen" : "face"
+        `[InterviewApp] [saveAsset] Saving ${isScreen ? "screen" : "face"
         } video key: ${fileKey} for questId: ${questId}`
       );
       const applicant = {
