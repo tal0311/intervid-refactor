@@ -1,10 +1,10 @@
 <template>
   <div class="share-btns-container">
-    <p>{{getTrans('invitation-msg')}}</p>
+    <p>{{ getTrans("invitation-msg") }}</p>
     <div class="invitation-url-container">
-      <span>{{invitationUrl}}</span>
+      <span>{{ invitationUrl }}</span>
       <button class="copy" @click="copyLink">
-        {{getTrans('copy-link')}}
+        {{ getTrans("copy-link") }}
       </button>
     </div>
     <div class="media-btns-container">
@@ -12,7 +12,7 @@
         <button @click="onCopyEmbed">
           <i class="material-icons">code</i>
         </button>
-        <span>{{getTrans('embed')}}</span>
+        <span>{{ getTrans("embed") }}</span>
       </div>
 
       <div class="media-wrapper">
@@ -38,7 +38,7 @@
               /></svg
           ></i>
         </share-network>
-        <span>{{getTrans('whatsapp')}}</span>
+        <span>{{ getTrans("whatsapp") }}</span>
       </div>
 
       <div class="media-wrapper">
@@ -51,13 +51,19 @@
           quote="We're seeking for you! Click to start the interview."
           hashtags="hiring"
         >
-          <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26px" height="26px">
+          <svg
+            fill="#fff"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="26px"
+            height="26px"
+          >
             <path
               d="M16.403,9H14V7c0-1.032,0.084-1.682,1.563-1.682h0.868c0.552,0,1-0.448,1-1V3.064c0-0.523-0.401-0.97-0.923-1.005 C15.904,2.018,15.299,1.999,14.693,2C11.98,2,10,3.657,10,6.699V9H8c-0.552,0-1,0.448-1,1v2c0,0.552,0.448,1,1,1l2-0.001V21 c0,0.552,0.448,1,1,1h2c0.552,0,1-0.448,1-1v-8.003l2.174-0.001c0.508,0,0.935-0.381,0.993-0.886l0.229-1.996 C17.465,9.521,17.001,9,16.403,9z"
             />
           </svg>
         </share-network>
-        <span>{{getTrans('facebook')}}</span>
+        <span>{{ getTrans("facebook") }}</span>
       </div>
 
       <div class="media-wrapper">
@@ -71,54 +77,57 @@
         >
           <i class="material-icons">mail_outline</i>
         </share-network>
-        <span>{{getTrans('email')}}</span>
+        <span>{{ getTrans("email") }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { msgService } from '@/services/msgService'
+import { msgService } from "@/services/msgService";
 
-import { ShareNetwork } from 'vue-social-sharing'
-import config from '@/config'
+import { ShareNetwork } from "vue-social-sharing";
+import config from "@/config";
 
 export default {
-  props: ['job', 'data'],
+  props: ["job", "data"],
 
   computed: {
     jobToshow() {
-      return this.job || this.data.job
+      return this.job || this.data.job;
     },
 
     invitationUrl() {
-      return `${config.baseUrl}interview/${this.jobToshow._id}`
+      return `${config.baseUrl}interview/${this.jobToshow._id}`;
     },
 
     companyName() {
-      const name = this.jobToshow.company.name
-      return name.charAt(0).toUpperCase() + name.slice(1)
+      const name = this.jobToshow.company.name;
+      return name.charAt(0).toUpperCase() + name.slice(1);
     },
 
     jobTitle() {
-      return this.jobToshow.info.title
+      return this.jobToshow.info.title;
     },
 
     lang() {
-      return this.$store.getters['app/lang']
+      return this.$store.getters["app/lang"];
     },
   },
 
   methods: {
     closeModal() {
-      this.$store.dispatch('app/toggleModal', { type: 'share', isDarkScreen: false })
+      this.$store.dispatch("app/toggleModal", {
+        type: "share",
+        isDarkScreen: false,
+      });
     },
 
     async copyLink() {
-      await navigator.clipboard.writeText(this.invitationUrl)
-      const msg = msgService.copy('link')
-      this.$store.commit('app/setAlertData', { alertData: msg })
-      this.closeModal()
+      await navigator.clipboard.writeText(this.invitationUrl);
+      const msg = msgService.copy("link");
+      this.$store.commit("app/setAlertData", { alertData: msg });
+      this.closeModal();
     },
 
     // Share URLs
@@ -131,14 +140,14 @@ export default {
 
     async onCopyEmbed() {
       await navigator.clipboard.writeText(
-        `<iframe src="${config.baseUrl}embed/${this.jobToshow._id}?lng=${this.lang}" frameborder="0"></iframe>`,
-      )
-      const msg = msgService.copy('link')
-      this.$store.commit('app/setAlertData', { alertData: msg })
-      this.closeModal()
+        `<iframe src="${config.baseUrl}embed/${this.jobToshow._id}?lng=${this.lang}" frameborder="0"></iframe>`
+      );
+      const msg = msgService.copy("link");
+      this.$store.commit("app/setAlertData", { alertData: msg });
+      this.closeModal();
     },
   },
 
   components: { ShareNetwork },
-}
+};
 </script>

@@ -1,13 +1,19 @@
 <template>
   <div class="video-loader">
-    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="100"
+      height="100"
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <circle cx="50" cy="50" r="45" />
     </svg>
   </div>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style lang="scss" scoped>

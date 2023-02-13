@@ -1,9 +1,17 @@
 <template>
-  <div :class="['cv-menu',{selected : isOpen && !isMobile }]">
-    <button class="menu-btn" :class="cvInfo.class" @click="cvInfo.method" ref="elDragDrop"></button>
+  <div :class="['cv-menu', { selected: isOpen && !isMobile }]">
+    <button
+      class="menu-btn"
+      :class="cvInfo.class"
+      @click="cvInfo.method"
+      ref="elDragDrop"
+    ></button>
 
     <div class="menu-modal" :class="{ open: isOpen && !isMobile }">
-      <cv-upload @uploaded="$emit('on-cv-uploaded', $event)" :applicantCvName="applicantCvName" />
+      <cv-upload
+        @uploaded="$emit('on-cv-uploaded', $event)"
+        :applicantCvName="applicantCvName"
+      />
     </div>
 
     <mobile-modal
@@ -17,45 +25,45 @@
 </template>
 
 <script>
-import CvUpload from '@/cmps/interview/CvUpload.vue'
-import MobileModal from '@/cmps/common/modals/MobileModal.vue'
+import CvUpload from "@/cmps/interview/CvUpload.vue";
+import MobileModal from "@/cmps/common/modals/MobileModal.vue";
 
 export default {
-  props: ['applicantCvName', 'applicant'],
+  props: ["applicantCvName", "applicant"],
 
   computed: {
     isMobile() {
-      return this.$store.getters['app/isMobile']
+      return this.$store.getters["app/isMobile"];
     },
 
     cvInfo() {
       return this.applicant.info.cvUrl
-        ? { class: 'view-cv', method: this.onDownloadCv }
-        : { class: 'add-cv', method: this.toggleModal }
+        ? { class: "view-cv", method: this.onDownloadCv }
+        : { class: "add-cv", method: this.toggleModal };
     },
 
     modal() {
-      return this.$store.getters['app/modal']
+      return this.$store.getters["app/modal"];
     },
 
     isOpen() {
-      return this.modal.type === 'upload-cv'
+      return this.modal.type === "upload-cv";
     },
   },
   methods: {
     toggleModal() {
-      this.$store.dispatch('app/toggleModal', { type: 'upload-cv' })
+      this.$store.dispatch("app/toggleModal", { type: "upload-cv" });
     },
 
     async onDownloadCv() {
-      const link = document.createElement('a')
-      link.download = 'my-file.docx'
-      link.href = this.applicant.info.cvUrl
-      link.target = '_blank'
-      link.click()
+      const link = document.createElement("a");
+      link.download = "my-file.docx";
+      link.href = this.applicant.info.cvUrl;
+      link.target = "_blank";
+      link.click();
     },
   },
 
   components: { CvUpload, MobileModal },
-}
+};
 </script>

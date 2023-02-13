@@ -142,47 +142,87 @@
         />
       </svg>
     </div> -->
- 
- <div class="loader">
-  <div class="left-wheel-wrapper">
-    <svg class="wheel" width="109" height="109" viewBox="0 0 109 109" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle class="main" cx="54.0287" cy="54.2471" r="52.0287" stroke="white" stroke-width="4" />
-      <circle cx="54.3967" cy="53.8795" r="7.35085" fill="#fff" />
-      <circle cx="54.0288" cy="21.9034" r="10.6587" fill="#fff" />
-      <circle cx="81.2261" cy="37.3401" r="10.6587" fill="#fff" />
-      <circle cx="81.2261" cy="67.4786" r="10.6587" fill="#fff" />
-      <circle cx="54.0288" cy="85.8558" r="10.6587" fill="#fff" />
-      <circle cx="26.8296" cy="67.4786" r="10.6587" fill="#fff" />
-      <circle cx="26.8296" cy="37.3401" r="10.6587" fill="#fff" />
-    </svg>
-  </div>
 
-  <div class="right-wheel-wrapper">
-    <svg class="wheel" width="134" height="134" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle class="main" cx="67.259" cy="67.2586" r="64.7414" stroke="white" stroke-width="4" />
-      <circle cx="67.7133" cy="66.8046" r="9.08046" fill="#fff" />
-      <circle cx="67.2585" cy="27.3046" r="13.1667" fill="#fff" />
-      <circle cx="100.856" cy="46.3736" r="13.1667" fill="#fff" />
-      <circle cx="100.856" cy="83.6034" r="13.1667" fill="#fff" />
-      <circle cx="67.2585" cy="106.305" r="13.1667" fill="#fff" />
-      <circle cx="33.6608" cy="83.6034" r="13.1667" fill="#fff" />
-      <circle cx="33.6608" cy="46.3736" r="13.1667" fill="#fff" />
-    </svg>
-  </div>
+    <div class="loader">
+      <div class="left-wheel-wrapper">
+        <svg
+          class="wheel"
+          width="109"
+          height="109"
+          viewBox="0 0 109 109"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            class="main"
+            cx="54.0287"
+            cy="54.2471"
+            r="52.0287"
+            stroke="white"
+            stroke-width="4"
+          />
+          <circle cx="54.3967" cy="53.8795" r="7.35085" fill="#fff" />
+          <circle cx="54.0288" cy="21.9034" r="10.6587" fill="#fff" />
+          <circle cx="81.2261" cy="37.3401" r="10.6587" fill="#fff" />
+          <circle cx="81.2261" cy="67.4786" r="10.6587" fill="#fff" />
+          <circle cx="54.0288" cy="85.8558" r="10.6587" fill="#fff" />
+          <circle cx="26.8296" cy="67.4786" r="10.6587" fill="#fff" />
+          <circle cx="26.8296" cy="37.3401" r="10.6587" fill="#fff" />
+        </svg>
+      </div>
 
-  <svg class="camera" width="260" height="143" viewBox="0 0 260 143" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect class="camera-body" width="200" height="143" rx="10" />
-    <path class="play" d="M125.056 67.0279C128.741 68.8705 128.741 74.1295 125.056 75.9721L86.2361 95.382C82.9116 97.0442 79 94.6267 79 90.9098L79 52.0902C79 48.3733 82.9116 45.9558 86.2361 47.618L125.056 67.0279Z" fill="white" />
-    <path class="camera-lens" d="M197 46.4445C197 44.523 198.101 42.7715 199.833 41.9386L252.833 16.4472C256.152 14.8506 260 17.2697 260 20.9531L260 121.194C260 124.841 256.222 127.261 252.909 125.736L199.909 101.339C198.136 100.523 197 98.7494 197 96.7973L197 46.4445Z" />
-  </svg>
+      <div class="right-wheel-wrapper">
+        <svg
+          class="wheel"
+          width="134"
+          height="134"
+          viewBox="0 0 134 134"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            class="main"
+            cx="67.259"
+            cy="67.2586"
+            r="64.7414"
+            stroke="white"
+            stroke-width="4"
+          />
+          <circle cx="67.7133" cy="66.8046" r="9.08046" fill="#fff" />
+          <circle cx="67.2585" cy="27.3046" r="13.1667" fill="#fff" />
+          <circle cx="100.856" cy="46.3736" r="13.1667" fill="#fff" />
+          <circle cx="100.856" cy="83.6034" r="13.1667" fill="#fff" />
+          <circle cx="67.2585" cy="106.305" r="13.1667" fill="#fff" />
+          <circle cx="33.6608" cy="83.6034" r="13.1667" fill="#fff" />
+          <circle cx="33.6608" cy="46.3736" r="13.1667" fill="#fff" />
+        </svg>
+      </div>
 
-</div>
-
+      <svg
+        class="camera"
+        width="260"
+        height="143"
+        viewBox="0 0 260 143"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect class="camera-body" width="200" height="143" rx="10" />
+        <path
+          class="play"
+          d="M125.056 67.0279C128.741 68.8705 128.741 74.1295 125.056 75.9721L86.2361 95.382C82.9116 97.0442 79 94.6267 79 90.9098L79 52.0902C79 48.3733 82.9116 45.9558 86.2361 47.618L125.056 67.0279Z"
+          fill="white"
+        />
+        <path
+          class="camera-lens"
+          d="M197 46.4445C197 44.523 198.101 42.7715 199.833 41.9386L252.833 16.4472C256.152 14.8506 260 17.2697 260 20.9531L260 121.194C260 124.841 256.222 127.261 252.909 125.736L199.909 101.339C198.136 100.523 197 98.7494 197 96.7973L197 46.4445Z"
+        />
+      </svg>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['isLocal'],
-}
+  props: ["isLocal"],
+};
 </script>

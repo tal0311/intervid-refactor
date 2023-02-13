@@ -37,10 +37,14 @@
       spellcheck="false"
     />
 
-    <label v-if="label" :for="inputName">{{label}}</label>
+    <label v-if="label" :for="inputName">{{ label }}</label>
 
-    <span v-if="$attrs.type === 'password'" class="material-icons eye" @click="togglePassword">
-      {{isPasswordShown ? 'visibility_off' : 'visibility'}}
+    <span
+      v-if="$attrs.type === 'password'"
+      class="material-icons eye"
+      @click="togglePassword"
+    >
+      {{ isPasswordShown ? "visibility_off" : "visibility" }}
     </span>
 
     <validation-msg :error="error" />
@@ -48,39 +52,49 @@
 </template>
 
 <script>
-import ValidationMsg from '@/cmps/common/ValidationMsg.vue'
+import ValidationMsg from "@/cmps/common/ValidationMsg.vue";
 
 export default {
-  props: ['inputName', 'validate', 'label', 'errors', 'isTextarea', 'styled', 'placeholder', 'onBlur'],
+  props: [
+    "inputName",
+    "validate",
+    "label",
+    "errors",
+    "isTextarea",
+    "styled",
+    "placeholder",
+    "onBlur",
+  ],
 
   data() {
     return {
       isPasswordShown: false,
-    }
+    };
   },
 
   computed: {
     error() {
-      return this.errors?.find((err) => err.elName === this.inputName)?.msg
+      return this.errors?.find((err) => err.elName === this.inputName)?.msg;
     },
 
     onInputBlur() {
-      return this.onBlur || this.onChange
+      return this.onBlur || this.onChange;
     },
   },
 
   methods: {
     onChange(ev) {
-      this.$emit('input', ev.target.value)
-      this.$emit('change', ev)
+      this.$emit("input", ev.target.value);
+      this.$emit("change", ev);
     },
 
     togglePassword() {
-      this.$refs.password.type = this.$refs.password.type === 'password' ? 'text' : 'password'
-      this.isPasswordShown = !this.isPasswordShown
+      this.$refs.password.type =
+        this.$refs.password.type === "password" ? "text" : "password";
+      this.isPasswordShown = !this.isPasswordShown;
     },
   },
 
   components: { ValidationMsg },
-}
+};
 </script>

@@ -26,13 +26,13 @@ export default {
   },
 
   created() {
-    this.id = this._uid
+    this.id = this._uid;
   },
 
   methods: {
     onChange(ev) {
-      this.$emit('input', ev.target.checked)
+      this.$emit("input", ev.target.checked);
     },
   },
-}
+};
 </script>

@@ -1,5 +1,5 @@
-import { loggerService } from '@/services/loggerService'
-import { recordService } from '@/services/recordService.js'
+import { loggerService } from "@/services/loggerService";
+import { recordService } from "@/services/recordService.js";
 
 export const record = {
   namespaced: true,
@@ -13,46 +13,52 @@ export const record = {
 
   getters: {
     records(state) {
-      return state.records
+      return state.records;
     },
     totalRecordCount(state) {
-      return state.totalRecordCount
+      return state.totalRecordCount;
     },
     isFetching(state) {
-      return state.isFetching
+      return state.isFetching;
     },
     selectedRecordId(state) {
-      return state.selectedRecordId
+      return state.selectedRecordId;
     },
   },
 
   mutations: {
     setRecords(state, { records }) {
-      state.records = records
+      state.records = records;
     },
     settotalRecordCount(state, { totalRecordCount }) {
-      state.totalRecordCount = totalRecordCount
+      state.totalRecordCount = totalRecordCount;
     },
     setIsFetching(state, isFetching) {
-      state.isFetching = isFetching
+      state.isFetching = isFetching;
     },
     setSelectedRecordId(state, { recordId }) {
-      state.selectedRecordId = recordId
+      state.selectedRecordId = recordId;
     },
   },
 
   actions: {
     async loadRecords({ commit, state }, { filterBy, sort }) {
-      commit('setIsFetching', true)
+      commit("setIsFetching", true);
       try {
-        const { records, totalRecordCount } = await recordService.query(filterBy, sort)
-        commit('settotalRecordCount', { totalRecordCount })
-        commit('setRecords', { records })
+        const { records, totalRecordCount } = await recordService.query(
+          filterBy,
+          sort
+        );
+        commit("settotalRecordCount", { totalRecordCount });
+        commit("setRecords", { records });
       } catch (err) {
-        loggerService.error('[recordStore] [loadRecords] Failed to load records', err)
+        loggerService.error(
+          "[recordStore] [loadRecords] Failed to load records",
+          err
+        );
       } finally {
-        commit('setIsFetching', false)
+        commit("setIsFetching", false);
       }
     },
   },
-}
+};

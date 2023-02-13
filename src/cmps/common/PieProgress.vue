@@ -1,7 +1,7 @@
 <template>
   <div :class="`pie-wrapper ${progressClass} style-2`">
     <span class="label"
-      >{{textToShow}}
+      >{{ textToShow }}
       <span v-if="!labelTxt" class="smaller">%</span>
     </span>
     <div class="pie">
@@ -14,16 +14,18 @@
 
 <script>
 export default {
-  props: ['donePercent', 'labelTxt'],
+  props: ["donePercent", "labelTxt"],
 
   computed: {
     textToShow() {
-      return this.labelTxt === null || this.labelTxt === undefined ? this.donePercent : this.labelTxt
+      return this.labelTxt === null || this.labelTxt === undefined
+        ? this.donePercent
+        : this.labelTxt;
     },
 
     progressClass() {
-      return `progress-${this.donePercent}`
+      return `progress-${this.donePercent}`;
     },
   },
-}
+};
 </script>
