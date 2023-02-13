@@ -1,5 +1,10 @@
 <template>
-  <div class="search-box" @click="setFocus(true)" v-clickaway="() => setFocus(false)" :class="{ focused: isFocus }">
+  <div
+    class="search-box"
+    @click="setFocus(true)"
+    v-clickOutside="() => setFocus(false)"
+    :class="{ focused: isFocus }"
+  >
     <input
       type="search"
       v-model.trim="txt"
@@ -14,51 +19,51 @@
 </template>
 
 <script>
-import { debounce } from '@/services/utilService'
+import { debounce } from "@/services/utilService";
 
 export default {
-  props: ['value', 'autofocus', 'debounce', 'placeholder'],
+  props: ["value", "autofocus", "debounce", "placeholder"],
 
   data() {
     return {
       isFocus: false,
-      txt: '',
-    }
+      txt: "",
+    };
   },
 
   created() {
-    this.txt = this.value
-    this.createDebounce()
+    this.txt = this.value;
+    this.createDebounce();
   },
 
   methods: {
     setFocus(val) {
-      this.isFocus = val
+      this.isFocus = val;
     },
 
     createDebounce() {
       this.debouncedInput = debounce(
         function (newVal) {
-          this.$emit('input', 'txt', newVal)
+          this.$emit("input", "txt", newVal);
         },
-        this.debounce ? 500 : 0,
-      )
+        this.debounce ? 500 : 0
+      );
     },
   },
 
   watch: {
     txt() {
-      if (this.txt === this.value) return
-      this.debouncedInput(this.txt)
+      if (this.txt === this.value) return;
+      this.debouncedInput(this.txt);
     },
 
     debounce() {
-      this.createDebounce()
+      this.createDebounce();
     },
 
     value() {
-      this.txt = this.value
+      this.txt = this.value;
     },
   },
-}
+};
 </script>

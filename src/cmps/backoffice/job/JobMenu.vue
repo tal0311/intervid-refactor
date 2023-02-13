@@ -8,14 +8,20 @@
       :style="{ top: modalTop, insetInlineStart: modalInlineStart }"
       :class="{ open: isOpen && !isMobile, top: isBottom }">
       <template v-if="!job.archivedAt">
-        <div @click="onCopyUrl">{{ getTrans('copy-invitation-url') }}</div>
-        <div @click="onGoToPage({ name: 'JobEdit', params: { jobId: job._id } })">{{ getTrans('edit-job') }}</div>
-        <div @click="onOpenPreview">{{ getTrans('preview-job') }}</div>
-        <div @click="onCloneJob">{{ getTrans('clone-job') }}</div>
-        <div @click="onShare">{{ getTrans('share-job') }}</div>
+        <div @click="onCopyUrl">{{ getTrans("copy-invitation-url") }}</div>
+        <div @click="onGoToPage({ name: 'JobEdit', params: { jobId: job._id } })">
+          {{ getTrans("edit-job") }}
+        </div>
+        <div @click="onOpenPreview">{{ getTrans("preview-job") }}</div>
+        <div @click="onCloneJob">{{ getTrans("clone-job") }}</div>
+        <div @click="onShare">{{ getTrans("share-job") }}</div>
       </template>
-      <div @click="onToggleArchive">{{ job.archivedAt ? getTrans('restore') : getTrans('archive-job') }}</div>
-      <div v-if="job.archivedAt" @click="onRemoveJob">{{ getTrans('delete-permanently') }}</div>
+      <div @click="onToggleArchive">
+        {{ job.archivedAt ? getTrans("restore") : getTrans("archive-job") }}
+      </div>
+      <div v-if="job.archivedAt" @click="onRemoveJob">
+        {{ getTrans("delete-permanently") }}
+      </div>
     </div>
 
     <mobile-modal v-if="isOpen && isMobile" cmpName="job-actions" @on-close="toggleModal" :job="job"
@@ -25,20 +31,16 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-// Services
-import { msgService } from '@/services/msgService'
-// Composables
-import { useModal } from '@/composables/useModal'
-// cmps
-import MobileModal from '@/cmps/common/modals/MobileModal.vue'
-// lib
-import cloneDeep from 'lodash.clonedeep'
-// Misc
-import config from '@/config'
+import { msgService } from "@/services/msgService"
+
+import ModalMixin from "@/mixins/ModalMixin.js"
+import cloneDeep from "lodash.clonedeep"
+
+import MobileModal from "@/cmps/common/modals/MobileModal.vue"
+import config from "@/config"
 
 export default {
-  props: ['job', 'mousePos'],
+  props: ["job", "mousePos"],
 
   // mixins: [ModalMixin],
   setup(props) {
@@ -52,19 +54,14 @@ export default {
     const { setModalPosition } = useModal({ isOpen, })
 
     return {
-      // data
-      modalHeight,
-      modalWidth,
-      // methods
-      setModalPosition,
-      // computed
-      isOpen
+      modalHeight: this.job.archivedAt ? 100 : 300,
+      modalWidth: 200,
     }
   },
 
   computed: {
     isMobile() {
-      return this.$store.getters.app['app/isMobile']
+      return this.$store.getters["app/isMobile"]
     },
 
     invitationUrl() {
@@ -81,19 +78,26 @@ export default {
     },
 
     modal() {
-      return this.$store.getters['app/modal']
+      return this.$store.getters["app/modal"]
     },
-    // isOpen() {
-    //   return this.modal.type === 'job-menu' && this.modal.data.modalId === this.job._id
-    // },
+
+    isOpen() {
+      return (
+        this.modal.type === "job-menu" &&
+        this.modal.data.modalId === this.job._id
+      )
+    },
   },
 
   methods: {
     toggleModal() {
       this.setModalPosition()
-      if (this.mousePos) this.$emit('modal-closed')
+      if (this.mousePos) this.$emit("modal-closed")
       const modalId = this.isJobMenuOpen ? null : this.job._id
-      this.$store.dispatch('app/toggleModal', { type: 'job-menu', data: { modalId } })
+      this.$store.dispatch("app/toggleModal", {
+        type: "job-menu",
+        data: { modalId },
+      })
     },
 
     async onCloneJob() {
@@ -105,20 +109,20 @@ export default {
       jobToSave.archivedAt = null
       jobToSave.info.title = `copy of ${this.job.info.title}`
 
-      await this.$store.dispatch('job/addJob', { job: jobToSave })
-      this.$emit('load-jobs')
+      await this.$store.dispatch("job/addJob", { job: jobToSave })
+      this.$emit("load-jobs")
     },
 
     onOpenPreview() {
       this.toggleModal()
-      window.open(`${this.invitationUrl}?demo=1`, '_blank')
+      window.open(`${this.invitationUrl}?demo=1`, "_blank")
     },
 
     async onCopyUrl() {
       this.toggleModal()
       await navigator.clipboard.writeText(this.invitationUrl)
-      const msg = msgService.copy('link')
-      this.$store.commit('app/setAlertData', { alertData: msg })
+      const msg = msgService.copy("link")
+      this.$store.commit("app/setAlertData", { alertData: msg })
     },
 
     onGoToPage({ name, params }) {
@@ -128,23 +132,26 @@ export default {
 
     onToggleArchive() {
       this.toggleModal()
-      this.$emit('archive', this.job)
+      this.$emit("archive", this.job)
     },
     onRemoveJob() {
       this.toggleModal()
-      this.$emit('remove', this.job)
+      this.$emit("remove", this.job)
     },
 
     onShare() {
       this.toggleModal()
       if (this.isMobile && navigator.share) {
         navigator.share({
-          title: 'Interview invitation via Intervid',
+          title: "Interview invitation via Intervid",
           text: `${this.companyName} is seeking for ${this.jobTitle}. Click the link to start your interview`,
           url: this.invitationUrl,
         })
       } else {
-        this.$store.dispatch('app/toggleModal', { type: 'ShareBtns', data: { job: this.job, isCloseable: false } })
+        this.$store.dispatch("app/toggleModal", {
+          type: "ShareBtns",
+          data: { job: this.job, isCloseable: false },
+        })
       }
     },
   },

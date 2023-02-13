@@ -1,11 +1,10 @@
-import httpService from './httpService'
-import { getUrlParamsFromObj, _handleCancelRequest } from './utilService'
-import { companyService } from './companyService'
-import { templateService } from './templateService'
-import { userService } from '@/services/userService'
-import { defaultImgUrl } from '@/services/constData'
-import { getTrans } from './i18nService'
-
+import httpService from "./httpService";
+import { getUrlParamsFromObj, _handleCancelRequest } from "./utilService";
+import { companyService } from "./companyService";
+import { templateService } from "./templateService";
+import { userService } from "@/services/userService";
+import { defaultImgUrl } from "@/services/constData";
+import { getTrans } from "./i18nService";
 
 // import cloneDeep from 'lodash.clonedeep'
 
@@ -22,97 +21,104 @@ export const jobService = {
   getApplicants,
   getJobWithApplicant,
   getExpectedApplicantCount,
-  getExpectedJobCount
+  getExpectedJobCount,
   // updateApplicants,
-}
+};
 
-const ROUTE = 'job'
+const ROUTE = "job";
 
 function query(filterBy, sort) {
-  const key = 'job/query'
-  const token = _handleCancelRequest(key)
+  const key = "job/query";
+  const token = _handleCancelRequest(key);
 
-  const urlParams = getUrlParamsFromObj({ ...filterBy, ...sort })
-  const url = ROUTE + urlParams
-  return httpService.customRequest('get', url, null, { cancelToken: token })
+  const urlParams = getUrlParamsFromObj({ ...filterBy, ...sort });
+  const url = ROUTE + urlParams;
+  return httpService.customRequest("get", url, null, { cancelToken: token });
 }
 
 function getApplicants(filterBy, sort) {
-  const key = 'job/getApplicants'
-  const token = _handleCancelRequest(key)
+  const key = "job/getApplicants";
+  const token = _handleCancelRequest(key);
 
-  const urlParams = getUrlParamsFromObj({ ...filterBy, ...sort })
-  const url = ROUTE + '/applicant' + urlParams
-  return httpService.customRequest('get', url, null, { cancelToken: token })
-
+  const urlParams = getUrlParamsFromObj({ ...filterBy, ...sort });
+  const url = ROUTE + "/applicant" + urlParams;
+  return httpService.customRequest("get", url, null, { cancelToken: token });
 }
 
 function getById(jobId) {
-  return httpService.get(`${ROUTE}/${jobId}`)
+  return httpService.get(`${ROUTE}/${jobId}`);
 }
 
 function add(job) {
-  return httpService.post(ROUTE, { job })
+  return httpService.post(ROUTE, { job });
 }
 
 function update(jobs) {
   // job = cloneDeep(job)
   // delete job.applicants
-  jobs = jobs.map(job => {
-    delete job.applicants
-    return job
-  })
-  return httpService.put(`${ROUTE}`, { jobs })
+  jobs = jobs.map((job) => {
+    delete job.applicants;
+    return job;
+  });
+  return httpService.put(`${ROUTE}`, { jobs });
 }
 
 function remove(jobId) {
-  return httpService.delete(`${ROUTE}/${jobId}`)
+  return httpService.delete(`${ROUTE}/${jobId}`);
 }
 
 function updateApplicants(applicants) {
-  return httpService.put(`${ROUTE}/applicant`, { applicants })
+  return httpService.put(`${ROUTE}/applicant`, { applicants });
 }
 
 function removeApplicants(applicants) {
-  return httpService.put(`${ROUTE}/applicantDelete`, { applicants })
+  return httpService.put(`${ROUTE}/applicantDelete`, { applicants });
 }
 
 function getApplicantVideos(applicantId, jobId) {
-  const key = 'job/getApplicantVideos'
-  const token = _handleCancelRequest(key)
+  const key = "job/getApplicantVideos";
+  const token = _handleCancelRequest(key);
   // return httpService.get(`${ROUTE}/applicantVideos/${applicantId}/${jobId}`)
-  const url = `${ROUTE}/applicantVideos/${applicantId}/${jobId}`
-  return httpService.customRequest('get', url, null, { cancelToken: token })
-
+  const url = `${ROUTE}/applicantVideos/${applicantId}/${jobId}`;
+  return httpService.customRequest("get", url, null, { cancelToken: token });
 }
 function getJobWithApplicant(jobId, applicantId) {
-  return httpService.get(`${ROUTE}/${jobId}/${applicantId}`)
+  return httpService.get(`${ROUTE}/${jobId}/${applicantId}`);
 }
 
 function getExpectedApplicantCount(filterBy) {
-  const key = 'job/getExpectedApplicantCount'
-  const token = _handleCancelRequest(key)
+  const key = "job/getExpectedApplicantCount";
+  const token = _handleCancelRequest(key);
 
-
-  const urlParams = getUrlParamsFromObj({ ...filterBy })
-  return httpService.customRequest('get', ROUTE + '/applicantCount' + urlParams, null, { cancelToken: token })
+  const urlParams = getUrlParamsFromObj({ ...filterBy });
+  return httpService.customRequest(
+    "get",
+    ROUTE + "/applicantCount" + urlParams,
+    null,
+    { cancelToken: token }
+  );
 }
 
 function getExpectedJobCount(filterBy) {
-  const key = 'job/getExpectedJobCount'
-  const token = _handleCancelRequest(key)
+  const key = "job/getExpectedJobCount";
+  const token = _handleCancelRequest(key);
 
-  const urlParams = getUrlParamsFromObj({ ...filterBy })
-  return httpService.customRequest('get', ROUTE + '/jobCount' + urlParams, null, { cancelToken: token })
+  const urlParams = getUrlParamsFromObj({ ...filterBy });
+  return httpService.customRequest(
+    "get",
+    ROUTE + "/jobCount" + urlParams,
+    null,
+    { cancelToken: token }
+  );
 }
 
 function getEmptyJob(user) {
   return {
     info: {
       coverUrl: defaultImgUrl.jobCover,
-      title: getTrans('untitled-job'),
-      desc: '',
-      location: '',
+      title: getTrans("untitled-job"),
+      desc: "",
+      location: "",
     },
     rule: {
       isOneTry: true,
@@ -123,6 +129,5 @@ function getEmptyJob(user) {
     owner: userService.getMiniUser(user),
     company: companyService.getMiniCompany(user),
     archivedAt: null,
-  }
+  };
 }
-

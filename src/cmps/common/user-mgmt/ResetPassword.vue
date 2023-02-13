@@ -40,58 +40,60 @@
 </template>
 
 <script>
-import { msgService } from '@/services/msgService'
-import { validate, getValidateMsg } from '@/services/errorService'
-import { loggerService } from '@/services/loggerService'
+import { msgService } from "@/services/msgService";
+import { validate, getValidateMsg } from "@/services/errorService";
+import { loggerService } from "@/services/loggerService";
 
 export default {
-  props: ['userToEdit', 'isChange'],
+  props: ["userToEdit", "isChange"],
 
   data: () => ({
     password: {
-      current: '',
-      updated: '',
-      verifyUpdated: '',
+      current: "",
+      updated: "",
+      verifyUpdated: "",
     },
     errors: null,
   }),
 
   methods: {
     async onChangePassword({ target }) {
-      this.errors = validate(target)
+      this.errors = validate(target);
 
-      const { updated, verifyUpdated } = this.password
+      const { updated, verifyUpdated } = this.password;
 
       if (updated !== verifyUpdated) {
-        this.errors.push(getValidateMsg('CONFIRM_PASSWORD', { name: 'verifyPassword' }))
+        this.errors.push(
+          getValidateMsg("CONFIRM_PASSWORD", { name: "verifyPassword" })
+        );
       }
-      if (this.errors.length) return
+      if (this.errors.length) return;
       try {
         if (this.userToEdit) {
-          await this.$store.dispatch('user/changePassword', {
+          await this.$store.dispatch("user/changePassword", {
             passwordObj: this.password,
             userId: this.userToEdit._id,
-          })
+          });
         } else {
-          await this.$store.dispatch('auth/changePassword', {
+          await this.$store.dispatch("auth/changePassword", {
             token: this.$route.query.token,
             password: this.password.updated,
-          })
+          });
         }
-        const msg = msgService.change('password')
-        this.$store.commit('app/setAlertData', { alertData: msg })
+        const msg = msgService.change("password");
+        this.$store.commit("app/setAlertData", { alertData: msg });
       } catch (err) {
-        loggerService.error("Couldn't reset password", err)
+        loggerService.error("Couldn't reset password", err);
       }
-      if (this.userToEdit) this.$emit('close')
-      else this.$router.push({ name: 'Login' })
+      if (this.userToEdit) this.$emit("close");
+      else this.$router.push({ name: "Login" });
     },
 
     validateField(ev) {
-      if (!ev.target.form) return
-      if (!this.errors) return
-      this.errors = validate(ev.target.form)
+      if (!ev.target.form) return;
+      if (!this.errors) return;
+      this.errors = validate(ev.target.form);
     },
   },
-}
+};
 </script>

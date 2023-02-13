@@ -9,9 +9,9 @@
 export default {
   methods: {
     setLang(lang) {
-      this.$emit('on-close')
-      this.$store.dispatch('app/setLang', { lang })
+      this.$emit("on-close");
+      this.$store.dispatch("app/setLang", { lang });
     },
   },
-}
+};
 </script>

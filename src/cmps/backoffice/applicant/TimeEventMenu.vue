@@ -5,7 +5,9 @@
     </button>
 
     <div class="menu-modal" :class="{ open: isOpen && !isMobile }">
-      <button @click="$emit('on-remove-note-event')">{{getTrans('remove')}}</button>
+      <button @click="$emit('on-remove-note-event')">
+        {{ getTrans("remove") }}
+      </button>
     </div>
 
     <mobile-modal
@@ -18,31 +20,36 @@
 </template>
 
 <script>
-import MobileModal from '@/cmps/common/modals/MobileModal.vue'
+import MobileModal from "@/cmps/common/modals/MobileModal.vue";
 
 export default {
-  props: ['idx'],
+  props: ["idx"],
 
   computed: {
     isMobile() {
-      return this.$store.getters['app/isMobile']
+      return this.$store.getters["app/isMobile"];
     },
 
     modal() {
-      return this.$store.getters['app/modal']
+      return this.$store.getters["app/modal"];
     },
 
     isOpen() {
-      return this.modal.type === 'time-event-menu' && this.modal.data === this.idx
+      return (
+        this.modal.type === "time-event-menu" && this.modal.data === this.idx
+      );
     },
   },
 
   methods: {
     toggleModal() {
-      this.$store.dispatch('app/toggleModal', { type: 'time-event-menu', data: this.idx })
+      this.$store.dispatch("app/toggleModal", {
+        type: "time-event-menu",
+        data: this.idx,
+      });
     },
   },
 
   components: { MobileModal },
-}
+};
 </script>

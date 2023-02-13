@@ -1,12 +1,12 @@
-import { isMobile, isMobileDevice } from '@/services/utilService'
-import { detect } from 'detect-browser';
+import { isMobile, isMobileDevice } from "@/services/utilService";
+import { detect } from "detect-browser";
 
 export const app = {
   namespaced: true,
 
   state: {
     modal: {
-      type: '',
+      type: "",
       data: null,
       isDarkScreen: false,
     },
@@ -19,91 +19,91 @@ export const app = {
       steps: [],
       currStepIdx: null,
     },
-    lang: localStorage.getItem('userLang') || 'en',
-    cancelRequestMap: {}
+    lang: localStorage.getItem("userLang") || "en",
+    cancelRequestMap: {},
   },
 
   getters: {
     modal(state) {
-      return state.modal
+      return state.modal;
     },
 
     cancelRequestMap(state) {
-      return state.cancelRequestMap
+      return state.cancelRequestMap;
     },
 
     alertData(state) {
-      return state.alertData
+      return state.alertData;
     },
 
     progressBar(state) {
-      return state.progressBar
+      return state.progressBar;
     },
 
     isMobile(state) {
-      return state.isMobile
+      return state.isMobile;
     },
 
     isMobileDevice(state) {
-      return state.isMobileDevice
+      return state.isMobileDevice;
     },
 
     browser(state) {
-      return state.browser
+      return state.browser;
     },
 
     lang(state) {
-      return state.lang
+      return state.lang;
     },
   },
 
   mutations: {
     setModal(state, modal) {
-      state.modal = modal
+      state.modal = modal;
     },
 
-
     setCancelRequest(state, { cancel, key }) {
-      state.cancelRequestMap[key] = cancel
+      state.cancelRequestMap[key] = cancel;
     },
 
     setAlertData(state, { alertData }) {
-      state.alertData = alertData
+      state.alertData = alertData;
     },
 
     setProgressBar(state, progressBar) {
-      state.progressBar = progressBar
+      state.progressBar = progressBar;
     },
 
     setIsMobile(state, { isMobile }) {
-      state.isMobile = isMobile
+      state.isMobile = isMobile;
     },
 
     setLang(state, { lang }) {
-      state.lang = lang
+      state.lang = lang;
     },
-
   },
 
   actions: {
     cancelRequest({ state }, key) {
-      if (!state.cancelRequestMap[key]) return
-      state.cancelRequestMap[key](`Request ${key} Cancelled`)
+      if (!state.cancelRequestMap[key]) return;
+      state.cancelRequestMap[key](`Request ${key} Cancelled`);
     },
 
     toggleModal({ commit, state }, modal) {
-      const modalType = state.modal.type ? '' : modal?.type
-      const modalData = state.modal.type ? null : modal?.data
-      const isDarkScreen = state.modal.isDarkScreen ? false : modal?.isDarkScreen
-      commit('setModal', { type: modalType, data: modalData, isDarkScreen })
+      const modalType = state.modal.type ? "" : modal?.type;
+      const modalData = state.modal.type ? null : modal?.data;
+      const isDarkScreen = state.modal.isDarkScreen
+        ? false
+        : modal?.isDarkScreen;
+      commit("setModal", { type: modalType, data: modalData, isDarkScreen });
     },
 
     setLang({ commit }, { lang }) {
-      commit('setLang', { lang })
-      const elBody = document.querySelector('body')
-      elBody.classList.remove('he')
-      if (lang === 'he') elBody.classList.add('he')
-      localStorage.setItem('userLang', lang)
+      commit("setLang", { lang });
+      const elBody = document.querySelector("body");
+      elBody.classList.remove("he");
+      if (lang === "he") elBody.classList.add("he");
+      localStorage.setItem("userLang", lang);
     },
   },
-}
+};

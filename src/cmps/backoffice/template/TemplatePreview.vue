@@ -1,85 +1,100 @@
 <template>
-  <section class="template-preview" :class="{ selected: isSelected }" @click="goToDetails">
+  <section
+    class="template-preview"
+    :class="{ selected: isSelected }"
+    @click="goToDetails"
+  >
     <div class="checkbox" @click.stop="">
       <checkbox :value="isSelected" @input="$emit('select')"></checkbox>
     </div>
 
     <div class="title">
-      {{template.title}}
+      {{ template.title }}
     </div>
 
     <div class="owner">
-      {{ownerFullName}}
+      {{ ownerFullName }}
     </div>
 
     <div class="created-at">
-      {{templateCreationDate}}
+      {{ templateCreationDate }}
     </div>
 
     <div class="use-template" @click.stop="">
-      <button v-if="!$route.path.includes('archive')" class="use-template-btn" @click="onUseTemplate">
-        {{getTrans('use')}}
+      <button
+        v-if="!$route.path.includes('archive')"
+        class="use-template-btn"
+        @click="onUseTemplate"
+      >
+        {{ getTrans("use") }}
       </button>
     </div>
 
     <div class="actions" @click.stop="">
-      <template-menu :template="template" @archive="onToggleArchive" @default="toggleIsDefault" />
+      <template-menu
+        :template="template"
+        @archive="onToggleArchive"
+        @default="toggleIsDefault"
+      />
     </div>
   </section>
 </template>
 
 <script>
-import { formatDate, getFullName } from '@/services/utilService'
-import cloneDeep from 'lodash.clonedeep'
+import { formatDate, getFullName } from "@/services/utilService";
+import cloneDeep from "lodash.clonedeep";
 
-import TemplateMenu from '@/cmps/backoffice/template/TemplateMenu.vue'
+import TemplateMenu from "@/cmps/backoffice/template/TemplateMenu.vue";
 
 export default {
   components: { TemplateMenu },
 
-  props: ['template', 'isSelected'],
+  props: ["template", "isSelected"],
 
   computed: {
     ownerFullName() {
-      return getFullName(this.template.owner)
+      return getFullName(this.template.owner);
     },
 
     isDefault() {
-      return this.template?.isDefault
+      return this.template?.isDefault;
     },
 
     templateCreationDate() {
-      const date = this.template.createdAt
-      if (!date) return 'None'
-      return formatDate(date)
+      const date = this.template.createdAt;
+      if (!date) return "None";
+      return formatDate(date);
     },
   },
 
   methods: {
     onToggleArchive() {
-      const template = cloneDeep(this.template)
-      this.$store.dispatch('template/toggleArchivedTemplate', { template })
+      const template = cloneDeep(this.template);
+      this.$store.dispatch("template/toggleArchivedTemplate", { template });
     },
 
     toggleIsDefault() {
       const template = {
         ...this.template,
         isDefault: this.template.isDefault ? !this.template.isDefault : true,
-      }
-      this.$store.dispatch('template/toggleIsDefault', { template })
+      };
+      this.$store.dispatch("template/toggleIsDefault", { template });
     },
 
     goToDetails() {
-      if (this.$route.path.includes('archive')) return
+      if (this.$route.path.includes("archive")) return;
       this.$router.push({
-        name: 'TemplateDetails',
+        name: "TemplateDetails",
         params: { templateId: this.template._id },
-      })
+      });
     },
 
     onUseTemplate() {
-      this.$router.push({ name: 'JobEdit', query: { templateId: this.template._id } })
+      this.$router.push({
+        name: "JobEdit",
+        query: { templateId: this.template._id },
+      });
     },
   },
-}
+};
 </script>
