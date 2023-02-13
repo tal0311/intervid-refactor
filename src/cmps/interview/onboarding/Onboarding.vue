@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import { faceService } from '@/services/faceService'
+import { faceService } from "@/services/faceService";
 
-import { loggerService } from '@/services/loggerService'
+import { loggerService } from "@/services/loggerService";
 
-import ApplicantForm from '@/cmps/interview/onboarding/ApplicantForm.vue'
-import MediaCheck from '@/cmps/interview/onboarding/MediaCheck.vue'
-import FormStepper from '@/cmps/common/FormStepper.vue'
-import InterviewCountdown from '../interview-app/InterviewCountdown.vue'
+import ApplicantForm from "@/cmps/interview/onboarding/ApplicantForm.vue";
+import MediaCheck from "@/cmps/interview/onboarding/MediaCheck.vue";
+import FormStepper from "@/cmps/common/FormStepper.vue";
+import InterviewCountdown from "../interview-app/InterviewCountdown.vue";
 
 export default {
   data() {
@@ -23,39 +23,43 @@ export default {
         1: MediaCheck,
         2: InterviewCountdown,
       },
-    }
+    };
   },
 
   mounted() {
-    faceService.loadModels()
+    faceService.loadModels();
   },
 
   computed: {
     applicant() {
-      return this.$store.getters['applicant/applicant']
+      return this.$store.getters["applicant/applicant"];
     },
 
     componentToShow() {
-      return this.cmps[this.currStep]
+      return this.cmps[this.currStep];
     },
 
     job() {
-      return this.$store.getters['applicant/job']
+      return this.$store.getters["applicant/job"];
     },
   },
 
   methods: {
     onNextStep() {
-      this.currStep++
+      this.currStep++;
       if (this.currStep === 2) {
-        loggerService.info(`[onboarding] [MediaCheck] Applicant ${this.applicant.id} passed Media Check Successfully`)
+        loggerService.info(
+          `[onboarding] [MediaCheck] Applicant ${this.applicant.id} passed Media Check Successfully`
+        );
         if (this.job.rule.isOneTry) {
-          this.currStep++
-          loggerService.info(`[onboarding] [onNextStep] One try job - skipping general countdown`)
+          this.currStep++;
+          loggerService.info(
+            `[onboarding] [onNextStep] One try job - skipping general countdown`
+          );
         }
       }
       // if (this.currStep > 2) this.$router.push(`/interview/${this.job._id}/inprogress`)
-      if (this.currStep > 2) this.$router.push({ name: 'Interview' })
+      if (this.currStep > 2) this.$router.push({ name: "Interview" });
     },
   },
 
@@ -65,5 +69,5 @@ export default {
     FormStepper,
     InterviewCountdown,
   },
-}
+};
 </script>

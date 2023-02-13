@@ -1,11 +1,17 @@
 <template>
   <section class="quest-edit">
-    <i v-if="questsCount > 1" class="material-icons drag-indicator"> drag_indicator </i>
+    <i v-if="questsCount > 1" class="material-icons drag-indicator">
+      drag_indicator
+    </i>
     <div class="quest-header">
-      <h4>{{getTrans('question')}} {{idx + 1}}</h4>
+      <h4>{{ getTrans("question") }} {{ idx + 1 }}</h4>
       <div class="quest-rules">
         <timelimit-menu :quest="quest" @change-timelimit="onUpdateQuest" />
-        <ans-rule-menu :quest="quest" :isOneTry="isOneTry" @change-ans="onUpdateQuest" />
+        <ans-rule-menu
+          :quest="quest"
+          :isOneTry="isOneTry"
+          @change-ans="onUpdateQuest"
+        />
       </div>
 
       <div class="quest-actions-modal" :class="{ open: isActionsModalOpen }">
@@ -15,10 +21,17 @@
 
         <div class="answer-modal">
           <button type="button" class="menu-btn" @click="onDuplicateQuest">
-            <i class="material-icons">content_copy</i> {{getTrans('duplicate')}}
+            <i class="material-icons">content_copy</i>
+            {{ getTrans("duplicate") }}
           </button>
-          <button type="button" class="menu-btn remove" v-if="questsCount > 1" @click="onRemoveQuest">
-            <i class="material-icons"> delete_outline </i> {{getTrans('remove')}}
+          <button
+            type="button"
+            class="menu-btn remove"
+            v-if="questsCount > 1"
+            @click="onRemoveQuest"
+          >
+            <i class="material-icons"> delete_outline </i>
+            {{ getTrans("remove") }}
           </button>
         </div>
       </div>
@@ -37,17 +50,28 @@
         />
       </div>
 
-      <text-editor placeholder="Elaborate (optional)" v-model.trim="quest.desc" :tools="['code', 'link']" />
+      <text-editor
+        placeholder="Elaborate (optional)"
+        v-model.trim="quest.desc"
+        :tools="['code', 'link']"
+      />
     </div>
 
     <div class="quest-actions">
       <div class="quest-rules">
         <timelimit-menu :quest="quest" @change-timelimit="onUpdateQuest" />
-        <ans-rule-menu :quest="quest" :isOneTry="isOneTry" @change-ans="onUpdateQuest" />
+        <ans-rule-menu
+          :quest="quest"
+          :isOneTry="isOneTry"
+          @change-ans="onUpdateQuest"
+        />
       </div>
 
       <div class="actions">
-        <i class="icon material-icons duplicate-btn" @click="onDuplicateQuest" :title="getTrans('duplicate')"
+        <i
+          class="icon material-icons duplicate-btn"
+          @click="onDuplicateQuest"
+          :title="getTrans('duplicate')"
           >content_copy</i
         >
         <i
@@ -63,56 +87,62 @@
 </template>
 
 <script>
-import { getTimeLimits } from '@/services/constData'
+import { getTimeLimits } from "@/services/constData";
 
-import TextEditor from '@/cmps/common/TextEditor.vue'
-import AnsRuleMenu from './AnsRuleMenu.vue'
-import TimelimitMenu from './TimelimitMenu.vue'
+import TextEditor from "@/cmps/common/TextEditor.vue";
+import AnsRuleMenu from "./AnsRuleMenu.vue";
+import TimelimitMenu from "./TimelimitMenu.vue";
 
 export default {
-  props: ['quest', 'errors', 'idx', 'isOneTry', 'questsCount'],
+  props: ["quest", "errors", "idx", "isOneTry", "questsCount"],
 
   computed: {
     isMobile() {
-      return this.$store.getters['app/isMobile']
+      return this.$store.getters["app/isMobile"];
     },
 
     timeLimits() {
-      return getTimeLimits()
+      return getTimeLimits();
     },
 
     modal() {
-      return this.$store.getters['app/modal']
+      return this.$store.getters["app/modal"];
     },
 
     isActionsModalOpen() {
-      return this.modal.type === 'quest-actions' && this.modal.data.modalId === this.quest.id
+      return (
+        this.modal.type === "quest-actions" &&
+        this.modal.data.modalId === this.quest.id
+      );
     },
   },
 
   methods: {
     onRemoveQuest() {
-      this.$emit('remove-quest', this.quest.id)
+      this.$emit("remove-quest", this.quest.id);
     },
 
     onUpdateQuest() {
-      this.$emit('update-quest')
+      this.$emit("update-quest");
     },
 
     onDuplicateQuest() {
-      this.$emit('duplicate-quest', this.quest)
+      this.$emit("duplicate-quest", this.quest);
     },
 
     validateField(ev) {
-      this.$emit('validate-field', ev)
+      this.$emit("validate-field", ev);
     },
 
     toggleModal() {
-      const modalId = this.isActionsModalOpen ? null : this.quest.id
-      this.$store.dispatch('app/toggleModal', { type: 'quest-actions', data: { modalId } })
+      const modalId = this.isActionsModalOpen ? null : this.quest.id;
+      this.$store.dispatch("app/toggleModal", {
+        type: "quest-actions",
+        data: { modalId },
+      });
     },
   },
 
   components: { TextEditor, AnsRuleMenu, TimelimitMenu },
-}
+};
 </script>

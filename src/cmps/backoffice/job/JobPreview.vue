@@ -7,15 +7,19 @@
     @click="goToApplicants"
   >
     <div class="checkbox" @click.stop="">
-      <checkbox inline :value="isSelected" @input="$emit('select', job)"></checkbox>
+      <checkbox
+        inline
+        :value="isSelected"
+        @input="$emit('select', job)"
+      ></checkbox>
     </div>
 
     <div class="title">
-      {{job.info.title}}
+      {{ job.info.title }}
     </div>
 
     <div class="location">
-      {{job.info.location || 'N/A'}}
+      {{ job.info.location || "N/A" }}
     </div>
 
     <div class="avatars">
@@ -27,17 +31,19 @@
           :src="applicant.img"
           :username="applicant.username"
         />
-        <div v-if="job.applicantSummary.applicantCount > 2">+{{job.applicantSummary.applicantCount}}</div>
+        <div v-if="job.applicantSummary.applicantCount > 2">
+          +{{ job.applicantSummary.applicantCount }}
+        </div>
       </template>
     </div>
 
     <div class="date">
-      {{jobCreationDate}}
+      {{ jobCreationDate }}
     </div>
 
     <div class="link" @click.stop="onCopyUrl">
       <i class="material-icons" :title="getTrans('copy-link')">link</i>
-      <p>{{getTrans('copy-link')}}</p>
+      <p>{{ getTrans("copy-link") }}</p>
     </div>
 
     <div class="actions" @click.stop="">
@@ -59,15 +65,21 @@
     :class="{ selected: isSelected }"
     @click="goToApplicants"
   >
-    <img v-if="coverUrl" loading="lazy" :src="coverUrl" alt="job-cover" class="job-cover" />
+    <img
+      v-if="coverUrl"
+      loading="lazy"
+      :src="coverUrl"
+      alt="job-cover"
+      class="job-cover"
+    />
     <i v-else class="material-icons job-background">image_not_supported</i>
 
     <div class="bottom">
       <div class="top-line">
         <div class="info">
-          <div class="title">{{job.info.title}}</div>
+          <div class="title">{{ job.info.title }}</div>
           <span>|</span>
-          <div class="location">{{job.info.location || 'N/A'}}</div>
+          <div class="location">{{ job.info.location || "N/A" }}</div>
         </div>
         <div class="actions" @click.stop="">
           <job-menu
@@ -81,27 +93,29 @@
         </div>
       </div>
 
-      <div class="bottom-line">{{job.applicantSummary.applicantCount}} {{getTrans('applicants')}}</div>
+      <div class="bottom-line">
+        {{ job.applicantSummary.applicantCount }} {{ getTrans("applicants") }}
+      </div>
     </div>
 
     <div class="link" @click.stop="onCopyUrl">
       <i class="material-icons" :title="getTrans('copy-link')">link</i>
-      <p>{{getTrans('copy-link')}}</p>
+      <p>{{ getTrans("copy-link") }}</p>
     </div>
   </section>
 </template>
 
 <script>
-import { msgService } from '@/services/msgService'
-import { formatDate } from '@/services/utilService'
-import ModalMixin from '@/mixins/ModalMixin'
+import { msgService } from "@/services/msgService";
+import { formatDate } from "@/services/utilService";
+import ModalMixin from "@/mixins/ModalMixin";
 
-import JobMenu from '@/cmps/backoffice/job/JobMenu.vue'
-import Avatar from '@/cmps/common/Avatar.vue'
-import config from '@/config'
+import JobMenu from "@/cmps/backoffice/job/JobMenu.vue";
+import Avatar from "@/cmps/common/Avatar.vue";
+import config from "@/config";
 
 export default {
-  props: ['job', 'isSelected', 'filterBy'],
+  props: ["job", "isSelected", "filterBy"],
 
   mixins: [ModalMixin],
 
@@ -109,56 +123,56 @@ export default {
     return {
       isMenuOpen: false,
       mousePos: null,
-    }
+    };
   },
 
   computed: {
     invitationUrl() {
-      return `${config.baseUrl}interview/${this.job._id}`
+      return `${config.baseUrl}interview/${this.job._id}`;
     },
 
     coverUrl() {
-      return this.job.info.coverUrl
+      return this.job.info.coverUrl;
     },
 
     viewType() {
-      return this.$store.getters['job/viewType']
+      return this.$store.getters["job/viewType"];
     },
 
     jobCreationDate() {
-      const date = this.job.createdAt
-      if (!date) return 'None'
-      return formatDate(date)
+      const date = this.job.createdAt;
+      if (!date) return "None";
+      return formatDate(date);
     },
   },
 
   methods: {
     goToApplicants() {
-      if (this.filterBy.showArchived) return
+      if (this.filterBy.showArchived) return;
       this.$router.push({
-        name: 'ApplicantOverview',
+        name: "ApplicantOverview",
         params: { jobId: this.job._id },
-      })
+      });
     },
 
     onToggleArchive() {
-      this.$store.dispatch({ type: 'job/toggleArchiveJob', jobs: [this.job] })
+      this.$store.dispatch({ type: "job/toggleArchiveJob", jobs: [this.job] });
       // const msg = msgService.archive('job', !this.job.archivedAt)
       // this.$store.commit('app/setAlertData', { alertData: msg })
     },
 
     async onCopyUrl() {
-      await navigator.clipboard.writeText(this.invitationUrl)
-      const msg = msgService.copy('link')
-      this.$store.commit('app/setAlertData', { alertData: msg })
+      await navigator.clipboard.writeText(this.invitationUrl);
+      const msg = msgService.copy("link");
+      this.$store.commit("app/setAlertData", { alertData: msg });
     },
 
     getApplicantFullname(applicant) {
-      return `${applicant.info.fName} ${applicant.info.lName}`
+      return `${applicant.info.fName} ${applicant.info.lName}`;
     },
 
     openMenu(ev) {
-      this.mousePos = { x: ev.pageX, y: ev.pageY }
+      this.mousePos = { x: ev.pageX, y: ev.pageY };
     },
   },
 
@@ -166,5 +180,5 @@ export default {
     JobMenu,
     Avatar,
   },
-}
+};
 </script>

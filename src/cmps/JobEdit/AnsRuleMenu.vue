@@ -3,14 +3,17 @@
     <div
       class="ans-rule"
       @click="toggleAnswerModal"
-      :class="{ open: isOpen, disabled: !isOneTry && selectedAnsRule === 'isScreenAns' }"
+      :class="{
+        open: isOpen,
+        disabled: !isOneTry && selectedAnsRule === 'isScreenAns',
+      }"
     >
       <i class="icon material-icons">
-        {{selectedAnsRule === 'isVidAns' ? 'videocam' : 'desktop_windows'}}
+        {{ selectedAnsRule === "isVidAns" ? "videocam" : "desktop_windows" }}
       </i>
 
       <button type="button">
-        {{getTrans(answerType)}}
+        {{ getTrans(answerType) }}
         <i class="expand material-icons">expand_more</i>
       </button>
 
@@ -20,14 +23,19 @@
           v-for="ansRule in ansRules"
           :key="ansRule.txt"
           @click.stop="setAnsRule(ansRule.type)"
-          :disabled="(!isOneTry && ansRule.type === 'isScreenAns') || !verifyPerm(advancedPermsMap[ansRule.permission])"
+          :disabled="
+            (!isOneTry && ansRule.type === 'isScreenAns') ||
+            !verifyPerm(advancedPermsMap[ansRule.permission])
+          "
           :class="{
-            disabled: (!isOneTry && ansRule.type === 'isScreenAns') || !verifyPerm(advancedPermsMap[ansRule.permission]),
+            disabled:
+              (!isOneTry && ansRule.type === 'isScreenAns') ||
+              !verifyPerm(advancedPermsMap[ansRule.permission]),
             selected: selectedAnsRule === ansRule.type,
           }"
         >
-          <i class="icon material-icons">{{ansRule.icon}}</i>
-          {{getTrans(ansRule.txt)}}
+          <i class="icon material-icons">{{ ansRule.icon }}</i>
+          {{ getTrans(ansRule.txt) }}
         </button>
       </div>
 
@@ -41,85 +49,98 @@
       />
     </div>
 
-    <p class="ans-rule-error" v-if="!isOneTry && selectedAnsRule === 'isScreenAns'">
-      {{getTrans('answer-type-not-available')}}
+    <p
+      class="ans-rule-error"
+      v-if="!isOneTry && selectedAnsRule === 'isScreenAns'"
+    >
+      {{ getTrans("answer-type-not-available") }}
     </p>
   </section>
 </template>
 
 <script>
-import { userService } from '@/services/userService'
-import { templateService } from '@/services/templateService'
-import { advancedPermsMap, getAnswerType, ansRules } from '@/services/constData'
-import MobileModal from '../common/modals/MobileModal.vue'
+import { userService } from "@/services/userService";
+import { templateService } from "@/services/templateService";
+import {
+  advancedPermsMap,
+  getAnswerType,
+  ansRules,
+} from "@/services/constData";
+import MobileModal from "../common/modals/MobileModal.vue";
 
 export default {
-  props: ['quest', 'isOneTry'],
+  props: ["quest", "isOneTry"],
 
   data() {
     return {
-      selectedAnsRule: this.quest.ansRule.isVidAns ? 'isVidAns' : 'isScreenAns',
-    }
+      selectedAnsRule: this.quest.ansRule.isVidAns ? "isVidAns" : "isScreenAns",
+    };
   },
 
   computed: {
     modal() {
-      return this.$store.getters['app/modal']
+      return this.$store.getters["app/modal"];
     },
 
     isOpen() {
-      return this.modal.type === 'ans-rule-menu' && this.modal.data.modalId === this.quest.id
+      return (
+        this.modal.type === "ans-rule-menu" &&
+        this.modal.data.modalId === this.quest.id
+      );
     },
 
     answerType() {
-      return getAnswerType(this.selectedAnsRule)
+      return getAnswerType(this.selectedAnsRule);
     },
 
     advancedPermsMap() {
-      return advancedPermsMap
+      return advancedPermsMap;
     },
 
     ansRules() {
-      return ansRules
+      return ansRules;
     },
 
     isMobile() {
-      return this.$store.getters['app/isMobile']
+      return this.$store.getters["app/isMobile"];
     },
   },
 
   methods: {
     onChangeAnsRule() {
-      const ansRule = templateService.getDefaultAnsRule()
+      const ansRule = templateService.getDefaultAnsRule();
       this.quest.ansRule = {
         ...ansRule,
         [this.selectedAnsRule]: true,
-      }
-      this.$emit('change-ans')
+      };
+      this.$emit("change-ans");
     },
 
     toggleAnswerModal() {
-      const modalId = this.isOpen ? null : this.quest.id
-      this.$store.dispatch('app/toggleModal', { type: 'ans-rule-menu', data: { modalId } })
+      const modalId = this.isOpen ? null : this.quest.id;
+      this.$store.dispatch("app/toggleModal", {
+        type: "ans-rule-menu",
+        data: { modalId },
+      });
     },
 
     verifyPerm(requiredPrm) {
-      return userService.verifyPerm(requiredPrm)
+      return userService.verifyPerm(requiredPrm);
     },
 
     setAnsRule(ansRule) {
-      if (!this.isOneTry && ansRule === 'isScreenAns') return // TODO: remove this in v2
-      this.toggleAnswerModal()
-      this.selectedAnsRule = ansRule
+      if (!this.isOneTry && ansRule === "isScreenAns") return; // TODO: remove this in v2
+      this.toggleAnswerModal();
+      this.selectedAnsRule = ansRule;
     },
   },
 
   watch: {
     selectedAnsRule() {
-      this.onChangeAnsRule()
+      this.onChangeAnsRule();
     },
   },
 
   components: { MobileModal },
-}
+};
 </script>

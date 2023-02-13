@@ -2,20 +2,39 @@
   <section class="player-controls" :class="{ pause: !isPlaying }">
     <div class="progressbar-wrapper">
       <div class="progress-bar">
-        <input type="range" class="video-progress" min="0" max="100" :value="videoProgress" @input="onSeek" />
-        <div class="progress-color" :style="{ width: videoProgress + '%' }"></div>
-        <div class="buffering-color" :style="{ width: downloadProgress + '%' }"></div>
+        <input
+          type="range"
+          class="video-progress"
+          min="0"
+          max="100"
+          :value="videoProgress"
+          @input="onSeek"
+        />
+        <div
+          class="progress-color"
+          :style="{ width: videoProgress + '%' }"
+        ></div>
+        <div
+          class="buffering-color"
+          :style="{ width: downloadProgress + '%' }"
+        ></div>
       </div>
     </div>
 
     <div class="btn-container">
       <div class="controls">
-        <button class="play" :disabled="!isPlayerReady" @click="$emit('toggle-play')">
-          <i class="material-icons">{{playerState.isPlaying ? 'pause' : 'play_arrow'}}</i>
+        <button
+          class="play"
+          :disabled="!isPlayerReady"
+          @click="$emit('toggle-play')"
+        >
+          <i class="material-icons">{{
+            playerState.isPlaying ? "pause" : "play_arrow"
+          }}</i>
         </button>
 
         <div class="volume">
-          <i class="material-icons" @click="toggleMute">{{volumeIcon}}</i>
+          <i class="material-icons" @click="toggleMute">{{ volumeIcon }}</i>
           <input
             type="range"
             class="volume-input"
@@ -26,14 +45,16 @@
           />
         </div>
 
-        <span class="total-time">{{formattedCurrTime}} / {{formattedTotalDuration}}</span>
+        <span class="total-time"
+          >{{ formattedCurrTime }} / {{ formattedTotalDuration }}</span
+        >
       </div>
 
       <div class="settings-container">
         <div class="speed-container">
           <button class="setting-btn speed-btn" @click="toggleSpeedModal">
             <i class="material-icons">speed</i>
-            <span>{{getTrans('speed')}}</span>
+            <span>{{ getTrans("speed") }}</span>
           </button>
 
           <div class="speed-modal" :class="{ open: isSpeedOpen }">
@@ -44,7 +65,7 @@
               :key="idx"
               @click="onSetSpeed(speedStr)"
             >
-              {{speedStr}}
+              {{ speedStr }}
             </p>
           </div>
         </div>
@@ -55,7 +76,7 @@
           @click="$emit('toggle-is-draggable-shown')"
         >
           <i class="material-icons">desktop_windows</i>
-          <span>{{getTrans('add-screen')}}</span>
+          <span>{{ getTrans("add-screen") }}</span>
         </button>
 
         <button
@@ -64,12 +85,17 @@
           @click="$emit('toggle-main-video')"
         >
           <i class="material-icons">cameraswitch</i>
-          <span>{{getTrans('switch-screen')}}</span>
+          <span>{{ getTrans("switch-screen") }}</span>
         </button>
 
-        <button class="setting-btn fullscreen-btn" @click="$emit('toggle-fullscreen')">
-          <i class="material-icons">{{playerState.isFullScreen ? 'fullscreen' : 'fullscreen_exit'}}</i>
-          <span>{{getTrans('full-screen')}}</span>
+        <button
+          class="setting-btn fullscreen-btn"
+          @click="$emit('toggle-fullscreen')"
+        >
+          <i class="material-icons">{{
+            playerState.isFullScreen ? "fullscreen" : "fullscreen_exit"
+          }}</i>
+          <span>{{ getTrans("full-screen") }}</span>
         </button>
       </div>
     </div>
@@ -77,87 +103,94 @@
 </template>
 
 <script>
-import { secondsToTime } from '@/services/utilService.js'
+import { secondsToTime } from "@/services/utilService.js";
 
 export default {
-  props: ['isBuffering', 'resTime', 'isDraggableShown', 'isSecVideo', 'isPlaying'],
+  props: [
+    "isBuffering",
+    "resTime",
+    "isDraggableShown",
+    "isSecVideo",
+    "isPlaying",
+  ],
 
   data() {
     return {
       isSpeedOpen: false,
-      speedStrs: ['0.5', '0.75', 'Normal', '1.25', '1.5', '2'],
-    }
+      speedStrs: ["0.5", "0.75", "Normal", "1.25", "1.5", "2"],
+    };
   },
 
   computed: {
     playerState() {
-      return this.$store.getters['player/playerState']
+      return this.$store.getters["player/playerState"];
     },
 
     formattedTotalDuration() {
-      return secondsToTime(this.playerState.totalDuration)
+      return secondsToTime(this.playerState.totalDuration);
     },
 
     formattedCurrTime() {
-      return secondsToTime(this.playerState.currTime)
+      return secondsToTime(this.playerState.currTime);
     },
 
     isPlayerReady() {
-      const { isLoading, isDisabled } = this.playerState
-      return !isLoading && !isDisabled
+      const { isLoading, isDisabled } = this.playerState;
+      return !isLoading && !isDisabled;
     },
 
     playerSpeed() {
-      const playerSpeed = this.$store.getters['player/playerState'].speed
-      if (playerSpeed === 1) return 'Normal'
-      return playerSpeed
+      const playerSpeed = this.$store.getters["player/playerState"].speed;
+      if (playerSpeed === 1) return "Normal";
+      return playerSpeed;
     },
 
     downloadProgress() {
-      return this.playerState.downloadProgress
+      return this.playerState.downloadProgress;
     },
 
     volumeIcon() {
-      if (this.playerState.volume > 0.8) return 'volume_up'
-      else if (this.playerState.volume <= 0.8 && this.playerState.volume > 0.1) return 'volume_down'
-      else return 'volume_off'
+      if (this.playerState.volume > 0.8) return "volume_up";
+      else if (this.playerState.volume <= 0.8 && this.playerState.volume > 0.1)
+        return "volume_down";
+      else return "volume_off";
     },
 
     videoProgress() {
-      return (this.playerState.currTime / this.playerState.totalDuration) * 100
+      return (this.playerState.currTime / this.playerState.totalDuration) * 100;
     },
   },
 
   methods: {
     isSelectedSpeed(speedStr) {
-      const { speed } = this.playerState
-      return speedStr === 'Normal' ? speed === 1 : speed + '' === speedStr
+      const { speed } = this.playerState;
+      return speedStr === "Normal" ? speed === 1 : speed + "" === speedStr;
     },
 
     onSetSpeed(speed) {
-      this.isSpeedOpen = false
-      const parsedSpeed = speed === 'Normal' ? 1 : parseFloat(speed)
-      this.$emit('set-speed', parsedSpeed)
+      this.isSpeedOpen = false;
+      const parsedSpeed = speed === "Normal" ? 1 : parseFloat(speed);
+      this.$emit("set-speed", parsedSpeed);
     },
 
     onSeek({ target }) {
-      if (!this.isPlayerReady) return
-      const seconds = (this.playerState.totalDuration / 100) * target.value
-      this.$emit('seek', seconds, { stopNotes: true })
+      if (!this.isPlayerReady) return;
+      const seconds = (this.playerState.totalDuration / 100) * target.value;
+      this.$emit("seek", seconds, { stopNotes: true });
     },
 
     onSetVolume({ target }) {
-      this.$emit('set-volume', target.value / 100)
+      this.$emit("set-volume", target.value / 100);
     },
 
     toggleMute() {
-      const volume = this.playerState.volume > 0 ? 0 : 1
-      this.$emit('set-volume', volume)
+      const volume = this.playerState.volume > 0 ? 0 : 1;
+      this.$emit("set-volume", volume);
     },
 
     toggleSpeedModal() {
-      this.isSpeedOpen = !this.isSpeedOpen
+      this.isSpeedOpen = !this.isSpeedOpen;
     },
   },
-}
+};
 </script>

@@ -4,9 +4,9 @@
       <div :id="'toolbar' + _uid">
         <span class="ql-formats">
           <select class="ql-header" @click.stop="">
-            <option value="2">{{getTrans('heading1')}}</option>
-            <option value="3">{{getTrans('heading2')}}</option>
-            <option value="">{{getTrans('normal')}}</option>
+            <option value="2">{{ getTrans("heading1") }}</option>
+            <option value="3">{{ getTrans("heading2") }}</option>
+            <option value="">{{ getTrans("normal") }}</option>
           </select>
         </span>
 
@@ -17,20 +17,26 @@
         </span>
 
         <span v-if="tools.length" class="ql-formats">
-          <button v-for="(tool, idx) in tools" :key="idx" :class="toolClassMap[tool]"></button>
+          <button
+            v-for="(tool, idx) in tools"
+            :key="idx"
+            :class="toolClassMap[tool]"
+          ></button>
         </span>
       </div>
 
-      <span v-if="charLimit" class="char-limit">{{textLength}}/{{charLimit}}</span>
+      <span v-if="charLimit" class="char-limit"
+        >{{ textLength }}/{{ charLimit }}</span
+      >
     </div>
     <div ref="editor"></div>
   </div>
 </template>
 
 <script>
-import Quill from 'quill'
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
+import Quill from "quill";
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
 
 export default {
   props: {
@@ -48,31 +54,31 @@ export default {
     return {
       editor: null,
       toolClassMap: {
-        code: 'ql-code-block',
-        image: 'ql-image',
-        link: 'ql-link',
+        code: "ql-code-block",
+        image: "ql-image",
+        link: "ql-link",
       },
-    }
+    };
   },
 
   mounted() {
-    this.setup()
-    const scrollHeight = this.editor.scroll.domNode.scrollHeight
-    this.editor.scroll.domNode.style.maxHeight = scrollHeight + 'px'
+    this.setup();
+    const scrollHeight = this.editor.scroll.domNode.scrollHeight;
+    this.editor.scroll.domNode.style.maxHeight = scrollHeight + "px";
   },
 
   beforeUnmount() {
-    this.editor.off('text-change', this.update)
+    this.editor.off("text-change", this.update);
   },
 
   computed: {
     remainingCharCount() {
-      return this.charLimit - this.textLength
+      return this.charLimit - this.textLength;
     },
 
     textLength() {
-      if (!this.editor) return this.value && this.value.length
-      return this.getLengthNoTags(this.editor.getText()) - 1
+      if (!this.editor) return this.value && this.value.length;
+      return this.getLengthNoTags(this.editor.getText()) - 1;
     },
   },
 
@@ -80,36 +86,39 @@ export default {
     setup() {
       this.editor = new Quill(this.$refs.editor, {
         modules: {
-          toolbar: '#toolbar' + this._uid,
+          toolbar: "#toolbar" + this._uid,
         },
         placeholder: this.placeholder,
-        theme: 'snow',
-      })
-      this.editor.root.innerHTML = this.value || ''
-      this.editor.on('text-change', this.update)
+        theme: "snow",
+      });
+      this.editor.root.innerHTML = this.value || "";
+      this.editor.on("text-change", this.update);
     },
 
     update() {
       if (this.remainingCharCount <= 0) {
-        return this.editor.deleteText(this.charLimit, this.editor.getLength())
+        return this.editor.deleteText(this.charLimit, this.editor.getLength());
       }
-      if (this.editor.root.innerHTML === this.value) return
-      this.$emit('input', this.editor.getText().length !== 1 ? this.editor.root.innerHTML : '')
-      const scrollHeight = this.editor.scroll.domNode.scrollHeight
-      this.editor.scroll.domNode.style.maxHeight = scrollHeight + 'px'
+      if (this.editor.root.innerHTML === this.value) return;
+      this.$emit(
+        "input",
+        this.editor.getText().length !== 1 ? this.editor.root.innerHTML : ""
+      );
+      const scrollHeight = this.editor.scroll.domNode.scrollHeight;
+      this.editor.scroll.domNode.style.maxHeight = scrollHeight + "px";
     },
 
     getLengthNoTags(richText) {
-      var div = document.createElement('div')
-      div.innerHTML = richText
-      return div.innerText.length
+      var div = document.createElement("div");
+      div.innerHTML = richText;
+      return div.innerText.length;
     },
   },
 
   watch: {
     currQuestIdx() {
-      this.setup()
+      this.setup();
     },
   },
-}
+};
 </script>

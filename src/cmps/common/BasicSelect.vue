@@ -1,10 +1,16 @@
 <template>
   <div class="basic-select">
-    <label v-if="label" :for="'select' + id">{{label}}</label>
+    <label v-if="label" :for="'select' + id">{{ label }}</label>
 
     <div class="select-container" :tabindex="tabindex" @blur="open = false">
-      <div :id="'select' + id" class="selected" :class="{ open: open }" @click="open = !open" v-if="selected">
-        {{selected.txt}}
+      <div
+        :id="'select' + id"
+        class="selected"
+        :class="{ open: open }"
+        @click="open = !open"
+        v-if="selected"
+      >
+        {{ selected.txt }}
 
         <!-- Note: We can't use getTrans here! - rendering user emails on ActivityFilter -->
         <!-- {{  getTrans(selected.txt)  }} -->
@@ -14,7 +20,7 @@
 
       <div class="items" :class="{ selectHide: !open }">
         <div v-for="(option, i) of options" :key="i" @click="onSelect(option)">
-          {{option.txt}}
+          {{ option.txt }}
 
           <!-- Note: We can't use getTrans here! - rendering user emails on ActivityFilter -->
           <!-- {{  getTrans(option.txt)  }} -->
@@ -49,28 +55,30 @@ export default {
     return {
       selected: null,
       open: false,
-    }
+    };
   },
 
   created() {
-    this.id = this._uid
+    this.id = this._uid;
   },
 
   mounted() {
-    const selected = this.options.find((opt) => opt.value === this.defaultValue)
-    if (selected) this.selected = selected
-    else this.selected = this.options[0]
+    const selected = this.options.find(
+      (opt) => opt.value === this.defaultValue
+    );
+    if (selected) this.selected = selected;
+    else this.selected = this.options[0];
   },
 
   methods: {
     onSelect(option) {
-      this.selected = option
-      this.open = false
-      this.$emit('input', option.value)
-      this.$emit('change', {
+      this.selected = option;
+      this.open = false;
+      this.$emit("input", option.value);
+      this.$emit("change", {
         target: { value: option.value, name: this.name },
-      })
+      });
     },
   },
-}
+};
 </script>

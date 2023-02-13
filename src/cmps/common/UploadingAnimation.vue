@@ -15,7 +15,14 @@
         xmlns="http://www.w3.org/2000/svg"
       >
         <g filter="url(#filter0_i_1756_77)">
-          <rect class="applicant-video" y="32" width="150" height="150" rx="4" fill="#83BDE3" />
+          <rect
+            class="applicant-video"
+            y="32"
+            width="150"
+            height="150"
+            rx="4"
+            fill="#83BDE3"
+          />
         </g>
         <path
           d="M88.9291 88.6306C93.99 88.6306 98.0926 84.5693 98.0926 79.5594C98.0926 74.5496 93.99 70.4883 88.9291 70.4883C83.8683 70.4883 79.7656 74.5496 79.7656 79.5594C79.7656 84.5693 83.8683 88.6306 88.9291 88.6306Z"
@@ -59,7 +66,12 @@
             color-interpolation-filters="sRGB"
           >
             <feFlood flood-opacity="0" result="BackgroundImageFix" />
-            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+            <feBlend
+              mode="normal"
+              in="SourceGraphic"
+              in2="BackgroundImageFix"
+              result="shape"
+            />
             <feColorMatrix
               in="SourceAlpha"
               type="matrix"
@@ -69,8 +81,15 @@
             <feOffset dx="-3" dy="3" />
             <feGaussianBlur stdDeviation="0.5" />
             <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-            <feColorMatrix type="matrix" values="0 0 0 0 0.725139 0 0 0 0 0.858475 0 0 0 0 0.945833 0 0 0 1 0" />
-            <feBlend mode="normal" in2="shape" result="effect1_innerShadow_1756_77" />
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 0.725139 0 0 0 0 0.858475 0 0 0 0 0.945833 0 0 0 1 0"
+            />
+            <feBlend
+              mode="normal"
+              in2="shape"
+              result="effect1_innerShadow_1756_77"
+            />
           </filter>
         </defs>
       </svg>
@@ -83,7 +102,14 @@
         xmlns="http://www.w3.org/2000/svg"
       >
         <g filter="url(#filter0_i_1756_76)">
-          <rect class="applicant-video" y="32" width="150" height="150" rx="4" fill="#F6C6B7" />
+          <rect
+            class="applicant-video"
+            y="32"
+            width="150"
+            height="150"
+            rx="4"
+            fill="#F6C6B7"
+          />
         </g>
         <path
           d="M23 49.2679C24.3333 50.0378 24.3333 51.9623 23 52.7321L9.5 60.5263C8.16667 61.2961 6.5 60.3338 6.5 58.7942L6.5 43.2058C6.5 41.6662 8.16667 40.7039 9.5 41.4737L23 49.2679Z"
@@ -135,7 +161,12 @@
             color-interpolation-filters="sRGB"
           >
             <feFlood flood-opacity="0" result="BackgroundImageFix" />
-            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+            <feBlend
+              mode="normal"
+              in="SourceGraphic"
+              in2="BackgroundImageFix"
+              result="shape"
+            />
             <feColorMatrix
               in="SourceAlpha"
               type="matrix"
@@ -145,8 +176,15 @@
             <feOffset dx="-3" dy="3" />
             <feGaussianBlur stdDeviation="0.5" />
             <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-            <feColorMatrix type="matrix" values="0 0 0 0 0.945833 0 0 0 0 0.864762 0 0 0 0 0.839427 0 0 0 1 0" />
-            <feBlend mode="normal" in2="shape" result="effect1_innerShadow_1756_76" />
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 0.945833 0 0 0 0 0.864762 0 0 0 0 0.839427 0 0 0 1 0"
+            />
+            <feBlend
+              mode="normal"
+              in2="shape"
+              result="effect1_innerShadow_1756_76"
+            />
           </filter>
         </defs>
       </svg>
@@ -159,7 +197,14 @@
         xmlns="http://www.w3.org/2000/svg"
       >
         <g filter="url(#filter0_i_1756_75)">
-          <rect class="applicant-video" y="32" width="150" height="150" rx="4" fill="#FDBA5F" />
+          <rect
+            class="applicant-video"
+            y="32"
+            width="150"
+            height="150"
+            rx="4"
+            fill="#FDBA5F"
+          />
         </g>
         <path
           d="M23 49.2679C24.3333 50.0378 24.3333 51.9623 23 52.7321L9.5 60.5263C8.16667 61.2961 6.5 60.3338 6.5 58.7942L6.5 43.2058C6.5 41.6662 8.16667 40.7039 9.5 41.4737L23 49.2679Z"
@@ -207,7 +252,12 @@
             color-interpolation-filters="sRGB"
           >
             <feFlood flood-opacity="0" result="BackgroundImageFix" />
-            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+            <feBlend
+              mode="normal"
+              in="SourceGraphic"
+              in2="BackgroundImageFix"
+              result="shape"
+            />
             <feColorMatrix
               in="SourceAlpha"
               type="matrix"
@@ -217,8 +267,15 @@
             <feOffset dx="-3" dy="3" />
             <feGaussianBlur stdDeviation="0.5" />
             <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.821545 0 0 0 0 0.579167 0 0 0 1 0" />
-            <feBlend mode="normal" in2="shape" result="effect1_innerShadow_1756_75" />
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 1 0 0 0 0 0.821545 0 0 0 0 0.579167 0 0 0 1 0"
+            />
+            <feBlend
+              mode="normal"
+              in2="shape"
+              result="effect1_innerShadow_1756_75"
+            />
           </filter>
         </defs>
       </svg>
@@ -250,14 +307,17 @@
           d="M182.28 258.62C181.755 258.621 181.245 258.794 180.828 259.114C180.412 259.433 180.112 259.88 179.975 260.387L176.118 274.71C176.023 275.064 176.01 275.435 176.081 275.795C176.153 276.154 176.306 276.492 176.528 276.783C176.751 277.074 177.038 277.31 177.367 277.472C177.695 277.634 178.057 277.718 178.423 277.718H251.763C252.144 277.718 252.519 277.628 252.857 277.453C253.195 277.279 253.487 277.026 253.707 276.716C253.928 276.406 254.071 276.047 254.126 275.671C254.18 275.294 254.143 274.91 254.018 274.55L249.06 260.227C248.898 259.758 248.593 259.351 248.189 259.063C247.784 258.775 247.301 258.621 246.804 258.62H182.28Z"
           fill="#67657D"
         />
-        <path d="M377.983 199.337V202.52H49.8926L50.1395 202.122V199.337H377.983Z" fill="#C7C6DF" />
+        <path
+          d="M377.983 199.337V202.52H49.8926L50.1395 202.122V199.337H377.983Z"
+          fill="#C7C6DF"
+        />
       </svg>
     </div>
   </section>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style lang="scss" scoped>
@@ -273,7 +333,7 @@ $animation-duration: 10s;
   transform-style: preserve-3d;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 2px;
     border-left: 2px dashed #0005;
@@ -318,7 +378,9 @@ $animation-duration: 10s;
         left: 0;
         width: 80%;
         height: 60%;
-        animation-delay: calc(#{$animation-duration} / 150 * 0 + #{$animation-duration} / 5);
+        animation-delay: calc(
+          #{$animation-duration} / 150 * 0 + #{$animation-duration} / 5
+        );
       }
 
       &:nth-child(2) {
@@ -326,14 +388,18 @@ $animation-duration: 10s;
         width: 50%;
         height: 100%;
         bottom: 1px;
-        animation-delay: calc(#{$animation-duration} / 150 * 1 + #{$animation-duration} / 5);
+        animation-delay: calc(
+          #{$animation-duration} / 150 * 1 + #{$animation-duration} / 5
+        );
       }
 
       &:nth-child(3) {
         right: 0;
         width: 60%;
         height: 70%;
-        animation-delay: calc(#{$animation-duration} / 150 * 3 +#{$animation-duration} / 5);
+        animation-delay: calc(
+          #{$animation-duration} / 150 * 3 +#{$animation-duration} / 5
+        );
       }
     }
   }
@@ -358,15 +424,18 @@ $animation-duration: 10s;
     }
 
     .video-1 {
-      animation: upload-left $animation-duration calc(#{$animation-duration} / 3 * 0) infinite;
+      animation: upload-left $animation-duration
+        calc(#{$animation-duration} / 3 * 0) infinite;
     }
 
     .video-2 {
-      animation: upload-right $animation-duration calc(#{$animation-duration} / 3 * 1) infinite;
+      animation: upload-right $animation-duration
+        calc(#{$animation-duration} / 3 * 1) infinite;
     }
 
     .video-3 {
-      animation: upload-left $animation-duration calc(#{$animation-duration} / 3 * 2) infinite;
+      animation: upload-left $animation-duration
+        calc(#{$animation-duration} / 3 * 2) infinite;
     }
 
     @keyframes upload-left {

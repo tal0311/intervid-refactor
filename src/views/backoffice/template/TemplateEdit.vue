@@ -1,7 +1,11 @@
 <template>
   <section class="template-edit" v-if="!isFetching">
-    <h2>{{getTrans('create-new-template')}}</h2>
-    <form novalidate @submit.prevent="onSaveTemplate" class="template-container">
+    <h2>{{ getTrans("create-new-template") }}</h2>
+    <form
+      novalidate
+      @submit.prevent="onSaveTemplate"
+      class="template-container"
+    >
       <main-input
         v-if="templateToEdit"
         inputName="title"
@@ -28,17 +32,23 @@
         </div>
 
         <div class="action-container">
-          <button class="save-btn">{{getTrans('save')}}</button>
-          <button type="button" class="add-quest" @click="onAddQuest">{{getTrans('add-question')}}</button>
+          <button class="save-btn">{{ getTrans("save") }}</button>
+          <button type="button" class="add-quest" @click="onAddQuest">
+            {{ getTrans("add-question") }}
+          </button>
         </div>
       </div>
     </form>
 
     <div class="confirmation-modal" v-if="isDialogOpen">
-      <p>{{getTrans('confirmation-modal')}}</p>
+      <p>{{ getTrans("confirmation-modal") }}</p>
       <div>
-        <button data-ans="yes" @click="onDialogAns">{{getTrans('confirmation-modal-ans-yes')}}</button>
-        <button data-ans="no" @click="onDialogAns">{{getTrans('confirmation-modal-ans-no')}}</button>
+        <button data-ans="yes" @click="onDialogAns">
+          {{ getTrans("confirmation-modal-ans-yes") }}
+        </button>
+        <button data-ans="no" @click="onDialogAns">
+          {{ getTrans("confirmation-modal-ans-no") }}
+        </button>
       </div>
     </div>
   </section>
@@ -46,13 +56,13 @@
 </template>
 
 <script>
-import { templateService } from '@/services/templateService'
-import { validate } from '@/services/errorService.js'
+import { templateService } from "@/services/templateService";
+import { validate } from "@/services/errorService.js";
 
-import cloneDeep from 'lodash.clonedeep'
+import cloneDeep from "lodash.clonedeep";
 
-import QuestEdit from '@/cmps/backoffice/template/QuestEdit.vue'
-import Loader from '@/cmps/common/Loader.vue'
+import QuestEdit from "@/cmps/backoffice/template/QuestEdit.vue";
+import Loader from "@/cmps/common/Loader.vue";
 
 export default {
   data() {
@@ -61,79 +71,85 @@ export default {
       errors: null,
       isDialogOpen: false,
       dialogResolve: null,
-    }
+    };
   },
 
   async created() {
-    const { templateId } = this.$route.params
-    await this.loadTemplate(templateId)
+    const { templateId } = this.$route.params;
+    await this.loadTemplate(templateId);
   },
 
   async beforeRouteLeave(to, from, next) {
     const confirmation = await new Promise((res, rej) => {
-      this.dialogResolve = res
-      this.isDialogOpen = true
-    })
-    if (confirmation === 'yes') next()
-    else if (confirmation === 'no') next(false)
+      this.dialogResolve = res;
+      this.isDialogOpen = true;
+    });
+    if (confirmation === "yes") next();
+    else if (confirmation === "no") next(false);
   },
 
   computed: {
     template() {
-      return this.$store.getters['template/template']
+      return this.$store.getters["template/template"];
     },
 
     quests() {
-      return this.templateToEdit?.quests
+      return this.templateToEdit?.quests;
     },
 
     isFetching() {
-      return this.$store.getters['template/isFetching']
+      return this.$store.getters["template/isFetching"];
     },
   },
 
   methods: {
     async loadTemplate(templateId) {
       if (templateId) {
-        await this.$store.dispatch('template/loadTemplate', { templateId })
-        this.templateToEdit = cloneDeep(this.template)
+        await this.$store.dispatch("template/loadTemplate", { templateId });
+        this.templateToEdit = cloneDeep(this.template);
       } else {
-        this.templateToEdit = templateService.getDefaultTemplate()
+        this.templateToEdit = templateService.getDefaultTemplate();
       }
     },
 
     onRemoveQuest(questId) {
-      this.templateToEdit.quests = this.quests.filter((quest) => quest.id !== questId)
+      this.templateToEdit.quests = this.quests.filter(
+        (quest) => quest.id !== questId
+      );
     },
 
     onUpdateQuest(quest) {
-      this.templateToEdit.quests = this.quests.map((_quest) => (_quest.id === quest.id ? quest : _quest))
+      this.templateToEdit.quests = this.quests.map((_quest) =>
+        _quest.id === quest.id ? quest : _quest
+      );
     },
 
     onAddQuest() {
-      const quest = templateService.createQuest()
-      this.templateToEdit.quests.push(quest)
-      this.errors = []
+      const quest = templateService.createQuest();
+      this.templateToEdit.quests.push(quest);
+      this.errors = [];
     },
 
     async onSaveTemplate({ target }) {
-      this.errors = validate(target)
-      if (this.errors?.length) return
-      await this.$store.dispatch('template/saveTemplate', { template: { ...this.templateToEdit } })
-      this.$router.push({ path: '/backoffice/template' })
-      this.dialogResolve('yes')
+      this.errors = validate(target);
+      if (this.errors?.length) return;
+      await this.$store.dispatch("template/saveTemplate", {
+        template: { ...this.templateToEdit },
+      });
+      this.$router.push({ path: "/backoffice/template" });
+      this.dialogResolve("yes");
     },
 
     validateField({ target }) {
-      if (!target.form) return
-      if (!this.errors) return
-      this.errors = validate(target.form)
+      if (!target.form) return;
+      if (!this.errors) return;
+      this.errors = validate(target.form);
     },
 
     onDialogAns({ target }) {
-      const ans = target.dataset.ans
-      this.dialogResolve(ans)
-      this.isDialogOpen = false
+      const ans = target.dataset.ans;
+      this.dialogResolve(ans);
+      this.isDialogOpen = false;
     },
   },
 
@@ -141,5 +157,5 @@ export default {
     QuestEdit,
     Loader,
   },
-}
+};
 </script>

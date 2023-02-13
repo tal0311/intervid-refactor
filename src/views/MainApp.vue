@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import Screen from '@/cmps/common/modals/Screen.vue'
-import AppHeader from '@/cmps/AppHeader.vue'
-import Modal from '@/cmps/common/Modal.vue'
+import Screen from "@/cmps/common/modals/Screen.vue";
+import AppHeader from "@/cmps/AppHeader.vue";
+import Modal from "@/cmps/common/Modal.vue";
 
 export default {
   components: {
@@ -18,5 +18,5 @@ export default {
     Modal,
     Screen,
   },
-}
+};
 </script>

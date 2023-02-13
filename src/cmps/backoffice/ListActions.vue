@@ -4,9 +4,11 @@
       <i
         class="material-icons bottom-tooltip"
         @click="$emit('archive')"
-        :data-tooltip="filterBy.showArchived ? getTrans('restore') : getTrans('archive')"
+        :data-tooltip="
+          filterBy.showArchived ? getTrans('restore') : getTrans('archive')
+        "
       >
-        {{filterBy.showArchived ? 'unarchive' : 'archive'}}
+        {{ filterBy.showArchived ? "unarchive" : "archive" }}
       </i>
 
       <i
@@ -19,12 +21,16 @@
       </i>
 
       <i
-        v-if="$route.name === 'ApplicantOverview' && !filterBy.showArchived && !isLockedItemSelected"
+        v-if="
+          $route.name === 'ApplicantOverview' &&
+          !filterBy.showArchived &&
+          !isLockedItemSelected
+        "
         class="material-icons bottom-tooltip"
         :data-tooltip="`Mark as ${isRead ? 'unread' : 'read'}`"
         @click="$emit('toggle-read')"
       >
-        {{isRead ? 'mail' : 'drafts'}}
+        {{ isRead ? "mail" : "drafts" }}
       </i>
     </div>
 
@@ -40,20 +46,20 @@
 </template>
 
 <script>
-import Pagination from '@/cmps/common/Pagination.vue'
+import Pagination from "@/cmps/common/Pagination.vue";
 
 export default {
   props: [
-    'selectedItemCount',
-    'isLockedItemSelected',
-    'itemCount',
-    'filterBy',
-    'currPage',
-    'itemsPerPage',
-    'isRead',
-    'pageCount',
+    "selectedItemCount",
+    "isLockedItemSelected",
+    "itemCount",
+    "filterBy",
+    "currPage",
+    "itemsPerPage",
+    "isRead",
+    "pageCount",
   ],
 
   components: { Pagination },
-}
+};
 </script>

@@ -1,7 +1,12 @@
 <template>
   <section class="record-filter">
     <div class="top">
-      <search-box :value="filterBy.txt" @input="onSetFilterByKey" debounce="true" placeholder="search-logs" />
+      <search-box
+        :value="filterBy.txt"
+        @input="onSetFilterByKey"
+        debounce="true"
+        placeholder="search-logs"
+      />
 
       <basic-select
         label="Source"
@@ -19,31 +24,61 @@
       <div class="searches">
         <label for="traceID" class="trace-id">
           Trace ID
-          <input type="text" name="traceID" @change="handleChange" :value="filterBy.traceID" id="traceID" />
+          <input
+            type="text"
+            name="traceID"
+            @change="handleChange"
+            :value="filterBy.traceID"
+            id="traceID"
+          />
         </label>
 
         <div class="date-container">
           <label for="fromDate">
             <p>From Date</p>
-            <input type="date" id="fromDate" name="fromDate" :value="filterBy.fromDate" @change="handleChange" />
+            <input
+              type="date"
+              id="fromDate"
+              name="fromDate"
+              :value="filterBy.fromDate"
+              @change="handleChange"
+            />
           </label>
 
           <label for="toDate">
             <p>To Date</p>
-            <input type="date" id="toDate" name="toDate" :value="filterBy.toDate" @change="handleChange" />
+            <input
+              type="date"
+              id="toDate"
+              name="toDate"
+              :value="filterBy.toDate"
+              @change="handleChange"
+            />
           </label>
         </div>
       </div>
 
       <label class="user-txt">
         Applicant/User
-        <input type="text" name="userTxt" @change="handleChange" :value="filterBy.userTxt" placeholder="Id" />
+        <input
+          type="text"
+          name="userTxt"
+          @change="handleChange"
+          :value="filterBy.userTxt"
+          placeholder="Id"
+        />
       </label>
 
       <div class="status-code">
         <label for="statusCode">
           Status Code
-          <input type="text" :value="filterBy.statusCode" name="statusCode" @change="handleChange" id="statusCode" />
+          <input
+            type="text"
+            :value="filterBy.statusCode"
+            name="statusCode"
+            @change="handleChange"
+            id="statusCode"
+          />
         </label>
 
         <basic-select
@@ -68,7 +103,7 @@
           }"
           @click="onLevelChange(level)"
         >
-          {{level.toUpperCase()}}
+          {{ level.toUpperCase() }}
         </button>
       </div>
     </div>
@@ -76,36 +111,36 @@
 </template>
 
 <script>
-import SearchBox from '@/cmps/common/SearchBox.vue'
-import { debounce } from '@/services/utilService'
+import SearchBox from "@/cmps/common/SearchBox.vue";
+import { debounce } from "@/services/utilService";
 
 export default {
-  props: ['filterBy'],
+  props: ["filterBy"],
 
   data() {
     return {
-      levels: ['debug', 'http', 'info', 'warn', 'error'],
-    }
+      levels: ["debug", "http", "info", "warn", "error"],
+    };
   },
 
   methods: {
     onSetFilterByKey(key, value) {
-      this.$emit('set-filter', key, value)
+      this.$emit("set-filter", key, value);
     },
 
     onLevelChange(level) {
-      const levels = this.filterBy.levels?.split(',') || []
-      const levelIdx = levels.findIndex((_level) => _level === level)
-      if (levelIdx > -1) levels.splice(levelIdx, 1)
-      else levels.push(level)
-      this.onSetFilterByKey('levels', levels.join(','))
+      const levels = this.filterBy.levels?.split(",") || [];
+      const levelIdx = levels.findIndex((_level) => _level === level);
+      if (levelIdx > -1) levels.splice(levelIdx, 1);
+      else levels.push(level);
+      this.onSetFilterByKey("levels", levels.join(","));
     },
 
     handleChange: debounce(function (ev) {
-      this.onSetFilterByKey(ev.target.name, ev.target.value)
+      this.onSetFilterByKey(ev.target.name, ev.target.value);
     }, 0),
   },
 
   components: { SearchBox },
-}
+};
 </script>

@@ -7,37 +7,37 @@
       @click.stop="$emit('set-ans-rule', ansRule.type)"
       :disabled="!isOneTry || !verifyPerm(advancedPermsMap[ansRule.permission])"
       :class="{
-        disabled: !isOneTry || !verifyPerm(advancedPermsMap[ansRule.permission]),
+        disabled:
+          !isOneTry || !verifyPerm(advancedPermsMap[ansRule.permission]),
         selected: selectedAnsRule === ansRule.type,
       }"
     >
-      <i class="icon material-icons">{{ansRule.icon}}</i>
-      {{getTrans(ansRule.txt)}}
+      <i class="icon material-icons">{{ ansRule.icon }}</i>
+      {{ getTrans(ansRule.txt) }}
     </button>
   </div>
 </template>
 
 <script>
-import { advancedPermsMap, ansRules } from '@/services/constData'
-import { userService } from '@/services/userService'
+import { advancedPermsMap, ansRules } from "@/services/constData";
+import { userService } from "@/services/userService";
 
 export default {
-  props: ['isOneTry', 'selectedAnsRule'],
+  props: ["isOneTry", "selectedAnsRule"],
 
   computed: {
     ansRules() {
-      return ansRules
+      return ansRules;
     },
     advancedPermsMap() {
-      return advancedPermsMap
+      return advancedPermsMap;
     },
   },
 
   methods: {
     verifyPerm(requiredPrm) {
-      return userService.verifyPerm(requiredPrm)
+      return userService.verifyPerm(requiredPrm);
     },
   },
-}
+};
 </script>
-

@@ -27,22 +27,22 @@
 </template>
 
 <script>
-import OverviewMixin from '@/mixins/OverviewMixin'
+import OverviewMixin from "@/mixins/OverviewMixin";
 
-import RecordFilter from '@/cmps/backoffice/admin/RecordFilter.vue'
-import TableList from '@/cmps/backoffice/TableList.vue'
-import ListActions from '@/cmps/backoffice/ListActions.vue'
+import RecordFilter from "@/cmps/backoffice/admin/RecordFilter.vue";
+import TableList from "@/cmps/backoffice/TableList.vue";
+import ListActions from "@/cmps/backoffice/ListActions.vue";
 
 export default {
   mixins: [OverviewMixin],
 
   async created() {
-    await this.loadRecords()
+    await this.loadRecords();
   },
 
   computed: {
     records() {
-      return this.$store.getters['record/records']
+      return this.$store.getters["record/records"];
     },
 
     // recordsToShow() {
@@ -52,32 +52,35 @@ export default {
     // },
 
     totalRecordCount() {
-      return this.$store.getters['record/totalRecordCount']
+      return this.$store.getters["record/totalRecordCount"];
     },
 
     isFetching() {
-      return this.$store.getters['record/isFetching']
+      return this.$store.getters["record/isFetching"];
     },
 
     pageCount() {
-      return Math.ceil(this.totalRecordCount / this.filterBy.itemsPerPage)
+      return Math.ceil(this.totalRecordCount / this.filterBy.itemsPerPage);
     },
   },
 
   methods: {
     loadRecords() {
-      return this.$store.dispatch('record/loadRecords', { filterBy: { ...this.filterBy }, sort: this.sort })
+      return this.$store.dispatch("record/loadRecords", {
+        filterBy: { ...this.filterBy },
+        sort: this.sort,
+      });
     },
   },
 
   watch: {
     $route() {
-      this.setFilter()
-      this.loadRecords()
+      this.setFilter();
+      this.loadRecords();
     },
     sort: {
       handler() {
-        this.loadRecords()
+        this.loadRecords();
       },
       deep: true,
     },
@@ -88,5 +91,5 @@ export default {
     TableList,
     ListActions,
   },
-}
+};
 </script>

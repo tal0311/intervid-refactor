@@ -1,5 +1,5 @@
-const TOKEN_KEY = 'access_token'
-const REFRESH_TOKEN_KEY = 'refresh_token'
+const TOKEN_KEY = "access_token";
+const REFRESH_TOKEN_KEY = "refresh_token";
 
 export const tokenService = {
   getToken,
@@ -7,30 +7,29 @@ export const tokenService = {
   removeToken,
   getRefreshToken,
   saveRefreshToken,
-  removeRefreshToken
+  removeRefreshToken,
+};
+
+function getToken(keyPrefix = "") {
+  return localStorage.getItem(keyPrefix + TOKEN_KEY);
 }
 
-
-function getToken(keyPrefix = '') {
-  return localStorage.getItem(keyPrefix + TOKEN_KEY)
-}
-
-function saveToken(accessToken, keyPrefix = '') {
-  localStorage.setItem(keyPrefix + TOKEN_KEY, accessToken)
+function saveToken(accessToken, keyPrefix = "") {
+  localStorage.setItem(keyPrefix + TOKEN_KEY, accessToken);
 }
 
 function removeToken() {
-  localStorage.removeItem(TOKEN_KEY)
+  localStorage.removeItem(TOKEN_KEY);
 }
 
 function getRefreshToken() {
-  return localStorage.getItem(REFRESH_TOKEN_KEY)
+  return localStorage.getItem(REFRESH_TOKEN_KEY);
 }
 
 function saveRefreshToken(refreshToken) {
-  localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken)
+  localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
 }
 
 function removeRefreshToken() {
-  localStorage.removeItem(REFRESH_TOKEN_KEY)
+  localStorage.removeItem(REFRESH_TOKEN_KEY);
 }

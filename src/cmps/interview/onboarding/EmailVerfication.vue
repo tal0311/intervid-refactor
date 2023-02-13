@@ -13,49 +13,49 @@
         styled="basic"
       />
     </div>
-    <button @click.native="verifyCode">{{btnMsgs[currStep]}}</button>
+    <button @click.native="verifyCode">{{ btnMsgs[currStep] }}</button>
     <p>(Interview will not yet start)</p>
   </section>
 </template>
 
 <script>
-import { validate } from '@/services/errorService'
+import { validate } from "@/services/errorService";
 
 export default {
-  props: ['btnMsgs, currStep'],
+  props: ["btnMsgs, currStep"],
 
   data() {
     return {
       isVerifying: false,
-      code: '',
+      code: "",
       errors: null,
-    }
+    };
   },
 
   methods: {
     async verifyCode({ target }) {
-      this.errors = validate(target)
-      if (this.errors.length) return
+      this.errors = validate(target);
+      if (this.errors.length) return;
       try {
-        this.isVerifying = true
+        this.isVerifying = true;
         // await userService.verifyApplicant(this.applicant.id, this.code)
-        this.$emit('login', this.applicant)
+        this.$emit("login", this.applicant);
       } catch (err) {
         // TODO: get error from server
         this.errors.push({
-          msg: 'INVALID_VERIFY_CODE_ERR',
-          elName: 'code',
-        })
+          msg: "INVALID_VERIFY_CODE_ERR",
+          elName: "code",
+        });
       } finally {
-        this.isVerifying = false
+        this.isVerifying = false;
       }
     },
 
     validateField(ev) {
-      if (!ev.target.form) return
-      if (!this.errors) return
-      this.errors = validate(ev.target.form)
+      if (!ev.target.form) return;
+      if (!this.errors) return;
+      this.errors = validate(ev.target.form);
     },
   },
-}
+};
 </script>

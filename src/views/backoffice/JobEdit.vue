@@ -1,7 +1,19 @@
 <template>
   <section class="job-edit" v-if="job">
-    <form @input="handleChange" ref="jobForm" novalidate class="form" v-if="!isFetching" @submit.prevent="">
-      <job-form :job="job" :errors="jobEditErrors" @update-job="validateForm" @validate-field="validateField" />
+    <form
+      @input="handleChange"
+      ref="jobForm"
+      novalidate
+      class="form"
+      v-if="!isFetching"
+      @submit.prevent=""
+    >
+      <job-form
+        :job="job"
+        :errors="jobEditErrors"
+        @update-job="validateForm"
+        @validate-field="validateField"
+      />
 
       <div class="quest-list">
         <draggable
@@ -30,15 +42,20 @@
 
       <div class="add add-quest" @click="onAddQuest">
         <i class="material-icons">add_circle_outline</i>
-        {{getTrans('add-question')}}
+        {{ getTrans("add-question") }}
       </div>
 
       <button
         class="send-btn"
-        :class="[{disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length)},{selected:onShare}]"
+        :class="[
+          {
+            disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length),
+          },
+          { selected: onShare },
+        ]"
         @click.prevent="onShare"
       >
-        {{getTrans('send')}}
+        {{ getTrans("send") }}
       </button>
     </form>
 
@@ -47,48 +64,48 @@
 </template>
 
 <script>
-import {debounce} from '@/services/utilService'
-import {msgService} from '@/services/msgService'
-import {validate} from '@/services/errorService.js'
-import {templateService} from '@/services/templateService'
+import { debounce } from "@/services/utilService";
+import { msgService } from "@/services/msgService";
+import { validate } from "@/services/errorService.js";
+import { templateService } from "@/services/templateService";
 
-import cloneDeep from 'lodash.clonedeep'
-import draggable from 'vuedraggable'
+import cloneDeep from "lodash.clonedeep";
+import draggable from "vuedraggable";
 
-import QuestEdit from '@/cmps/JobEdit/QuestEdit.vue'
-import JobForm from '@/cmps/JobEdit/JobForm.vue'
-import Loader from '@/cmps/common/Loader.vue'
-import config from '@/config'
+import QuestEdit from "@/cmps/JobEdit/QuestEdit.vue";
+import JobForm from "@/cmps/JobEdit/JobForm.vue";
+import Loader from "@/cmps/common/Loader.vue";
+import config from "@/config";
 
 export default {
   data() {
     return {
       job: null,
-    }
+    };
   },
 
   async created() {
-    await this.loadJob()
-    this.job = cloneDeep(this.jobToEdit)
-    if (this.$route.query.templateId) await this.loadTemplateQuests()
+    await this.loadJob();
+    this.job = cloneDeep(this.jobToEdit);
+    if (this.$route.query.templateId) await this.loadTemplateQuests();
   },
 
   mounted() {
-    this.$root.$on('share-job', this.onShare)
-    this.$nextTick(this.validateForm)
+    this.$root.$on("share-job", this.onShare);
+    this.$nextTick(this.validateForm);
   },
 
   beforeUnmount() {
-    this.$root.$off('share-job', this.onShare)
+    this.$root.$off("share-job", this.onShare);
   },
 
   unmounted() {
-    this.$store.commit('job/setIsFirstChange', true)
+    this.$store.commit("job/setIsFirstChange", true);
   },
 
   computed: {
     jobToEdit() {
-      return this.$store.getters['job/jobToEdit']
+      return this.$store.getters["job/jobToEdit"];
     },
 
     dragOptions() {
@@ -96,144 +113,170 @@ export default {
         animation: 200,
         // group: "description",
         disabled: false,
-        ghostClass: 'ghost',
-      }
+        ghostClass: "ghost",
+      };
     },
 
     isMobile() {
-      return this.$store.getters['app/isMobile']
+      return this.$store.getters["app/isMobile"];
     },
 
     isFetching() {
-      return this.$store.getters['job/isFetching']
+      return this.$store.getters["job/isFetching"];
     },
 
     isFirstChange() {
-      return this.$store.getters['job/isFirstChange']
+      return this.$store.getters["job/isFirstChange"];
     },
 
     jobEditErrors() {
-      return this.$store.getters['job/jobEditErrors']
+      return this.$store.getters["job/jobEditErrors"];
     },
 
     invitationUrl() {
-      return `${config.baseUrl}interview/${this.jobToEdit._id}`
+      return `${config.baseUrl}interview/${this.jobToEdit._id}`;
     },
   },
 
   methods: {
     async loadJob() {
-      const {jobId} = this.$route.params
-      await this.$store.dispatch('job/loadJobToEdit', {jobId})
+      const { jobId } = this.$route.params;
+      await this.$store.dispatch("job/loadJobToEdit", { jobId });
     },
 
     async addJob() {
-      await this.$store.dispatch('job/addJob', {job: this.job})
-      this.$router.push(`/create/${this.job._id}`)
+      await this.$store.dispatch("job/addJob", { job: this.job });
+      this.$router.push(`/create/${this.job._id}`);
     },
 
     async updateJob() {
-      await this.$store.dispatch('job/updateJob', {job: this.job})
+      await this.$store.dispatch("job/updateJob", { job: this.job });
     },
 
     async saveJob() {
-      if (!this.job._id) await this.addJob()
-      else await this.updateJob()
+      if (!this.job._id) await this.addJob();
+      else await this.updateJob();
     },
 
     async onAddQuest() {
-      const quest = templateService.createQuest()
-      this.job.quests.push(quest)
-      this.$nextTick(this.validateForm)
+      const quest = templateService.createQuest();
+      this.job.quests.push(quest);
+      this.$nextTick(this.validateForm);
     },
 
     async onUpdateQuest() {
-      await this.validateForm()
+      await this.validateForm();
     },
 
-    async onDuplicateQuest({txt, desc, ansRule, timeLimit}) {
-      const duplicatedQuest = templateService.createQuest(txt, desc, ansRule, timeLimit)
-      this.job.quests.push(duplicatedQuest)
-      await this.validateForm()
+    async onDuplicateQuest({ txt, desc, ansRule, timeLimit }) {
+      const duplicatedQuest = templateService.createQuest(
+        txt,
+        desc,
+        ansRule,
+        timeLimit
+      );
+      this.job.quests.push(duplicatedQuest);
+      await this.validateForm();
     },
 
     async onRemoveQuest(questId) {
-      this.job.quests = this.job.quests.filter((quest) => quest.id !== questId)
-      this.$nextTick(this.validateForm)
-      const msg = msgService.remove('question', 1, true)
-      this.$store.commit('app/setAlertData', {alertData: msg})
+      this.job.quests = this.job.quests.filter((quest) => quest.id !== questId);
+      this.$nextTick(this.validateForm);
+      const msg = msgService.remove("question", 1, true);
+      this.$store.commit("app/setAlertData", { alertData: msg });
     },
 
-    validateField({target}) {
+    validateField({ target }) {
       if (!target.value) {
-        this.setDefaultValue(target.name)
+        this.setDefaultValue(target.name);
       }
-      if (!target.form) return
-      if (!this.jobEditErrors.length) return
-      this.$store.commit('job/setJobEditErrors', {jobEditErrors: validate(target.form)})
+      if (!target.form) return;
+      if (!this.jobEditErrors.length) return;
+      this.$store.commit("job/setJobEditErrors", {
+        jobEditErrors: validate(target.form),
+      });
     },
 
     async validateForm() {
-      const target = this.$refs.jobForm
-      if (!target) return
-      this.$store.commit('job/setJobEditErrors', {jobEditErrors: validate(target)})
-      if (this.jobEditErrors.length) return
-      if (this.isFirstChange) this.$store.commit('job/setIsFirstChange', false)
-      await this.saveJob()
+      const target = this.$refs.jobForm;
+      if (!target) return;
+      this.$store.commit("job/setJobEditErrors", {
+        jobEditErrors: validate(target),
+      });
+      if (this.jobEditErrors.length) return;
+      if (this.isFirstChange) this.$store.commit("job/setIsFirstChange", false);
+      await this.saveJob();
     },
 
-    handleChange: debounce(async function ({target}) {
-      if (target.name && (target.name === 'search' || target.name.includes('upload'))) return
-      await this.validateForm()
+    handleChange: debounce(async function ({ target }) {
+      if (
+        target.name &&
+        (target.name === "search" || target.name.includes("upload"))
+      )
+        return;
+      await this.validateForm();
     }, 1500),
 
     onDragEnd(ev) {
-      if (ev.oldIndex === ev.newIndex) return
-      this.handleChange({target: ev.target})
+      if (ev.oldIndex === ev.newIndex) return;
+      this.handleChange({ target: ev.target });
     },
 
     async loadTemplateQuests() {
-      const template = await templateService.getById(this.$route.query.templateId)
+      const template = await templateService.getById(
+        this.$route.query.templateId
+      );
       this.job = {
         ...this.job,
-        info: {...this.job.info, title: template.title, coverUrl: template.coverUrl},
+        info: {
+          ...this.job.info,
+          title: template.title,
+          coverUrl: template.coverUrl,
+        },
         quests: template.quests,
-      }
+      };
     },
 
     onShare() {
-      if (!this.jobToEdit._id || (this.jobEditErrors && this.jobEditErrors.length)) return
+      if (
+        !this.jobToEdit._id ||
+        (this.jobEditErrors && this.jobEditErrors.length)
+      )
+        return;
       if (this.isMobile && navigator.share) {
         navigator.share({
-          title: 'Interview invitation via Intervid',
+          title: "Interview invitation via Intervid",
           text: `${this.jobToEdit.company.name} is seeking for ${this.jobToEdit.info.title}. Click the link to start your interview`,
           url: this.invitationUrl,
-        })
+        });
       } else {
-        this.$store.dispatch('app/toggleModal', {type: 'share', isDarkScreen: true})
+        this.$store.dispatch("app/toggleModal", {
+          type: "share",
+          isDarkScreen: true,
+        });
       }
     },
 
     setDefaultValue(inputName) {
-      if (inputName === 'title') {
-        this.job.info.title = this.getTrans('untitled-job')
-      } else if (inputName === 'company') {
-        this.job.company.name = this.getTrans('company')
-      } else if (inputName.startsWith('quest-title-')) {
+      if (inputName === "title") {
+        this.job.info.title = this.getTrans("untitled-job");
+      } else if (inputName === "company") {
+        this.job.company.name = this.getTrans("company");
+      } else if (inputName.startsWith("quest-title-")) {
         this.job.quests.forEach((quest) => {
-          if (quest.txt) return
-          quest.txt = this.getTrans('question')
-        })
+          if (quest.txt) return;
+          quest.txt = this.getTrans("question");
+        });
       }
     },
   },
 
   watch: {
     jobToEdit() {
-      this.job = cloneDeep(this.jobToEdit)
+      this.job = cloneDeep(this.jobToEdit);
     },
   },
 
-  components: {JobForm, QuestEdit, Loader, draggable},
-}
+  components: { JobForm, QuestEdit, Loader, draggable },
+};
 </script>
