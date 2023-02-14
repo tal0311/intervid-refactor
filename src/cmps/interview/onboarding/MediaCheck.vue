@@ -41,22 +41,8 @@
           @audio-ready="setAudioStatus"
         />
 
-        <div
-          v-if="currStep === 1"
-          class="face-helper"
-          :class="{ success: isFaceReady }"
-        >
-          <svg viewBox="0 0 859 527">
-            <line x1="5" y1="2.5" x2="153" y2="2.5" />
-            <line x1="7.5" y1="5" x2="7.49999" y2="177" />
-            <line x1="856.5" y1="5" x2="856.5" y2="177" />
-            <line x1="854" y1="7.5" x2="706" y2="7.49999" />
-            <line x1="854" y1="524.5" x2="706" y2="524.5" />
-            <line x1="851.5" y1="522" x2="851.5" y2="350" />
-            <line x1="2.5" y1="522" x2="2.49999" y2="350" />
-            <line x1="5" y1="519.5" x2="153" y2="519.5" />
-          </svg>
-        </div>
+        <div v-if="currStep === 1" class="face-helper" :class="{success: isFaceReady}" v-html="svgs.faceHelper"></div>
+
       </div>
 
       <div class="check-info-container">
@@ -355,7 +341,12 @@ export default {
       isSettingsOpen: false,
       isPlaying: false,
       isLoading: true,
+      svgs: {faceHelper: ''},
     };
+  },
+
+  created() {
+    this.svgs.faceHelper = this.getSvg('faceHelperMediaCheck')
   },
 
   async mounted() {

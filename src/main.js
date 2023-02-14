@@ -20,6 +20,7 @@ import { clickOutside } from "./directivs";
 
 import "./assets/scss/global.scss";
 import { getTrans } from "./services/i18nService";
+import { getSvg } from './services/svgService'
 import config from "./config";
 
 import App from "./App.vue";
@@ -100,6 +101,7 @@ app.directive("observe-visibility", ObserveVisibility);
 // app.mixin({
 //   methods: {
 //     getTrans,
+//     getSvg
 //   },
 // })
 
