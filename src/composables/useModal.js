@@ -37,7 +37,8 @@ const props = {
 //   isOpen() {
 //     return this.modal.type === 'job-menu' && this.modal.data.modalId === this.job._id
 //   },
-export default function useModal({isOpen,mousePos,}) { 
+export default function useModal({mousePos,jobId,modalType,modalHeight,modalWidth= 200}) { 
+  
   const store = useStore()
  const isBottom = ref(false)
  const modalWidth = ref(0)
@@ -49,17 +50,25 @@ export default function useModal({isOpen,mousePos,}) {
   return store.getters['app/lang'] === 'en'
  })
 
- const setModalPosition=() => {
-  if (this.isOpen) return
-  const bodyBounding = document.body.getBoundingClientRect()
-  modalPos.value = this.mousePos ? this.mousePos : this.$refs['modal-wrapper'].getBoundingClientRect() // not sure how to handle the $refs in the best way yetr
+ const modal =  computed(()=>{
+   return store.getters["app/modal"]
+ }) 
 
-  if (this.mousePos) {
-   isBottom.value = this.mousePos.y + this.modalHeight > bodyBounding.height
+ const isOpen = computed(() => {
+  return modal.type === modalType && modal.data.modalId === jobId
+})
+
+ const setModalPosition=() => {
+  if (isOpen) return
+  const bodyBounding = document.body.getBoundingClientRect()
+  modalPos.value = mousePos ? mousePos : this.$refs['modal-wrapper'].getBoundingClientRect() // not sure how to handle the $refs in the best way yet
+
+  if (mousePos) {
+   isBottom.value = mousePos.y + this.modalHeight > bodyBounding.height
    modalTop.value = isBottom.value ? modalPos.value.y - this.modalHeight + 'px' : modalPos.value.y + 'px'
    modalInlineStart.value = isEnglish.value ?
-    this.mousePos.x - modalWidth.value < 0 ? '10px' : this.mousePos.x - modalWidth.value + 'px' :
-    bodyBounding.width - this.mousePos.x - modalWidth.value < 0 ? '10px' : bodyBounding.width - this.mousePos.x - modalWidth.value + 'px'
+    mousePos.x - modalWidth.value < 0 ? '10px' : mousePos.x - modalWidth.value + 'px' :
+    bodyBounding.width - mousePos.x - modalWidth.value < 0 ? '10px' : bodyBounding.width - mousePos.x - modalWidth.value + 'px'
   } else {
    isBottom.value = modalPos.value.bottom + this.modalHeight > bodyBounding.height
    modalTop.value = isBottom.value
@@ -79,6 +88,7 @@ export default function useModal({isOpen,mousePos,}) {
   modalInlineStart,
   modalPos,
   isEnglish,
-  setModalPosition
+  setModalPosition,
+  isOpen
  }
 }

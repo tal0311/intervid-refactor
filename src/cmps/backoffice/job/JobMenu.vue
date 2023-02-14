@@ -31,12 +31,18 @@
 </template>
 
 <script>
-import { msgService } from "@/services/msgService"
-
-import ModalMixin from "@/mixins/ModalMixin.js"
+// core
+import { ref } from 'vue'
+// lib
 import cloneDeep from "lodash.clonedeep"
-
+// import { useStore } from 'vuex'
+// services
+import { msgService } from "@/services/msgService"
+// custom composables
+import { useModal } from '@/composables/useModal'
+// cmps
 import MobileModal from "@/cmps/common/modals/MobileModal.vue"
+// misc
 import config from "@/config"
 
 export default {
@@ -44,18 +50,19 @@ export default {
 
   // mixins: [ModalMixin],
   setup(props) {
-    const modalHeight = ref(props.job.archivedAt ? 100 : 300)
-    const modalWidth = ref(200)
+    const modalHeight = props.job.archivedAt ? 100 : 300
+    const modalWidth = 200
 
-    const isOpen = computed(() => {
-      return this.modal.type === 'job-menu' && this.modal.data.modalId === this.job._id
-    })
+    const { setModalPosition, isOpen } = useModal({ modalType: 'job-menu', mousePos: props.mousePos, modalWidth, modalHeight })
+    // data
 
-    const { setModalPosition } = useModal({ isOpen, })
+
 
     return {
-      modalHeight: this.job.archivedAt ? 100 : 300,
-      modalWidth: 200,
+      modalHeight,
+      modalWidth,
+      setModalPosition,
+      isOpen
     }
   },
 
@@ -77,16 +84,16 @@ export default {
       return this.job.info.title
     },
 
-    modal() {
-      return this.$store.getters["app/modal"]
-    },
+    // modal() {
+    //   return this.$store.getters["app/modal"]
+    // },
 
-    isOpen() {
-      return (
-        this.modal.type === "job-menu" &&
-        this.modal.data.modalId === this.job._id
-      )
-    },
+    // isOpen() {
+    //   return (
+    //     this.modal.type === "job-menu" &&
+    //     this.modal.data.modalId === this.job._id
+    //   )
+    // },
   },
 
   methods: {
