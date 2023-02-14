@@ -1,94 +1,183 @@
-import { ref, computed, onMounted } from 'vue'
-import {useStore } from 'vuex'
+import { ref, computed, onMounted } from "vue";
+import { useStore } from "vuex";
 
-const props = {
-  isOpen:
+// params : {
+//  modalHeight: number,
+//  modalWidth: number,
+//  mousePos: {
+//    x:number,
+//    y:number
+//  } | null,
+//  modalWrapper: template ref | null,
+// }
+export default function useModal({
+  modalHeight,
+  modalWidth = 0,
+  mousePos = null,
+  modalWrapper = null,
+}) {
+  const store = useStore();
+
+  const isEnglish = computed(() => {
+    return store.getters["app/lang"] === "en";
+  });
+  const modal = computed(() => {
+    // console.log(store.getters["app/modal"])
+    return store.getters["app/modal"];
+  });
+  const isOpen = computed(() => {
+    return modal.type === modalType && modal.data.modalId === jobId;
+  });
+  const parseStartingPosFromBounding = computed(() => {
+    const bounding = modalWrapper.value?.getBoundingClientRect();
+    if (!bounding) return null;
+    return {
+      x: bounding.x,
+      // we map the y to the bounding bottom, because we want the modal to open from the bottom of the element,
+      // and it is only used for the isBottom calculation
+      y: bounding.bottom,
+      right: bounding.right,
+      left: bounding.left,
+      height: bounding.height,
+    };
+  });
+  const startingPos = computed(() => {
+    return mousePos || parseStartingPosFromBounding.value;
+  });
+
+  const { top, insetInlineStart, isBottom } = useModalPos({
+    modalHeight,
+    modalWidth,
+    startingPos,
+    isEnglish,
+    // modalWrapper,
+  });
+
+  return {
+    isEnglish,
+    isOpen,
+    top,
+    insetInlineStart,
+    isBottom,
+  };
+
+  // const modalWrapperBounding = computed(() => {
+  //   return modalWrapper.value?.getBoundingClientRect();
+  // })
 }
 
-// data() {
+// params:{
+//  modalHeight: number
+//  modalWidth: number
+//  startingPos : computed object: {
+//    x: number
+//    y: number
+//    right?: number
+//    left?: number
+//    height?: number
+//  }
+//   isEnglish: computed boolean
+// }
+export function useModalPos({
+  modalHeight,
+  modalWidth = 0,
+  startingPos,
+  // modalWrapper = ref(null)
+}) {
+  // const modalWrapperBounding = computed(() => {
+  //   return modalWrapper.value?.getBoundingClientRect();
+  // })
+
+  // TODO: Check if a computed is needed here
+  const bodyBounding = computed(() => document.body.getBoundingClientRect());
+
+  const isBottom = computed(() => {
+    return startingPos.value.y + modalHeight > bodyBounding.value.height;
+
+    // console.log(mousePos);
+    // if (mousePos) return mousePos.y + modalHeight > bodyBounding.value.height;
+    // return modalWrapper?.bottom + modalHeight > bodyBounding.value.height;
+  });
+
+  const top = computed(() => {
+    // TODO: Find better name
+    // start with the value for the bottom, which is the same for both cases
+    let top = startingPos.value.y - modalHeight;
+    if (!isBottom.value) {
+      // if the startingPos.value obj has a height, it means we got it from an element bounding calculation,
+      // and not a mousePos, so we need to calculate the top diffrently
+      top = startingPos.value.height
+        ? startingPos.value.y + startingPos.value.height
+        : startingPos.value.y;
+    }
+    return top;
+    // another option for the same logic:
+    // return isBottom.value
+    //   ? startingPos.value.y - modalHeight
+    //   : startingPos.value.height
+    //   ? startingPos.value.y + startingPos.value.height
+    //   : startingPos.value.y
+  });
+
+  const insetInlineStart = computed(() => {
+    // if(isEnglish && mousePos.x - modalWidth > 0){
+    //     return mousePos.x - modalWidth
+    //   }
+    // if(!isEnglish && bodyBounding.value.width - mousePos.x - modalWidth > 0){
+    //   return bodyBounding.value.width - mousePos.x - modalWidth
+    // }
+    // if(!isEnglish){
+    //   return bodyBounding.value.width - startingPos.value.left - modalWidth
+    // }
+    // if(startingPos.right - modalWidth > 0){
+    //     return startingPos.right - modalWidth
+    //   }
+    if (!isEnglish.value) {
+      if (
+        startingPos.value.left !== undefined &&
+        startingPos.value.left !== null
+      ) {
+        return bodyBounding.value.width - startingPos.value.left - modalWidth;
+      }
+      if (bodyBounding.value.width - startingPos.value.x - modalWidth > 0) {
+        return bodyBounding.value.width - startingPos.value.x - modalWidth;
+      }
+    } else {
+      if (
+        startingPos.value.right !== undefined &&
+        startingPos.value.right !== null
+      ) {
+        return startingPos.value.right - modalWidth;
+      }
+      if (startingPos.value.x - modalWidth > 0) {
+        return startingPos.value.x - modalWidth;
+      }
+    }
+    return 10;
+  });
+
+  // const compModalWidth = computed(() => {
+  //   console.log("width2:", modalWrapperBounding?.value?.width);
+  //   return `${modalWidth || modalWrapperBounding?.value?.width}px`;
+  // });
+
+  return {
+    isBottom,
+    top,
+    insetInlineStart,
+    // modalHeight,
+    // compModalWidth,
+  };
+}
+
+// function _parseStartingPosFromBounding(bounding) {
 //   return {
-//     modalHeight: this.job.archivedAt ? 100 : 300,
-//     modalWidth: 200,
-//   }
-// },
-
-// computed: {
-//   isMobile() {
-//     return this.$store.getters['app/isMobile']
-//   },
-
-//   invitationUrl() {
-//     return `${config.baseUrl}interview/${this.job._id}`
-//   },
-
-//   companyName() {
-//     const name = this.job.company?.name
-//     return name?.charAt(0).toUpperCase() + name?.slice(1)
-//   },
-
-//   jobTitle() {
-//     return this.job.info.title
-//   },
-
-//   modal() {
-//     return this.$store.getters['app/modal']
-//   },
-
-//   isOpen() {
-//     return this.modal.type === 'job-menu' && this.modal.data.modalId === this.job._id
-//   },
-export default function useModal({mousePos,jobId,modalType,modalHeight,modalWidth= 200}) { 
-  
-  const store = useStore()
- const isBottom = ref(false)
- const modalWidth = ref(0)
- const modalTop = ref(0)
- const modalInlineStart = ref(0)
- const modalPos = ref(null)
-
- const isEnglish = computed(() => {
-  return store.getters['app/lang'] === 'en'
- })
-
- const modal =  computed(()=>{
-   return store.getters["app/modal"]
- }) 
-
- const isOpen = computed(() => {
-  return modal.type === modalType && modal.data.modalId === jobId
-})
-
- const setModalPosition=() => {
-  if (isOpen) return
-  const bodyBounding = document.body.getBoundingClientRect()
-  modalPos.value = mousePos ? mousePos : this.$refs['modal-wrapper'].getBoundingClientRect() // not sure how to handle the $refs in the best way yet
-
-  if (mousePos) {
-   isBottom.value = mousePos.y + this.modalHeight > bodyBounding.height
-   modalTop.value = isBottom.value ? modalPos.value.y - this.modalHeight + 'px' : modalPos.value.y + 'px'
-   modalInlineStart.value = isEnglish.value ?
-    mousePos.x - modalWidth.value < 0 ? '10px' : mousePos.x - modalWidth.value + 'px' :
-    bodyBounding.width - mousePos.x - modalWidth.value < 0 ? '10px' : bodyBounding.width - mousePos.x - modalWidth.value + 'px'
-  } else {
-   isBottom.value = modalPos.value.bottom + this.modalHeight > bodyBounding.height
-   modalTop.value = isBottom.value
-    ? modalPos.value.y - this.modalHeight + 'px'
-    : modalPos.value.y + modalPos.value.height + 'px'
-   modalWidth.value = modalWidth.value ? modalWidth.value : modalPos.value.width + 'px'
-   modalInlineStart.value = isEnglish.value ?
-    modalPos.value.right - modalWidth.value < 0 ? '10px' : modalPos.value.right - modalWidth.value + 'px' :
-    bodyBounding.width - modalPos.value.left - modalWidth.value + 'px'
-  }
- }
-
- return {
-  isBottom,
-  modalWidth,
-  modalTop,
-  modalInlineStart,
-  modalPos,
-  isEnglish,
-  setModalPosition,
-  isOpen
- }
-}
+//     x: bounding.x,
+//     // we map the y to the bounding bottom, because we want the modal to open from the bottom of the element,
+//     // and it is only used for the isBottom calculation
+//     y: bounding.bottom,
+//     right: bounding.right,
+//     left: bounding.left,
+//     height: bounding.height,
+//   };
+// }
