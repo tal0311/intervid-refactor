@@ -1,5 +1,13 @@
 <template>
   <div class="text-editor">
+    <quillEditor
+      v-model.trim:value="content"
+      :options="editorOption"
+      @change="onEditorChange($event)"
+    />
+  </div>
+
+  <!-- <div class="text-editor">
     <div class="toolbar-container">
       <div :id="'toolbar' + _uid">
         <span class="ql-formats">
@@ -30,11 +38,11 @@
       >
     </div>
     <div ref="editor"></div>
-  </div>
+  </div> -->
 </template>
 
 <script>
-import Quill from "quill";
+import { quillEditor, Quill } from "vue3-quill";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 
@@ -58,7 +66,28 @@ export default {
         image: "ql-image",
         link: "ql-link",
       },
+
+      content: "",
+      htmlContent: "",
+      disabled: false,
+      editorOption: {
+        placeholder: "",
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, false] }],
+            ["bold", "italic", "underline"],
+            // ["code", "link"], // this.props
+          ],
+        },
+        // more options
+      },
     };
+  },
+
+  created(){
+    const {editorOption} = this
+    editorOption.placeholder = this.placeholder
+    editorOption.modules.toolbar.push(...this.tools)
   },
 
   mounted() {
@@ -83,6 +112,14 @@ export default {
   },
 
   methods: {
+
+    onEditorChange({ quill, html, text }) {
+      this.htmlContent = html;
+      console.log("text", text);
+      console.log("htmlContent", html);
+      // this.$emit("input", text)
+    },
+
     setup() {
       this.editor = new Quill(this.$refs.editor, {
         modules: {
@@ -119,6 +156,10 @@ export default {
     currQuestIdx() {
       this.setup();
     },
+  },
+
+  components: {
+    quillEditor,
   },
 };
 </script>
