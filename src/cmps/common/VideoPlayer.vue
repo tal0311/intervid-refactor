@@ -58,34 +58,11 @@
     />
 
     <button
+      v-html="svgs.playPauseAnimation"
       class="play-animation"
       :class="{ playing: isPlaying, pausing: !isPlaying }"
-    >
-      <svg
-        class="play"
-        width="76"
-        height="77"
-        viewBox="0 0 76 77"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M0 38.5V72.0279C0 75.0014 3.12925 76.9354 5.78885 75.6056L72.8446 42.0777C75.7928 40.6036 75.7928 36.3964 72.8446 34.9223L5.78886 1.39443C3.12926 0.064628 0 1.99861 0 4.97214V38.5Z"
-          fill="white"
-        />
-      </svg>
-      <svg
-        class="pause"
-        width="60"
-        height="80"
-        viewBox="0 0 60 80"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect x="40" width="20" height="80" rx="4" fill="white" />
-        <rect width="20" height="80" rx="4" fill="white" />
-      </svg>
-    </button>
+    ></button>
+
   </section>
 </template>
 
@@ -107,7 +84,12 @@ export default {
       isDraggableShown: true,
       mainVideoName: this.ans?.faceUrl ? "faceUrl" : "screenUrl",
       bufferInterval: null,
+      svgs: {playPauseAnimation: ''},
     };
+  },
+
+  created() {
+    this.svgs.playPauseAnimation = this.getSvg('playPauseAnimationIcons')
   },
 
   async mounted() {

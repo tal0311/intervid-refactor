@@ -1,23 +1,39 @@
 <template>
   <section class="filter-box">
-    <button class="mobile-btn" :class="{ selected: isFiltering }" @click="toggleModal('MobileFilter')">
-      <img loading="lazy" src="https://res.cloudinary.com/intervid/image/upload/v1661182219/Frontend/sliders_fwgagw.svg"
-        alt="sliders" />
+    <button
+      class="mobile-btn"
+      :class="{ selected: isFiltering }"
+      @click="toggleModal('MobileFilter')"
+    >
+      <img
+        loading="lazy"
+        src="https://res.cloudinary.com/intervid/image/upload/v1661182219/Frontend/sliders_fwgagw.svg"
+        alt="sliders"
+      />
     </button>
 
     <div class="filter-btn" :class="{ selected: isFilterModalOpen }">
       <button @click="toggleModal('Filter')">
+        <!-- <div v-html="svgs.filter"></div> -->
         <i class="material-icons">tune</i>
         {{ getTrans("filter-btn") }}
       </button>
 
-      <div class="filter-modal" :class="{ open: isFilterModalOpen }" v-clickOutside="onResetFilter">
+      <div
+        class="filter-modal"
+        :class="{ open: isFilterModalOpen }"
+        v-clickOutside="onResetFilter"
+      >
         <div v-if="isApplicantOverview" class="filter-container status-filter">
           <h3 class="filter-title">{{ getTrans("by-status") }}</h3>
           <div class="filter-list">
-            <label v-for="(status, idx) in statuses" :key="status.label" @input="onSelectStatus(idx)">
+            <label
+              v-for="(status, idx) in statuses"
+              :key="status.label"
+              @input="onSelectStatus(idx)"
+            >
               <input type="checkbox" :checked="isStatusSelected(idx)" />
-              <span>{{ getTrans(`${status.label }`) }}</span>
+              <span>{{ getTrans(`${status.label}`) }}</span>
             </label>
           </div>
         </div>
@@ -26,13 +42,25 @@
           <h3 class="filter-title">{{ getTrans("by-date") }}</h3>
           <div class="filter-list">
             <label :class="{ selected: !updatedFilterBy.daysAgo }">
-              <input type="radio" value="" :checked="!updatedFilterBy.daysAgo" v-model="updatedFilterBy.daysAgo" />
+              <input
+                type="radio"
+                value=""
+                :checked="!updatedFilterBy.daysAgo"
+                v-model="updatedFilterBy.daysAgo"
+              />
               {{ getTrans("all") }}
             </label>
-            <label v-for="date in filterDates" :class="{ selected: updatedFilterBy.daysAgo == date.daysAgo }"
-              :key="date.id">
-              <input type="radio" :value="date.daysAgo" :checked="updatedFilterBy.daysAgo == date.daysAgo"
-                v-model="updatedFilterBy.daysAgo" />
+            <label
+              v-for="date in filterDates"
+              :class="{ selected: updatedFilterBy.daysAgo == date.daysAgo }"
+              :key="date.id"
+            >
+              <input
+                type="radio"
+                :value="date.daysAgo"
+                :checked="updatedFilterBy.daysAgo == date.daysAgo"
+                v-model="updatedFilterBy.daysAgo"
+              />
               {{ getTrans(date.label) }}
             </label>
           </div>
@@ -41,20 +69,34 @@
         <div class="filter-container view-filter" v-if="isApplicantOverview">
           <h3 class="filter-title">{{ getTrans("view-only") }}</h3>
           <div class="filter-list">
-            <label :class="{ selected: updatedFilterBy.incomplete === undefined }">
-              <input type="radio" :checked="updatedFilterBy.incomplete === undefined" :value="undefined"
-                v-model="updatedFilterBy.incomplete" />
-              {{ `${ getTrans("show-all") }` }}
+            <label
+              :class="{ selected: updatedFilterBy.incomplete === undefined }"
+            >
+              <input
+                type="radio"
+                :checked="updatedFilterBy.incomplete === undefined"
+                :value="undefined"
+                v-model="updatedFilterBy.incomplete"
+              />
+              {{ `${getTrans("show-all")}` }}
             </label>
 
             <label :class="{ selected: updatedFilterBy.incomplete }">
-              <input type="radio" :value="true" :checked="updatedFilterBy.incomplete === false"
-                v-model="updatedFilterBy.incomplete" />
+              <input
+                type="radio"
+                :value="true"
+                :checked="updatedFilterBy.incomplete === false"
+                v-model="updatedFilterBy.incomplete"
+              />
               {{ getTrans("show-incomplete") }}
             </label>
             <label :class="{ selected: updatedFilterBy.incomplete === false }">
-              <input type="radio" :value="false" :checked="updatedFilterBy.incomplete"
-                v-model="updatedFilterBy.incomplete" />
+              <input
+                type="radio"
+                :value="false"
+                :checked="updatedFilterBy.incomplete"
+                v-model="updatedFilterBy.incomplete"
+              />
               {{ getTrans("show-complete") }}
             </label>
           </div>
@@ -64,8 +106,13 @@
           <div class="toggle-option">
             <div class="main-toggle">
               <label for="show-archived">
-                <input type="checkbox" id="show-archived" name="show-archived" :checked="updatedFilterBy.showArchived"
-                  v-model="updatedFilterBy.showArchived" />
+                <input
+                  type="checkbox"
+                  id="show-archived"
+                  name="show-archived"
+                  :checked="updatedFilterBy.showArchived"
+                  v-model="updatedFilterBy.showArchived"
+                />
                 <div class="outer">
                   <div class="inner"></div>
                 </div>
@@ -75,7 +122,12 @@
         </div>
 
         <div class="filter-footer">
-          <a class="clear-filters-btn" :class="{ bold: isFiltering }" :disabled="!isFiltering" @click="onClearFilter">
+          <a
+            class="clear-filters-btn"
+            :class="{ bold: isFiltering }"
+            :disabled="!isFiltering"
+            @click="onClearFilter"
+          >
             {{ getTrans("clear-filters") }}
           </a>
           <button class="set-filter-btn" @click="onSetFilter">
@@ -85,11 +137,20 @@
       </div>
     </div>
 
-    <mobile-modal v-if="isMobile && modal.type === 'MobileFilter'" cmpName="filter" :filterBy="filterBy"
-      @edit-filter="(key, term) => (updatedFilterBy[key] = term)" @set-filter="onSetFilter"
-      @reset-filter="onClearFilter" @select-status="onSelectStatus" @on-close="toggleModal('MobileFilter')"
-      :expectedEntityCount="expectedEntityCount" :filteredJobCount="filteredJobCount" :entity="entity"
-      :updatedFilterBy="updatedFilterBy" />
+    <mobile-modal
+      v-if="isMobile && modal.type === 'MobileFilter'"
+      cmpName="filter"
+      :filterBy="filterBy"
+      @edit-filter="(key, term) => (updatedFilterBy[key] = term)"
+      @set-filter="onSetFilter"
+      @reset-filter="onClearFilter"
+      @select-status="onSelectStatus"
+      @on-close="toggleModal('MobileFilter')"
+      :expectedEntityCount="expectedEntityCount"
+      :filteredJobCount="filteredJobCount"
+      :entity="entity"
+      :updatedFilterBy="updatedFilterBy"
+    />
   </section>
 </template>
 
@@ -107,11 +168,13 @@ export default {
     return {
       updatedFilterBy: { ...this.filterBy },
       isFilterEdited: false,
+      svgs: {filter: ''},
     };
   },
 
   created() {
     // this.resetFilter()
+    this.svgs.filter = this.getSvg('filter')
   },
 
   computed: {
@@ -194,11 +257,11 @@ export default {
       else if (this.expectedEntityCount === 1) {
         return this.lng === "en"
           ? `${getTrans("show")} ${this.expectedEntityCount} ${getTrans(
-            `${this.entity}`.toLowerCase()
-          ).toLowerCase()}`
+              `${this.entity}`.toLowerCase()
+            ).toLowerCase()}`
           : `${getTrans("show")} ${getTrans(
-            `${this.entity}`.toLowerCase()
-          ).toLowerCase()} ${this.expectedEntityCount}`;
+              `${this.entity}`.toLowerCase()
+            ).toLowerCase()} ${this.expectedEntityCount}`;
       } else return getTrans("no-exact-matches");
     },
 

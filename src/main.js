@@ -1,9 +1,9 @@
 import { createApp } from "vue";
-import Vue from "vue";
+
 import Hotjar from "vue-hotjar";
-import VueAnalytics from "vue-analytics";
+// import VueAnalytics from "vue-analytics";
 import VueMeta from "vue-meta";
-import { directive as onclickOutside } from "vue-clickOutside2";
+// import { directive as onclickOutside } from "vue-clickOutside2";
 import { ObserveVisibility } from "vue-observe-visibility";
 import Vue3TouchEvents from "vue3-touch-events";
 
@@ -20,6 +20,7 @@ import { clickOutside } from "./directivs";
 
 import "./assets/scss/global.scss";
 import { getTrans } from "./services/i18nService";
+import { getSvg } from './services/svgService'
 import config from "./config";
 
 import App from "./App.vue";
@@ -100,6 +101,7 @@ app.directive("observe-visibility", ObserveVisibility);
 // app.mixin({
 //   methods: {
 //     getTrans,
+//     getSvg
 //   },
 // })
 
