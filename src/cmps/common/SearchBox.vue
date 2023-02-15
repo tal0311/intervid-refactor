@@ -2,7 +2,7 @@
   <div
     class="search-box"
     @click="setFocus(true)"
-    v-clickOutside="() => setFocus(false)"
+    v-click-outside="() => setFocus(false)"
     :class="{ focused: isFocus }"
   >
     <input
