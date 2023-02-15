@@ -4,9 +4,7 @@
       <span class="material-icons"> more_horiz </span>
     </button>
 
-    <div class="menu-modal" :ref="job._id" @contextmenu.stop.prevent=""
-      :style="{ top: modalTop, insetInlineStart: modalInlineStart }"
-      :class="{ open: isOpen && !isMobile, top: isBottom }">
+    <div class="menu-modal" :ref="job._id" @contextmenu.stop.prevent="" :style="modalStyle" :class="modalClass">
       <template v-if="!job.archivedAt">
         <div @click="onCopyUrl">{{ getTrans("copy-invitation-url") }}</div>
         <div @click="onGoToPage({ name: 'JobEdit', params: { jobId: job._id } })">
@@ -50,27 +48,43 @@ export default {
 
   // mixins: [ModalMixin],
   setup(props) {
-    const modalHeight = props.job.archivedAt ? 100 : 300
     const modalWidth = 200
 
-    const { setModalPosition, isOpen } = useModal({ modalType: 'job-menu', mousePos: props.mousePos, modalWidth, modalHeight })
-    // data
+    const store = useStore()
 
+    const modalHeight = computed(() => props.job.archivedAt ? 100 : 300)
+    const {
+      isOpen,
+      top,
+      insetInlineStart,
+      isBottom,
+    } = useModal({ modalId: props.job._id, modalType: 'job-menu', mousePos: props.mousePos, modalWidth, modalHeight })
 
+    const isMobile = computed(() => store.getters["app/isMobile"])
+
+    const modalStyle = computed(() => {
+      return {
+        top: `${top.value}px`,
+        insetInlineStart: `${insetInlineStart.value}px`,
+      }
+    })
+
+    const modalClass = computed(() => {
+      return {
+        open: isOpen.value && !isMobile.value,
+        top: isBottom.value,
+      }
+    })
 
     return {
-      modalHeight,
-      modalWidth,
-      setModalPosition,
-      isOpen
+      isMobile,
+      isOpen,
+      modalStyle,
+      modalClass,
     }
   },
 
   computed: {
-    isMobile() {
-      return this.$store.getters["app/isMobile"]
-    },
-
     invitationUrl() {
       return `${config.baseUrl}interview/${this.job._id}`
     },
@@ -83,23 +97,12 @@ export default {
     jobTitle() {
       return this.job.info.title
     },
-
-    // modal() {
-    //   return this.$store.getters["app/modal"]
-    // },
-
-    // isOpen() {
-    //   return (
-    //     this.modal.type === "job-menu" &&
-    //     this.modal.data.modalId === this.job._id
-    //   )
-    // },
   },
 
   methods: {
     toggleModal() {
-      this.setModalPosition()
       if (this.mousePos) this.$emit("modal-closed")
+      // WTF is this??
       const modalId = this.isJobMenuOpen ? null : this.job._id
       this.$store.dispatch("app/toggleModal", {
         type: "job-menu",

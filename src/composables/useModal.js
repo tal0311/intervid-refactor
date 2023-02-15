@@ -2,18 +2,20 @@ import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 
 // params : {
-//  modalHeight: number,
+//  modalHeight.value: computed number,
 //  modalWidth: number,
-//  mousePos: {
+//  mousePos.value: ref ({
 //    x:number,
 //    y:number
-//  } | null,
+//  } | null),
 //  modalWrapper: template ref | null,
 // }
 export default function useModal({
+  modalId,
   modalHeight,
   modalWidth = 0,
-  mousePos = null,
+  modalType,
+  mousePos = ref(null),
   modalWrapper = null,
 }) {
   const store = useStore();
@@ -26,23 +28,28 @@ export default function useModal({
     return store.getters["app/modal"];
   });
   const isOpen = computed(() => {
-    return modal.type === modalType && modal.data.modalId === jobId;
+    return modal.type === modalType && modal.data.modalId === modalId;
   });
-  const parseStartingPosFromBounding = computed(() => {
-    const bounding = modalWrapper.value?.getBoundingClientRect();
-    if (!bounding) return null;
-    return {
-      x: bounding.x,
-      // we map the y to the bounding bottom, because we want the modal to open from the bottom of the element,
-      // and it is only used for the isBottom calculation
-      y: bounding.bottom,
-      right: bounding.right,
-      left: bounding.left,
-      height: bounding.height,
-    };
+
+  const modalWrapperBounding = computed(() => {
+    return modalWrapper.value?.getBoundingClientRect();
   });
+  // const parseStartingPosFromBounding = computed(() => {
+  //   const bounding = modalWrapper.value?.getBoundingClientRect();
+  //   if (!bounding) return null;
+  //   return {
+  //     x: bounding.x,
+  //     // we map the y to the bounding bottom, because we want the modal to open from the bottom of the element,
+  //     // and it is only used for the isBottom calculation
+  //     y: bounding.y,
+  //     bottom: bounding.bottom,
+  //     right: bounding.right,
+  //     left: bounding.left,
+  //     height: bounding.height,
+  //   };
+  // });
   const startingPos = computed(() => {
-    return mousePos || parseStartingPosFromBounding.value;
+    return mousePos.value || modalWrapperBounding.value;
   });
 
   const { top, insetInlineStart, isBottom } = useModalPos({
@@ -67,7 +74,7 @@ export default function useModal({
 }
 
 // params:{
-//  modalHeight: number
+//  modalHeight: computed number
 //  modalWidth: number
 //  startingPos : computed object: {
 //    x: number
@@ -82,30 +89,25 @@ export function useModalPos({
   modalHeight,
   modalWidth = 0,
   startingPos,
-  // modalWrapper = ref(null)
+  isEnglish
 }) {
-  // const modalWrapperBounding = computed(() => {
-  //   return modalWrapper.value?.getBoundingClientRect();
-  // })
-
   // TODO: Check if a computed is needed here
   const bodyBounding = computed(() => document.body.getBoundingClientRect());
 
   const isBottom = computed(() => {
-    return startingPos.value.y + modalHeight > bodyBounding.value.height;
-
-    // console.log(mousePos);
-    // if (mousePos) return mousePos.y + modalHeight > bodyBounding.value.height;
-    // return modalWrapper?.bottom + modalHeight > bodyBounding.value.height;
+    if (startingPos.bottom !==null && startingPos.bottom !==undefined){ 
+      return startingPos?.bottom + modalHeight.value > bodyBounding.value.height;
+    }
+    return startingPos.y + modalHeight.value > bodyBounding.value.height;
   });
 
   const top = computed(() => {
     // TODO: Find better name
     // start with the value for the bottom, which is the same for both cases
-    let top = startingPos.value.y - modalHeight;
+    let top = startingPos.value.y - modalHeight.value;
     if (!isBottom.value) {
       // if the startingPos.value obj has a height, it means we got it from an element bounding calculation,
-      // and not a mousePos, so we need to calculate the top diffrently
+      // and not a mousePos.value, so we need to calculate the top diffrently
       top = startingPos.value.height
         ? startingPos.value.y + startingPos.value.height
         : startingPos.value.y;
@@ -113,25 +115,14 @@ export function useModalPos({
     return top;
     // another option for the same logic:
     // return isBottom.value
-    //   ? startingPos.value.y - modalHeight
+    //   ? startingPos.value.y - modalHeight.value
     //   : startingPos.value.height
     //   ? startingPos.value.y + startingPos.value.height
     //   : startingPos.value.y
   });
 
   const insetInlineStart = computed(() => {
-    // if(isEnglish && mousePos.x - modalWidth > 0){
-    //     return mousePos.x - modalWidth
-    //   }
-    // if(!isEnglish && bodyBounding.value.width - mousePos.x - modalWidth > 0){
-    //   return bodyBounding.value.width - mousePos.x - modalWidth
-    // }
-    // if(!isEnglish){
-    //   return bodyBounding.value.width - startingPos.value.left - modalWidth
-    // }
-    // if(startingPos.right - modalWidth > 0){
-    //     return startingPos.right - modalWidth
-    //   }
+
     if (!isEnglish.value) {
       if (
         startingPos.value.left !== undefined &&
@@ -156,28 +147,10 @@ export function useModalPos({
     return 10;
   });
 
-  // const compModalWidth = computed(() => {
-  //   console.log("width2:", modalWrapperBounding?.value?.width);
-  //   return `${modalWidth || modalWrapperBounding?.value?.width}px`;
-  // });
-
   return {
     isBottom,
     top,
     insetInlineStart,
-    // modalHeight,
-    // compModalWidth,
+
   };
 }
-
-// function _parseStartingPosFromBounding(bounding) {
-//   return {
-//     x: bounding.x,
-//     // we map the y to the bounding bottom, because we want the modal to open from the bottom of the element,
-//     // and it is only used for the isBottom calculation
-//     y: bounding.bottom,
-//     right: bounding.right,
-//     left: bounding.left,
-//     height: bounding.height,
-//   };
-// }
