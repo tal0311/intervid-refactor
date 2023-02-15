@@ -1,5 +1,5 @@
-import Vue from "vue";
-import Vuex from "vuex";
+
+import { createStore } from 'vuex'
 import { app } from "./modules/appStore.js";
 import { user } from "./modules/userStore.js";
 import { record } from "./modules/recordStore.js";
@@ -12,18 +12,7 @@ import { activity } from "./modules/activityStore";
 import { mutationHistory } from "./mutationHistory.js";
 import cloneDeep from "lodash.clonedeep";
 
-Vue.use(Vuex);
-const undoRedoPlugin = (store) => {
-  // initialize and save the starting stage
-  mutationHistory.init(store);
-  // let firstState = cloneDeep(store.state);
-  // mutationHistory.addMutation(firstState);
 
-  store.subscribe((mutation, state) => {
-    // is called AFTER every mutation
-    mutationHistory.addMutation(cloneDeep(mutation));
-  });
-};
 const initialStoreModules = {
   app,
   user,
@@ -36,7 +25,20 @@ const initialStoreModules = {
   activity,
 };
 
-export default new Vuex.Store({
+// only for development
+const undoRedoPlugin = (store) => {
+  // initialize and save the starting stage
+  mutationHistory.init(store);
+  // let firstState = cloneDeep(store.state);
+  // mutationHistory.addMutation(firstState);
+
+  store.subscribe((mutation, state) => {
+    // is called AFTER every mutation
+    mutationHistory.addMutation(cloneDeep(mutation));
+  });
+};
+
+const store = createStore({
   strict: true,
   modules: cloneDeep(initialStoreModules),
   mutations: {
@@ -49,5 +51,27 @@ export default new Vuex.Store({
       });
     },
   },
-  plugins: [undoRedoPlugin],
+  // plugins: [undoRedoPlugin],
 });
+
+export default store;
+
+
+
+
+
+// export default new Vuex.Store({
+//   strict: true,
+//   modules: cloneDeep(initialStoreModules),
+//   mutations: {
+//     emptyState(state) {
+//       state = {};
+//     },
+//     resetState(state) {
+//       Object.keys(initialStoreModules).forEach((key) => {
+//         state[key] = cloneDeep(initialStoreModules[key].state);
+//       });
+//     },
+//   },
+//   plugins: [undoRedoPlugin],
+// });
