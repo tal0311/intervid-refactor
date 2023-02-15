@@ -22,7 +22,7 @@
       <div
         class="filter-modal"
         :class="{ open: isFilterModalOpen }"
-        v-clickOutside="onResetFilter"
+        v-click-outside="onResetFilter"
       >
         <div v-if="isApplicantOverview" class="filter-container status-filter">
           <h3 class="filter-title">{{ getTrans("by-status") }}</h3>

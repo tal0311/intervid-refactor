@@ -4,8 +4,10 @@ import Hotjar from "vue-hotjar";
 // import VueAnalytics from "vue-analytics";
 import VueMeta from "vue-meta";
 // import { directive as onclickOutside } from "vue-clickOutside2";
+// import { clickOutside } from './directivs'
 import { ObserveVisibility } from "vue-observe-visibility";
 import Vue3TouchEvents from "vue3-touch-events";
+import vue3GoogleLogin from 'vue3-google-login'
 
 // import './registerServiceWorker'
 
@@ -94,7 +96,7 @@ app.component("main-input", MainInput);
 app.component("basic-select", BasicSelect);
 app.component("checkbox", Checkbox);
 
-app.directive("clickOutside", clickOutside);
+app.directive("click-outside", clickOutside);
 app.directive("observe-visibility", ObserveVisibility);
 
 // ?delete
@@ -120,7 +122,9 @@ app.use(Hotjar, {
   isProduction: process.env.NODE_ENV === "production",
   snippetVersion: 6,
 });
-
+app.use(vue3GoogleLogin, {
+  clientId: '459352034354-5afbe95ab9e5ffu3dg5s974qm1qf0aia.apps.googleusercontent.com'
+})
 app.use(VueAnalytics, {
   id: "UA-189794399-1",
   router,
