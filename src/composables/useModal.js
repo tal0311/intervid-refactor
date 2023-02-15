@@ -16,7 +16,7 @@ export function useModal({
   modalWidth = 0,
   modalType,
   mousePos = ref(null),
-  modalWrapper = null,
+  modalWrapper = ref(null),
 }) {
   const store = useStore();
 
@@ -24,7 +24,6 @@ export function useModal({
     return store.getters["app/lang"] === "en";
   });
   const modal = computed(() => {
-    // console.log(store.getters["app/modal"])
     return store.getters["app/modal"];
   });
   const isOpen = computed(() => {
@@ -59,7 +58,6 @@ export function useModal({
     modalWidth,
     startingPos,
     isEnglish,
-    // modalWrapper,
   });
 
   return {
@@ -69,10 +67,6 @@ export function useModal({
     insetInlineStart,
     isBottom,
   };
-
-  // const modalWrapperBounding = computed(() => {
-  //   return modalWrapper.value?.getBoundingClientRect();
-  // })
 }
 
 // params:{
