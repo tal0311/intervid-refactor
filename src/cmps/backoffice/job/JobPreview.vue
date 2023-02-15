@@ -72,7 +72,6 @@
 import { ref } from "vue"
 import { msgService } from "@/services/msgService"
 import { formatDate } from "@/services/utilService"
-// import ModalMixin from "@/mixins/ModalMixin"
 
 import JobMenu from "@/cmps/backoffice/job/JobMenu.vue"
 import Avatar from "@/cmps/common/Avatar.vue"
@@ -81,7 +80,6 @@ import config from "@/config"
 export default {
   props: ["job", "isSelected", "filterBy"],
 
-  // mixins: [ModalMixin],
   setup() {
     const mousePos = ref(null)
     const onOpenMenu = ({ pageX, pageY }) => {
