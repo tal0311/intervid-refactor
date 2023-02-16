@@ -1,5 +1,7 @@
-import { parseFilter, debounce, isEmpty } from '@/services/utilService.js'
-import { getDefaultFilter, getDefaultSort } from '../services/constData.js'
+import {parseFilter, debounce, isEmpty} from '@/services/utilService.js'
+import {reactive, ref} from 'vue'
+import {useRoute} from 'vue-router'
+import {getDefaultFilter, getDefaultSort} from '../services/constData.js'
 
 export default {
   data() {
@@ -14,7 +16,7 @@ export default {
   created() {
     this.setFilter()
     // const showArchived = this.$route.path.includes('archive')
-    // this.filterBy.showArchived = showArchived
+    // filterBy.value.showArchived = showArchived
   },
 
   computed: {
@@ -51,22 +53,21 @@ export default {
       const queries = this.$route.query
       const tags = []
       for (const key in queries) {
-        if (key === 'daysAgo' && queries[key]) tags.push({ name: this.getTrans('date'), type: 'daysAgo' })
+        if (key === 'daysAgo' && queries[key]) tags.push({name: this.getTrans('date'), type: 'daysAgo'})
         if (key === 'incomplete' && queries[key] !== undefined) {
           const tag =
             queries[key] === 'false'
-              ? { name: this.getTrans('complete-interviews'), type: 'incomplete' }
-              : { name: this.getTrans('incomplete-interviews'), type: 'incomplete' }
+              ? {name: this.getTrans('complete-interviews'), type: 'incomplete'}
+              : {name: this.getTrans('incomplete-interviews'), type: 'incomplete'}
           tags.push(tag)
         }
         if (key === 'showArchived' && queries[key] === 'true') {
-          tags.push({ name: this.getTrans('archive'), type: 'showArchived' })
+          tags.push({name: this.getTrans('archive'), type: 'showArchived'})
         }
-        if (key === 'statuses' && queries[key].length) tags.push({ name: this.getTrans('status'), type: 'statuses' })
+        if (key === 'statuses' && queries[key].length) tags.push({name: this.getTrans('status'), type: 'statuses'})
       }
       return tags
     },
-
   },
 
   methods: {
@@ -80,26 +81,26 @@ export default {
 
     setFilter() {
       if (!this.shouldParseFilter) {
-        this.filterBy = getDefaultFilter(this.$route.name)
+        filterBy.value = getDefaultFilter(this.$route.name)
         return
       }
-      const filterBy = parseFilter(this.query)
+      const filterBy = parseFilter(query.value)
       filterBy.showArchived = filterBy.showArchived === 'true'
       filterBy.incomplete =
         filterBy.incomplete !== 'undefined' && filterBy.incomplete !== undefined
           ? JSON.parse(filterBy.incomplete)
           : undefined
       filterBy.daysAgo = filterBy.daysAgo ? filterBy.daysAgo : ''
-      this.filterBy = filterBy
+      filterBy.value = filterBy
     },
 
     resetFilters() {
-      this.filterBy = getDefaultFilter(this.$route.name)
+      filterBy.value = getDefaultFilter(this.$route.name)
       this.onSetQuery({})
     },
 
-    onChangePage({ to, diff }) {
-      let { currPage } = this.filterBy
+    onChangePage({to, diff}) {
+      let {currPage} = filterBy.value
       currPage = !currPage ? 0 : currPage
       currPage = +currPage + diff >= 0 ? +currPage + diff : currPage
       currPage = to !== undefined ? to : currPage
@@ -107,22 +108,22 @@ export default {
     },
 
     onSetFilterByKey(key, value) {
-      const filterValue = value === this.filterBy[key] && key !== 'currPage' ? '' : value
-      const filterBy = { ...this.filterBy, [key]: filterValue }
+      const filterValue = value === filterBy.value[key] && key !== 'currPage' ? '' : value
+      const filterBy = {...filterBy.value, [key]: filterValue}
       if (key !== 'currPage') filterBy.currPage = 0
-      this.filterBy = filterBy
+      filterBy.value = filterBy
       this.onSetQuery(filterBy, this.archiveBy)
     },
 
     onSetFilter(updatedFilterBy) {
-      this.filterBy = { ...updatedFilterBy }
-      this.onSetQuery(this.filterBy, this.archiveBy)
+      filterBy.value = {...updatedFilterBy}
+      this.onSetQuery(filterBy.value, this.archiveBy)
     },
 
     onSetQuery: debounce(function (query, path) {
-      const { params } = this.$route || null
+      const {params} = this.$route || null
 
-      const route = { query }
+      const route = {query}
       if (!isEmpty(params)) route.params = params
       if (path && isEmpty(params)) route.path = path
       this.$router.push(route)
@@ -164,4 +165,96 @@ export default {
       })
     },
   },
+}
+
+export function useOverview({}) {
+  const {name} = useRoute()
+
+  const shouldGather = ref(false)
+  const selectedItems = reactive([])
+  const filterBy = reactive(getDefaultFilter(name))
+  const sort = reactive(getDefaultSort(name))
+
+  const query = computed(() => {
+    return useRoute().value.query
+  })
+
+  const shouldParseFilter = computed(() => {
+    return !!Object.values(query.value).length
+  })
+
+  const setShouldGather = (val) => {
+    shouldGather.value = val
+  }
+
+  const setSelectedItems = (val) => {
+    selectedItems.value = val
+  }
+
+  // const query = computed(() => {
+  //   return useRoute().value.query
+  // })
+  const onSort = (sortProp) => {
+    if (!sortProp) return
+    if (sortProp === sort.value.by) {
+      sort.value.dir = sort.value.dir === 'asc' ? 'desc' : 'asc'
+    }
+    sort.value.by = sortProp
+  }
+
+  const setFilter = () => {
+    if (!shouldParseFilter.value) {
+      filterBy.value = getDefaultFilter(name)
+      return
+    }
+    const parsedFilterBy = parseFilter(query.value)
+    parsedFilterBy.showArchived = parsedFilterBy.showArchived === 'true'
+    parsedFilterBy.incomplete =
+      parsedFilterBy.incomplete !== 'undefined' && parsedFilterBy.incomplete !== undefined
+        ? JSON.parse(parsedFilterBy.incomplete)
+        : undefined
+    parsedFilterBy.daysAgo = parsedFilterBy.daysAgo || ''
+    filterBy.value = parsedFilterBy
+  }
+
+  return {
+    shouldGather,
+    selectedItems,
+    sort,
+    filterBy,
+    setShouldGather,
+    setSelectedItems,
+    onSort,
+    setFilter,
+  }
+  // const { query } = useRouter()
+  // const { cmpName } = useRoute()
+  // const { filterBy, setFilter, onSetFilter, onSetFilterByKey, onSetQuery, resetFilters, onRemoveTag, clearSelectedItems, sendAlert } = useFilter({ query, cmpName })
+  // const { sort, onSort } = useSort({ cmpName })
+  // const { selectedItems, onSelectAll, isSelected, onSelectItem } = useSelection()
+  // const { tagList, archiveBy } = useTags({ query, cmpName })
+  // const { showArchived } = useShowArchived({ query })
+  // const { onChangePage } = usePagination({ filterBy })
+
+  // return {
+  //   filterBy,
+  //   setFilter,
+  //   onSetFilter,
+  //   onSetFilterByKey,
+  //   onSetQuery,
+  //   resetFilters,
+  //   onRemoveTag,
+  //   clearSelectedItems,
+  //   sendAlert,
+  //   sort,
+  //   onSort,
+  //   selectedItems,
+  //   onSelectAll,
+  //   isSelected,
+  //   onSelectItem,
+  //   tagList,
+  //   archiveBy,
+  //   showArchived,
+  //   onChangePage,
+  // }
 }
