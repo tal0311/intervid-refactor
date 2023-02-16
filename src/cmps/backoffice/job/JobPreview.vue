@@ -65,7 +65,7 @@
       <i class="material-icons" :title="getTrans('copy-link')">link</i>
       <p>{{ getTrans("copy-link") }}</p>
     </div>
-  </section>
+</section>
 </template>
 
 <script>
@@ -73,72 +73,72 @@ import { ref } from "vue"
 import { msgService } from "@/services/msgService"
 import { formatDate } from "@/services/utilService"
 
-import JobMenu from "@/cmps/backoffice/job/JobMenu.vue"
-import Avatar from "@/cmps/common/Avatar.vue"
-import config from "@/config"
+import JobMenu from "@/cmps/backoffice/job/JobMenu.vue";
+import Avatar from "@/cmps/common/Avatar.vue";
+import config from "@/config";
 
 export default {
   props: ["job", "isSelected", "filterBy"],
 
   setup() {
-    const mousePos = ref(null)
+    const mousePos = ref(null);
     const onOpenMenu = ({ pageX, pageY }) => {
-      mousePos.value = { x: pageX, y: pageY }
-    }
+      mousePos.value = { x: pageX, y: pageY };
+    };
     return {
       mousePos,
-      onOpenMenu
-    }
+      onOpenMenu,
+    };
   },
   data() {
     return {
       isMenuOpen: false,
-    }
+    };
   },
 
   computed: {
     invitationUrl() {
-      return `${config.baseUrl}interview/${this.job._id}`
+      return `${config.baseUrl}interview/${this.job._id}`;
     },
 
     coverUrl() {
-      return this.job.info.coverUrl
+      return this.job.info.coverUrl;
     },
 
     viewType() {
-      return this.$store.getters["job/viewType"]
+      return this.$store.getters["job/viewType"];
     },
 
     jobCreationDate() {
-      const date = this.job.createdAt
-      if (!date) return "None"
-      return formatDate(date)
+      const date = this.job.createdAt;
+      if (!date) return "None";
+      return formatDate(date);
     },
   },
 
   methods: {
     goToApplicants() {
-      if (this.filterBy.showArchived) return
+      if (this.filterBy.showArchived) return;
       this.$router.push({
         name: "ApplicantOverview",
         params: { jobId: this.job._id },
-      })
+      });
     },
 
     onToggleArchive() {
-      this.$store.dispatch({ type: "job/toggleArchiveJob", jobs: [this.job] })
+      this.$store.dispatch({ type: "job/toggleArchiveJob", jobs: [this.job] });
       // const msg = msgService.archive('job', !this.job.archivedAt)
       // this.$store.commit('app/setAlertData', { alertData: msg })
     },
 
     async onCopyUrl() {
-      await navigator.clipboard.writeText(this.invitationUrl)
-      const msg = msgService.copy("link")
-      this.$store.commit("app/setAlertData", { alertData: msg })
+      await navigator.clipboard.writeText(this.invitationUrl);
+      const msg = msgService.copy("link");
+      this.$store.commit("app/setAlertData", { alertData: msg });
     },
 
     getApplicantFullname(applicant) {
-      return `${applicant.info.fName} ${applicant.info.lName}`
+      return `${applicant.info.fName} ${applicant.info.lName}`;
     },
 
     // onOpenMenu(ev) {
@@ -150,5 +150,5 @@ export default {
     JobMenu,
     Avatar,
   },
-}
+};
 </script>

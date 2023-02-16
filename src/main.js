@@ -1,13 +1,18 @@
 import { createApp } from "vue";
 
-import Hotjar from "vue-hotjar";
+import VueHotjar from 'vue-hotjar-next'
 // import VueAnalytics from "vue-analytics";
-import VueMeta from "vue-meta";
+// import VueMeta from "vue-meta";
 // import { directive as onclickOutside } from "vue-clickOutside2";
 // import { clickOutside } from './directivs'
-import { ObserveVisibility } from "vue-observe-visibility";
+
+// TODO CHECK IF NEEDED
+import { ObserveVisibility } from 'vue-observe-visibility'
 import Vue3TouchEvents from "vue3-touch-events";
-import vue3GoogleLogin from 'vue3-google-login'
+import vue3GoogleLogin from "vue3-google-login";
+import VueSocialSharing from 'vue-social-sharing'
+
+
 
 // import './registerServiceWorker'
 
@@ -22,7 +27,7 @@ import { clickOutside } from "./directivs";
 
 import "./assets/scss/global.scss";
 import { getTrans } from "./services/i18nService";
-import { getSvg } from './services/svgService'
+import { getSvg } from "./services/svgService";
 import config from "./config";
 
 import App from "./App.vue";
@@ -107,6 +112,7 @@ app.directive("observe-visibility", ObserveVisibility);
 //   },
 // })
 
+app.use(VueSocialSharing);
 app.use(Vue3TouchEvents, {
   disableClick: false,
   touchClass: "",
@@ -116,26 +122,27 @@ app.use(Vue3TouchEvents, {
   longTapTimeInterval: 400,
   namespace: "touch",
 });
-app.use(Hotjar, {
+app.use(VueHotjar, {
   // id: '2047969',
   id: "3214500",
   isProduction: process.env.NODE_ENV === "production",
   snippetVersion: 6,
 });
 app.use(vue3GoogleLogin, {
-  clientId: '459352034354-5afbe95ab9e5ffu3dg5s974qm1qf0aia.apps.googleusercontent.com'
-})
+  clientId:
+    "459352034354-5afbe95ab9e5ffu3dg5s974qm1qf0aia.apps.googleusercontent.com",
+});
 app.use(VueAnalytics, {
   id: "UA-189794399-1",
   router,
 });
-app.use(VueMeta, {
-  keyName: "metaInfo",
-  attribute: "data-vue-meta",
-  // ssrAttribute: 'data-vue-meta-server-rendered',
-  // tagIDKeyName: 'vmid',
-  refreshOnceOnNavigation: true,
-});
+// app.use(VueMeta, {
+//   keyName: "metaInfo",
+//   attribute: "data-vue-meta",
+//   // ssrAttribute: 'data-vue-meta-server-rendered',
+//   // tagIDKeyName: 'vmid',
+//   refreshOnceOnNavigation: true,
+// });
 
 app.use(router);
 app.use(router);

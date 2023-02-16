@@ -33,8 +33,9 @@ export default {
       let { type, target, desc } = this.activity;
       if (type && !["login", "logout", "signup"].includes(type))
         type = type[type.length - 1] === "e" ? type + "d" : type + "ed";
-      return `${type && type[0].toUpperCase() + type.substring(1)
-        } ${target} ${desc}`;
+      return `${
+        type && type[0].toUpperCase() + type.substring(1)
+      } ${target} ${desc}`;
     },
   },
 };

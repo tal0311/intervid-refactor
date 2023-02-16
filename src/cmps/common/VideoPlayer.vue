@@ -62,7 +62,6 @@
       class="play-animation"
       :class="{ playing: isPlaying, pausing: !isPlaying }"
     ></button>
-
   </section>
 </template>
 
@@ -84,12 +83,12 @@ export default {
       isDraggableShown: true,
       mainVideoName: this.ans?.faceUrl ? "faceUrl" : "screenUrl",
       bufferInterval: null,
-      svgs: {playPauseAnimation: ''},
+      svgs: { playPauseAnimation: "" },
     };
   },
 
   created() {
-    this.svgs.playPauseAnimation = this.getSvg('playPauseAnimationIcons')
+    this.svgs.playPauseAnimation = this.getSvg("playPauseAnimationIcons");
   },
 
   async mounted() {

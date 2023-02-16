@@ -51,14 +51,14 @@
           </div>
 
           <!-- <div class="quest-details" :class="{ open: isShowDesc }">
-            <div class="quest-title">
-              <h3>{{ selectedQuest.txt }}</h3>
-              <button @click="toggleShowDesc">
-                <i class="material-icons">expand_more</i>
-              </button>
-            </div>
-            <p class="quest-desc" v-html="selectedQuest.desc || getTrans('no-description')"></p>
-          </div> -->
+                  <div class="quest-title">
+                    <h3>{{ selectedQuest.txt }}</h3>
+                    <button @click="toggleShowDesc">
+                      <i class="material-icons">expand_more</i>
+                    </button>
+                  </div>
+                  <p class="quest-desc" v-html="selectedQuest.desc || getTrans('no-description')"></p>
+                </div> -->
 
           <video-list v-if="Object.keys(applicant.answerMap).length" :applicant="applicant" :quests="job.quests"
             :selectedQuestIdx="selectedQuestIdx" @go-to-quest="goToQuest" />
@@ -76,7 +76,7 @@
 
     <applicant-edit v-if="isEditOpen" :applicant="applicant" @update-applicant="onUpdateApplicant" />
   </main>
-  <loader v-else />
+<loader v-else />
 </template>
 
 <script>
@@ -91,7 +91,7 @@ import {
   SOCKET_ON_SAVE_APPLICANT,
 } from "@/services/socketService";
 
-// import { historyRoutes } from "@/router";
+import { historyRoutes } from "@/router";
 import cloneDeep from "lodash.clonedeep";
 
 import NoteApp from "@/cmps/backoffice/applicant/NoteApp.vue";
@@ -258,7 +258,7 @@ export default {
     },
 
     onGoBack() {
-      // const prevRoute = historyRoutes[historyRoutes.length - 1];
+      const prevRoute = historyRoutes[historyRoutes.length - 1];
       // FIXME: ROUTER GO BACK
       // const prevRoute = historyRoutes[historyRoutes.length - 1];
       if (prevRoute.matched.length) this.$router.go(-1);

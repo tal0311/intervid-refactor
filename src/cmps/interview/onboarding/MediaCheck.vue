@@ -41,8 +41,12 @@
           @audio-ready="setAudioStatus"
         />
 
-        <div v-if="currStep === 1" class="face-helper" :class="{success: isFaceReady}" v-html="svgs.faceHelper"></div>
-
+        <div
+          v-if="currStep === 1"
+          class="face-helper"
+          :class="{ success: isFaceReady }"
+          v-html="svgs.faceHelper"
+        ></div>
       </div>
 
       <div class="check-info-container">
@@ -341,12 +345,12 @@ export default {
       isSettingsOpen: false,
       isPlaying: false,
       isLoading: true,
-      svgs: {faceHelper: ''},
+      svgs: { faceHelper: "" },
     };
   },
 
   created() {
-    this.svgs.faceHelper = this.getSvg('faceHelperMediaCheck')
+    this.svgs.faceHelper = this.getSvg("faceHelperMediaCheck");
   },
 
   async mounted() {

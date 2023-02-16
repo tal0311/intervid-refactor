@@ -1,5 +1,4 @@
-
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 import { app } from "./modules/appStore.js";
 import { user } from "./modules/userStore.js";
 import { record } from "./modules/recordStore.js";
@@ -11,7 +10,6 @@ import { player } from "./modules/playerStore";
 import { activity } from "./modules/activityStore";
 import { mutationHistory } from "./mutationHistory.js";
 import cloneDeep from "lodash.clonedeep";
-
 
 const initialStoreModules = {
   app,
@@ -55,10 +53,6 @@ const store = createStore({
 });
 
 export default store;
-
-
-
-
 
 // export default new Vuex.Store({
 //   strict: true,

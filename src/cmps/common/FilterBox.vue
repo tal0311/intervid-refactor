@@ -168,13 +168,13 @@ export default {
     return {
       updatedFilterBy: { ...this.filterBy },
       isFilterEdited: false,
-      svgs: {filter: ''},
+      svgs: { filter: "" },
     };
   },
 
   created() {
     // this.resetFilter()
-    this.svgs.filter = this.getSvg('filter')
+    this.svgs.filter = this.getSvg("filter");
   },
 
   computed: {
