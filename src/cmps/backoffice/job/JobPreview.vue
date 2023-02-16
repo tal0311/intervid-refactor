@@ -1,17 +1,8 @@
 <template>
-  <section
-    v-if="viewType === 'list'"
-    @contextmenu.prevent="onOpenMenu"
-    class="job-preview list"
-    :class="{ selected: isSelected }"
-    @click="goToApplicants"
-  >
+  <section v-if="viewType === 'list'" @contextmenu.prevent="onOpenMenu" class="job-preview list"
+    :class="{ selected: isSelected }" @click="goToApplicants">
     <div class="checkbox" @click.stop="">
-      <checkbox
-        inline
-        :value="isSelected"
-        @input="$emit('select', job)"
-      ></checkbox>
+      <checkbox inline :value="isSelected" @input="$emit('select', job)"></checkbox>
     </div>
 
     <div class="title">
@@ -24,13 +15,8 @@
 
     <div class="avatars">
       <template v-if="job.applicantSummary">
-        <avatar
-          v-for="(applicant, index) in job.applicantSummary.avatars"
-          :key="index"
-          :size="32"
-          :src="applicant.img"
-          :username="applicant.username"
-        />
+        <avatar v-for="(applicant, index) in job.applicantSummary.avatars" :key="index" :size="32" :src="applicant.img"
+          :username="applicant.username" />
         <div v-if="job.applicantSummary.applicantCount > 2">
           +{{ job.applicantSummary.applicantCount }}
         </div>
@@ -47,31 +33,14 @@
     </div>
 
     <div class="actions" @click.stop="">
-      <job-menu
-        :job="job"
-        :mouse-pos="mousePos"
-        @modal-closed="mousePos = null"
-        @archive="onToggleArchive"
-        @load-jobs="$emit('load-items')"
-        ref="job-menu"
-      />
+      <job-menu :job="job" :mouse-pos="mousePos" @modal-closed="mousePos = null" @archive="onToggleArchive"
+        @load-jobs="$emit('load-items')" ref="job-menu" />
     </div>
   </section>
 
-  <section
-    v-else
-    @contextmenu.prevent="onOpenMenu"
-    class="job-preview card"
-    :class="{ selected: isSelected }"
-    @click="goToApplicants"
-  >
-    <img
-      v-if="coverUrl"
-      loading="lazy"
-      :src="coverUrl"
-      alt="job-cover"
-      class="job-cover"
-    />
+  <section v-else @contextmenu.prevent="onOpenMenu" class="job-preview card" :class="{ selected: isSelected }"
+    @click="goToApplicants">
+    <img v-if="coverUrl" loading="lazy" :src="coverUrl" alt="job-cover" class="job-cover" />
     <i v-else class="material-icons job-background">image_not_supported</i>
 
     <div class="bottom">
@@ -82,14 +51,8 @@
           <div class="location">{{ job.info.location || "N/A" }}</div>
         </div>
         <div class="actions" @click.stop="">
-          <job-menu
-            :job="job"
-            @archive="onToggleArchive"
-            :mouse-pos="mousePos"
-            @modal-closed="mousePos = null"
-            @load-jobs="$emit('load-items')"
-            @remove="$emit('remove', $event)"
-          />
+          <job-menu :job="job" @archive="onToggleArchive" :mouse-pos="mousePos" @modal-closed="mousePos = null"
+            @load-jobs="$emit('load-items')" @remove="$emit('remove', $event)" />
         </div>
       </div>
 
@@ -102,20 +65,13 @@
       <i class="material-icons" :title="getTrans('copy-link')">link</i>
       <p>{{ getTrans("copy-link") }}</p>
     </div>
-  </section>
+</section>
 </template>
 
 <script>
-<<<<<<< HEAD
-import { ref } from "vue";
-import { msgService } from "@/services/msgService";
-import { formatDate } from "@/services/utilService";
-// import ModalMixin from "@/mixins/ModalMixin"
-=======
 import { ref } from "vue"
 import { msgService } from "@/services/msgService"
 import { formatDate } from "@/services/utilService"
->>>>>>> 3c194e128d9e792438fb90ddbb253826f8a702a1
 
 import JobMenu from "@/cmps/backoffice/job/JobMenu.vue";
 import Avatar from "@/cmps/common/Avatar.vue";

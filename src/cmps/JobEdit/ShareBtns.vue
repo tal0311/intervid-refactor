@@ -16,47 +16,30 @@
       </div>
 
       <div class="media-wrapper">
-        <share-network
-          @open="closeModal"
-          tag="button"
-          network="whatsapp"
-          title="We're seeking for you!"
+        <share-network @open="closeModal" tag="button" network="whatsapp" title="We're seeking for you!"
           :url="invitationUrl"
           :description="`${companyName} is seeking for ${jobTitle}. Click the link to start the interview via Intervid.`"
-          v-html="svgs.whatsapp"
-        ></share-network>
+          v-html="svgs.whatsapp"></share-network>
         <span>{{ getTrans("whatsapp") }}</span>
       </div>
 
       <div class="media-wrapper">
-        <share-network
-          @open="closeModal"
-          tag="button"
-          network="facebook"
-          :url="invitationUrl"
-          title="We're seeking for you!"
-          quote="We're seeking for you! Click to start the interview."
-          hashtags="hiring"
-          v-html="svgs.facebook"
-        ></share-network>
+        <share-network @open="closeModal" tag="button" network="facebook" :url="invitationUrl"
+          title="We're seeking for you!" quote="We're seeking for you! Click to start the interview." hashtags="hiring"
+          v-html="svgs.facebook"></share-network>
         <span>{{ getTrans("facebook") }}</span>
       </div>
 
       <div class="media-wrapper">
-        <share-network
-          @open="closeModal"
-          tag="button"
-          network="email"
-          :title="`Intervid invition- ${jobTitle} at ${companyName} `"
-          :url="invitationUrl"
-          :description="`${companyName} is seeking for ${jobTitle}. Click the link to start the interview via Intervid.`"
-        >
+        <share-network @open="closeModal" tag="button" network="email"
+          :title="`Intervid invition- ${jobTitle} at ${companyName} `" :url="invitationUrl"
+          :description="`${companyName} is seeking for ${jobTitle}. Click the link to start the interview via Intervid.`">
           <i class="material-icons">mail_outline</i>
         </share-network>
         <span>{{ getTrans("email") }}</span>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -68,6 +51,7 @@ import config from "@/config";
 export default {
   props: ["job", "data"],
 
+  // TODO: REMOVE DATA FROM HERE
   data() {
     return {
       svgs: {

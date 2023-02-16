@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Vue from "vue";
-import VueRouter from "vue-router";
+// import Vue from "vue";
+// import VueRouter from "vue-router";
 import store from "./store";
 
 // GENERAL
@@ -219,6 +219,7 @@ const routes = [
   },
 ];
 
+export const historyRoutes = []
 router.beforeEach(async (to, from, next) => {
   historyRoutes.push(from);
   const isPublic = to.matched.some((record) => record.meta.public);

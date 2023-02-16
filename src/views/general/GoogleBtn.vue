@@ -11,7 +11,8 @@
 </template>
 
 <script>
-import { decodeCredential, googleTokenLogin } from "vue3-google-login";
+import { decodeCredential } from "vue3-google-login";
+// import { decodeCredential, googleTokenLogin } from "vue3-google-login";
 export default {
   methods: {
     onSuccess(googleRes) {

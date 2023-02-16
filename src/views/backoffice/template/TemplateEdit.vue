@@ -80,7 +80,7 @@ export default {
   },
 
   async beforeRouteLeave(to, from, next) {
-    const confirmation = await new Promise((res, rej) => {
+    const confirmation = await new Promise((res) => {
       this.dialogResolve = res;
       this.isDialogOpen = true;
     });

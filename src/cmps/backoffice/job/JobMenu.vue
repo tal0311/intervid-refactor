@@ -4,18 +4,10 @@
       <span class="material-icons"> more_horiz </span>
     </button>
 
-    <div
-      class="menu-modal"
-      :ref="job._id"
-      @contextmenu.stop.prevent=""
-      :style="modalStyle"
-      :class="modalClass"
-    >
+    <div class="menu-modal" :ref="job._id" @contextmenu.stop.prevent="" :style="modalStyle" :class="modalClass">
       <template v-if="!job.archivedAt">
         <div @click="onCopyUrl">{{ getTrans("copy-invitation-url") }}</div>
-        <div
-          @click="onGoToPage({ name: 'JobEdit', params: { jobId: job._id } })"
-        >
+        <div @click="onGoToPage({ name: 'JobEdit', params: { jobId: job._id } })">
           {{ getTrans("edit-job") }}
         </div>
         <div @click="onOpenPreview">{{ getTrans("preview-job") }}</div>
@@ -30,33 +22,18 @@
       </div>
     </div>
 
-    <mobile-modal
-      v-if="isOpen && isMobile"
-      cmpName="job-actions"
-      @on-close="toggleModal"
-      :job="job"
-      @on-clone-job="onCloneJob"
-      @on-open-preview="onOpenPreview"
-      @on-share="onShare"
-      @on-toggle-archive="onToggleArchive"
-      @on-copy-url="onCopyUrl"
-      @on-go-to-page="onGoToPage($event)"
-    />
-  </section>
+    <mobile-modal v-if="isOpen && isMobile" cmpName="job-actions" @on-close="toggleModal" :job="job"
+      @on-clone-job="onCloneJob" @on-open-preview="onOpenPreview" @on-share="onShare" @on-toggle-archive="onToggleArchive"
+      @on-copy-url="onCopyUrl" @on-go-to-page="onGoToPage($event)" />
+</section>
 </template>
 
 <script>
 // core
-<<<<<<< HEAD
-import { ref } from "vue";
-// lib
-import cloneDeep from "lodash.clonedeep";
-=======
 import { computed } from 'vue'
 // lib
 import { useStore } from 'vuex'
 import cloneDeep from "lodash.clonedeep"
->>>>>>> 3c194e128d9e792438fb90ddbb253826f8a702a1
 // import { useStore } from 'vuex'
 // services
 import { msgService } from "@/services/msgService";

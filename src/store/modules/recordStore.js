@@ -42,7 +42,7 @@ export const record = {
   },
 
   actions: {
-    async loadRecords({ commit, state }, { filterBy, sort }) {
+    async loadRecords({ commit }, { filterBy, sort }) {
       commit("setIsFetching", true);
       try {
         const { records, totalRecordCount } = await recordService.query(
