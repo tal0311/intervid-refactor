@@ -106,10 +106,16 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { ref } from "vue";
 import { msgService } from "@/services/msgService";
 import { formatDate } from "@/services/utilService";
 // import ModalMixin from "@/mixins/ModalMixin"
+=======
+import { ref } from "vue"
+import { msgService } from "@/services/msgService"
+import { formatDate } from "@/services/utilService"
+>>>>>>> 3c194e128d9e792438fb90ddbb253826f8a702a1
 
 import JobMenu from "@/cmps/backoffice/job/JobMenu.vue";
 import Avatar from "@/cmps/common/Avatar.vue";
@@ -118,7 +124,6 @@ import config from "@/config";
 export default {
   props: ["job", "isSelected", "filterBy"],
 
-  // mixins: [ModalMixin],
   setup() {
     const mousePos = ref(null);
     const onOpenMenu = ({ pageX, pageY }) => {

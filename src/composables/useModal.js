@@ -1,4 +1,4 @@
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 
 // params : {
@@ -10,13 +10,13 @@ import { useStore } from "vuex";
 //  } | null),
 //  modalWrapper: template ref | null,
 // }
-export default function useModal({
+export function useModal({
   modalId,
   modalHeight,
   modalWidth = 0,
   modalType,
   mousePos = ref(null),
-  modalWrapper = null,
+  modalWrapper = ref(null),
 }) {
   const store = useStore();
 
@@ -24,7 +24,6 @@ export default function useModal({
     return store.getters["app/lang"] === "en";
   });
   const modal = computed(() => {
-    // console.log(store.getters["app/modal"])
     return store.getters["app/modal"];
   });
   const isOpen = computed(() => {
@@ -59,7 +58,6 @@ export default function useModal({
     modalWidth,
     startingPos,
     isEnglish,
-    // modalWrapper,
   });
 
   return {
@@ -69,10 +67,6 @@ export default function useModal({
     insetInlineStart,
     isBottom,
   };
-
-  // const modalWrapperBounding = computed(() => {
-  //   return modalWrapper.value?.getBoundingClientRect();
-  // })
 }
 
 // params:{

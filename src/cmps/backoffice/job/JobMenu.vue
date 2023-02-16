@@ -47,9 +47,16 @@
 
 <script>
 // core
+<<<<<<< HEAD
 import { ref } from "vue";
 // lib
 import cloneDeep from "lodash.clonedeep";
+=======
+import { computed } from 'vue'
+// lib
+import { useStore } from 'vuex'
+import cloneDeep from "lodash.clonedeep"
+>>>>>>> 3c194e128d9e792438fb90ddbb253826f8a702a1
 // import { useStore } from 'vuex'
 // services
 import { msgService } from "@/services/msgService";
@@ -63,7 +70,6 @@ import config from "@/config";
 export default {
   props: ["job", "mousePos"],
 
-  // mixins: [ModalMixin],
   setup(props) {
     const modalWidth = 200;
 
