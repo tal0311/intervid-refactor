@@ -27,7 +27,6 @@
     "socket.io-client": "^4.6.0",
     "uuid": "^9.0.0",
     "vue": "^3.2.45",
-    "vue-google-login": "^2.0.5",
     "vue-hotjar-next": "^1.4.0",
     "vue-router": "^4.1.6",
     "vue-social-sharing": "^4.0.0-alpha4",
