@@ -30,15 +30,15 @@
 
       <div class="media-wrapper">
         <share-network
-        @open="closeModal"
-        tag="button"
-        network="facebook"
-        :url="invitationUrl"
-        title="We're seeking for you!"
-        quote="We're seeking for you! Click to start the interview."
-        hashtags="hiring"
-        v-html="svgs.facebook"
-      ></share-network>
+          @open="closeModal"
+          tag="button"
+          network="facebook"
+          :url="invitationUrl"
+          title="We're seeking for you!"
+          quote="We're seeking for you! Click to start the interview."
+          hashtags="hiring"
+          v-html="svgs.facebook"
+        ></share-network>
         <span>{{ getTrans("facebook") }}</span>
       </div>
 
@@ -68,18 +68,18 @@ import config from "@/config";
 export default {
   props: ["job", "data"],
 
-  data(){
-    return{
+  data() {
+    return {
       svgs: {
-        whatsapp: '',
-        facebook: ''
-      }
-    }
+        whatsapp: "",
+        facebook: "",
+      },
+    };
   },
 
-  created(){
-     this.svgs.whatsapp = this.getSvg('whatsappIcon')
-     this.svgs.facebook = this.getSvg('facebookIcon')
+  created() {
+    this.svgs.whatsapp = this.getSvg("whatsappIcon");
+    this.svgs.facebook = this.getSvg("facebookIcon");
   },
 
   computed: {

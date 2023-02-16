@@ -14,7 +14,8 @@ function query(filterBy) {
   delete filterBy.currPage;
   const filterQuery = getUrlParamsFromObj(filterBy);
   return httpService.get(
-    `${ROUTE}?limit=${itemsPerPage}&skip=${currPage * itemsPerPage
+    `${ROUTE}?limit=${itemsPerPage}&skip=${
+      currPage * itemsPerPage
     }&${filterQuery.substring(1)}`
   );
 }

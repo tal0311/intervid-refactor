@@ -28,7 +28,9 @@ export default function useModal({
     return store.getters["app/modal"];
   });
   const isOpen = computed(() => {
-    return modal.type === modalType && modal.data.modalId === modalId;
+    return (
+      modal.value.type === modalType && modal.value.data.modalId === modalId
+    );
   });
 
   const modalWrapperBounding = computed(() => {
@@ -89,14 +91,16 @@ export function useModalPos({
   modalHeight,
   modalWidth = 0,
   startingPos,
-  isEnglish
+  isEnglish,
 }) {
   // TODO: Check if a computed is needed here
   const bodyBounding = computed(() => document.body.getBoundingClientRect());
 
   const isBottom = computed(() => {
-    if (startingPos.bottom !==null && startingPos.bottom !==undefined){ 
-      return startingPos?.bottom + modalHeight.value > bodyBounding.value.height;
+    if (startingPos.bottom !== null && startingPos.bottom !== undefined) {
+      return (
+        startingPos?.bottom + modalHeight.value > bodyBounding.value.height
+      );
     }
     return startingPos.y + modalHeight.value > bodyBounding.value.height;
   });
@@ -122,7 +126,6 @@ export function useModalPos({
   });
 
   const insetInlineStart = computed(() => {
-
     if (!isEnglish.value) {
       if (
         startingPos.value.left !== undefined &&
@@ -151,6 +154,5 @@ export function useModalPos({
     isBottom,
     top,
     insetInlineStart,
-
   };
 }

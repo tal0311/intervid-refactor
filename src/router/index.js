@@ -5,12 +5,12 @@ import VueRouter from "vue-router";
 import store from "./store";
 
 // GENERAL
-import Login from "@/views/general/Login.vue";
+import AppLogin from "@/views/general/AppLogin.vue";
 import VerifyEmail from "@/views/general/VerifyEmail.vue";
 import NotFound from "@/views/general/NotFound.vue";
 import NotSupported from "@/views/general/NotSupported.vue";
 import UserMgmt from "@/views/general/UserMgmt.vue";
-import Signup from "@/views/general/Signup.vue";
+import AppSignup from "@/views/general/AppSignup.vue";
 import ForgotPassword from "@/views/general/ForgotPassword.vue";
 import EmbededPreview from "@/cmps/common/EmbededPreview.vue";
 
@@ -80,7 +80,7 @@ const routes = [
       {
         name: "Login",
         path: "/login",
-        component: Login,
+        component: AppLogin,
         meta: {
           public: true,
           onlyWhenLoggedOut: true,
@@ -89,7 +89,7 @@ const routes = [
       {
         name: "Signup",
         path: "/signup",
-        component: Signup,
+        component: AppSignup,
         meta: {
           public: true,
           onlyWhenLoggedOut: true,

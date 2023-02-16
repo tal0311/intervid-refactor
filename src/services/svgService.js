@@ -1,7 +1,7 @@
 const SVG_ICONS = {
-    // FILTER BOX
-    /* 🚩 ~~~ TODO - new filter icon ~~~ 🚩 */
-    filter: (width = 16, height = 16) => `
+  // FILTER BOX
+  /* 🚩 ~~~ TODO - new filter icon ~~~ 🚩 */
+  filter: (width = 16, height = 16) => `
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="${width}" height="${height}" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <circle cx="14" cy="6" r="2" />
@@ -16,8 +16,8 @@ const SVG_ICONS = {
         </svg>
     `,
 
-    // APP LOADER    
-    loader: `
+  // APP LOADER
+  loader: `
                 <div class="left-wheel-wrapper">
                 <svg
                 class="wheel"
@@ -73,7 +73,7 @@ const SVG_ICONS = {
             </div>
     `,
 
-    oldLoader: `
+  oldLoader: `
              <div class="loader">
             <svg viewBox="0 0 362 264" xmlns="http://www.w3.org/2000/svg">
             <rect width="362" height="264" rx="8" />
@@ -218,8 +218,8 @@ const SVG_ICONS = {
         </div>
     `,
 
-    // SHARE BTNS
-    whatsappIcon: `
+  // SHARE BTNS
+  whatsappIcon: `
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -234,7 +234,7 @@ const SVG_ICONS = {
           >
     `,
 
-    facebookIcon: `
+  facebookIcon: `
             <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26px" height="26px">
             <path
               d="M16.403,9H14V7c0-1.032,0.084-1.682,1.563-1.682h0.868c0.552,0,1-0.448,1-1V3.064c0-0.523-0.401-0.97-0.923-1.005 C15.904,2.018,15.299,1.999,14.693,2C11.98,2,10,3.657,10,6.699V9H8c-0.552,0-1,0.448-1,1v2c0,0.552,0.448,1,1,1l2-0.001V21 c0,0.552,0.448,1,1,1h2c0.552,0,1-0.448,1-1v-8.003l2.174-0.001c0.508,0,0.935-0.381,0.993-0.886l0.229-1.996 C17.465,9.521,17.001,9,16.403,9z"
@@ -242,8 +242,8 @@ const SVG_ICONS = {
           </svg>
     `,
 
-    // UPLOADING ANIMATION
-    laptopUploadingAnimation: `
+  // UPLOADING ANIMATION
+  laptopUploadingAnimation: `
             <svg viewBox="0 0 431 300" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
             d="M416.976 300H13.5278C9.94003 300 6.49917 298.575 3.96221 296.038C1.42525 293.501 0 290.06 0 286.472C146.25 269.475 289.751 269.475 430.504 286.472C430.504 290.06 429.079 293.501 426.542 296.038C424.005 298.575 420.564 300 416.976 300Z"
@@ -274,7 +274,7 @@ const SVG_ICONS = {
         </svg>
     `,
 
-    videoUploadingAnimation: `
+  videoUploadingAnimation: `
             <svg class="video-1" width="150" height="182" viewBox="0 0 150 182" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_i_1756_77)">
             <rect class="applicant-video" y="32" width="150" height="150" rx="4" fill="#83BDE3" />
@@ -474,15 +474,15 @@ const SVG_ICONS = {
         </svg>
     `,
 
-    // VIDEO LOADER
-    videoLoader: `
+  // VIDEO LOADER
+  videoLoader: `
         <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="50" cy="50" r="45" />
          </svg>
     `,
 
-    // VIDEO PLAYER
-    playPauseAnimationIcons: `
+  // VIDEO PLAYER
+  playPauseAnimationIcons: `
         <svg class="play" width="76" height="77" viewBox="0 0 76 77" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
         d="M0 38.5V72.0279C0 75.0014 3.12925 76.9354 5.78885 75.6056L72.8446 42.0777C75.7928 40.6036 75.7928 36.3964 72.8446 34.9223L5.78886 1.39443C3.12926 0.064628 0 1.99861 0 4.97214V38.5Z"
@@ -495,8 +495,8 @@ const SVG_ICONS = {
     </svg>
     `,
 
-    // MEDIA CHECK
-    faceHelperMediaCheck: `
+  // MEDIA CHECK
+  faceHelperMediaCheck: `
             <svg viewBox="0 0 859 527">
             <line x1="5" y1="2.5" x2="153" y2="2.5" />
             <line x1="7.5" y1="5" x2="7.49999" y2="177" />
@@ -508,11 +508,11 @@ const SVG_ICONS = {
             <line x1="5" y1="519.5" x2="153" y2="519.5" />
         </svg>
     `,
-}
+};
 
 export function getSvg(svgName, width, height) {
-    if (typeof SVG_ICONS[svgName] === 'function') {
-        return SVG_ICONS[svgName](width, height) || ''
-    }
-    return SVG_ICONS[svgName] || ''
+  if (typeof SVG_ICONS[svgName] === "function") {
+    return SVG_ICONS[svgName](width, height) || "";
+  }
+  return SVG_ICONS[svgName] || "";
 }

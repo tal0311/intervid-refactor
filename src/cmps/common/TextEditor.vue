@@ -84,10 +84,10 @@ export default {
     };
   },
 
-  created(){
-    const {editorOption} = this
-    editorOption.placeholder = this.placeholder
-    editorOption.modules.toolbar.push(...this.tools)
+  created() {
+    const { editorOption } = this;
+    editorOption.placeholder = this.placeholder;
+    editorOption.modules.toolbar.push(...this.tools);
   },
 
   mounted() {
@@ -112,7 +112,6 @@ export default {
   },
 
   methods: {
-
     onEditorChange({ quill, html, text }) {
       this.htmlContent = html;
       console.log("text", text);
