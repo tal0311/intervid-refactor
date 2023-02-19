@@ -1,7 +1,11 @@
 <template>
   <div class="google-btn">
     <google-login :callback="onSuccess" :error="onFailure" />
-    <!-- {{ getTrans("continue-with-google") }} -->
+
+    <!-- <GoogleLogin popup-type="CODE">
+      <button @click="onSuccess">{{ getTrans("continue-with-google") }}</button>
+    </GoogleLogin> -->
+
     <img
       loading="lazy"
       src="https://res.cloudinary.com/intervid/image/upload/v1661182402/Frontend/google-logo_wqcarj.png"
@@ -14,13 +18,12 @@
 import { decodeCredential, googleTokenLogin } from "vue3-google-login";
 export default {
   methods: {
-    onSuccess(googleRes) {
+    async onSuccess(googleRes) {
       const userData = decodeCredential(googleRes.credential);
       console.log("Handle the userData", userData);
 
-      // googleTokenLogin().then((googleTokenLoginRes) => {
-      //   console.log("Handle the response", googleTokenLoginRes)
-      // })
+      // const tokenLoginRes = await googleTokenLogin();
+      // console.log("Handle the response - tokenLoginRes", tokenLoginRes);
 
       // this.$emit("google-success", googleUser.getAuthResponse().id_token)
     },
