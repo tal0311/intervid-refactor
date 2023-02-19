@@ -11,8 +11,6 @@
     <div class="info">
       <div class="top">
         <p>{{ timeEventToShow.txt }}</p>
-
-        <p>{{ timeEventToShow.txt }}</p>
         <time-event-menu
           v-if="isNote"
           :idx="idx"

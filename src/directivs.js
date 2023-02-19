@@ -1,12 +1,12 @@
 const clickOutside = {
-  mounted(el, {value: cb}) {
+  mounted(el, { value: cb }) {
     el.clickOutside = (ev) => {
       if (!el.contains(ev.target)) {
         // itemService.setModalType("");
-        cb()
-        console.log('outside')
-      }else {
-        console.log('inside')
+        cb();
+        console.log("outside");
+      } else {
+        console.log("inside");
       }
     };
     setTimeout(() => {

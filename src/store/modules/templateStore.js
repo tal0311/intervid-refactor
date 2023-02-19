@@ -83,7 +83,7 @@ export const template = {
       }
     },
 
-    async loadDefaultTemplates({ rootGetters, state, commit }) {
+    async loadDefaultTemplates({ commit }) {
       try {
         const defaultTemplates = await templateService.getDefaultTemplates();
         commit("setDefaultTemplates", { defaultTemplates });
@@ -113,7 +113,7 @@ export const template = {
       }
     },
 
-    async saveTemplate({ commit, dispatch, rootGetters }, { template }) {
+    async saveTemplate({ commit, rootGetters }, { template }) {
       if (!template.title) {
         const dateStr = new Date().toLocaleString("he-IL");
         template.title = `Unnamed Template ${dateStr.substring(
@@ -157,7 +157,7 @@ export const template = {
       }
     },
 
-    async removeTemplate({ dispatch, commit, rootGetters }, { templateId }) {
+    async removeTemplate({ commit, rootGetters }, { templateId }) {
       try {
         await templateService.remove(templateId);
         // dispatch('activity/addActivity', activityMap.template({ type: 'remove', meta: { templateId } }), { root: true })
@@ -179,7 +179,7 @@ export const template = {
       }
     },
 
-    async toggleArchivedTemplate({ commit, dispatch }, { template }) {
+    async toggleArchivedTemplate({ commit }, { template }) {
       var updatedTemplate = {
         ...template,
         archivedAt: template.archivedAt ? null : Date.now(),

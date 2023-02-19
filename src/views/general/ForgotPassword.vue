@@ -90,14 +90,20 @@ export default {
           email: this.email.toLowerCase(),
         });
         this.currStep = setOption === "RMP" ? 1 : 3;
-      } catch (err) {}
+      } catch (err) {
+        console.log("err:", err);
+        // TODO: LOGGER SERVICE HERE
+      }
     },
 
     async verifyCode(enteredCode) {
       try {
         await this.$store.dispatch("auth/verifyCode", { enteredCode });
         this.currStep = 2;
-      } catch (err) {}
+      } catch (err) {
+        console.log("err:", err);
+        // TODO: LOGGER SERVICE HERE
+      }
     },
 
     async onChangePassword({ updated, verifyUpdated }) {
@@ -127,7 +133,10 @@ export default {
           enteredCode,
         });
         this.$router.push({ name: "ApplicantOverview" });
-      } catch (err) {}
+      } catch (err) {
+        console.log("err:", err);
+        // TODO: LOGGER SERVICE HERE
+      }
     },
   },
 

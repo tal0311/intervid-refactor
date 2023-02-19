@@ -24,11 +24,7 @@
       >
     </button>
 
-    <div
-      class="status-modal"
-      :style="{ top: modalTop, width: modalWidth }"
-      :class="{ open: isOpen && !isMobile, top: isBottom }"
-    >
+    <div class="status-modal">
       <button
         v-for="(status, idx) in statusMap"
         :key="status.label"
@@ -57,28 +53,58 @@
 </template>
 
 <script>
+// core
+import { computed, ref } from "vue";
+// lib
+import { useStore } from "vuex";
+// custom composables
+import { useModal } from "@/composables/useModal.js";
+// services
 import { activityMap } from "@/services/activityService";
 import { getStatusByCode, statusMap } from "@/services/constData";
-
-import ModalMixin from "@/mixins/ModalMixin.js";
+// cmps
 import MobileModal from "./modals/MobileModal.vue";
 
 export default {
   props: ["applicant", "isShowArchived", "isFullWidth"],
+  setup(props) {
+    const store = useStore();
+    const modalHeight = computed(() => 342);
+    const modalWrapper = ref(null);
 
-  mixins: [ModalMixin],
+    const { isOpen, top, insetInlineStart, isBottom } = useModal({
+      modalHeight,
+      modalType: "status-picker",
+      modalId: props.applicant.id,
+      modalWrapper,
+    });
 
-  data() {
+    const isMobile = computed(() => {
+      return store.getters["app/isMobile"];
+    });
+
+    const modalStyle = computed(() => {
+      return {
+        top: `${top.value}px`,
+        insetInlineStart: `${insetInlineStart.value}px`,
+      };
+    });
+
+    const modalClass = computed(() => {
+      return {
+        open: isOpen.value && !isMobile.value,
+        top: isBottom.value,
+      };
+    });
+
     return {
-      modalHeight: 342,
+      isOpen,
+      modalClass,
+      modalStyle,
     };
   },
 
   computed: {
-    isMobile() {
-      return this.$store.getters["app/isMobile"];
-    },
-
     applicantStatus() {
       return getStatusByCode(this.applicant.status);
     },
@@ -108,23 +134,11 @@ export default {
     activityMap() {
       return activityMap;
     },
-
-    modal() {
-      return this.$store.getters["app/modal"];
-    },
-
-    isOpen() {
-      return (
-        this.modal.type === "status-picker" &&
-        this.modal.data.modalId === this.applicant.id
-      );
-    },
   },
 
   methods: {
     toggleModal() {
       if (this.isDisabled || this.isShowArchived) return;
-      this.setModalPosition();
       const modalId = this.isOpen ? null : this.applicant.id;
       this.$store.dispatch("app/toggleModal", {
         type: "status-picker",

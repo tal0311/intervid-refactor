@@ -5,9 +5,9 @@
       <i></i>
       <i></i>
     </div>
-   
+
     <div class="video-container" v-html="svgs.video"></div>
-    
+
     <div class="laptop" v-html="svgs.laptop"></div>
   </section>
 </template>
@@ -16,15 +16,15 @@
 export default {
   data() {
     return {
-      svgs: {laptop: '', video: ''},
-    }
+      svgs: { laptop: "", video: "" },
+    };
   },
 
   created() {
-    this.svgs.laptop = this.getSvg('laptopUploadingAnimation')
-    this.svgs.video = this.getSvg('videoUploadingAnimation')
+    this.svgs.laptop = this.getSvg("laptopUploadingAnimation");
+    this.svgs.video = this.getSvg("videoUploadingAnimation");
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

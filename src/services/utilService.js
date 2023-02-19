@@ -72,8 +72,8 @@ export function formatDuration(ms, { noWords, singleLetter, fullWord } = {}) {
     const word = singleLetter
       ? "s"
       : fullWord
-        ? getPlural("second", seconds)
-        : "sec";
+      ? getPlural("second", seconds)
+      : "sec";
     return timeStr + " " + word;
   }
   let word = hours ? "h" : "min";
@@ -100,8 +100,9 @@ export function formatDate(date, options = {}) {
     }
   } else {
     var timeStr = getTimeTrans(date, options.includeSeconds);
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${options.includeTime ? timeStr : ""
-      }`;
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${
+      options.includeTime ? timeStr : ""
+    }`;
   }
 }
 
@@ -123,7 +124,7 @@ export async function retry(fn, n) {
   for (let i = 0; i < n; i++) {
     try {
       return await fn();
-    } catch (err) { }
+    } catch (err) {}
   }
   throw new Error(`Failed retrying ${n} times`);
 }
@@ -217,8 +218,9 @@ export const isPasswordValid = (password) => {
 
 export const getFullName = (user) => {
   if (!user?.fName) return "";
-  return `${user.fName.charAt(0).toUpperCase() + user.fName.substring(1)} ${user.lName.charAt(0).toUpperCase() + user.lName.substring(1) || ""
-    }`;
+  return `${user.fName.charAt(0).toUpperCase() + user.fName.substring(1)} ${
+    user.lName.charAt(0).toUpperCase() + user.lName.substring(1) || ""
+  }`;
 };
 
 export const getInitials = (username) => {

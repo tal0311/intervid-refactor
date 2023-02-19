@@ -50,7 +50,9 @@ async function getLoggedInUser() {
   try {
     const user = await httpService.get(`${BASE_URL}logged`);
     return user;
-  } catch (err) {}
+  } catch (err) {
+    // TODO: LOGGER SERVICE HERE
+  }
 }
 
 function sendVerifyEmail(user) {

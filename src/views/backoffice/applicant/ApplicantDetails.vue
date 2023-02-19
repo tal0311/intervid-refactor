@@ -2,11 +2,7 @@
   <main class="applicant-details" v-if="applicant && !isFetching">
     <div class="header">
       <div class="left">
-        <avatar
-          :size="70"
-          :src="applicant.info.imgUrl"
-          :username="applicantFullName"
-        />
+        <avatar :size="70" :src="applicant.info.imgUrl" :username="applicantFullName" />
         <div class="info-wrapper">
           <div class="main-info">
             <h3>{{ applicantFullName }}</h3>
@@ -14,39 +10,23 @@
           </div>
           <div class="contact">
             <div class="applicant-contact">
-              <p
-                @click="onCopyField('email')"
-                :class="{ muted: !applicant.info.email }"
-              >
+              <p @click="onCopyField('email')" :class="{ muted: !applicant.info.email }">
                 <i class="material-icons">email</i>
                 <span>{{ applicant.info.email || "N/A" }}</span>
               </p>
-              <p
-                @click="onCopyField('phone')"
-                :class="{ muted: !applicant.info.phone }"
-              >
+              <p @click="onCopyField('phone')" :class="{ muted: !applicant.info.phone }">
                 <i class="material-icons">phone</i>
                 <span>{{ applicant.info.phone || "N/A" }}</span>
               </p>
-              <p
-                @click="onCopyField('hometown')"
-                :class="{ muted: !applicant.info.hometown }"
-              >
+              <p @click="onCopyField('hometown')" :class="{ muted: !applicant.info.hometown }">
                 <i class="material-icons">home</i>
                 <span>{{ applicant.info.hometown || "N/A" }}</span>
               </p>
             </div>
             <div class="btn-container">
-              <cv-menu
-                :applicant="applicant"
-                :applicantCvName="applicantCvName"
-                @on-cv-uploaded="onCvUploaded"
-              />
+              <cv-menu :applicant="applicant" :applicantCvName="applicantCvName" @on-cv-uploaded="onCvUploaded" />
 
-              <applicant-menu
-                @on-archive-applicant="onArchiveApplicant"
-                @on-edit-applicant="onEditApplicant"
-              />
+              <applicant-menu @on-archive-applicant="onArchiveApplicant" @on-edit-applicant="onEditApplicant" />
             </div>
           </div>
         </div>
@@ -54,11 +34,7 @@
 
       <div class="right">
         <div class="status-container">
-          <status-dropdown
-            :applicant="applicant"
-            @on-set-status="setStatus"
-            isFullWidth="true"
-          />
+          <status-dropdown :applicant="applicant" @on-set-status="setStatus" isFullWidth="true" />
         </div>
       </div>
     </div>
@@ -67,60 +43,40 @@
       <div class="candidate-container">
         <div class="interview-container">
           <h4>{{ getTrans("interview") }}</h4>
-          <div
-            class="video-container"
-            :class="{ empty: !Object.keys(applicant.answerMap).length }"
-          >
+          <div class="video-container" :class="{ empty: !Object.keys(applicant.answerMap).length }">
             <div class="ans-player-container">
-              <video-player
-                v-if="!!Object.keys(applicant.answerMap).length"
-                :ans="selectedAns"
-                :notes="[]"
-                ref="videoPlayer"
-              />
+              <video-player v-if="!!Object.keys(applicant.answerMap).length" :ans="selectedAns" :notes="[]"
+                ref="videoPlayer" />
             </div>
           </div>
 
           <!-- <div class="quest-details" :class="{ open: isShowDesc }">
-            <div class="quest-title">
-              <h3>{{ selectedQuest.txt }}</h3>
-              <button @click="toggleShowDesc">
-                <i class="material-icons">expand_more</i>
-              </button>
-            </div>
-            <p class="quest-desc" v-html="selectedQuest.desc || getTrans('no-description')"></p>
-          </div> -->
+                  <div class="quest-title">
+                    <h3>{{ selectedQuest.txt }}</h3>
+                    <button @click="toggleShowDesc">
+                      <i class="material-icons">expand_more</i>
+                    </button>
+                  </div>
+                  <p class="quest-desc" v-html="selectedQuest.desc || getTrans('no-description')"></p>
+                </div> -->
 
-          <video-list
-            v-if="Object.keys(applicant.answerMap).length"
-            :applicant="applicant"
-            :quests="job.quests"
-            :selectedQuestIdx="selectedQuestIdx"
-            @go-to-quest="goToQuest"
-          />
+          <video-list v-if="Object.keys(applicant.answerMap).length" :applicant="applicant" :quests="job.quests"
+            :selectedQuestIdx="selectedQuestIdx" @go-to-quest="goToQuest" />
         </div>
       </div>
 
       <div class="recruiter-container">
         <div class="app-container">
           <note-app @save-notes="saveNotes" :notes="applicant.notes" />
-          <timeline
-            :timeline="applicant.timeline"
-            :applicantName="applicantFullName"
-            :jobTitle="jobTitle"
-            @remove-note-event="removeNoteEvent"
-          />
+          <timeline :timeline="applicant.timeline" :applicantName="applicantFullName" :jobTitle="jobTitle"
+            @remove-note-event="removeNoteEvent" />
         </div>
       </div>
     </div>
 
-    <applicant-edit
-      v-if="isEditOpen"
-      :applicant="applicant"
-      @update-applicant="onUpdateApplicant"
-    />
+    <applicant-edit v-if="isEditOpen" :applicant="applicant" @update-applicant="onUpdateApplicant" />
   </main>
-  <loader v-else />
+<loader v-else />
 </template>
 
 <script>
@@ -303,7 +259,9 @@ export default {
 
     onGoBack() {
       const prevRoute = historyRoutes[historyRoutes.length - 1];
-      if (prevRoute.matched.length) this.$router.push(prevRoute.fullPath);
+      // FIXME: ROUTER GO BACK
+      // const prevRoute = historyRoutes[historyRoutes.length - 1];
+      if (prevRoute.matched.length) this.$router.go(-1);
       else
         this.$router.push(
           !this.applicant.archivedAt
