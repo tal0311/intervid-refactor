@@ -1,7 +1,7 @@
-import { permissions } from "./constData";
-import httpService from "./httpService";
-import store from "../store";
-import { _handleCancelRequest } from "./utilService";
+import {permissions} from './constData'
+import httpService from './httpService'
+import store from '../store'
+import {_handleCancelRequest} from './utilService'
 
 export const userService = {
   query,
@@ -17,91 +17,90 @@ export const userService = {
   changePassword,
   getEmptyUser,
   getMiniUser,
-};
+}
 
-const BASE_URL = "user/";
+const BASE_URL = 'user/'
 
 function query() {
-  const key = "user/query";
-  const token = _handleCancelRequest(key);
+  const key = 'user/query'
+  const token = _handleCancelRequest(key)
 
-  return httpService.customRequest("get", BASE_URL, null, {
+  return httpService.customRequest('get', BASE_URL, null, {
     cancelToken: token,
-  });
+  })
 }
 
 function getById(userId) {
-  return httpService.get(`${BASE_URL}${userId}`);
+  return httpService.get(`${BASE_URL}${userId}`)
 }
 
 function add(user) {
-  return httpService.post(BASE_URL, user);
+  return httpService.post(BASE_URL, user)
 }
 
 function update(user) {
-  return httpService.put(BASE_URL, { user });
+  return httpService.put(BASE_URL, {user})
 }
 
 function remove(userId) {
-  return httpService.delete(`${BASE_URL}${userId}`);
+  return httpService.delete(`${BASE_URL}${userId}`)
 }
 
 async function getLoggedInUser() {
   try {
-    const user = await httpService.get(`${BASE_URL}logged`);
-    return user;
+    const user = await httpService.get(`${BASE_URL}logged`)
+    return user
   } catch (err) {
     // TODO: LOGGER SERVICE HERE
   }
 }
 
 function sendVerifyEmail(user) {
-  return httpService.post(`${BASE_URL}verify-email`, { user });
+  return httpService.post(`${BASE_URL}verify-email`, {user})
 }
 
 function sendVerifyEmailCode(user) {
-  return httpService.post(`${BASE_URL}verify-email-code`, { user });
+  return httpService.post(`${BASE_URL}verify-email-code`, {user})
 }
 
 function verifyApplicant(applicantId, code) {
   return httpService.post(`${BASE_URL}verify-applicant`, {
     userId: applicantId,
     code,
-  });
+  })
 }
 
-function verifyPerm(requieredPerm, user = store.getters["user/loggedInUser"]) {
-  const userAdvancedPerm = store.getters["user/loggedInUserAdvancedPrm"];
-  const userPerm = Object.values(permissions).find(
-    (perm) => perm.id === user.perm
-  );
+// TODO: This should probably be a getter in the store, see https://vuex.vuejs.org/guide/getters.html#property-style-access
+// making this a getter will allow us to remove the store import from this file, which is causing problems, because of the circular dependency.
+function verifyPerm(requieredPerm, user = store.getters['user/loggedInUser']) {
+  const userAdvancedPerm = store.getters['user/loggedInUserAdvancedPrm']
+  const userPerm = Object.values(permissions).find((perm) => perm.id === user.perm)
   return (
     !requieredPerm.isBlocked &&
-    (requieredPerm.originalPerm.code <= userPerm.code ||
-      (userAdvancedPerm && userAdvancedPerm[requieredPerm.name]))
-  );
+    (requieredPerm.originalPerm.code <= userPerm.code || (userAdvancedPerm && userAdvancedPerm[requieredPerm.name]))
+  )
 }
 
 function changePassword(userId, newPassword) {
   return httpService.put(`${BASE_URL}password/` + userId, {
     newPassword,
     userId,
-  });
+  })
 }
 
 function getEmptyUser() {
   return {
-    email: "",
-    password: "",
-    fName: "",
-    lName: "",
-    imgUrl: "",
-    perm: "starter",
+    email: '',
+    password: '',
+    fName: '',
+    lName: '',
+    imgUrl: '',
+    perm: 'starter',
     advancedPrm: {},
-  };
+  }
 }
 
-function getMiniUser({ fName, lName, _id, companyId, imgUrl, email }) {
+function getMiniUser({fName, lName, _id, companyId, imgUrl, email}) {
   return {
     _id,
     fName,
@@ -109,5 +108,5 @@ function getMiniUser({ fName, lName, _id, companyId, imgUrl, email }) {
     companyId,
     imgUrl,
     email,
-  };
+  }
 }
