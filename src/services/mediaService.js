@@ -3,35 +3,36 @@ export const mediaService = {
   uploadImg,
   getImgs,
   // uploadVid,
-};
+}
 
 // const MB = 1024000
 // const MAX_VID_SIZE = 80 * MB
-const UNSPLASH_KEY = process.env.VUE_APP_UNSPLASH_KEY;
-const config = { CLOUD_NAME: "webify", PRESET_NAME: "intervid" };
+
+const UNSPLASH_KEY = import.meta.env.VUE_APP_UNSPLASH_KEY
+const config = {CLOUD_NAME: 'webify', PRESET_NAME: 'intervid'}
 
 function readFile(file) {
   return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.readAsDataURL(file);
-  });
+    const reader = new FileReader()
+    reader.onloadend = () => resolve(reader.result)
+    reader.readAsDataURL(file)
+  })
 }
 
 async function uploadImg(img) {
-  const { CLOUD_NAME } = config;
-  const PRESET_NAME = "intervid_user";
-  const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-  const formData = new FormData();
+  const {CLOUD_NAME} = config
+  const PRESET_NAME = 'intervid_user'
+  const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
+  const formData = new FormData()
 
-  formData.append("file", img);
-  formData.append("upload_preset", PRESET_NAME);
+  formData.append('file', img)
+  formData.append('upload_preset', PRESET_NAME)
   const res = await fetch(UPLOAD_URL, {
-    method: "POST",
+    method: 'POST',
     body: formData,
-  });
-  const uploadedImg = await res.json();
-  return uploadedImg.secure_url;
+  })
+  const uploadedImg = await res.json()
+  return uploadedImg.secure_url
 }
 
 async function getImgs(search) {
@@ -39,17 +40,17 @@ async function getImgs(search) {
     const res = await (
       await fetch(
         `https://api.unsplash.com/search/photos?page=1&per_page=20&query=${search}&client_id=${UNSPLASH_KEY}`,
-        { method: "GET" }
+        {method: 'GET'},
       )
-    ).json();
+    ).json()
     return res.results.map((result) => {
       return {
         regular: result.urls.regular,
         small: result.urls.small,
-      };
-    });
+      }
+    })
   } catch (err) {
-    console.log("cannot get images", err);
+    console.log('cannot get images', err)
   }
 }
 
@@ -106,38 +107,28 @@ async function getImgs(search) {
 
 export function checkOnlineStatus() {
   return new Promise((res) => {
-    const connection =
-      navigator.connection ||
-      navigator.mozConnection ||
-      navigator.webkitConnection;
-    if (
-      connection.effectiveType === "slow-2g" ||
-      connection.effectiveType === "2g"
-    )
-      return res(false);
-    const MIN_SPEED = 300; // Kbps
-    var imageAddr =
-      "http://www.tranquilmusic.ca/images/cats/Cat2.JPG" +
-      "?n=" +
-      Math.random();
-    var startTime, endTime;
-    var downloadSize = 5616998;
-    var download = new Image();
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection
+    if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') return res(false)
+    const MIN_SPEED = 300 // Kbps
+    var imageAddr = 'http://www.tranquilmusic.ca/images/cats/Cat2.JPG' + '?n=' + Math.random()
+    var startTime, endTime
+    var downloadSize = 5616998
+    var download = new Image()
     download.onload = function () {
-      endTime = new Date().getTime();
-      var duration = (endTime - startTime) / 1000; // Math.round()
-      var bitsLoaded = downloadSize * 8;
-      var speedBps = bitsLoaded / duration;
-      var speedKbps = speedBps / 1024;
-      if (speedKbps >= MIN_SPEED) return res(true);
-      else return res(false);
-    };
+      endTime = new Date().getTime()
+      var duration = (endTime - startTime) / 1000 // Math.round()
+      var bitsLoaded = downloadSize * 8
+      var speedBps = bitsLoaded / duration
+      var speedKbps = speedBps / 1024
+      if (speedKbps >= MIN_SPEED) return res(true)
+      else return res(false)
+    }
     download.onerror = (ev) => {
-      res(false);
-    };
-    startTime = new Date().getTime();
-    download.src = imageAddr;
-  });
+      res(false)
+    }
+    startTime = new Date().getTime()
+    download.src = imageAddr
+  })
 }
 // Mock interupted screen recording
 // (async function () {
@@ -202,43 +193,43 @@ export function checkOnlineStatus() {
 export function addStreamStopListener(stream) {
   return new Promise((resolve, reject) => {
     try {
-      var callback = resolve;
+      var callback = resolve
       stream.addEventListener(
-        "ended",
+        'ended',
         (e) => {
-          callback(e);
-          callback = function () {};
+          callback(e)
+          callback = function () {}
         },
-        { once: true }
-      );
+        {once: true},
+      )
       stream.addEventListener(
-        "inactive",
+        'inactive',
         (e) => {
-          callback(e);
-          callback = function () {};
+          callback(e)
+          callback = function () {}
         },
-        { once: true }
-      );
+        {once: true},
+      )
       stream.getTracks().forEach((track) => {
         track.addEventListener(
-          "ended",
+          'ended',
           (e) => {
-            callback(e);
-            callback = function () {};
+            callback(e)
+            callback = function () {}
           },
-          { once: true }
-        );
+          {once: true},
+        )
         track.addEventListener(
-          "inactive",
+          'inactive',
           (e) => {
-            callback(e);
-            callback = function () {};
+            callback(e)
+            callback = function () {}
           },
-          { once: true }
-        );
-      });
+          {once: true},
+        )
+      })
     } catch (e) {
-      reject(e);
+      reject(e)
     }
-  });
+  })
 }

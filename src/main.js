@@ -123,7 +123,7 @@ app.use(Vue3TouchEvents, {
 app.use(VueHotjar, {
   // id: '2047969',
   id: '3214500',
-  isProduction: process.env.NODE_ENV === 'production',
+  isProduction: import.meta.env.PROD,
   snippetVersion: 6,
 })
 app.use(vue3GoogleLogin, {

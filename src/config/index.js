@@ -1,17 +1,18 @@
-import production from "./production";
-import staging from "./staging";
-import development from "./development";
+import production from './production'
+import staging from './staging'
+import development from './development'
 
-var config;
+var config
 
-if (process.env.NODE_ENV === "production") {
-  if (process.env.VUE_APP_ENV === "staging") {
-    config = staging;
+if (import.meta.env.PROD) {
+  // TODO: find the vite equivalent of process.env.VUE_APP_ENV
+  if (process.env.VUE_APP_ENV === 'staging') {
+    config = staging
   } else {
-    config = production;
+    config = production
   }
 } else {
-  config = development;
+  config = development
 }
 
-export default config;
+export default config

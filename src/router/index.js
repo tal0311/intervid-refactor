@@ -227,7 +227,7 @@ router.beforeEach(async (to, from, next) => {
   const loggedInPrm = store.getters['user/loggedInUserPrm']
   const applicant = store.getters['applicant/applicant']
 
-  if (to.path === '/' && process.env.NODE_ENV === 'development') {
+  if (to.path === '/' && import.meta.env.DEV) {
     window.location.href = `${config.backendUrl}`
     return
   }

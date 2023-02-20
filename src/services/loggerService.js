@@ -24,6 +24,7 @@ export const loggerService = {
 function doLog(level = 'DEBUG', ...lines) {
   const line = _formatLines(lines)
   const log = _createLog(level, line)
+  // TODO: find the vite equivalent of process.env.VUE_APP_ENV
   if (process.env.VUE_APP_ENV !== 'production') console.log(...lines)
   if (level !== 'DEBUG') gLogs.push(log)
   clearTimeout(gTimeout)
@@ -58,6 +59,7 @@ function _createLog(level, line) {
       source: 'frontend',
       stack: new Error().stack.substring(10),
       referrer: window.location.href,
+      // TODO: find the vite equivalent of process.env.VUE_APP_ENV
       enviroment: process.env.VUE_APP_ENV,
       browser: store.getters['app/browser'].name,
     },
