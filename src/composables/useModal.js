@@ -1,5 +1,5 @@
-import { ref, computed } from "vue";
-import { useStore } from "vuex";
+import {ref, computed} from 'vue'
+import {useStore} from 'vuex'
 
 // params : {
 //  modalHeight.value: computed number,
@@ -18,23 +18,21 @@ export function useModal({
   mousePos = ref(null),
   modalWrapper = ref(null),
 }) {
-  const store = useStore();
+  const store = useStore()
 
   const isEnglish = computed(() => {
-    return store.getters["app/lang"] === "en";
-  });
+    return store.getters['app/lang'] === 'en'
+  })
   const modal = computed(() => {
-    return store.getters["app/modal"];
-  });
+    return store.getters['app/modal']
+  })
   const isOpen = computed(() => {
-    return (
-      modal.value.type === modalType && modal.value.data.modalId === modalId
-    );
-  });
+    return modal.value.type === modalType && modal.value.data.modalId === modalId
+  })
 
   const modalWrapperBounding = computed(() => {
-    return modalWrapper.value?.getBoundingClientRect();
-  });
+    return modalWrapper.value?.getBoundingClientRect()
+  })
   // const parseStartingPosFromBounding = computed(() => {
   //   const bounding = modalWrapper.value?.getBoundingClientRect();
   //   if (!bounding) return null;
@@ -50,15 +48,15 @@ export function useModal({
   //   };
   // });
   const startingPos = computed(() => {
-    return mousePos.value || modalWrapperBounding.value;
-  });
+    return mousePos.value || modalWrapperBounding.value
+  })
 
-  const { top, insetInlineStart, isBottom } = useModalPos({
+  const {top, insetInlineStart, isBottom} = useModalPos({
     modalHeight,
     modalWidth,
     startingPos,
     isEnglish,
-  });
+  })
 
   return {
     isEnglish,
@@ -66,7 +64,7 @@ export function useModal({
     top,
     insetInlineStart,
     isBottom,
-  };
+  }
 }
 
 // params:{
@@ -81,72 +79,57 @@ export function useModal({
 //  }
 //   isEnglish: computed boolean
 // }
-export function useModalPos({
-  modalHeight,
-  modalWidth = 0,
-  startingPos,
-  isEnglish,
-}) {
+export function useModalPos({modalHeight, modalWidth = 0, startingPos, isEnglish}) {
   // TODO: Check if a computed is needed here
-  const bodyBounding = computed(() => document.body.getBoundingClientRect());
+  const bodyBounding = computed(() => document.body.getBoundingClientRect())
 
   const isBottom = computed(() => {
     if (startingPos.bottom !== null && startingPos.bottom !== undefined) {
-      return (
-        startingPos?.bottom + modalHeight.value > bodyBounding.value.height
-      );
+      return startingPos?.bottom + modalHeight.value > bodyBounding.value.height
     }
-    return startingPos.y + modalHeight.value > bodyBounding.value.height;
-  });
+    return startingPos.y + modalHeight.value > bodyBounding.value.height
+  })
 
   const top = computed(() => {
     // TODO: Find better name
     // start with the value for the bottom, which is the same for both cases
-    let top = startingPos.value.y - modalHeight.value;
+    let top = startingPos.value.y - modalHeight.value
     if (!isBottom.value) {
       // if the startingPos.value obj has a height, it means we got it from an element bounding calculation,
       // and not a mousePos.value, so we need to calculate the top diffrently
-      top = startingPos.value.height
-        ? startingPos.value.y + startingPos.value.height
-        : startingPos.value.y;
+      top = startingPos.value.height ? startingPos.value.y + startingPos.value.height : startingPos.value.y
     }
-    return top;
+    return top
     // another option for the same logic:
     // return isBottom.value
     //   ? startingPos.value.y - modalHeight.value
     //   : startingPos.value.height
     //   ? startingPos.value.y + startingPos.value.height
     //   : startingPos.value.y
-  });
+  })
 
   const insetInlineStart = computed(() => {
     if (!isEnglish.value) {
-      if (
-        startingPos.value.left !== undefined &&
-        startingPos.value.left !== null
-      ) {
-        return bodyBounding.value.width - startingPos.value.left - modalWidth;
+      if (startingPos.value.left !== undefined && startingPos.value.left !== null) {
+        return bodyBounding.value.width - startingPos.value.left - modalWidth
       }
       if (bodyBounding.value.width - startingPos.value.x - modalWidth > 0) {
-        return bodyBounding.value.width - startingPos.value.x - modalWidth;
+        return bodyBounding.value.width - startingPos.value.x - modalWidth
       }
     } else {
-      if (
-        startingPos.value.right !== undefined &&
-        startingPos.value.right !== null
-      ) {
-        return startingPos.value.right - modalWidth;
+      if (startingPos.value.right !== undefined && startingPos.value.right !== null) {
+        return startingPos.value.right - modalWidth
       }
       if (startingPos.value.x - modalWidth > 0) {
-        return startingPos.value.x - modalWidth;
+        return startingPos.value.x - modalWidth
       }
     }
-    return 10;
-  });
+    return 10
+  })
 
   return {
     isBottom,
     top,
     insetInlineStart,
-  };
+  }
 }
