@@ -216,6 +216,11 @@ const routes = [
 ]
 
 export const historyRoutes = []
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes,
+})
+
 router.beforeEach(async (to, from, next) => {
   historyRoutes.push(from)
   const isPublic = to.matched.some((record) => record.meta.public)
@@ -312,11 +317,6 @@ router.beforeEach(async (to, from, next) => {
   }
 
   next()
-})
-
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes,
 })
 
 export default router

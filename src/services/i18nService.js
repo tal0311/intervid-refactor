@@ -1,4 +1,4 @@
-import store from '@/store'
+// import store from '@/store'
 import {detect} from 'detect-browser'
 import {getPlural} from './utilService'
 

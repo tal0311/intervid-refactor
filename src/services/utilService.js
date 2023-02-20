@@ -1,4 +1,4 @@
-import store from '@/store'
+// import store from '@/store'
 import axios from 'axios'
 import {breakpoint} from './constData'
 import {getDateTrans, getTimeTrans} from './i18nService'

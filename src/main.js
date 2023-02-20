@@ -100,7 +100,7 @@ app.component('basic-select', BasicSelect)
 app.component('checkbox', Checkbox)
 
 app.directive('click-outside', clickOutside)
-app.directive('observe-visibility', ObserveVisibility)
+// app.directive('observe-visibility', ObserveVisibility)
 
 // ?delete
 // app.mixin({
@@ -129,10 +129,10 @@ app.use(VueHotjar, {
 app.use(vue3GoogleLogin, {
   clientId: '459352034354-5afbe95ab9e5ffu3dg5s974qm1qf0aia.apps.googleusercontent.com',
 })
-app.use(VueAnalytics, {
-  id: 'UA-189794399-1',
-  router,
-})
+// app.use(VueAnalytics, {
+//   id: 'UA-189794399-1',
+//   router,
+// })
 // app.use(VueMeta, {
 //   keyName: "metaInfo",
 //   attribute: "data-vue-meta",

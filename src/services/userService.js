@@ -1,6 +1,6 @@
 import {permissions} from './constData'
 import httpService from './httpService'
-import store from '../store'
+// import store from '../store'
 import {_handleCancelRequest} from './utilService'
 
 export const userService = {
