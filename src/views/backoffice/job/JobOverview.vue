@@ -90,19 +90,52 @@
 </template>
 
 <script>
-import {msgService} from '@/services/msgService'
-
-import OverviewMixin from '@/mixins/OverviewMixin.js'
-
+// cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
 import SearchBox from '@/cmps/common/SearchBox.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 import TemplatePicker from '@/cmps/backoffice/job/TemplatePicker.vue'
 import FilterBox from '@/cmps/common/FilterBox.vue'
+// composables
+import {useOverview} from '@/composables/useOverview'
+// services
+import {msgService} from '@/services/msgService'
 
 export default {
-  mixins: [OverviewMixin],
-
+  setup() {
+    const {
+      filterBy,
+      sort,
+      selectedItems,
+      shouldGather,
+      // setShouldGather,
+      // setSelectedItems,
+      tagList,
+      onSelectAll,
+      onSelectItem,
+      onSetFilter,
+      onSetFilterByKey,
+      onRemoveTag,
+      onChangePage,
+      onSort,
+      sendAlert,
+    } = useOverview()
+    return {
+      filterBy,
+      sort,
+      selectedItems,
+      shouldGather,
+      tagList,
+      onSelectAll,
+      onSelectItem,
+      onSetFilter,
+      onSetFilterByKey,
+      onRemoveTag,
+      onChangePage,
+      onSort,
+      sendAlert,
+    }
+  },
   async created() {
     this.setPreferredView()
     await this.loadJobs()
@@ -157,7 +190,7 @@ export default {
         sort: this.sort,
         shouldGather: this.shouldGather,
       })
-      if (this.shouldGather) this.shouldGather = false
+      if (this.shouldGather) this.setShouldGather(false)
     },
 
     async onArchiveSelected() {
@@ -188,12 +221,13 @@ export default {
 
     onLoadNextJobs() {
       this.filterBy.currPage = this.filterBy.currPage + 1
-      this.shouldGather = true
+      this.setShouldGather(true)
       this.loadJobs()
     },
 
     setView(viewType) {
       this.$store.commit('job/setViewType', {viewType})
+      // GOD NO, PLEASE NO
       sessionStorage.setItem('jobViewType', viewType)
     },
 

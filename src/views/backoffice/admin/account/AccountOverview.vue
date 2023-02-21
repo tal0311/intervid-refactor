@@ -28,14 +28,19 @@
 </template>
 
 <script>
-import {getSortFunc} from '@/services/utilService'
-import OverviewMixin from '@/mixins/OverviewMixin.js'
+// cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
+// composables
+import {useOverview} from '@/composables/useOverview'
+// services
+import {getSortFunc} from '@/services/utilService'
 
 export default {
-  mixins: [OverviewMixin],
-
+  setup() {
+    const {filterBy, sort, selectedItems, isSelected, onChangePage, onSort} = useOverview()
+    return {filterBy, sort, selectedItems, isSelected, onChangePage, onSort}
+  },
   async created() {
     await this.loadUsers()
   },

@@ -65,21 +65,59 @@
 </template>
 
 <script>
-import OverviewMixin from '@/mixins/OverviewMixin.js'
-
+// cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
 import SearchBox from '@/cmps/common/SearchBox.vue'
 import FilterBox from '@/cmps/common/FilterBox.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 import ShareJob from '@/cmps/common/ShareJob.vue'
+// composables
+import {useOverview} from '@/composables/useOverview'
+// services
 import {userService} from '@/services/userService'
+// misc
 import {advancedPermsMap} from '@/services/constData'
 
 export default {
   name: 'ApplicantOverview',
-
-  mixins: [OverviewMixin],
-
+  setup() {
+    const {
+      filterBy,
+      sort,
+      tagList,
+      selectedItems,
+      shouldGather,
+      setSelectedItems,
+      setShouldGather,
+      isSelected,
+      onSetFilterByKey,
+      onSetFilter,
+      resetFilters,
+      onChangePage,
+      onSelectAll,
+      onSort,
+      onSelectItem,
+      onRemoveTag,
+    } = useOverview()
+    return {
+      filterBy,
+      sort,
+      tagList,
+      selectedItems,
+      shouldGather,
+      setSelectedItems,
+      setShouldGather,
+      isSelected,
+      onSetFilterByKey,
+      onSetFilter,
+      resetFilters,
+      onChangePage,
+      onSelectAll,
+      onSort,
+      onSelectItem,
+      onRemoveTag,
+    }
+  },
   async created() {
     this.loadApplicants()
     this.loadJob()
@@ -160,14 +198,14 @@ export default {
   methods: {
     async loadApplicants() {
       const {jobId} = this.$route.params
-      if (jobId) this.filterBy.jobId = jobId
+      if (jobId) this.onSetFilterByKey('jobId', jobId)
       else delete this.filterBy.jobId
       await this.$store.dispatch('job/loadApplicants', {
         filterBy: this.filterBy,
         sort: this.sort,
         shouldGather: this.shouldGather,
       })
-      if (this.shouldGather) this.shouldGather = false
+      if (this.shouldGather) this.setShouldGather(false)
     },
 
     async loadJob() {
@@ -180,7 +218,7 @@ export default {
 
     onLoadNextApplicants() {
       this.filterBy.currPage = this.filterBy.currPage + 1
-      this.shouldGather = true
+      this.setShouldGather(true)
       this.loadApplicants()
     },
 
@@ -215,7 +253,7 @@ export default {
       const updatedApplicants = this.selectedItems.map((applicant) => {
         return {...applicant, isRead: !isRead}
       })
-      this.selectedItems = updatedApplicants
+      this.setSelectedItems(updatedApplicants)
       await this.$store.dispatch('job/updateApplicants', {
         applicants: updatedApplicants,
       })

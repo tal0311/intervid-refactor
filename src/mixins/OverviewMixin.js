@@ -16,7 +16,7 @@ export default {
   created() {
     this.setFilter()
     // const showArchived = this.$route.path.includes('archive')
-    // filterBy.value.showArchived = showArchived
+    // this.filterBy.showArchived = showArchived
   },
 
   computed: {
@@ -84,13 +84,13 @@ export default {
         filterBy.value = getDefaultFilter(this.$route.name)
         return
       }
-      const filterBy = parseFilter(this.query.value)
+      const filterBy = parseFilter(this.query)
       filterBy.showArchived = filterBy.showArchived === 'true'
       filterBy.incomplete =
         filterBy.incomplete !== 'undefined' && filterBy.incomplete !== undefined
           ? JSON.parse(filterBy.incomplete)
           : undefined
-      filterBy.daysAgo = filterBy.daysAgo ? filterBy.daysAgo : ''
+      filterBy.daysAgo = filterBy.daysAgo || ''
       filterBy.value = filterBy
     },
 

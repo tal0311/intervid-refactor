@@ -41,20 +41,43 @@
 </template>
 
 <script>
-import {filterTemplates} from '@/services/templateService'
-import {msgService} from '@/services/msgService'
-import {paginate, getSortFunc} from '@/services/utilService'
-
-import OverviewMixin from '@/mixins/OverviewMixin.js'
-
+// cmps
 import SearchBox from '@/cmps/common/SearchBox.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 import FilterBox from '@/cmps/common/FilterBox.vue'
+// composables
+import {useOverview} from '@/composables/useOverview'
+// services
+import {filterTemplates} from '@/services/templateService'
+import {msgService} from '@/services/msgService'
+import {paginate, getSortFunc} from '@/services/utilService'
 
 export default {
-  mixins: [OverviewMixin],
-
+  setup() {
+    const {
+      filterBy,
+      sort,
+      selectedItems,
+      clearSelectedItems,
+      onSelectAll,
+      onSort,
+      onSelectItem,
+      isSelected,
+      onChangePage,
+    } = useOverview()
+    return {
+      filterBy,
+      sort,
+      selectedItems,
+      clearSelectedItems,
+      onSelectAll,
+      onSort,
+      onSelectItem,
+      isSelected,
+      onChangePage,
+    }
+  },
   async created() {
     await this.loadTemplates()
   },

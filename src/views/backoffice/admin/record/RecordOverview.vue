@@ -27,15 +27,18 @@
 </template>
 
 <script>
-import OverviewMixin from '@/mixins/OverviewMixin'
-
+// cmps
 import RecordFilter from '@/cmps/backoffice/admin/RecordFilter.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
+// composables
+import {useOverview} from '@/composables/useOverview'
 
 export default {
-  mixins: [OverviewMixin],
-
+  setup() {
+    const {filterBy, sort, selectedItems, isSelected, onChangePage, onSort} = useOverview()
+    return {filterBy, sort, selectedItems, isSelected, onChangePage, onSort}
+  },
   async created() {
     await this.loadRecords()
   },
