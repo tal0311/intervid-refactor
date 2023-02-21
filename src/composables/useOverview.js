@@ -169,7 +169,6 @@ export function useOverview({}) {
     onSort,
     onChangePage,
     isSelected,
-
     // not for everything
     shouldGather,
     selectedItems,

@@ -3,25 +3,43 @@
     <div class="overview-header">
       <activity-filter :filterBy="filterBy" @set-filter="onSetFilterByKey" :users="users" />
 
-      <list-actions :filterBy="filterBy" :itemCount="totalActivityCount" :currPage="filterBy.currPage || 0"
-        :itemsPerPage="filterBy.itemsPerPage" @change-page="onChangePage" />
+      <list-actions
+        :filterBy="filterBy"
+        :itemCount="totalActivityCount"
+        :currPage="filterBy.currPage || 0"
+        :itemsPerPage="filterBy.itemsPerPage"
+        @change-page="onChangePage"
+      />
     </div>
 
-    <table-list :items="activities" :itemsPerPage="filterBy.itemsPerPage" :totalItemCount="totalActivityCount"
-      :sort="sort" :isFetching="isFetching" :isSelected="isSelected" @change-page="onChangePage" @sort="onSort" />
+    <table-list
+      :items="activities"
+      :itemsPerPage="filterBy.itemsPerPage"
+      :totalItemCount="totalActivityCount"
+      :sort="sort"
+      :isFetching="isFetching"
+      :isSelected="isSelected"
+      @change-page="onChangePage"
+      @sort="onSort"
+    />
   </div>
 </template>
 
 <script>
-import { getSortFunc } from "@/services/utilService"
-// import OverviewMixin from "@/mixins/OverviewMixin";
-
-import ActivityFilter from "@/cmps/backoffice/admin/ActivityFilter.vue"
-import TableList from "@/cmps/backoffice/TableList.vue"
-import ListActions from "@/cmps/backoffice/ListActions.vue"
+// cmps
+import ActivityFilter from '@/cmps/backoffice/admin/ActivityFilter.vue'
+import TableList from '@/cmps/backoffice/TableList.vue'
+import ListActions from '@/cmps/backoffice/ListActions.vue'
+// composables
+import {useOverview} from '@/composables/useOverview'
+// services
+import {getSortFunc} from '@/services/utilService'
 
 export default {
-  // mixins: [OverviewMixin],
+  setup() {
+    const {filterBy, sort, selectedItems, isSelected, onChangePage, onSort} = useOverview()
+    return {filterBy, sort, selectedItems, isSelected, onChangePage, onSort}
+  },
 
   created() {
     this.loadActivities()
@@ -30,33 +48,33 @@ export default {
 
   computed: {
     users() {
-      return this.$store.getters["user/users"]
+      return this.$store.getters['user/users']
     },
 
     activities() {
-      return this.$store.getters["activity/activities"]
-        .map((activity) => ({ ...activity, start: new Date(activity.start) }))
+      return this.$store.getters['activity/activities']
+        .map((activity) => ({...activity, start: new Date(activity.start)}))
         .sort(getSortFunc(this.sort))
     },
 
     totalActivityCount() {
-      return this.$store.getters["activity/totalActivityCount"]
+      return this.$store.getters['activity/totalActivityCount']
     },
 
     isFetching() {
-      return this.$store.getters["activity/isFetching"]
+      return this.$store.getters['activity/isFetching']
     },
   },
 
   methods: {
     loadActivities() {
-      this.$store.dispatch("activity/loadActivities", {
-        filterBy: { ...this.filterBy },
+      this.$store.dispatch('activity/loadActivities', {
+        filterBy: {...this.filterBy},
       })
     },
 
     loadUsers() {
-      this.$store.dispatch("user/loadUsers")
+      this.$store.dispatch('user/loadUsers')
     },
   },
 
@@ -67,6 +85,6 @@ export default {
     },
   },
 
-  components: { ActivityFilter, TableList, ListActions },
+  components: {ActivityFilter, TableList, ListActions},
 }
 </script>
