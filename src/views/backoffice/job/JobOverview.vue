@@ -125,6 +125,8 @@ export default {
       sort,
       selectedItems,
       shouldGather,
+      setShouldGather,
+      setSelectedItems,
       tagList,
       onSelectAll,
       onSelectItem,
