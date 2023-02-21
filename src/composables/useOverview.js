@@ -27,23 +27,11 @@ export function useOverview({}) {
   const cmpName = computed(() => {
     return route.name
   })
-  // const showArchived = computed(() => {
-  //   return route.path.includes('archive')
-  // })
+  const showArchived = computed(() => {
+    return route.path.includes('archive')
+  })
   const shouldParseFilter = computed(() => {
     return !!Object.values(query.value).length
-  })
-  const archiveBy = computed(() => {
-    switch (cmpName.value) {
-      case 'ApplicantOverview':
-        return 'applicant'
-      case 'JobOverview':
-        return 'job'
-      case 'TemplateOverview':
-        return 'template'
-      default:
-        return ''
-    }
   })
   const tagList = computed(() => {
     const queries = query.value
@@ -113,7 +101,9 @@ export function useOverview({}) {
 
     const newRoute = {query}
     if (!isEmpty(params)) newRoute.params = params
-    if (path && isEmpty(params)) newRoute.path = path
+    else if (path) newRoute.path = path
+    // if (!isEmpty(params)) newRoute.params = params
+    // if (path && isEmpty(params)) newRoute.path = path
     router.push(newRoute)
   }, 200)
   const resetFilters = () => {
@@ -175,9 +165,9 @@ export function useOverview({}) {
     setShouldGather,
     setSelectedItems,
     setFilter,
-    onSetFilterByKey,
+    // onSetFilterByKey,
     resetFilters,
-    onSetFilter,
+    // onSetFilter,
     onSelectAll,
     onSelectItem,
     clearSelectedItems,
@@ -191,34 +181,50 @@ export function useOverview({}) {
     // cmpName,
     // shouldParseFilter,
   }
-  // const { query,name } = useRouter()
-  // const { cmpName } = useRoute()
-  // const { filterBy, setFilter, onSetFilter, onSetFilterByKey, onSetQuery, resetFilters, onRemoveTag, clearSelectedItems, sendAlert } = useFilter({ query, cmpName })
-  // const { sort, onSort } = useSort({ cmpName })
-  // const { selectedItems, onSelectAll, isSelected, onSelectItem } = useSelection()
-  // const { tagList, archiveBy } = useTags({ query, cmpName })
-  // const { showArchived } = useShowArchived({ query })
-  // const { onChangePage } = usePagination({ filterBy })
+}
 
-  // return {
-  //   filterBy,
-  //   setFilter,
-  //   onSetFilter,
-  //   onSetFilterByKey,
-  //   onSetQuery,
-  //   resetFilters,
-  //   onRemoveTag,
-  //   clearSelectedItems,
-  //   sendAlert,
-  //   sort,
-  //   onSort,
-  //   selectedItems,
-  //   onSelectAll,
-  //   isSelected,
-  //   onSelectItem,
-  //   tagList,
-  //   archiveBy,
-  //   showArchived,
-  //   onChangePage,
-  // }
+export const useFilter = () => {
+  const route = useRoute()
+  const router = useRouter()
+  // data
+  const filterBy = reactive(getDefaultFilter(route.name))
+
+  const onSetFilterByKey = (key, value) => {
+    const filterValue = value === filterBy.value[key] && key !== 'currPage' ? '' : value
+    const newFilterBy = {...filterBy.value, [key]: filterValue}
+    if (key !== 'currPage') newFilterBy.currPage = 0
+    filterBy.value = newFilterBy
+    _onSetQuery(newFilterBy, _archiveBy.value)
+  }
+
+  const onSetFilter = (filter) => {
+    filterBy.value = {...filter}
+    _onSetQuery(filterBy.value, _archiveBy.value)
+  }
+
+  // private
+  const _archiveBy = computed(() => {
+    switch (route.name) {
+      case 'ApplicantOverview':
+        return 'applicant'
+      case 'JobOverview':
+        return 'job'
+      case 'TemplateOverview':
+        return 'template'
+      default:
+        return ''
+    }
+  })
+
+  const _onSetQuery = debounce((query, path) => {
+    // TODO: make sure this dosen't throw an error, and check if route can actually be falsy
+    const {params} = route || null
+
+    const newRoute = {query}
+    if (!isEmpty(params)) newRoute.params = params
+    else if (path) newRoute.path = path
+    // if (!isEmpty(params)) newRoute.params = params
+    // if (path && isEmpty(params)) newRoute.path = path
+    router.push(newRoute)
+  }, 200)
 }
