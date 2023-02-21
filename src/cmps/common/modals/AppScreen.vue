@@ -2,7 +2,7 @@
   <section
     @contextmenu.prevent="closeModals"
     class="screen"
-    :class="{ on: isScreenShown, dark: isDarkScreen }"
+    :class="{on: isScreenShown, dark: isDarkScreen}"
     @click="closeModals"
   ></section>
 </template>
@@ -11,17 +11,17 @@
 export default {
   computed: {
     isScreenShown() {
-      return !!this.$store.getters["app/modal"].type;
+      return !!this.$store.getters['app/modal'].type
     },
 
     isDarkScreen() {
-      return this.$store.getters["app/modal"].isDarkScreen;
+      return this.$store.getters['app/modal'].isDarkScreen
     },
   },
   methods: {
     closeModals() {
-      this.$store.dispatch("app/toggleModal", null);
+      this.$store.dispatch('app/toggleModal', null)
     },
   },
-};
+}
 </script>

@@ -1,9 +1,9 @@
 <template>
-  <div class="form-stepper" :class="{ column: column }">
+  <div class="form-stepper" :class="{column: column}">
     <div
       class="step"
       v-for="(step, idx) in steps"
-      :class="{ done: currStepIdx > idx, curr: currStepIdx === idx }"
+      :class="{done: currStepIdx > idx, curr: currStepIdx === idx}"
       :key="idx"
     >
       <span class="circle"></span>
@@ -17,32 +17,32 @@
 
 <script>
 export default {
-  props: ["steps", "currStepIdx", "column"],
+  props: ['steps', 'currStepIdx', 'column'],
 
   mounted() {
-    this.checkRoute();
+    this.checkRoute()
   },
 
   methods: {
     checkRoute() {
-      const optionalRoutes = ["/create/:jobId?", "/interview/:jobId/"];
+      const optionalRoutes = ['/create/:jobId?', '/interview/:jobId/']
       const isShowStepper = this.$route.matched.some((route) => {
-        return optionalRoutes.some((optRoute) => optRoute === route.path);
-      });
+        return optionalRoutes.some((optRoute) => optRoute === route.path)
+      })
       if (!isShowStepper) {
-        this.$store.commit("app/setProgressBar", {
+        this.$store.commit('app/setProgressBar', {
           isShown: false,
           steps: [],
           currStepIdx: null,
-        });
+        })
       }
     },
   },
 
   watch: {
-    "$route.path"() {
-      this.checkRoute();
+    '$route.path'() {
+      this.checkRoute()
     },
   },
-};
+}
 </script>

@@ -1,102 +1,98 @@
-import httpService from "./httpService";
-import { getUrlParamsFromObj } from "./utilService";
+import httpService from './httpService'
+import {getUrlParamsFromObj} from './utilService'
 
 export const activityService = {
   query,
   addActivity,
-};
+}
 
-const ROUTE = "activity";
+const ROUTE = 'activity'
 
 function query(filterBy) {
-  const { itemsPerPage, currPage } = filterBy;
-  delete filterBy.itemsPerPage;
-  delete filterBy.currPage;
-  const filterQuery = getUrlParamsFromObj(filterBy);
-  return httpService.get(
-    `${ROUTE}?limit=${itemsPerPage}&skip=${
-      currPage * itemsPerPage
-    }&${filterQuery.substring(1)}`
-  );
+  const {itemsPerPage, currPage} = filterBy
+  delete filterBy.itemsPerPage
+  delete filterBy.currPage
+  const filterQuery = getUrlParamsFromObj(filterBy)
+  return httpService.get(`${ROUTE}?limit=${itemsPerPage}&skip=${currPage * itemsPerPage}&${filterQuery.substring(1)}`)
 }
 
 function addActivity(activity) {
-  return httpService.post(ROUTE, { activity });
+  return httpService.post(ROUTE, {activity})
 }
 
-function _createActivity({ type, target, desc = "", meta = {} }) {
+function _createActivity({type, target, desc = '', meta = {}}) {
   return {
     date: Date.now(),
     type,
     target,
     desc,
     meta,
-  };
+  }
 }
 
 export const activityMap = {
-  user({ type }) {
+  user({type}) {
     const activity = _createActivity({
       type,
-      target: "by user",
-    });
-    return { activity };
+      target: 'by user',
+    })
+    return {activity}
   },
-  userPassword({ type }) {
+  userPassword({type}) {
     const activity = _createActivity({
       type,
-      target: "User Password",
-    });
-    return { activity };
+      target: 'User Password',
+    })
+    return {activity}
   },
-  applicant({ type, desc }) {
-    const activity = _createActivity({
-      type,
-      desc,
-      target: "applicant",
-    });
-    return { activity };
-  },
-  job({ type, desc, meta }) {
+  applicant({type, desc}) {
     const activity = _createActivity({
       type,
       desc,
-      meta,
-      target: "job",
-    });
-    return { activity };
+      target: 'applicant',
+    })
+    return {activity}
   },
-  template({ type, desc, meta }) {
+  job({type, desc, meta}) {
     const activity = _createActivity({
       type,
       desc,
       meta,
-      target: "template",
-    });
-    return { activity };
+      target: 'job',
+    })
+    return {activity}
   },
-  status({ desc }) {
-    const activity = _createActivity({
-      type: "update",
-      target: "status",
-      desc,
-    });
-    return { activity };
-  },
-  note({ type, desc }) {
+  template({type, desc, meta}) {
     const activity = _createActivity({
       type,
       desc,
-      target: "note",
-    });
-    return { activity };
+      meta,
+      target: 'template',
+    })
+    return {activity}
   },
-  watch({ desc }) {
+  status({desc}) {
     const activity = _createActivity({
-      type: "watch",
+      type: 'update',
+      target: 'status',
       desc,
-      target: "interview",
-    });
-    return { activity };
+    })
+    return {activity}
   },
-};
+  note({type, desc}) {
+    const activity = _createActivity({
+      type,
+      desc,
+      target: 'note',
+    })
+    return {activity}
+  },
+  watch({desc}) {
+    const activity = _createActivity({
+      type: 'watch',
+      desc,
+      target: 'interview',
+    })
+    return {activity}
+  },
+}

@@ -18,8 +18,8 @@ export default {
 
   methods: {
     onChangeTxt(ev) {
-      this.$emit("save-ans", { key: "txt", value: ev.target.value });
+      this.$emit('save-ans', {key: 'txt', value: ev.target.value})
     },
   },
-};
+}
 </script>

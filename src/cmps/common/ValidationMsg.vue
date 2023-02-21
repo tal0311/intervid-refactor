@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  props: ["error"],
+  props: ['error'],
 
   methods: {},
-};
+}
 </script>

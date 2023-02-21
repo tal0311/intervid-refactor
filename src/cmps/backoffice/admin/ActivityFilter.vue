@@ -9,7 +9,7 @@
     />
     <div class="date-container">
       <label for="fromDate">
-        <p>{{ getTrans("from-date") }}</p>
+        <p>{{ getTrans('from-date') }}</p>
         <input
           type="date"
           id="fromDate"
@@ -19,7 +19,7 @@
         />
       </label>
       <label for="toDate">
-        <p>{{ getTrans("to-date") }}</p>
+        <p>{{ getTrans('to-date') }}</p>
         <input
           type="date"
           id="toDate"
@@ -34,23 +34,23 @@
 
 <script>
 export default {
-  props: ["filterBy", "users"],
+  props: ['filterBy', 'users'],
 
   computed: {
     userOpts() {
       const userOpts = this.users.map((user) => ({
         txt: user.email,
         value: user._id,
-      }));
-      userOpts.unshift({ txt: this.getTrans("choose-account"), value: "" });
-      return userOpts;
+      }))
+      userOpts.unshift({txt: this.getTrans('choose-account'), value: ''})
+      return userOpts
     },
   },
 
   methods: {
     onSetFilterByKey(key, value) {
-      this.$emit("set-filter", key, value);
+      this.$emit('set-filter', key, value)
     },
   },
-};
+}
 </script>

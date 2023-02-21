@@ -5,14 +5,14 @@ const clickOutside = {
         //change to close modal
         // itemService.setModalType('')
       }
-    };
+    }
     setTimeout(() => {
-      document.addEventListener("click", el.clickOutside);
-    }, 0);
+      document.addEventListener('click', el.clickOutside)
+    }, 0)
   },
   unmounted(el) {
-    document.removeEventListener("click", el.clickOutside);
+    document.removeEventListener('click', el.clickOutside)
   },
-};
+}
 
-export { clickOutside };
+export {clickOutside}

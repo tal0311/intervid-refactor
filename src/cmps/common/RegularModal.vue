@@ -10,54 +10,48 @@
 </template>
 
 <script>
-import TimeUp from "@/cmps/interview/TimeUp.vue";
-import OrgUserEdit from "@/cmps/common/user-mgmt/OrgUserEdit.vue";
-import ResetPassword from "@/cmps/common/user-mgmt/ResetPassword.vue";
-import Application from "@/cmps/interview/onboarding/Application.vue";
-import ShareBtns from "@/cmps/JobEdit/ShareBtns.vue";
-const modalTypes = [
-  "TimeUp",
-  "AccountEdit",
-  "ResetPassword",
-  "ShareBtns",
-  "Application",
-];
+import TimeUp from '@/cmps/interview/TimeUp.vue'
+import OrgUserEdit from '@/cmps/common/user-mgmt/OrgUserEdit.vue'
+import ResetPassword from '@/cmps/common/user-mgmt/ResetPassword.vue'
+import ApplicationIndex from '@/cmps/interview/onboarding/ApplicationIndex.vue'
+import ShareBtns from '@/cmps/JobEdit/ShareBtns.vue'
+const modalTypes = ['TimeUp', 'AccountEdit', 'ResetPassword', 'ShareBtns', 'Application']
 
 export default {
   computed: {
     modal() {
-      return this.$store.getters["app/modal"];
+      return this.$store.getters['app/modal']
     },
 
     isOpen() {
-      return modalTypes.includes(this.modal.type);
+      return modalTypes.includes(this.modal.type)
     },
 
     isCloseable() {
-      return this.modal.data?.isCloseable || false;
+      return this.modal.data?.isCloseable || false
     },
 
     cmp() {
       switch (this.modal.type) {
-        case "TimeUp":
-          return TimeUp;
-        case "AccountEdit":
-          return OrgUserEdit;
-        case "ResetPassword":
-          return ResetPassword;
-        case "ShareBtns":
-          return ShareBtns;
-        case "Application":
-          return Application;
+        case 'TimeUp':
+          return TimeUp
+        case 'AccountEdit':
+          return OrgUserEdit
+        case 'ResetPassword':
+          return ResetPassword
+        case 'ShareBtns':
+          return ShareBtns
+        case 'Application':
+          return ApplicationIndex
         default:
-          return null;
+          return null
       }
     },
   },
 
   methods: {
     closeModal() {
-      this.$store.dispatch("app/toggleModal", null);
+      this.$store.dispatch('app/toggleModal', null)
     },
   },
 
@@ -66,7 +60,7 @@ export default {
     OrgUserEdit,
     ResetPassword,
     ShareBtns,
-    Application,
+    ApplicationIndex,
   },
-};
+}
 </script>

@@ -16,15 +16,15 @@
 export default {
   data() {
     return {
-      svgs: { laptop: "", video: "" },
-    };
+      svgs: {laptop: '', video: ''},
+    }
   },
 
   created() {
-    this.svgs.laptop = this.getSvg("laptopUploadingAnimation");
-    this.svgs.video = this.getSvg("videoUploadingAnimation");
+    this.svgs.laptop = this.getSvg('laptopUploadingAnimation')
+    this.svgs.video = this.getSvg('videoUploadingAnimation')
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -40,7 +40,7 @@ $animation-duration: 10s;
   transform-style: preserve-3d;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 2px;
     border-left: 2px dashed #0005;
@@ -85,9 +85,7 @@ $animation-duration: 10s;
         left: 0;
         width: 80%;
         height: 60%;
-        animation-delay: calc(
-          #{$animation-duration} / 150 * 0 + #{$animation-duration} / 5
-        );
+        animation-delay: calc(#{$animation-duration} / 150 * 0 + #{$animation-duration} / 5);
       }
 
       &:nth-child(2) {
@@ -95,18 +93,14 @@ $animation-duration: 10s;
         width: 50%;
         height: 100%;
         bottom: 1px;
-        animation-delay: calc(
-          #{$animation-duration} / 150 * 1 + #{$animation-duration} / 5
-        );
+        animation-delay: calc(#{$animation-duration} / 150 * 1 + #{$animation-duration} / 5);
       }
 
       &:nth-child(3) {
         right: 0;
         width: 60%;
         height: 70%;
-        animation-delay: calc(
-          #{$animation-duration} / 150 * 3 +#{$animation-duration} / 5
-        );
+        animation-delay: calc(#{$animation-duration} / 150 * 3 +#{$animation-duration} / 5);
       }
     }
   }
@@ -131,18 +125,15 @@ $animation-duration: 10s;
     }
 
     .video-1 {
-      animation: upload-left $animation-duration
-        calc(#{$animation-duration} / 3 * 0) infinite;
+      animation: upload-left $animation-duration calc(#{$animation-duration} / 3 * 0) infinite;
     }
 
     .video-2 {
-      animation: upload-right $animation-duration
-        calc(#{$animation-duration} / 3 * 1) infinite;
+      animation: upload-right $animation-duration calc(#{$animation-duration} / 3 * 1) infinite;
     }
 
     .video-3 {
-      animation: upload-left $animation-duration
-        calc(#{$animation-duration} / 3 * 2) infinite;
+      animation: upload-left $animation-duration calc(#{$animation-duration} / 3 * 2) infinite;
     }
 
     @keyframes upload-left {

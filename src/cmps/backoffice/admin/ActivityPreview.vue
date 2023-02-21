@@ -5,7 +5,7 @@
     </div>
 
     <div class="preview-item">
-      {{ activity.user ? activity.user.email : "Guest" }}
+      {{ activity.user ? activity.user.email : 'Guest' }}
     </div>
 
     <div class="preview-item">
@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import { formatDate } from "@/services/utilService";
+import {formatDate} from '@/services/utilService'
 
 export default {
-  props: ["activity"],
+  props: ['activity'],
 
   computed: {
     startTime() {
@@ -26,17 +26,15 @@ export default {
         includeSeconds: true,
         getFullDate: true,
         includeTime: true,
-      });
+      })
     },
 
     action() {
-      let { type, target, desc } = this.activity;
-      if (type && !["login", "logout", "signup"].includes(type))
-        type = type[type.length - 1] === "e" ? type + "d" : type + "ed";
-      return `${
-        type && type[0].toUpperCase() + type.substring(1)
-      } ${target} ${desc}`;
+      let {type, target, desc} = this.activity
+      if (type && !['login', 'logout', 'signup'].includes(type))
+        type = type[type.length - 1] === 'e' ? type + 'd' : type + 'ed'
+      return `${type && type[0].toUpperCase() + type.substring(1)} ${target} ${desc}`
     },
   },
-};
+}
 </script>

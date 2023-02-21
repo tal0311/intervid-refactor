@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import { getTimeLimits } from "@/services/constData";
+import {getTimeLimits} from '@/services/constData'
 
 export default {
-  props: ["selectedTimelimit"],
+  props: ['selectedTimelimit'],
 
   computed: {
     timelimits() {
-      return getTimeLimits();
+      return getTimeLimits()
     },
   },
-};
+}
 </script>

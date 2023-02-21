@@ -5,12 +5,12 @@
         <uploading-animation />
         <div class="content">
           <div class="progress-bar">
-            <span>{{ donePercent + "%" }}</span>
-            <div :style="{ width: donePercent + '%' }" class="inner"></div>
+            <span>{{ donePercent + '%' }}</span>
+            <div :style="{width: donePercent + '%'}" class="inner"></div>
           </div>
           <div class="uploading-msg">
-            <p>{{ getTrans("do-not-close-this-window") }}</p>
-            <p>{{ getTrans("your-inteview-recordings-uploaded") }}</p>
+            <p>{{ getTrans('do-not-close-this-window') }}</p>
+            <p>{{ getTrans('your-inteview-recordings-uploaded') }}</p>
           </div>
         </div>
 
@@ -18,9 +18,9 @@
           <div class="no-network-modal">
             <div class="head-container">
               <i class="material-icons"> wifi_off </i>
-              <p>{{ getTrans("no-internet-connection") }}</p>
+              <p>{{ getTrans('no-internet-connection') }}</p>
             </div>
-            <p>{{ getTrans("make-sure-wifi-connected") }}</p>
+            <p>{{ getTrans('make-sure-wifi-connected') }}</p>
           </div>
         </div>
       </div>
@@ -29,9 +29,9 @@
     <template v-else>
       <div class="goodbye">
         <div class="content">
-          <h1>{{ getTrans("thanks") }}</h1>
-          <p>{{ getTrans("your-application-has-been-successfully-sent") }}</p>
-          <p>{{ getTrans("well-be-in-touch-with-you-as-soon-as-possible") }}</p>
+          <h1>{{ getTrans('thanks') }}</h1>
+          <p>{{ getTrans('your-application-has-been-successfully-sent') }}</p>
+          <p>{{ getTrans('well-be-in-touch-with-you-as-soon-as-possible') }}</p>
         </div>
         <img
           loading="lazy"
@@ -40,7 +40,7 @@
         />
       </div>
 
-      <application />
+      <application-index />
 
       <confetti-animation />
     </template>
@@ -48,13 +48,13 @@
 </template>
 
 <script>
-import { uploaderService } from "@/services/uploaderService";
-import { verifyBeforeExit } from "@/services/utilService";
-import { loggerService } from "@/services/loggerService";
-import VideoMixin from "@/mixins/VideoMixin";
-import UploadingAnimation from "@/cmps/common/UploadingAnimation.vue";
-import Application from "../onboarding/Application.vue";
-import ConfettiAnimation from "@/cmps/common/ConfettiAnimation.vue";
+import {uploaderService} from '@/services/uploaderService'
+import {verifyBeforeExit} from '@/services/utilService'
+import {loggerService} from '@/services/loggerService'
+import VideoMixin from '@/mixins/VideoMixin'
+import UploadingAnimation from '@/cmps/common/UploadingAnimation.vue'
+import ApplicationIndex from '../onboarding/ApplicationIndex.vue'
+import ConfettiAnimation from '@/cmps/common/ConfettiAnimation.vue'
 
 export default {
   mixins: [VideoMixin],
@@ -62,64 +62,62 @@ export default {
   data() {
     return {
       donePercent: 0,
-    };
+    }
   },
 
   mounted() {
     window.onbeforeunload = (ev) => {
       loggerService.info(
-        "[InterviewEnd] [onBeforeUnload] Applicant try to leave the interview - open confirmation modal"
-      );
-      verifyBeforeExit(ev);
-    }; // Open confirmation modal
+        '[InterviewEnd] [onBeforeUnload] Applicant try to leave the interview - open confirmation modal',
+      )
+      verifyBeforeExit(ev)
+    } // Open confirmation modal
     document.body.onunload = () => {
       if (!this.isUploadDone) {
-        loggerService.info(
-          "[InterviewEnd] [onunload] Applicant try to leave the interview - send quit timeEvent"
-        );
-        this.$emit("handle-quit");
+        loggerService.info('[InterviewEnd] [onunload] Applicant try to leave the interview - send quit timeEvent')
+        this.$emit('handle-quit')
       }
-    }; // Send quit timeEvent when navigated out (all case exept interview inner routes navigation)
+    } // Send quit timeEvent when navigated out (all case exept interview inner routes navigation)
 
-    uploaderService.addEventListener("progress", (progress) => {
-      this.donePercent = progress;
+    uploaderService.addEventListener('progress', (progress) => {
+      this.donePercent = progress
       if (progress === 100) {
-        loggerService.info(`[InterviewEnd] [progress] - upload progress = 100`);
+        loggerService.info(`[InterviewEnd] [progress] - upload progress = 100`)
         this.$store.commit({
-          type: "applicant/setIsUploadDone",
+          type: 'applicant/setIsUploadDone',
           isUploadDone: true,
-        });
+        })
       }
-    });
+    })
 
-    this.addNetworkListener();
+    this.addNetworkListener()
   },
 
   beforeUnmount() {
     if (!this.isUploadDone) {
-      this.$emit("handle-quit");
+      this.$emit('handle-quit')
     } // Send quit timeEvent when navigated out (only interview inner routes navigation)
-    window.onbeforeunload = null;
-    document.body.onunload = null;
-    this.removeNetworkListener();
+    window.onbeforeunload = null
+    document.body.onunload = null
+    this.removeNetworkListener()
   },
 
   computed: {
     job() {
-      return this.$store.getters["applicant/job"];
+      return this.$store.getters['applicant/job']
     },
 
     waitForNetwork() {
-      return this.$store.getters["applicant/waitForNetwork"];
+      return this.$store.getters['applicant/waitForNetwork']
     },
 
     isUploadDone() {
-      return this.$store.getters["applicant/isUploadDone"];
+      return this.$store.getters['applicant/isUploadDone']
     },
   },
 
   methods: {},
 
-  components: { UploadingAnimation, Application, ConfettiAnimation },
-};
+  components: {UploadingAnimation, ApplicationIndex, ConfettiAnimation},
+}
 </script>

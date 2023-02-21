@@ -1,30 +1,23 @@
 <template>
   <div class="confetti-animation">
-    <span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span
-    ><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
+    ><span></span><span></span><span></span>
   </div>
 </template>
 
 <script>
-export default {};
+export default {}
 </script>
 
 <style lang="scss" scoped>
@@ -58,14 +51,12 @@ export default {};
     @keyframes down {
       from {
         bottom: calc(100% + 100px);
-        transform: perspective(1000px) var(--translate-z) rotatex(0deg)
-          rotatey(0deg) rotatez(0deg);
+        transform: perspective(1000px) var(--translate-z) rotatex(0deg) rotatey(0deg) rotatez(0deg);
         opacity: 1;
       }
       to {
         bottom: calc(0% - 100px);
-        transform: perspective(1000px) var(--translate-z) var(--rotate-x)
-          var(--rotate-y) var(--rotate-z);
+        transform: perspective(1000px) var(--translate-z) var(--rotate-x) var(--rotate-y) var(--rotate-z);
         opacity: 0;
       }
     }

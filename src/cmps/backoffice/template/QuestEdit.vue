@@ -1,48 +1,34 @@
 <template>
-  <section class="quest-edit" v-if="quest">
+  <section class="quest-edit" v-if="mutableQuest">
     <div class="quest-header">
-      <h4>{{ getTrans("question") }} #{{ idx + 1 }}</h4>
-      <quest-menu @on-remove-quest="onRemoveQuest" :quest="quest" />
+      <h4>{{ getTrans('question') }} #{{ idx + 1 }}</h4>
+      <quest-menu @on-remove-quest="onRemoveQuest" :quest="mutableQuest" />
     </div>
 
     <div class="quest-content">
       <main-input
-        :inputName="`txt-${quest.id}`"
+        :inputName="`txt-${mutableQuest.id}`"
         :placeholder="getTrans('question')"
         validate="required"
-        v-model.trim="quest.txt"
+        v-model.trim="mutableQuest.txt"
         :onBlur="validateField"
         :errors="errors"
         styled="main"
       />
 
       <div v-if="isDesc" class="editor-container">
-        <text-editor
-          placeholder="Elaborate (optional)"
-          v-model.trim="desc"
-          :tools="['code', 'link']"
-        />
-        <opt-quest-edit
-          @edit-opts="onEditOpts"
-          :optsToEdit="quest.opts"
-          v-if="quest.opts"
-        />
+        <text-editor placeholder="Elaborate (optional)" v-model.trim="desc" :tools="['code', 'link']" />
+        <opt-quest-edit @edit-opts="onEditOpts" :optsToEdit="mutableQuest.opts" v-if="mutableQuest.opts" />
       </div>
 
       <p class="toggle-desc-btn" @click="isDesc = !isDesc">
-        <i class="material-icons md-16">{{ isDesc ? "remove" : "add" }}</i>
-        <span>{{
-          isDesc ? getTrans("remove-description") : getTrans("add-description")
-        }}</span>
+        <i class="material-icons md-16">{{ isDesc ? 'remove' : 'add' }}</i>
+        <span>{{ isDesc ? getTrans('remove-description') : getTrans('add-description') }}</span>
       </p>
     </div>
 
     <div class="answer-details">
-      <basic-select
-        @input="onChangeAnsRule"
-        :defaultValue="ansRuleValue"
-        :options="options"
-      />
+      <basic-select @input="onChangeAnsRule" :defaultValue="ansRuleValue" :options="options" />
 
       <div class="time-limit">
         <i class="material-icons">schedule</i>
@@ -50,7 +36,7 @@
           inputName="timeLimit"
           type="number"
           validate="required|range"
-          v-model.trim="quest.timeLimit"
+          v-model.trim="mutableQuest.timeLimit"
           :onBlur="validateField"
           :errors="errors"
           styled="basic"
@@ -65,87 +51,88 @@
 </template>
 
 <script>
-import TextEditor from "@/cmps/common/TextEditor.vue";
-import OptQuestEdit from "./OptQuestEdit.vue";
-import QuestMenu from "./QuestMenu.vue";
+import TextEditor from '@/cmps/common/TextEditor.vue'
+import OptQuestEdit from './OptQuestEdit.vue'
+import QuestMenu from './QuestMenu.vue'
 
 export default {
-  props: ["quest", "errors", "idx"],
+  props: ['quest', 'errors', 'idx'],
 
   data() {
     return {
       desc: this.quest.desc,
       isDesc: !!this.quest.desc,
-    };
+      mutableQuest: this.quest,
+    }
   },
 
   computed: {
     options() {
       return [
-        { txt: "video-only", value: "isVidAns" },
-        { txt: "video-and-screen", value: "isScreenAns,isVidAns" },
+        {txt: 'video-only', value: 'isVidAns'},
+        {txt: 'video-and-screen', value: 'isScreenAns,isVidAns'},
         // { txt: 'Video & Text', value: 'isTxtAns,isVidAns' },
-      ];
+      ]
     },
 
     pluralMinute() {
-      if (!this.quest.timeLimit) return this.getTrans("minute");
-      return this.getTrans(this.quest.timeLimit > 1 ? "minutes" : "minute");
+      if (!this.mutableQuest.timeLimit) return this.getTrans('minute')
+      return this.getTrans(this.mutableQuest.timeLimit > 1 ? 'minutes' : 'minute')
     },
 
     ansRuleValue() {
-      const values = [];
-      const { ansRule } = this.quest;
+      const values = []
+      const {ansRule} = this.mutableQuest
       for (const rule in ansRule) {
         if (ansRule[rule]) {
-          values.push(rule);
+          values.push(rule)
         }
       }
-      values.sort((a, b) => a.localeCompare(b));
-      return values.join(",");
+      values.sort((a, b) => a.localeCompare(b))
+      return values.join(',')
     },
   },
 
   methods: {
     onChangeAnsRule(field) {
-      const fields = field.split(",");
+      const fields = field.split(',')
       const ansRule = fields.reduce((acc, field) => {
-        acc[field] = true;
-        return acc;
-      }, {});
-      const quest = { ...this.quest, ansRule };
-      if (!this.isAnsRuleValid(quest)) return;
-      this.$emit("update-quest", quest);
+        acc[field] = true
+        return acc
+      }, {})
+      const quest = {...this.quest, ansRule}
+      if (!this.isAnsRuleValid(quest)) return
+      this.$emit('update-quest', quest)
     },
 
     onRemoveQuest() {
-      this.$emit("remove-quest", this.quest.id);
+      this.$emit('remove-quest', this.mutableQuest.id)
     },
 
-    isAnsRuleValid({ ansRule }) {
-      if (ansRule.isTxtAns && ansRule.isCodeAns) return false;
-      return ansRule.isVidAns || ansRule.isTxtAns || ansRule.isCodeAns;
+    isAnsRuleValid({ansRule}) {
+      if (ansRule.isTxtAns && ansRule.isCodeAns) return false
+      return ansRule.isVidAns || ansRule.isTxtAns || ansRule.isCodeAns
     },
 
     onEditOpts(opts) {
-      const quest = { ...this.quest };
-      quest.opts = opts;
-      this.$emit("update-quest", quest);
+      const quest = {...this.mutableQuest}
+      quest.opts = opts
+      this.$emit('update-quest', quest)
     },
 
     validateField(ev) {
-      this.$emit("validate-field", ev);
+      this.$emit('validate-field', ev)
     },
   },
 
   watch: {
     quest() {
-      this.desc = this.quest.desc;
+      this.desc = this.mutableQuest.desc
     },
 
-    desc(to, from) {
-      const newQuest = { ...this.quest, desc: this.desc };
-      this.$emit("update-quest", newQuest);
+    desc() {
+      const newQuest = {...this.mutableQuest, desc: this.desc}
+      this.$emit('update-quest', newQuest)
     },
   },
 
@@ -154,5 +141,5 @@ export default {
     OptQuestEdit,
     QuestMenu,
   },
-};
+}
 </script>

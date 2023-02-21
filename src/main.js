@@ -19,13 +19,13 @@ import {isMobile} from './services/utilService'
 import {loggerService} from './services/loggerService'
 
 import MainInput from '@/cmps/common/MainInput.vue'
-import Checkbox from '@/cmps/common/Checkbox.vue'
+import CheckBox from '@/cmps/common/CheckBox.vue'
 import BasicSelect from '@/cmps/common/BasicSelect.vue'
 import {clickOutside} from './directivs'
 
 import './assets/scss/global.scss'
-import {getTrans} from './services/i18nService'
-import {getSvg} from './services/svgService'
+// import {getTrans} from './services/i18nService'
+// import {getSvg} from './services/svgService'
 import config from './config'
 
 import App from './App.vue'
@@ -79,7 +79,8 @@ window.addEventListener('resize', () => {
   store.commit({type: 'app/setIsMobile', isMobile: isMobile()})
 })
 
-window.onerror = function (message, source, lineno, colno, error) {
+window.onerror = function (message) {
+  // source, lineno, colno, error
   loggerService.error('Uncaught Error', message)
 }
 
@@ -97,7 +98,7 @@ const app = createApp(App)
 
 app.component('main-input', MainInput)
 app.component('basic-select', BasicSelect)
-app.component('checkbox', Checkbox)
+app.component('check-box', CheckBox)
 
 app.directive('click-outside', clickOutside)
 // app.directive('observe-visibility', ObserveVisibility)

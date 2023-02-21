@@ -1,22 +1,22 @@
 const clickOutside = {
-  mounted(el, { value: cb }) {
+  mounted(el, {value: cb}) {
     el.clickOutside = (ev) => {
       if (!el.contains(ev.target)) {
         // itemService.setModalType("");
-        cb();
-        console.log("outside");
+        cb()
+        console.log('outside')
       } else {
-        console.log("inside");
+        console.log('inside')
       }
-    };
+    }
     setTimeout(() => {
-      document.addEventListener("click", el.clickOutside);
-    }, 0);
+      document.addEventListener('click', el.clickOutside)
+    }, 0)
   },
   unmounted(el) {
-    document.removeEventListener("click", el.clickOutside);
+    document.removeEventListener('click', el.clickOutside)
   },
-};
+}
 
 // @vicky - other directive may work if ypu have problems
 // export const clickOutsideDirective = {
@@ -44,4 +44,4 @@ const clickOutside = {
 //   },
 // }
 
-export { clickOutside };
+export {clickOutside}

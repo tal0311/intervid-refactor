@@ -5,18 +5,18 @@
 </template>
 
 <script>
-import CvUpload from "@/cmps/interview/CvUpload.vue";
+import CvUpload from '@/cmps/interview/CvUpload.vue'
 
 export default {
-  props: ["applicantFullName"],
+  props: ['applicantFullName'],
 
   methods: {
     onUploadCv(cv) {
-      this.$emit("on-close");
-      this.$emit("on-cv-upload", cv);
+      this.$emit('on-close')
+      this.$emit('on-cv-upload', cv)
     },
   },
 
-  components: { CvUpload },
-};
+  components: {CvUpload},
+}
 </script>

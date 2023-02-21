@@ -1,6 +1,6 @@
 import {parseFilter, debounce, isEmpty} from '@/services/utilService.js'
-import {reactive, ref} from 'vue'
-import {useRoute} from 'vue-router'
+// import {reactive, ref} from 'vue'
+// import {useRoute} from 'vue-router'
 import {getDefaultFilter, getDefaultSort} from '../services/constData.js'
 
 export default {
@@ -84,7 +84,7 @@ export default {
         filterBy.value = getDefaultFilter(this.$route.name)
         return
       }
-      const filterBy = parseFilter(query.value)
+      const filterBy = parseFilter(this.query.value)
       filterBy.showArchived = filterBy.showArchived === 'true'
       filterBy.incomplete =
         filterBy.incomplete !== 'undefined' && filterBy.incomplete !== undefined
@@ -95,12 +95,12 @@ export default {
     },
 
     resetFilters() {
-      filterBy.value = getDefaultFilter(this.$route.name)
+      this.filterBy.value = getDefaultFilter(this.$route.name)
       this.onSetQuery({})
     },
 
     onChangePage({to, diff}) {
-      let {currPage} = filterBy.value
+      let {currPage} = this.filterBy.value
       currPage = !currPage ? 0 : currPage
       currPage = +currPage + diff >= 0 ? +currPage + diff : currPage
       currPage = to !== undefined ? to : currPage
@@ -116,8 +116,8 @@ export default {
     },
 
     onSetFilter(updatedFilterBy) {
-      filterBy.value = {...updatedFilterBy}
-      this.onSetQuery(filterBy.value, this.archiveBy)
+      this.filterBy.value = {...updatedFilterBy}
+      this.onSetQuery(this.filterBy.value, this.archiveBy)
     },
 
     onSetQuery: debounce(function (query, path) {
@@ -166,4 +166,3 @@ export default {
     },
   },
 }
-

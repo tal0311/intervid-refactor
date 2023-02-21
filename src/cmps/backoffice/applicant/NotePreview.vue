@@ -6,22 +6,22 @@
       <div>
         <span class="note-date">{{ formattedDate }}</span>
         <i class="material-icons dot">circle</i>
-        <span>{{ getTrans("latest-note") }}</span>
+        <span>{{ getTrans('latest-note') }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { formatDate } from "@/services/utilService";
+import {formatDate} from '@/services/utilService'
 
 export default {
-  props: ["note"],
+  props: ['note'],
 
   computed: {
     formattedDate() {
-      return formatDate(this.note.createdAt);
+      return formatDate(this.note.createdAt)
     },
   },
-};
+}
 </script>

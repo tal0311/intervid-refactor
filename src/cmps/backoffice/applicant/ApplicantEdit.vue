@@ -1,15 +1,9 @@
 <template>
-  <section
-    class="applicant-edit-wrapper"
-    v-if="applicantToEdit.info"
-    ref="edit-wrapper"
-  >
+  <section class="applicant-edit-wrapper" v-if="applicantToEdit.info" ref="edit-wrapper">
     <div class="applicant-edit" @click.stop="">
       <h2>
-        {{ getTrans("edit-applicant") }}
-        <button @click="closeModal" ref="close-btn" class="material-icons">
-          close
-        </button>
+        {{ getTrans('edit-applicant') }}
+        <button @click="closeModal" ref="close-btn" class="material-icons">close</button>
       </h2>
       <form @submit.prevent="onUpdateApplicant" novalidate>
         <main-input
@@ -54,47 +48,47 @@
           styled="main"
         />
 
-        <button>{{ getTrans("save") }}</button>
+        <button>{{ getTrans('save') }}</button>
       </form>
     </div>
   </section>
 </template>
 
 <script>
-import { validate } from "@/services/errorService.js";
-import MainInput from "@/cmps/common/MainInput.vue";
-import cloneDeep from "lodash.clonedeep";
+import {validate} from '@/services/errorService.js'
+import MainInput from '@/cmps/common/MainInput.vue'
+import cloneDeep from 'lodash.clonedeep'
 
 export default {
-  props: ["applicant"],
+  props: ['applicant'],
 
   data() {
     return {
       applicantToEdit: {},
       errors: [],
-    };
+    }
   },
 
   mounted() {
-    this.applicantToEdit = cloneDeep(this.applicant);
+    this.applicantToEdit = cloneDeep(this.applicant)
   },
 
   methods: {
-    onUpdateApplicant({ target }) {
+    onUpdateApplicant({target}) {
       try {
-        this.errors = validate(target);
-        if (this.errors.length) return;
-        this.$emit("update-applicant", { applicant: this.applicantToEdit });
+        this.errors = validate(target)
+        if (this.errors.length) return
+        this.$emit('update-applicant', {applicant: this.applicantToEdit})
       } catch (error) {
-        this.errors = [error];
+        this.errors = [error]
       }
     },
 
     closeModal() {
-      this.$store.dispatch("app/toggleModal", { type: null });
+      this.$store.dispatch('app/toggleModal', {type: null})
     },
   },
 
-  components: { MainInput },
-};
+  components: {MainInput},
+}
 </script>

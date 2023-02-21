@@ -6,14 +6,14 @@
 export default {
   data() {
     return {
-      svgs: { videoLoader: "" },
-    };
+      svgs: {videoLoader: ''},
+    }
   },
 
   created() {
-    this.svgs.videoLoader = this.getSvg("videoLoader");
+    this.svgs.videoLoader = this.getSvg('videoLoader')
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

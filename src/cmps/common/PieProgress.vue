@@ -14,18 +14,16 @@
 
 <script>
 export default {
-  props: ["donePercent", "labelTxt"],
+  props: ['donePercent', 'labelTxt'],
 
   computed: {
     textToShow() {
-      return this.labelTxt === null || this.labelTxt === undefined
-        ? this.donePercent
-        : this.labelTxt;
+      return this.labelTxt === null || this.labelTxt === undefined ? this.donePercent : this.labelTxt
     },
 
     progressClass() {
-      return `progress-${this.donePercent}`;
+      return `progress-${this.donePercent}`
     },
   },
-};
+}
 </script>

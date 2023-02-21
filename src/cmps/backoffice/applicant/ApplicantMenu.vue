@@ -4,14 +4,13 @@
       <i class="material-icons">more_horiz</i>
     </button>
 
-    <div class="menu-modal" :class="{ open: isOpen && !isMobile }">
+    <div class="menu-modal" :class="{open: isOpen && !isMobile}">
       <button @click="$emit('on-archive-applicant')">
         <i class="archive-btn material-icons">archive</i>
-        {{ getTrans("archive") }}
+        {{ getTrans('archive') }}
       </button>
       <button @click="$emit('on-edit-applicant')">
-        <i class="archive-btn material-icons">edit</i
-        >{{ getTrans("edit-applicant") }}
+        <i class="archive-btn material-icons">edit</i>{{ getTrans('edit-applicant') }}
       </button>
     </div>
 
@@ -26,29 +25,29 @@
 </template>
 
 <script>
-import MobileModal from "@/cmps/common/modals/MobileModal.vue";
+import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
   computed: {
     isMobile() {
-      return this.$store.getters["app/isMobile"];
+      return this.$store.getters['app/isMobile']
     },
 
     modal() {
-      return this.$store.getters["app/modal"];
+      return this.$store.getters['app/modal']
     },
 
     isOpen() {
-      return this.modal.type === "applicant-menu";
+      return this.modal.type === 'applicant-menu'
     },
   },
 
   methods: {
     toggleModal() {
-      this.$store.dispatch("app/toggleModal", { type: "applicant-menu" });
+      this.$store.dispatch('app/toggleModal', {type: 'applicant-menu'})
     },
   },
 
-  components: { MobileModal },
-};
+  components: {MobileModal},
+}
 </script>

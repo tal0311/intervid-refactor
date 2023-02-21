@@ -53,9 +53,7 @@
       <!-- Edge -->
       <a
         class="browser-card"
-        v-if="
-          !isVersionErr || (isVersionErr && browserName === 'edge-chromium')
-        "
+        v-if="!isVersionErr || (isVersionErr && browserName === 'edge-chromium')"
         href="https://www.microsoft.com/en-us/edge"
         target="_blank"
       >
@@ -71,21 +69,21 @@
 </template>
 
 <script>
-import { browserErrorMap } from "@/services/errorService";
+import {browserErrorMap} from '@/services/errorService'
 
 export default {
-  props: ["err"],
+  props: ['err'],
 
   computed: {
     isVersionErr() {
-      return this.err.type === browserErrorMap.NO_VERSION_SUPPORT.type;
+      return this.err.type === browserErrorMap.NO_VERSION_SUPPORT.type
     },
 
     browserName() {
-      return this.$store.getters["app/browser"].name;
+      return this.$store.getters['app/browser'].name
     },
   },
 
   methods: {},
-};
+}
 </script>

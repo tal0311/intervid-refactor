@@ -18,30 +18,30 @@ export const player = {
   },
   getters: {
     playerState(state) {
-      return state.playerState;
+      return state.playerState
     },
     getCurrTime(state) {
-      return state.playerState.currTime;
+      return state.playerState.currTime
     },
     getTotalTime(state) {
-      return state.playerState.totalTime;
+      return state.playerState.totalTime
     },
     getJumpToPoint(state) {
-      return state.jumpToPoint;
+      return state.jumpToPoint
     },
   },
   mutations: {
-    setPlayerState(state, { playerState }) {
-      state.playerState = playerState;
+    setPlayerState(state, {playerState}) {
+      state.playerState = playerState
     },
-    setCurrTime(state, { currTime }) {
-      state.playerState.currTime = currTime;
+    setCurrTime(state, {currTime}) {
+      state.playerState.currTime = currTime
     },
-    setIsPlaying(state, { isPlaying }) {
-      state.playerState.isPlaying = isPlaying;
+    setIsPlaying(state, {isPlaying}) {
+      state.playerState.isPlaying = isPlaying
     },
-    setJumpToPoint(state, { jumpToPoint }) {
-      state.jumpToPoint = jumpToPoint;
+    setJumpToPoint(state, {jumpToPoint}) {
+      state.jumpToPoint = jumpToPoint
     },
   },
-};
+}

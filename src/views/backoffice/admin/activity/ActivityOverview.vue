@@ -1,11 +1,7 @@
 <template>
   <div class="activity-overview overview">
     <div class="overview-header">
-      <activity-filter
-        :filterBy="filterBy"
-        @set-filter="onSetFilterByKey"
-        :users="users"
-      />
+      <activity-filter :filterBy="filterBy" @set-filter="onSetFilterByKey" :users="users" />
 
       <list-actions
         :filterBy="filterBy"
@@ -30,60 +26,60 @@
 </template>
 
 <script>
-import { getSortFunc } from "@/services/utilService";
-import OverviewMixin from "@/mixins/OverviewMixin";
+import {getSortFunc} from '@/services/utilService'
+import OverviewMixin from '@/mixins/OverviewMixin'
 
-import ActivityFilter from "@/cmps/backoffice/admin/ActivityFilter.vue";
-import TableList from "@/cmps/backoffice/TableList.vue";
-import ListActions from "@/cmps/backoffice/ListActions.vue";
+import ActivityFilter from '@/cmps/backoffice/admin/ActivityFilter.vue'
+import TableList from '@/cmps/backoffice/TableList.vue'
+import ListActions from '@/cmps/backoffice/ListActions.vue'
 
 export default {
   mixins: [OverviewMixin],
 
   created() {
-    this.loadActivities();
-    this.loadUsers();
+    this.loadActivities()
+    this.loadUsers()
   },
 
   computed: {
     users() {
-      return this.$store.getters["user/users"];
+      return this.$store.getters['user/users']
     },
 
     activities() {
-      return this.$store.getters["activity/activities"]
-        .map((activity) => ({ ...activity, start: new Date(activity.start) }))
-        .sort(getSortFunc(this.sort));
+      return this.$store.getters['activity/activities']
+        .map((activity) => ({...activity, start: new Date(activity.start)}))
+        .sort(getSortFunc(this.sort))
     },
 
     totalActivityCount() {
-      return this.$store.getters["activity/totalActivityCount"];
+      return this.$store.getters['activity/totalActivityCount']
     },
 
     isFetching() {
-      return this.$store.getters["activity/isFetching"];
+      return this.$store.getters['activity/isFetching']
     },
   },
 
   methods: {
     loadActivities() {
-      this.$store.dispatch("activity/loadActivities", {
-        filterBy: { ...this.filterBy },
-      });
+      this.$store.dispatch('activity/loadActivities', {
+        filterBy: {...this.filterBy},
+      })
     },
 
     loadUsers() {
-      this.$store.dispatch("user/loadUsers");
+      this.$store.dispatch('user/loadUsers')
     },
   },
 
   watch: {
     $route() {
-      this.setFilter();
-      this.loadActivities();
+      this.setFilter()
+      this.loadActivities()
     },
   },
 
-  components: { ActivityFilter, TableList, ListActions },
-};
+  components: {ActivityFilter, TableList, ListActions},
+}
 </script>

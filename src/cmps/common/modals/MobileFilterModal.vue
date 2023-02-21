@@ -2,13 +2,9 @@
   <section class="mobile-filter-modal">
     <div class="content">
       <div v-if="isApplicantOverview" class="filter-container status-filter">
-        <h3 class="filter-title">{{ getTrans("by-status") }}</h3>
+        <h3 class="filter-title">{{ getTrans('by-status') }}</h3>
         <div class="filter-list">
-          <label
-            v-for="(status, idx) in statuses"
-            :key="status.label"
-            @input="$emit('select-status', idx)"
-          >
+          <label v-for="(status, idx) in statuses" :key="status.label" @input="$emit('select-status', idx)">
             <input type="checkbox" :checked="isStatusSelected(idx)" />
             <span>{{ getTrans(`${status.label}`) }}</span>
           </label>
@@ -16,31 +12,28 @@
       </div>
 
       <div class="filter-container date-filter">
-        <h3 class="filter-title">{{ getTrans("by-date") }}</h3>
+        <h3 class="filter-title">{{ getTrans('by-date') }}</h3>
         <div class="filter-list">
-          <label
-            :class="{ selected: !updatedFilterBy.daysAgo }"
-            @input="$emit('edit-filter', 'daysAgo', '')"
-          >
+          <label :class="{selected: !mutableUpdatedFilterBy.daysAgo}" @input="$emit('edit-filter', 'daysAgo', '')">
             <input
               type="radio"
               value=""
-              :checked="!updatedFilterBy.daysAgo"
-              v-model="updatedFilterBy.daysAgo"
+              :checked="!mutableUpdatedFilterBy.daysAgo"
+              v-model="mutableUpdatedFilterBy.daysAgo"
             />
-            {{ getTrans("all") }}
+            {{ getTrans('all') }}
           </label>
           <label
             v-for="date in filterDates"
-            :class="{ selected: updatedFilterBy.daysAgo == date.daysAgo }"
+            :class="{selected: mutableUpdatedFilterBy.daysAgo == date.daysAgo}"
             :key="date.id"
             @input="$emit('edit-filter', 'daysAgo', date.daysAgo)"
           >
             <input
               type="radio"
               :value="date.daysAgo"
-              :checked="updatedFilterBy.daysAgo == date.daysAgo"
-              v-model="updatedFilterBy.daysAgo"
+              :checked="mutableUpdatedFilterBy.daysAgo == date.daysAgo"
+              v-model="mutableUpdatedFilterBy.daysAgo"
             />
             {{ getTrans(date.label) }}
           </label>
@@ -48,51 +41,51 @@
       </div>
 
       <div class="filter-container view-filter">
-        <h3 class="filter-title">{{ getTrans("view-only") }}</h3>
+        <h3 class="filter-title">{{ getTrans('view-only') }}</h3>
         <div class="filter-list">
           <label
-            :class="{ selected: updatedFilterBy.incomplete === undefined }"
+            :class="{selected: mutableUpdatedFilterBy.incomplete === undefined}"
             @input="
               () => {
-                $emit('edit-filter', 'incomplete', undefined);
-                $emit('edit-filter', 'showArchived', false);
+                $emit('edit-filter', 'incomplete', undefined)
+                $emit('edit-filter', 'showArchived', false)
               }
             "
           >
             <input
               type="radio"
-              :checked="updatedFilterBy.incomplete === undefined"
+              :checked="mutableUpdatedFilterBy.incomplete === undefined"
               :value="undefined"
-              v-model="updatedFilterBy.incomplete"
+              v-model="mutableUpdatedFilterBy.incomplete"
             />
-            {{ getTrans("show-all") }}
+            {{ getTrans('show-all') }}
           </label>
 
           <label
             v-if="isApplicantOverview"
-            :class="{ selected: updatedFilterBy.incomplete }"
+            :class="{selected: mutableUpdatedFilterBy.incomplete}"
             @input="$emit('edit-filter', 'incomplete', $event.target.checked)"
           >
             <input
               type="radio"
               :value="true"
-              :checked="updatedFilterBy.incomplete === false"
-              v-model="updatedFilterBy.incomplete"
+              :checked="mutableUpdatedFilterBy.incomplete === false"
+              v-model="mutableUpdatedFilterBy.incomplete"
             />
-            {{ getTrans("show-incomplete") }}
+            {{ getTrans('show-incomplete') }}
           </label>
           <label
             v-if="isApplicantOverview"
-            :class="{ selected: updatedFilterBy.incomplete }"
+            :class="{selected: mutableUpdatedFilterBy.incomplete}"
             @input="$emit('edit-filter', 'incomplete', !$event.target.checked)"
           >
             <input
               type="radio"
               :value="false"
-              :checked="updatedFilterBy.incomplete"
-              v-model="updatedFilterBy.incomplete"
+              :checked="mutableUpdatedFilterBy.incomplete"
+              v-model="mutableUpdatedFilterBy.incomplete"
             />
-            {{ getTrans("show-complete") }}
+            {{ getTrans('show-complete') }}
           </label>
 
           <!-- <label :class="{ selected: isShowArchived }"
@@ -103,7 +96,7 @@
         </div>
       </div>
       <div class="filter-container archive-filter">
-        <h3 class="filter-title">{{ getTrans("show-archived") }}</h3>
+        <h3 class="filter-title">{{ getTrans('show-archived') }}</h3>
         <div class="toggle-option">
           <div class="main-toggle">
             <label for="show-archived">
@@ -111,11 +104,9 @@
                 type="checkbox"
                 id="show-archived"
                 name="show-archived"
-                :checked="updatedFilterBy.showArchived"
-                v-model="updatedFilterBy.showArchived"
-                @input="
-                  $emit('edit-filter', 'showArchived', $event.target.checked)
-                "
+                :checked="mutableUpdatedFilterBy.showArchived"
+                v-model="mutableUpdatedFilterBy.showArchived"
+                @input="$emit('edit-filter', 'showArchived', $event.target.checked)"
               />
               <div class="outer">
                 <div class="inner"></div>
@@ -137,95 +128,84 @@
 </template>
 
 <script>
-import { statusMap, filterDates } from "@/services/constData";
+import {statusMap, filterDates} from '@/services/constData'
 
 export default {
-  props: [
-    "filterBy",
-    "expectedEntityCount",
-    "filteredJobCount",
-    "entity",
-    "updatedFilterBy",
-  ],
+  props: ['filterBy', 'expectedEntityCount', 'filteredJobCount', 'entity', 'updatedFilterBy'],
 
   data() {
     return {
       // selectedDaysAgo: this.filterBy?.daysAgo || '',
       // selectedStatuses: this.filterBy?.statuses ? [...this.filterBy?.statuses] : [],
-    };
+      mutableUpdatedFilterBy: this.updatedFilterBy,
+    }
   },
 
   computed: {
     statuses() {
-      return statusMap;
+      return statusMap
     },
 
     filterDates() {
-      return filterDates;
+      return filterDates
     },
 
     selectedStatuses() {
-      return this.filterBy.statuses;
+      return this.filterBy.statuses
     },
 
     isShowArchived() {
-      return !!this.filterBy.showArchived;
+      return !!this.filterBy.showArchived
     },
 
     isShowIncomplete() {
-      return this.filterBy.incomplete;
+      return this.filterBy.incomplete
     },
 
     selectedDaysAgo() {
-      return this.filterBy.daysAgo;
+      return this.filterBy.daysAgo
     },
 
     isApplicantOverview() {
-      return this.$route.name === "ApplicantOverview";
+      return this.$route.name === 'ApplicantOverview'
     },
 
     showCount() {
-      const { getTrans } = this;
+      const {getTrans} = this
       if (this.expectedEntityCount > 1)
-        return `${getTrans("show")} ${this.expectedEntityCount} 
-          ${getTrans(`${this.entity}s`.toLowerCase()).toLowerCase()}`;
+        return `${getTrans('show')} ${this.expectedEntityCount} 
+          ${getTrans(`${this.entity}s`.toLowerCase()).toLowerCase()}`
       else if (this.expectedEntityCount === 1) {
-        return this.lng === "en"
-          ? `${getTrans("show")} ${this.expectedEntityCount} ${getTrans(
-              `${this.entity}`.toLowerCase()
-            ).toLowerCase()}`
-          : `${getTrans("show")} ${getTrans(
-              `${this.entity}`.toLowerCase()
-            ).toLowerCase()} ${this.expectedEntityCount}`;
-      } else return getTrans("no-exact-matches");
+        return this.lng === 'en'
+          ? `${getTrans('show')} ${this.expectedEntityCount} ${getTrans(`${this.entity}`.toLowerCase()).toLowerCase()}`
+          : `${getTrans('show')} ${getTrans(`${this.entity}`.toLowerCase()).toLowerCase()} ${this.expectedEntityCount}`
+      } else return getTrans('no-exact-matches')
     },
 
     lng() {
-      return this.$store.getters["app/lang"];
+      return this.$store.getters['app/lang']
     },
   },
 
   methods: {
     onSelectStatus(statusCode) {
       if (this.isStatusSelected(statusCode)) {
-        this.selectedStatuses = this.selectedStatuses.filter(
-          (status) => status !== statusCode
-        );
-      } else this.selectedStatuses.push(statusCode);
-      this.$emit("set-filter", "statuses", this.selectedStatuses);
+        this.selectedStatuses = this.selectedStatuses.filter((status) => status !== statusCode)
+      } else this.selectedStatuses.push(statusCode)
+      this.$emit('set-filter', 'statuses', this.selectedStatuses)
     },
 
     isStatusSelected(statusCode) {
-      return this.selectedStatuses?.includes(statusCode);
+      return this.selectedStatuses?.includes(statusCode)
     },
 
     onClearFilter() {
-      this.$emit("reset-filter");
+      this.$emit('reset-filter')
     },
 
     onSetFilter() {
-      this.$emit("set-filter");
+      this.$emit('set-filter')
     },
   },
-};
+}
 </script>
