@@ -9,30 +9,30 @@ import {getTrans} from '@/services/i18nService.js'
 import {parseFilter, debounce, isEmpty} from '@/services/utilService.js'
 
 export function useOverview({}) {
+  // composables
   const store = useStore()
   const router = useRouter()
   const route = useRoute()
 
+  // data
   const shouldGather = ref(false)
   const selectedItems = reactive([])
   const filterBy = reactive(getDefaultFilter(route.name))
   const sort = reactive(getDefaultSort(route.name))
 
+  // computed
   const query = computed(() => {
     return route.query
   })
-
   const cmpName = computed(() => {
     return route.name
   })
-  const showArchived = computed(() => {
-    return route.path.includes('archive')
-  })
-
+  // const showArchived = computed(() => {
+  //   return route.path.includes('archive')
+  // })
   const shouldParseFilter = computed(() => {
     return !!Object.values(query.value).length
   })
-
   const archiveBy = computed(() => {
     switch (cmpName.value) {
       case 'ApplicantOverview':
@@ -45,7 +45,6 @@ export function useOverview({}) {
         return ''
     }
   })
-
   const tagList = computed(() => {
     const queries = query.value
 
@@ -70,17 +69,13 @@ export function useOverview({}) {
     }
     return tags
   })
+  // Methods
   const setShouldGather = (val) => {
     shouldGather.value = val
   }
-
   const setSelectedItems = (val) => {
     selectedItems.value = val
   }
-
-  // const query = computed(() => {
-  //   return useRoute().value.query
-  // })
   const onSort = (sortProp) => {
     if (!sortProp) return
     if (sortProp === sort.value.by) {
@@ -88,7 +83,6 @@ export function useOverview({}) {
     }
     sort.value.by = sortProp
   }
-
   const setFilter = () => {
     if (!shouldParseFilter.value) {
       filterBy.value = getDefaultFilter(route.name)
@@ -103,7 +97,6 @@ export function useOverview({}) {
     parsedFilterBy.daysAgo = parsedFilterBy.daysAgo || ''
     filterBy.value = parsedFilterBy
   }
-
   const onSetFilterByKey = (key, value) => {
     const filterValue = value === filterBy.value[key] && key !== 'currPage' ? '' : value
     const newFilterBy = {...filterBy.value, [key]: filterValue}
@@ -111,12 +104,10 @@ export function useOverview({}) {
     filterBy.value = newFilterBy
     this.onSetQuery(newFilterBy, archiveBy.value)
   }
-
   const onSetFilter = (filter) => {
     filterBy.value = {...filter}
     onSetQuery(filterBy.value, archiveBy.value)
   }
-
   const onSetQuery = debounce(function (query, path) {
     const {params} = route || null
 
@@ -125,12 +116,10 @@ export function useOverview({}) {
     if (path && isEmpty(params)) newRoute.path = path
     router.push(newRoute)
   }, 200)
-
   const resetFilters = () => {
     filterBy.value = getDefaultFilter(route.name)
     onSetQuery({})
   }
-
   const onChangePage = ({to, diff}) => {
     let {currPage} = filterBy.value
     currPage = !currPage ? 0 : currPage
@@ -138,28 +127,23 @@ export function useOverview({}) {
     currPage = to !== undefined ? to : currPage
     onSetFilterByKey('currPage', currPage)
   }
-
   const onSelectAll = (items) => {
     if (selectedItems.value.length) return selectedItems.value.splice(0)
     selectedItems.value = items.slice()
   }
-
   const isSelected = (item) => {
     const idKey = item.id ? 'id' : '_id'
     return selectedItems.value.some((item) => item[idKey] === item[idKey])
   }
-
   const onSelectItem = (item) => {
     const idKey = item.id ? 'id' : '_id'
     const itemIdx = selectedItems.value.findIndex((i) => i[idKey] === item[idKey])
     if (itemIdx !== -1) selectedItems.value.splice(itemIdx, 1)
     else selectedItems.value.push(item)
   }
-
   const clearSelectedItems = () => {
     selectedItems.value = []
   }
-
   const onRemoveTag = (tag) => {
     if (tag.type === 'incomplete') onSetFilterByKey(tag.type, undefined)
     else if (tag.type === 'statuses') onSetFilterByKey(tag.type, [])
@@ -167,44 +151,46 @@ export function useOverview({}) {
       onSetFilterByKey(tag.type, '')
     }
   }
-
   const sendAlert = (alertData) => {
     store.commit({
       type: 'app/setAlertData',
       alertData,
     })
   }
-
+  // Lifecycle
   onMounted(() => {
     this.setFilter()
   })
 
   return {
+    // for everything
+    filterBy,
+    sort,
+    onSort,
+    onChangePage,
+    isSelected,
+
+    // not for everything
     shouldGather,
     selectedItems,
-    sort,
-    filterBy,
     setShouldGather,
     setSelectedItems,
-    onSort,
     setFilter,
     onSetFilterByKey,
-    onSetQuery,
     resetFilters,
     onSetFilter,
-    onChangePage,
     onSelectAll,
-    isSelected,
     onSelectItem,
     clearSelectedItems,
     onRemoveTag,
     sendAlert,
-    showArchived,
-    query,
     tagList,
-    archiveBy,
-    cmpName,
-    shouldParseFilter,
+    // not needed outside
+    // onSetQuery,
+    // query,
+    // archiveBy,
+    // cmpName,
+    // shouldParseFilter,
   }
   // const { query,name } = useRouter()
   // const { cmpName } = useRoute()
