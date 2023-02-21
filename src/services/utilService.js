@@ -18,19 +18,6 @@ export function getSortFunc(sort) {
   }
 }
 
-export function parseFilter(query) {
-  var filterBy = {}
-  const searchParams = new URLSearchParams(query)
-  for (let [key, value] of searchParams) {
-    if (value) {
-      if (key === 'statuses') value = value.split(',')
-      filterBy[key] = value
-    }
-  }
-  if (filterBy.currPage) filterBy.currPage = +filterBy.currPage
-  return filterBy
-}
-
 export function verifyBeforeExit(e) {
   e.preventDefault()
   var confirmationMessage = 'Are you sure you want to quit?'

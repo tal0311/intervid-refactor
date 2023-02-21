@@ -78,7 +78,7 @@ export default {
 
   watch: {
     $route() {
-      this.setFilter()
+      this.setFilterFromRoute()
       this.loadRecords()
     },
     sort: {

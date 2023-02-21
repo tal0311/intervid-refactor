@@ -243,7 +243,7 @@ export default {
   watch: {
     $route() {
       this.clearSelectedItems()
-      this.setFilter()
+      this.setFilterFromRoute()
       this.loadJobs()
     },
     sort: {

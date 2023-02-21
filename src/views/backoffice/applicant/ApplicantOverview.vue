@@ -263,7 +263,7 @@ export default {
   watch: {
     async $route() {
       this.clearSelectedItems()
-      this.setFilter()
+      this.setFilterFromRoute()
       this.loadApplicants()
     },
     sort: {

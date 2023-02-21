@@ -17,22 +17,20 @@ export function useOverview() {
   // data
   const shouldGather = ref(false)
   const selectedItems = reactive([])
-  const filterBy = reactive(getDefaultFilter(route.name))
+  // const filterBy = reactive(getDefaultFilter(route.name))
   const sort = reactive(getDefaultSort(route.name))
 
   // computed
   const query = computed(() => {
     return route.query
   })
-  const cmpName = computed(() => {
-    return route.name
-  })
-  const showArchived = computed(() => {
-    return route.path.includes('archive')
-  })
-  const shouldParseFilter = computed(() => {
-    return !!Object.values(query.value).length
-  })
+  // const cmpName = computed(() => {
+  //   return route.name
+  // })
+  // const showArchived = computed(() => {
+  //   return route.path.includes('archive')
+  // })
+
   const tagList = computed(() => {
     const queries = query.value
 
@@ -71,45 +69,45 @@ export function useOverview() {
     }
     sort.value.by = sortProp
   }
-  const setFilter = () => {
-    if (!shouldParseFilter.value) {
-      filterBy.value = getDefaultFilter(route.name)
-      return
-    }
-    const parsedFilterBy = parseFilter(query.value)
-    parsedFilterBy.showArchived = parsedFilterBy.showArchived === 'true'
-    parsedFilterBy.incomplete =
-      parsedFilterBy.incomplete !== 'undefined' && parsedFilterBy.incomplete !== undefined
-        ? JSON.parse(parsedFilterBy.incomplete)
-        : undefined
-    parsedFilterBy.daysAgo = parsedFilterBy.daysAgo || ''
-    filterBy.value = parsedFilterBy
-  }
-  const onSetFilterByKey = (key, value) => {
-    const filterValue = value === filterBy.value[key] && key !== 'currPage' ? '' : value
-    const newFilterBy = {...filterBy.value, [key]: filterValue}
-    if (key !== 'currPage') newFilterBy.currPage = 0
-    filterBy.value = newFilterBy
-    this.onSetQuery(newFilterBy, archiveBy.value)
-  }
-  const onSetFilter = (filter) => {
-    filterBy.value = {...filter}
-    onSetQuery(filterBy.value, archiveBy.value)
-  }
-  const onSetQuery = debounce(function (query, path) {
-    const {params} = route || null
+  // const setFilter = () => {
+  //   if (!shouldParseFilter.value) {
+  //     filterBy.value = getDefaultFilter(route.name)
+  //     return
+  //   }
+  //   const parsedFilterBy = parseFilter(query.value)
+  //   parsedFilterBy.showArchived = parsedFilterBy.showArchived === 'true'
+  //   parsedFilterBy.incomplete =
+  //     parsedFilterBy.incomplete !== 'undefined' && parsedFilterBy.incomplete !== undefined
+  //       ? JSON.parse(parsedFilterBy.incomplete)
+  //       : undefined
+  //   parsedFilterBy.daysAgo = parsedFilterBy.daysAgo || ''
+  //   filterBy.value = parsedFilterBy
+  // }
+  // const onSetFilterByKey = (key, value) => {
+  //   const filterValue = value === filterBy.value[key] && key !== 'currPage' ? '' : value
+  //   const newFilterBy = {...filterBy.value, [key]: filterValue}
+  //   if (key !== 'currPage') newFilterBy.currPage = 0
+  //   filterBy.value = newFilterBy
+  //   this.onSetQuery(newFilterBy, archiveBy.value)
+  // }
+  // const onSetFilter = (filter) => {
+  //   filterBy.value = {...filter}
+  //   onSetQuery(filterBy.value, archiveBy.value)
+  // }
+  // const onSetQuery = debounce(function (query, path) {
+  //   const {params} = route || null
 
-    const newRoute = {query}
-    if (!isEmpty(params)) newRoute.params = params
-    else if (path) newRoute.path = path
-    // if (!isEmpty(params)) newRoute.params = params
-    // if (path && isEmpty(params)) newRoute.path = path
-    router.push(newRoute)
-  }, 200)
-  const resetFilters = () => {
-    filterBy.value = getDefaultFilter(route.name)
-    onSetQuery({})
-  }
+  //   const newRoute = {query}
+  //   if (!isEmpty(params)) newRoute.params = params
+  //   else if (path) newRoute.path = path
+  //   // if (!isEmpty(params)) newRoute.params = params
+  //   // if (path && isEmpty(params)) newRoute.path = path
+  //   router.push(newRoute)
+  // }, 200)
+  // const resetFilters = () => {
+  //   filterBy.value = getDefaultFilter(route.name)
+  //   onSetQuery({})
+  // }
   const onChangePage = ({to, diff}) => {
     let {currPage} = filterBy.value
     currPage = !currPage ? 0 : currPage
@@ -154,7 +152,7 @@ export function useOverview() {
 
   return {
     // for everything
-    filterBy,
+    // filterBy,
     sort,
     onSort,
     onChangePage,
@@ -164,9 +162,9 @@ export function useOverview() {
     selectedItems,
     setShouldGather,
     setSelectedItems,
-    setFilter,
+    // setFilter,
     // onSetFilterByKey,
-    resetFilters,
+    // resetFilters,
     // onSetFilter,
     onSelectAll,
     onSelectItem,
@@ -181,50 +179,4 @@ export function useOverview() {
     // cmpName,
     // shouldParseFilter,
   }
-}
-
-export const useFilter = () => {
-  const route = useRoute()
-  const router = useRouter()
-  // data
-  const filterBy = reactive(getDefaultFilter(route.name))
-
-  const onSetFilterByKey = (key, value) => {
-    const filterValue = value === filterBy.value[key] && key !== 'currPage' ? '' : value
-    const newFilterBy = {...filterBy.value, [key]: filterValue}
-    if (key !== 'currPage') newFilterBy.currPage = 0
-    filterBy.value = newFilterBy
-    _onSetQuery(newFilterBy, _archiveBy.value)
-  }
-
-  const onSetFilter = (filter) => {
-    filterBy.value = {...filter}
-    _onSetQuery(filterBy.value, _archiveBy.value)
-  }
-
-  // private
-  const _archiveBy = computed(() => {
-    switch (route.name) {
-      case 'ApplicantOverview':
-        return 'applicant'
-      case 'JobOverview':
-        return 'job'
-      case 'TemplateOverview':
-        return 'template'
-      default:
-        return ''
-    }
-  })
-
-  const _onSetQuery = debounce((query, path) => {
-    // TODO: make sure this dosen't throw an error, and check if route can actually be falsy
-    const {params} = route || null
-
-    const newRoute = {query}
-    if (!isEmpty(params)) newRoute.params = params
-    else if (path) newRoute.path = path
-    // if (!isEmpty(params)) newRoute.params = params
-    // if (path && isEmpty(params)) newRoute.path = path
-    router.push(newRoute)
-  }, 200)
 }
