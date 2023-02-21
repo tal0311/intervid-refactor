@@ -1,8 +1,8 @@
 <template>
-  <div class="md-checkbox" :class="{ 'md-checkbox-inline': inline }">
+  <div class="md-checkbox" :class="{'md-checkbox-inline': inline}">
     <input
       type="checkbox"
-      :class="{ partial: partial, [color]: color }"
+      :class="{partial: partial, [color]: color}"
       @input="onChange"
       :checked="value || checked"
       :id="id"
@@ -26,13 +26,13 @@ export default {
   },
 
   created() {
-    this.id = this._uid;
+    this.id = this._uid
   },
 
   methods: {
     onChange(ev) {
-      this.$emit("input", ev.target.checked);
+      this.$emit('input', ev.target.checked)
     },
   },
-};
+}
 </script>

@@ -1,6 +1,6 @@
-import { activityService } from "@/services/activityService.js";
-import { loggerService } from "@/services/loggerService";
-import { userService } from "@/services/userService";
+import {activityService} from '@/services/activityService.js'
+import {loggerService} from '@/services/loggerService'
+import {userService} from '@/services/userService'
 
 export const activity = {
   namespaced: true,
@@ -12,68 +12,59 @@ export const activity = {
 
   getters: {
     activities(state) {
-      return state.activities;
+      return state.activities
     },
 
     totalActivityCount(state) {
-      return state.totalActivityCount;
+      return state.totalActivityCount
     },
 
     isFetching(state) {
-      return state.isFetching;
+      return state.isFetching
     },
   },
 
   mutations: {
-    setActivities(state, { activities }) {
-      state.activities = activities;
+    setActivities(state, {activities}) {
+      state.activities = activities
     },
 
-    setTotalActivityCount(state, { totalActivityCount }) {
-      state.totalActivityCount = totalActivityCount;
+    setTotalActivityCount(state, {totalActivityCount}) {
+      state.totalActivityCount = totalActivityCount
     },
 
     setIsFetching(state, isFetching) {
-      state.isFetching = isFetching;
+      state.isFetching = isFetching
     },
   },
 
   actions: {
-    async loadActivities({ commit }, { filterBy }) {
-      commit("setIsFetching", true);
+    async loadActivities({commit}, {filterBy}) {
+      commit('setIsFetching', true)
       try {
-        const { activities, totalActivityCount } = await activityService.query({
+        const {activities, totalActivityCount} = await activityService.query({
           ...filterBy,
-        });
-        commit("setActivities", { activities });
-        commit("setTotalActivityCount", { totalActivityCount });
+        })
+        commit('setActivities', {activities})
+        commit('setTotalActivityCount', {totalActivityCount})
       } catch (err) {
-        loggerService.error(
-          "[activityStore] [loadActivities] Failed to load activities",
-          err
-        );
+        loggerService.error('[activityStore] [loadActivities] Failed to load activities', err)
       } finally {
-        commit("setIsFetching", false);
+        commit('setIsFetching', false)
       }
     },
 
-    async addActivity({ rootGetters }, { activity }) {
-      const user =
-        rootGetters["user/loggedInUser"] ||
-        rootGetters["applicant/applicant"]?.info;
+    async addActivity({rootGetters}, {activity}) {
+      const user = rootGetters['user/loggedInUser'] || rootGetters['applicant/applicant']?.info
       const activityToAdd = {
         ...activity,
         user: userService.getMiniUser(user),
-      };
+      }
       try {
-        activityService.addActivity(activityToAdd);
+        activityService.addActivity(activityToAdd)
       } catch (err) {
-        loggerService.error(
-          "[activityStore] [addActivity] Failed to add activity",
-          activityToAdd,
-          err
-        );
+        loggerService.error('[activityStore] [addActivity] Failed to add activity', activityToAdd, err)
       }
     },
   },
-};
+}

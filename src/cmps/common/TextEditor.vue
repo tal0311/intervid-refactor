@@ -1,10 +1,6 @@
 <template>
   <div class="text-editor">
-    <quillEditor
-      v-model.trim:value="content"
-      :options="editorOption"
-      @change="onEditorChange($event)"
-    />
+    <quillEditor v-model.trim:value="content" :options="editorOption" @change="onEditorChange($event)" />
   </div>
 
   <!-- <div class="text-editor">
@@ -42,9 +38,9 @@
 </template>
 
 <script>
-import { quillEditor, Quill } from "vue3-quill";
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
+import {quillEditor, Quill} from 'vue3-quill'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
 
 export default {
   props: {
@@ -62,103 +58,101 @@ export default {
     return {
       editor: null,
       toolClassMap: {
-        code: "ql-code-block",
-        image: "ql-image",
-        link: "ql-link",
+        code: 'ql-code-block',
+        image: 'ql-image',
+        link: 'ql-link',
       },
 
-      content: "",
-      htmlContent: "",
+      content: '',
+      htmlContent: '',
       disabled: false,
       editorOption: {
-        placeholder: "",
+        placeholder: '',
         modules: {
           toolbar: [
-            [{ header: [1, 2, false] }],
-            ["bold", "italic", "underline"],
+            [{header: [1, 2, false]}],
+            ['bold', 'italic', 'underline'],
             // ["code", "link"], // this.props
           ],
         },
         // more options
       },
-    };
+    }
   },
 
   created() {
-    const { editorOption } = this;
-    editorOption.placeholder = this.placeholder;
-    editorOption.modules.toolbar.push(...this.tools);
+    const {editorOption} = this
+    editorOption.placeholder = this.placeholder
+    editorOption.modules.toolbar.push(...this.tools)
   },
 
   mounted() {
-    this.setup();
-    const scrollHeight = this.editor.scroll.domNode.scrollHeight;
-    this.editor.scroll.domNode.style.maxHeight = scrollHeight + "px";
+    this.setup()
+    const scrollHeight = this.editor.scroll.domNode.scrollHeight
+    this.editor.scroll.domNode.style.maxHeight = scrollHeight + 'px'
   },
 
   beforeUnmount() {
-    this.editor.off("text-change", this.update);
+    this.editor.off('text-change', this.update)
   },
 
   computed: {
     remainingCharCount() {
-      return this.charLimit - this.textLength;
+      return this.charLimit - this.textLength
     },
 
     textLength() {
-      if (!this.editor) return this.value && this.value.length;
-      return this.getLengthNoTags(this.editor.getText()) - 1;
+      if (!this.editor) return this.value && this.value.length
+      return this.getLengthNoTags(this.editor.getText()) - 1
     },
   },
 
   methods: {
-    onEditorChange({ quill, html, text }) {
-      this.htmlContent = html;
-      console.log("text", text);
-      console.log("htmlContent", html);
+    onEditorChange({html}) {
+      // {quill, html, text}
+      this.htmlContent = html
+      // console.log('text', text)
+      // console.log('htmlContent', html)
       // this.$emit("input", text)
     },
 
     setup() {
       this.editor = new Quill(this.$refs.editor, {
         modules: {
-          toolbar: "#toolbar" + this._uid,
+          toolbar: '#toolbar' + this._uid,
         },
         placeholder: this.placeholder,
-        theme: "snow",
-      });
-      this.editor.root.innerHTML = this.value || "";
-      this.editor.on("text-change", this.update);
+        theme: 'snow',
+      })
+      this.editor.root.innerHTML = this.value || ''
+      this.editor.on('text-change', this.update)
     },
 
     update() {
       if (this.remainingCharCount <= 0) {
-        return this.editor.deleteText(this.charLimit, this.editor.getLength());
+        return this.editor.deleteText(this.charLimit, this.editor.getLength())
       }
-      if (this.editor.root.innerHTML === this.value) return;
-      this.$emit(
-        "input",
-        this.editor.getText().length !== 1 ? this.editor.root.innerHTML : ""
-      );
-      const scrollHeight = this.editor.scroll.domNode.scrollHeight;
-      this.editor.scroll.domNode.style.maxHeight = scrollHeight + "px";
+      if (this.editor.root.innerHTML === this.value) return
+      this.$emit('input', this.editor.getText().length !== 1 ? this.editor.root.innerHTML : '')
+      const scrollHeight = this.editor.scroll.domNode.scrollHeight
+      this.editor.scroll.domNode.style.maxHeight = scrollHeight + 'px'
     },
 
     getLengthNoTags(richText) {
-      var div = document.createElement("div");
-      div.innerHTML = richText;
-      return div.innerText.length;
+      var div = document.createElement('div')
+      div.innerHTML = richText
+      return div.innerText.length
     },
   },
 
   watch: {
     currQuestIdx() {
-      this.setup();
+      this.setup()
     },
   },
 
   components: {
     quillEditor,
   },
-};
+}
 </script>

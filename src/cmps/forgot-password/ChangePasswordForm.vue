@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>{{ getTrans("change-your-password") }}</h1>
+    <h1>{{ getTrans('change-your-password') }}</h1>
     <form class="change-password-form" @submit.prevent="handleSubmit">
       <main-input
         inputName="password"
@@ -21,40 +21,40 @@
         styled="basic"
       />
       <slot></slot>
-      <button>{{ getTrans("change-password") }}</button>
+      <button>{{ getTrans('change-password') }}</button>
     </form>
   </section>
 </template>
 
 <script>
-import { validate } from "@/services/errorService";
+import {validate} from '@/services/errorService'
 
 export default {
   data() {
     return {
-      updated: "",
-      verifyUpdated: "",
+      updated: '',
+      verifyUpdated: '',
       errors: null,
-    };
+    }
   },
 
   unmounted() {
-    this.$store.dispatch("auth/clearAuthErr");
+    this.$store.dispatch('auth/clearAuthErr')
   },
 
   methods: {
-    handleSubmit({ target }) {
-      const { updated, verifyUpdated } = this;
-      this.errors = validate(target);
-      if (this.errors.length) return;
+    handleSubmit({target}) {
+      const {updated, verifyUpdated} = this
+      this.errors = validate(target)
+      if (this.errors.length) return
       if (updated !== verifyUpdated) {
         return this.errors.push({
-          msg: "PASS_NOT_MATCH_VALIDATE",
-          elName: "confirmPassword",
-        });
+          msg: 'PASS_NOT_MATCH_VALIDATE',
+          elName: 'confirmPassword',
+        })
       }
-      this.$emit("on-next-step", { updated, verifyUpdated });
+      this.$emit('on-next-step', {updated, verifyUpdated})
     },
   },
-};
+}
 </script>

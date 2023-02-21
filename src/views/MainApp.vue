@@ -1,22 +1,22 @@
 <template>
   <main class="main-app">
-    <screen />
+    <app-screen />
     <app-header />
     <RouterView />
-    <modal />
+    <app-modal />
   </main>
 </template>
 
 <script>
-import Screen from "@/cmps/common/modals/Screen.vue";
-import AppHeader from "@/cmps/AppHeader.vue";
-import Modal from "@/cmps/common/Modal.vue";
+import AppScreen from '@/cmps/common/modals/AppScreen.vue'
+import AppHeader from '@/cmps/AppHeader.vue'
+import AppModal from '@/cmps/common/AppModal.vue'
 
 export default {
   components: {
     AppHeader,
-    Modal,
-    Screen,
+    AppModal,
+    AppScreen,
   },
-};
+}
 </script>

@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import VideoPreview from "./VideoPreview.vue";
+import VideoPreview from './VideoPreview.vue'
 
 export default {
-  props: ["applicant", "quests", "selectedQuestIdx"],
+  props: ['applicant', 'quests', 'selectedQuestIdx'],
 
-  components: { VideoPreview },
-};
+  components: {VideoPreview},
+}
 </script>

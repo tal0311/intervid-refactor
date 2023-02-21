@@ -8,7 +8,7 @@ import {getDefaultFilter, getDefaultSort} from '@/services/constData.js'
 import {getTrans} from '@/services/i18nService.js'
 import {parseFilter, debounce, isEmpty} from '@/services/utilService.js'
 
-export function useOverview({}) {
+export function useOverview() {
   // composables
   const store = useStore()
   const router = useRouter()

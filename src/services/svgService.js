@@ -508,11 +508,11 @@ const SVG_ICONS = {
             <line x1="5" y1="519.5" x2="153" y2="519.5" />
         </svg>
     `,
-};
+}
 
 export function getSvg(svgName, width, height) {
-  if (typeof SVG_ICONS[svgName] === "function") {
-    return SVG_ICONS[svgName](width, height) || "";
+  if (typeof SVG_ICONS[svgName] === 'function') {
+    return SVG_ICONS[svgName](width, height) || ''
   }
-  return SVG_ICONS[svgName] || "";
+  return SVG_ICONS[svgName] || ''
 }

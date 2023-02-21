@@ -36,8 +36,8 @@ import AccountOverview from '@/views/backoffice/admin/account/AccountOverview.vu
 import RecordOverview from '@/views/backoffice/admin/record/RecordOverview.vue'
 import ActivityOverview from '@/views/backoffice/admin/activity/ActivityOverview.vue'
 
-import OnBoarding from '@/cmps/interview/onboarding/Onboarding.vue'
-import Interview from '@/cmps/interview/interview-app/Interview.vue'
+import OnboardingInterview from '@/cmps/interview/onboarding/OnboardingInterview.vue'
+import InterviewIndex from '@/cmps/interview/interview-app/InterviewIndex.vue'
 import InterviewEnd from '@/cmps/interview/interview-end/InterviewEnd.vue'
 import config from '@/config'
 import {advancedPermsMap} from '@/services/constData'
@@ -53,13 +53,13 @@ const routes = [
     children: [
       {
         path: '/',
-        name: 'OnBoarding',
-        component: OnBoarding,
+        name: 'OnboardingInterview',
+        component: OnboardingInterview,
       },
       {
         path: 'inprogress',
-        name: 'Interview',
-        component: Interview,
+        name: 'InterviewIndex',
+        component: InterviewIndex,
       },
       {
         path: 'end',
@@ -306,7 +306,7 @@ router.beforeEach(async (to, from, next) => {
   const isFromMidInterview = from.matched.some(
     (match) => match.path === '/interview/:jobId/inprogress' || match.path === '/interview/:jobId/end',
   )
-  if (isFromMidInterview && to.name === 'OnBoarding') {
+  if (isFromMidInterview && to.name === 'OnboardingInterview') {
     if (confirm('Are you sure?')) return next()
     return
   }

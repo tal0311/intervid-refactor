@@ -2,7 +2,7 @@
   <section class="not-found">
     <div class="info-container">
       <i class="material-icons">warning_amber</i>
-      <h2>{{ msg || getTrans("page-not-found") }}</h2>
+      <h2>{{ msg || getTrans('page-not-found') }}</h2>
     </div>
 
     <img
@@ -15,6 +15,6 @@
 
 <script>
 export default {
-  props: ["msg"],
-};
+  props: ['msg'],
+}
 </script>

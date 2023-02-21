@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-quest-edit-modal mobile-modal-content">
-    <button @click="onRemoveQuest">{{ getTrans("remove") }}</button>
+    <button @click="onRemoveQuest">{{ getTrans('remove') }}</button>
   </div>
 </template>
 
@@ -8,9 +8,9 @@
 export default {
   methods: {
     onRemoveQuest() {
-      this.$emit("on-close");
-      this.$emit("on-remove-quest");
+      this.$emit('on-close')
+      this.$emit('on-remove-quest')
     },
   },
-};
+}
 </script>

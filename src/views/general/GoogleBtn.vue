@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import { decodeCredential } from "vue3-google-login";
+import {decodeCredential} from 'vue3-google-login'
 // import { decodeCredential, googleTokenLogin } from "vue3-google-login";
 export default {
   methods: {
     async onSuccess(googleRes) {
-      const userData = decodeCredential(googleRes.credential);
-      console.log("Handle the userData", userData);
+      const userData = decodeCredential(googleRes.credential)
+      console.log('Handle the userData', userData)
 
       // const tokenLoginRes = await googleTokenLogin();
       // console.log("Handle the response - tokenLoginRes", tokenLoginRes);
@@ -30,8 +30,8 @@ export default {
     },
 
     onFailure(err) {
-      if (err) console.log("error from google login", err);
+      if (err) console.log('error from google login', err)
     },
   },
-};
+}
 </script>

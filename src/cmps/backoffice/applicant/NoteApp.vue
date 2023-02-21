@@ -1,45 +1,41 @@
 <template>
   <div class="note-app">
-    <h4>{{ getTrans("note") }}</h4>
+    <h4>{{ getTrans('note') }}</h4>
     <add-note :loggedInUser="loggedInUser" @add-note="onAddNote" />
     <note-preview v-if="lastNote" :note="lastNote" />
   </div>
 </template>
 
 <script>
-import { timelineService } from "@/services/timelineService";
+import {timelineService} from '@/services/timelineService'
 // import { activityMap } from '@/services/activityService'
 
-import NotePreview from "@/cmps/backoffice/applicant/NotePreview.vue";
-import AddNote from "@/cmps/backoffice/applicant/AddNote.vue";
+import NotePreview from '@/cmps/backoffice/applicant/NotePreview.vue'
+import AddNote from '@/cmps/backoffice/applicant/AddNote.vue'
 
 export default {
-  props: ["notes"],
+  props: ['notes'],
 
   computed: {
     loggedInUser() {
-      return this.$store.getters["user/loggedInUser"];
+      return this.$store.getters['user/loggedInUser']
     },
 
     lastNote() {
-      const lastNote = this.notes.reduce((acc, note, idx) => {
-        acc = !acc || acc.createdAt < note.createdAt ? note : acc;
-        return acc;
-      }, null);
-      return lastNote;
+      const lastNote = this.notes.reduce((acc, note) => {
+        acc = !acc || acc.createdAt < note.createdAt ? note : acc
+        return acc
+      }, null)
+      return lastNote
     },
   },
 
   methods: {
     onAddNote(note) {
-      const timeEvent = timelineService.noteEvent(
-        note.txt,
-        note.id,
-        note.timeStamp
-      );
-      const notes = [note, ...this.notes];
+      const timeEvent = timelineService.noteEvent(note.txt, note.id, note.timeStamp)
+      const notes = [note, ...this.notes]
       // this.addActivity('add', note)
-      this.$emit("save-notes", notes, timeEvent);
+      this.$emit('save-notes', notes, timeEvent)
     },
 
     // addActivity(type, note) {
@@ -53,5 +49,5 @@ export default {
     AddNote,
     NotePreview,
   },
-};
+}
 </script>

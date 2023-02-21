@@ -123,7 +123,7 @@ export function checkOnlineStatus() {
       if (speedKbps >= MIN_SPEED) return res(true)
       else return res(false)
     }
-    download.onerror = (ev) => {
+    download.onerror = () => {
       res(false)
     }
     startTime = new Date().getTime()

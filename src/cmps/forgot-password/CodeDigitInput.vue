@@ -14,36 +14,36 @@
 
 <script>
 export default {
-  props: ["idx"],
+  props: ['idx'],
 
   methods: {
     type(event) {
-      const key = event.key.replace(/\D/g, "");
+      const key = event.key.replace(/\D/g, '')
       if (key) {
-        event.preventDefault();
-        this.$emit("input", key);
+        event.preventDefault()
+        this.$emit('input', key)
         this.$nextTick(() => {
-          this.$emit("go-to", this.idx + 1);
-        });
+          this.$emit('go-to', this.idx + 1)
+        })
       } else if (!event.ctrlKey) {
-        event.preventDefault();
+        event.preventDefault()
       }
     },
 
     paste(event) {
-      let pastedVal = event.clipboardData.getData("text");
-      pastedVal = pastedVal.replace(/\D/g, "");
-      pastedVal = pastedVal.substring(0, this.length);
-      pastedVal = pastedVal.split("");
+      let pastedVal = event.clipboardData.getData('text')
+      pastedVal = pastedVal.replace(/\D/g, '')
+      pastedVal = pastedVal.substring(0, this.length)
+      pastedVal = pastedVal.split('')
       if (pastedVal) {
-        this.$emit("paste", pastedVal);
+        this.$emit('paste', pastedVal)
       }
     },
 
     moveInput(event) {
-      const diff = event.keyCode === 37 ? -1 : 1;
-      this.$emit("go-to", this.idx + diff);
+      const diff = event.keyCode === 37 ? -1 : 1
+      this.$emit('go-to', this.idx + diff)
     },
   },
-};
+}
 </script>

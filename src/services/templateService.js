@@ -1,6 +1,6 @@
-import httpService from "./httpService";
-import { getTrans } from "./i18nService";
-import { getFullName, getUrlParamsFromObj, makeId } from "./utilService";
+import httpService from './httpService'
+import {getTrans} from './i18nService'
+import {getFullName, getUrlParamsFromObj, makeId} from './utilService'
 
 export const templateService = {
   query,
@@ -13,76 +13,69 @@ export const templateService = {
   getDefaultQuests,
   createAns,
   getDefaultAnsRule,
-};
+}
 
-const ROUTE = "template";
+const ROUTE = 'template'
 
 async function query(filterBy) {
-  const filterUrlParam = getUrlParamsFromObj(filterBy);
-  return await httpService.get(ROUTE + filterUrlParam);
+  const filterUrlParam = getUrlParamsFromObj(filterBy)
+  return await httpService.get(ROUTE + filterUrlParam)
 }
 
 function getById(templateId) {
-  return httpService.get(`${ROUTE}/${templateId}`);
+  return httpService.get(`${ROUTE}/${templateId}`)
 }
 
 async function save(template) {
-  return template._id ? await _update(template) : await _add(template);
+  return template._id ? await _update(template) : await _add(template)
 }
 
 function _add(template) {
-  return httpService.post(ROUTE, template);
+  return httpService.post(ROUTE, template)
 }
 
 function _update(template) {
-  return httpService.put(ROUTE, template);
+  return httpService.put(ROUTE, template)
 }
 
 function remove(templateId) {
-  return httpService.delete(`${ROUTE}/${templateId}`);
+  return httpService.delete(`${ROUTE}/${templateId}`)
 }
 
 function getDefaultTemplates() {
-  return httpService.get(`${ROUTE}/default`);
+  return httpService.get(`${ROUTE}/default`)
 }
 
 function getDefaultTemplate() {
-  const createdAt = new Date();
+  const createdAt = new Date()
   return {
-    title: `${getTrans("new-template")} - ${createdAt.toLocaleDateString()}`,
+    title: `${getTrans('new-template')} - ${createdAt.toLocaleDateString()}`,
     quests: getDefaultQuests(),
-  };
+  }
 }
 
-function createQuest(
-  txt = getTrans("question"),
-  desc = "",
-  ansRule,
-  timeLimit = 5
-) {
+function createQuest(txt = getTrans('question'), desc = '', ansRule, timeLimit = 5) {
   return {
     id: makeId(),
     txt,
     desc,
-    vidUrl: "",
+    vidUrl: '',
     ansRule: ansRule || getDefaultAnsRule(true),
     timeLimit,
-  };
+  }
 }
 
 function getDefaultQuests() {
-  return [
-    createQuest("Introduce yourself", "<p>Tell us a bit about yourself</p>"),
-  ];
+  return [createQuest('Introduce yourself', '<p>Tell us a bit about yourself</p>')]
 }
 
 function createAns() {
   return {
     resTime: 0,
-    txt: "",
-    faceKey: "",
-    screenKey: "",
-  };
+    txt: '',
+    faceKey: '',
+    screenKey: '',
+  }
 }
 
 function getDefaultAnsRule(isNewAns) {
@@ -92,21 +85,14 @@ function getDefaultAnsRule(isNewAns) {
     isImgAns: false,
     isScreenAns: false,
     isCodeAns: false,
-  };
+  }
 }
 
 export function filterTemplates(templates, filterBy) {
-  const { txt, showArchived } = filterBy;
-  const regexTxt = new RegExp(txt || "", "i");
+  const {txt, showArchived} = filterBy
+  const regexTxt = new RegExp(txt || '', 'i')
   return templates.filter((temp) => {
-    if (showArchived)
-      return (
-        temp.archivedAt &&
-        (regexTxt.test(temp.name) || regexTxt.test(getFullName(temp.owner)))
-      );
-    return (
-      !temp.archivedAt &&
-      (regexTxt.test(temp.title) || regexTxt.test(getFullName(temp.owner)))
-    );
-  });
+    if (showArchived) return temp.archivedAt && (regexTxt.test(temp.name) || regexTxt.test(getFullName(temp.owner)))
+    return !temp.archivedAt && (regexTxt.test(temp.title) || regexTxt.test(getFullName(temp.owner)))
+  })
 }
