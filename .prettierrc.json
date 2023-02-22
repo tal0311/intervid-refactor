@@ -7,5 +7,6 @@
   "tabWidth": 2,
   "semi": false,
   "wrapAttributes": false,
-  "bracketSpacing": false
+  "bracketSpacing": false,
+  "endOfLine": "lf"
 }
