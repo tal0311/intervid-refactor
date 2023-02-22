@@ -3,21 +3,6 @@ import axios from 'axios'
 import {breakpoint} from './constData'
 import {getDateTrans, getTimeTrans} from './i18nService'
 
-export function getSortFunc(sort) {
-  return (a, b) => {
-    const modifier = sort.dir === 'desc' ? 1 : -1
-    const aVal = Object.byString(a, sort.by) || ''
-    const bVal = Object.byString(b, sort.by) || ''
-    if (!isNaN(+aVal)) {
-      return (+aVal - +bVal) * modifier
-    } else {
-      if (aVal.toLowerCase() < bVal.toLowerCase()) return -1 * modifier
-      if (aVal.toLowerCase() > bVal.toLowerCase()) return 1 * modifier
-      return 0
-    }
-  }
-}
-
 export function verifyBeforeExit(e) {
   e.preventDefault()
   var confirmationMessage = 'Are you sure you want to quit?'
