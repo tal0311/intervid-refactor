@@ -6,7 +6,7 @@ import {useStore} from 'vuex'
 // services & data
 import {getDefaultFilter, getDefaultSort} from '@/services/constData.js'
 import {getTrans} from '@/services/i18nService.js'
-import {parseFilter, debounce, isEmpty} from '@/services/utilService.js'
+import {debounce, isEmpty} from '@/services/utilService.js'
 
 export function useOverview() {
   // composables
