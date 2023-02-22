@@ -2,6 +2,7 @@
 import {detect} from 'detect-browser'
 import {getPlural} from './utilService'
 
+
 const browser = detect()
 
 const gTrans = {
@@ -1997,8 +1998,9 @@ const gTrans = {
 // avoiding the need to import the store in every file that needs to use them, and also avoiding
 // the need for a global mixin.
 // making this change will allow us to remove the store import from this file, which is causing problems, because of the circular dependency.
-export function getTrans(str) {
-  const currLng = store.getters['app/lang']
+
+export function getTrans(str, currLng = 'en') {
+  // const currLng = store.getters['app/lang']
   const translation = gTrans[str]
   if (!translation) return 'undefined'
   return translation[currLng]

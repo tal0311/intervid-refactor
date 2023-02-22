@@ -24,23 +24,27 @@ import BasicSelect from '@/cmps/common/BasicSelect.vue'
 import {clickOutside} from './directivs'
 
 import './assets/scss/global.scss'
-// import {getTrans} from './services/i18nService'
+import {getTrans} from './services/i18nService'
 // import {getSvg} from './services/svgService'
 import config from './config'
 
 import App from './App.vue'
 import router from './router'
 import store from './store'
-;(async function () {
-  const isInInterview = router.history._startLocation.startsWith('/interview')
-  if (isInInterview) return
-  if (tokenService.getToken()) {
-    store.dispatch('user/loadLoggedUser')
-  }
-})()
+
+// NOTE: remove this func, set it as guard in the router index. see:
+// ;(async function () {
+//   console.log('router.get', router)
+//   const isInInterview = router.history._startLocation.startsWith('/interview')
+//   if (isInInterview) return
+//   if (tokenService.getToken()) {
+//     store.dispatch('user/loadLoggedUser')
+//   }
+// })()
 
 // Accessibillty helper:
-;(function () {
+;import { i18nPlugin } from './plugins/i18n.plugin'
+(function () {
   window.interdeal = {
     sitekey: 'eb985e13938463d3b349126ea36d814e',
     Position: 'Start',
@@ -110,6 +114,9 @@ app.directive('click-outside', clickOutside)
 //     getSvg
 //   },
 // })
+app.use(i18nPlugin, {
+  getLang: ()=> store.getters['app/lang'],
+})
 
 app.use(VueSocialSharing)
 app.use(Vue3TouchEvents, {
@@ -141,7 +148,7 @@ app.use(vue3GoogleLogin, {
 //   // tagIDKeyName: 'vmid',
 //   refreshOnceOnNavigation: true,
 // });
-
+app.use(store)
 app.use(router)
 // app.use(router)
 app.mount('#app')
