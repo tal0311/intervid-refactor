@@ -1,6 +1,6 @@
 import {createApp} from 'vue'
 
-import VueHotjar from 'vue-hotjar-next'
+// import VueHotjar from 'vue-hotjar-next'
 // import VueAnalytics from "vue-analytics";
 // import VueMeta from "vue-meta";
 // import { directive as onclickOutside } from "vue-clickOutside2";
@@ -121,12 +121,12 @@ app.use(Vue3TouchEvents, {
   longTapTimeInterval: 400,
   namespace: 'touch',
 })
-app.use(VueHotjar, {
-  // id: '2047969',
-  id: '3214500',
-  isProduction: import.meta.env.PROD,
-  snippetVersion: 6,
-})
+// app.use(VueHotjar, {
+//   // id: '2047969',
+//   id: '3214500',
+//   isProduction: import.meta.env.PROD,
+//   snippetVersion: 6,
+// })
 app.use(vue3GoogleLogin, {
   clientId: '459352034354-5afbe95ab9e5ffu3dg5s974qm1qf0aia.apps.googleusercontent.com',
 })

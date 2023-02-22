@@ -6,7 +6,7 @@ var config
 
 if (import.meta.env.PROD) {
   // TODO: find the vite equivalent of process.env.VUE_APP_ENV
-  if (process.env.VUE_APP_ENV === 'staging') {
+  if (import.meta.env.VUE_APP_ENV === 'staging') {
     config = staging
   } else {
     config = production
