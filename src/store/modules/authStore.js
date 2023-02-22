@@ -57,6 +57,8 @@ export const auth = {
         commit('loginSuccess')
         await commit('user/setLoggedInUser', {user}, {root: true})
         // dispatch('activity/addActivity', activityMap.user({ type: 'login' }), { root: true })
+        console.log('login in store - after service');
+        
         router.push({name: 'ApplicantOverview'})
       } catch (err) {
         loggerService.error("[authStore] [login] - Couldn't login user:", userCred.email, err)

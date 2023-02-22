@@ -15,7 +15,7 @@
       :placeholder="placeholder || ' '"
       @input="onChange"
       :validate="validate"
-      :value="$attrs.value"
+      :value="$attrs.modelValue"
       :min="$attrs.min"
       :max="$attrs.max"
       @blur="onInputBlur"
@@ -31,7 +31,7 @@
       :placeholder="placeholder || ' '"
       @input="onChange"
       :validate="validate"
-      :value="$attrs.value || ''"
+      :value="$attrs.modelValue || ''"
       :rows="$attrs.rows"
       @blur="onInputBlur"
       spellcheck="false"
@@ -52,16 +52,17 @@ import ValidationMsg from '@/cmps/common/ValidationMsg.vue'
 
 export default {
   props: ['inputName', 'validate', 'label', 'errors', 'isTextarea', 'styled', 'placeholder', 'onBlur'],
-
+  inheritAttrs: false,
   data() {
     return {
       isPasswordShown: false,
     }
   },
-
   computed: {
     error() {
-      return this.errors?.find((err) => err.elName === this.inputName)?.msg
+      if (!Array.isArray(this.errors)) return null
+      const err = this.errors.find((err) => err.elName === this.inputName) || {}
+      return err.msg
     },
 
     onInputBlur() {
@@ -71,7 +72,7 @@ export default {
 
   methods: {
     onChange(ev) {
-      this.$emit('input', ev.target.value)
+      this.$emit('update:modelValue', ev.target.value)
       this.$emit('change', ev)
     },
 
