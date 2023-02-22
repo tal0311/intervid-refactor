@@ -1,5 +1,5 @@
 // core
-import {reactive, computed, onMounted} from 'vue'
+import {ref, computed, onMounted} from 'vue'
 // composables
 import {useQuery} from '@/composables/useQuery.js'
 // services & data
@@ -7,11 +7,8 @@ import {getDefaultFilter} from '@/services/constData.js'
 
 export function useFilter() {
   const {route, onSetQuery} = useQuery()
+  const filterBy = ref(getDefaultFilter(route.name))
 
-  // DATA
-  const filterBy = reactive(getDefaultFilter(route.name))
-
-  // COMPUTED
   const _shouldParseFilter = computed(() => {
     return !!Object.values(route.query).length
   })
@@ -28,7 +25,6 @@ export function useFilter() {
     }
   })
 
-  //   METHODS
   const _setDefaultFilter = () => {
     _setFilter(getDefaultFilter(route.name))
   }
@@ -65,7 +61,6 @@ export function useFilter() {
     _setFilter(parsedFilterBy)
   }
 
-  // LIFE CYCLE
   onMounted(() => {
     setFilterFromRoute()
   })

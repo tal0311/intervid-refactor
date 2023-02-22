@@ -32,14 +32,19 @@
 import TableList from '@/cmps/backoffice/TableList.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 // composables
-import {useOverview} from '@/composables/useOverview'
-// services
-import {getSortFunc} from '@/services/utilService'
+import {useFilter} from '@/composables/useFilter'
+import {useSort} from '@/composables/useSort'
+import {useSelection} from '@/composables/useSelection'
+import {usePagination} from '@/composables/usePaging'
 
 export default {
   setup() {
-    const {filterBy, sort, selectedItems, isSelected, onChangePage, onSort} = useOverview()
-    return {filterBy, sort, selectedItems, isSelected, onChangePage, onSort}
+    const {filterBy, onSetFilterByKey} = useFilter()
+    const {sort, onSort, sortFunc} = useSort()
+    const {selectedItems, isSelected} = useSelection()
+    const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
+
+    return {filterBy, onChangePage, sort, onSort, sortFunc, selectedItems, isSelected}
   },
   async created() {
     await this.loadUsers()
@@ -51,7 +56,7 @@ export default {
     },
 
     usersToShow() {
-      return this.users && this.users.slice().sort(getSortFunc(this.sort))
+      return this.users && this.users.slice().sort(this.sortFunc)
     },
 
     isFetching() {
