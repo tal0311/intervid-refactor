@@ -12,6 +12,7 @@ export function useQuery() {
   //   })
 
   const onSetQuery = debounce((query, path) => {
+    // TODO: Check if this is the best way to get the params
     const {params} = route || null
 
     const newRoute = {query}
