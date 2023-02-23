@@ -165,7 +165,7 @@ export default {
     },
 
     isDefaultSelect(advancedPerm) {
-      return userService.verifyPerm(advancedPerm, this.user)
+      return this.$store.getters['auth/verifyPerm'](advancedPerm, this.user)
     },
 
     onToggleAdvancedPerm(advancedPermKey) {

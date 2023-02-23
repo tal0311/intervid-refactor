@@ -82,6 +82,7 @@ export default {
   },
 
   computed: {
+
     isMobile() {
       return this.$store.getters['app/isMobile']
     },
@@ -138,7 +139,7 @@ export default {
     },
 
     verifyPerm(requiredPerm) {
-      return userService.verifyPerm(requiredPerm)
+      return this.$store.getters['auth/verifyPerm'](requiredPerm)
     },
   },
 

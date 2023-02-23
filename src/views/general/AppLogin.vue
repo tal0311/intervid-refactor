@@ -59,7 +59,6 @@ import {mapActions, mapGetters} from 'vuex'
 
 import GoogleBtn from './GoogleBtn.vue'
 
-
 export default {
   data() {
     return {

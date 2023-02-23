@@ -1,4 +1,5 @@
 import {isMobile, isMobileDevice} from '@/services/utilService'
+import { setLang } from '@/services/i18nService'
 import {detect} from 'detect-browser'
 console.log(import.meta.env.MODE)
 export const app = {
@@ -80,6 +81,7 @@ export const app = {
 
     setLang(state, {lang}) {
       state.lang = lang
+      setLang(lang)
     },
   },
 

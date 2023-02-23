@@ -1,6 +1,6 @@
 // import store from '@/store'
-import {detect} from 'detect-browser'
-import {getPlural} from './utilService'
+import { detect } from 'detect-browser'
+import { getPlural } from './utilService'
 
 
 const browser = detect()
@@ -443,7 +443,8 @@ const gTrans = {
   },
 
   // PAGE-SIGNUP
-  // TODO: FIND BETTER TRANSLATION - unisex
+  // TODO: FIND BETTER TRANSLATION - unisex 
+  //התחילו לקבל ראיונות מוקלטים בווידאו עוד היום  ?
   'signup-header': {
     en: 'Start receiving video recorded interviews today',
     he: 'התחל לקבל ראיונות מוקלטים בווידאו עוד היום',
@@ -1998,8 +1999,14 @@ const gTrans = {
 // avoiding the need to import the store in every file that needs to use them, and also avoiding
 // the need for a global mixin.
 // making this change will allow us to remove the store import from this file, which is causing problems, because of the circular dependency.
+const DEFAULT_LANG = 'en'
+var gLang = DEFAULT_LANG
 
-export function getTrans(str, currLng = 'en') {
+export function setLang(lang) {
+  gLang = lang
+}
+
+export function getTrans(str, currLng = gLang || DEFAULT_LANG) {
   // const currLng = store.getters['app/lang']
   const translation = gTrans[str]
   if (!translation) return 'undefined'
@@ -2084,12 +2091,13 @@ export function getAlertTrans(key, item, itemCount) {
     },
   }
 
-  const currLng = store.getters['app/lang']
+  // const currLng = store.getters['app/lang']
+  const currLng = gLang
   return gMsgTrans[key][currLng]
 }
 
 export function getDateTrans(date) {
-  const currLng = store.getters['app/lang']
+  const currLng = gLang
   const options = {
     month: 'short',
     day: 'numeric',
@@ -2112,7 +2120,7 @@ export function getTimeTrans(date, isIncludeSec) {
 }
 
 function _getLocaleLang() {
-  const currLng = store.getters['app/lang']
+  const currLng = gLang
   let langFormat = 'en-US'
   if (currLng === 'he') {
     langFormat = 'he-IL'

@@ -86,7 +86,7 @@ export default {
       setTimeout(() => (this.isWarning = false), 2500)
     },
     verifyPerm(requiredPerm) {
-      return userService.verifyPerm(requiredPerm)
+      return this.$store.getters['auth/verifyPerm'](requiredPerm)
     },
 
     openTimeStamp() {

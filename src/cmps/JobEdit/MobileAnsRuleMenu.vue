@@ -35,7 +35,7 @@ export default {
 
   methods: {
     verifyPerm(requiredPrm) {
-      return userService.verifyPerm(requiredPrm)
+      return this.$store.getters['auth/verifyPerm'](requiredPrm)
     },
   },
 }

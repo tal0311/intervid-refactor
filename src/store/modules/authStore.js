@@ -2,6 +2,7 @@ import {authService} from '../../services/authService'
 // import { activityMap } from '@/services/activityService'
 import {loggerService} from '@/services/loggerService'
 import router from '@/router'
+import { userService } from '../../services/userService'
 
 export const auth = {
   namespaced: true,
@@ -20,6 +21,11 @@ export const auth = {
     isAuthing(state) {
       return state.isAuthing
     },
+    verifyPerm: (state, getters, rootState, rootGetters)=> (requieredPerm)=> {
+      const user = rootGetters['user/loggedInUser']
+      const userAdvancedPerm = rootGetters['user/loggedInUserAdvancedPrm']
+      return userService.verifyPerm(requieredPerm, user, userAdvancedPerm)
+    }
   },
 
   mutations: {

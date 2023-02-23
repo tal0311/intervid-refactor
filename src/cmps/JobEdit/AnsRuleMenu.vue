@@ -112,7 +112,7 @@ export default {
     },
 
     verifyPerm(requiredPrm) {
-      return userService.verifyPerm(requiredPrm)
+      return this.$store.getters['auth/verifyPerm'](requiredPrm)
     },
 
     setAnsRule(ansRule) {

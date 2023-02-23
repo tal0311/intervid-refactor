@@ -286,7 +286,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // If permission required and there's no logged in user or no rellevant permission
-  if (!!requiredPerm && !userService.verifyPerm(requiredPerm)) {
+  if (!!requiredPerm && !store.getters['auth/verifyPerm'](requiredPerm)) {
     return next({name: 'ApplicantOverview'})
   }
 

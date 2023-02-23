@@ -37,7 +37,7 @@ export default {
 
   computed: {
     isFreeUser() {
-      return !userService.verifyPerm(advancedPermsMap.UNLIMITED_INTERVIEWS)
+      return !this.$store.getters['auth/verifyPerm'](advancedPermsMap.UNLIMITED_INTERVIEWS)
     },
 
     allChecked() {
