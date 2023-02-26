@@ -1,17 +1,17 @@
 <template>
   <div class="mobile-user-modal mobile-modal-content">
     <button @click="onGoTo('ApplicantOverview')">
-      {{ getTrans('backoffice') }}
+      {{ $getTrans('backoffice') }}
     </button>
     <button v-if="isAdmin" @click="onGoTo('AccountOverview')">
-      {{ getTrans('accounts') }}
+      {{ $getTrans('accounts') }}
     </button>
     <button v-if="isAdmin" @click="onGoTo('RecordOverview')">
-      {{ getTrans('logs') }}
+      {{ $getTrans('logs') }}
     </button>
-    <!-- <button v-if="isAdmin" @click="onGoTo('ActivityOverview')">{{ getTrans('activity') }}</button> -->
-    <button @click="onGoTo('UserMgmt')">{{ getTrans('profile') }}</button>
-    <button @click="onLogout">{{ getTrans('logout') }}</button>
+    <!-- <button v-if="isAdmin" @click="onGoTo('ActivityOverview')">{{ $getTrans('activity') }}</button> -->
+    <button @click="onGoTo('UserMgmt')">{{ $getTrans('profile') }}</button>
+    <button @click="onLogout">{{ $getTrans('logout') }}</button>
   </div>
 </template>
 

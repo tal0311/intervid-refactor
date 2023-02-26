@@ -1,7 +1,7 @@
 <template>
   <div class="org-user-edit">
     <h2>
-      {{ userToEdit ? getTrans('edit-user') : getTrans('add-user-to-organization') }}
+      {{ userToEdit ? $getTrans('edit-user') : $getTrans('add-user-to-organization') }}
       <button @click="closeModal" ref="close-btn" class="material-icons">close</button>
     </h2>
 
@@ -13,7 +13,7 @@
               v-if="!onlyEmail"
               type="text"
               inputName="firstName"
-              :placeholder="getTrans('first-name')"
+              :placeholder="$getTrans('first-name')"
               validate="required"
               v-model.trim="user.fName"
               :onBlur="validateField"
@@ -23,7 +23,7 @@
             <main-input
               v-if="!onlyEmail"
               inputName="lastName"
-              :placeholder="getTrans('last-name')"
+              :placeholder="$getTrans('last-name')"
               type="text"
               v-model.trim="user.lName"
               styled="basic"
@@ -31,7 +31,7 @@
             <main-input
               v-if="!onlyName"
               inputName="email"
-              :placeholder="getTrans('email')"
+              :placeholder="$getTrans('email')"
               type="email"
               validate="required|email"
               v-model.trim="user.email"
@@ -43,26 +43,26 @@
           <div v-if="!onlyEmail && !onlyName" class="img-upload-container">
             <div class="logo">
               <img-upload :initialImg="user.logoUrl" @upload="onSetImg('logo', $event)" />
-              <p>{{ getTrans('logo-image') }}</p>
+              <p>{{ $getTrans('logo-image') }}</p>
             </div>
             <div class="profile">
               <img-upload :initialImg="user.imgUrl" @upload="onSetImg('img', $event)" />
-              <p>{{ getTrans('profile-image') }}</p>
+              <p>{{ $getTrans('profile-image') }}</p>
             </div>
           </div>
         </div>
         <div class="user-permissions" v-if="isAdmin">
           <div>
-            <p class="title">{{ getTrans('plans') }}</p>
+            <p class="title">{{ $getTrans('plans') }}</p>
             <div class="permission-types">
               <label v-for="(perm, key, index) in permissions" :key="index">
                 <input type="radio" v-model="user.perm" :value="perm.id" />
-                <span>{{ getTrans(perm.id) }}</span>
+                <span>{{ $getTrans(perm.id) }}</span>
               </label>
             </div>
           </div>
           <div>
-            <p>{{ getTrans('exceptional-permissions') }}</p>
+            <p>{{ $getTrans('exceptional-permissions') }}</p>
             <div class="advanced-perms">
               <div
                 v-for="(advancedPerm, key, index) in advancedPermsMap"
@@ -75,13 +75,13 @@
                   @input="onToggleAdvancedPerm(advancedPerm.name)"
                   :disabled="isDefaultSelect(advancedPerm) || advancedPerm.isBlocked"
                 ></check-box>
-                <span>{{ getTrans(advancedPerm.name) }}</span>
+                <span>{{ $getTrans(advancedPerm.name) }}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button>{{ getTrans('save') }}</button>
+      <button>{{ $getTrans('save') }}</button>
     </form>
   </div>
 </template>
@@ -165,7 +165,7 @@ export default {
     },
 
     isDefaultSelect(advancedPerm) {
-      return userService.verifyPerm(advancedPerm, this.user)
+      return this.$store.getters['auth/verifyPerm'](advancedPerm, this.user)
     },
 
     onToggleAdvancedPerm(advancedPermKey) {

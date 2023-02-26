@@ -39,8 +39,8 @@ export default {}
         --rotate-x: rotatex(#{random(360) + deg});
         --rotate-y: rotatey(#{random(360) + deg});
         --rotate-z: rotatez(#{random(360) + deg});
-        --speed: #{(calc(random(200) + 150) / 100 + s)};
-        --delay: #{(calc(random(50) + 50) / 100 + s)};
+        --speed: #{(calc(calc(random(200) + 150) / 100) + s)};
+        --delay: #{(calc(calc(random(50) + 50) / 100) + s)};
         --translate-z: translatez(#{random(300) * -1 + px});
 
         background: hsl(random(360), 100%, 50%);

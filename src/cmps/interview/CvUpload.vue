@@ -1,7 +1,7 @@
 <template>
   <div class="cv-upload">
-    <h4>{{ getTrans('resume') }}</h4>
-    <small>{{ getTrans('be-sure-include-updated-resume') }}</small>
+    <h4>{{ $getTrans('resume') }}</h4>
+    <small>{{ $getTrans('be-sure-include-updated-resume') }}</small>
     <div ref="elDragDrop" class="drag-drop" v-if="cvUploadProgress === 0"></div>
     <validation-msg v-if="error" :error="error" />
     <small v-if="cvUploadProgress === 0">DOC, DOCX, PDF (4MB)</small>
@@ -14,7 +14,7 @@
         <div class="right">
           <div class="file-info">
             <p class="file-name">{{ fileName }}</p>
-            <p class="uploaded-at">{{ getTrans('uploaded-at') }} {{ createdAt }}</p>
+            <p class="uploaded-at">{{ $getTrans('uploaded-at') }} {{ createdAt }}</p>
           </div>
           <button type="button" @click="removeUploadedCv" v-if="cvUploadProgress === 100">
             <i class="material-icons">close</i>
@@ -33,7 +33,6 @@
 
 <script>
 import {uploaderService} from '@/services/uploaderService'
-import {formatDate} from '@/services/utilService'
 
 import DragDrop from '@uppy/drag-drop'
 import ValidationMsg from '@/cmps/common/ValidationMsg.vue'
@@ -57,7 +56,7 @@ export default {
 
   computed: {
     createdAt() {
-      return formatDate(this.uploadedAt)
+      return $formatDate(this.uploadedAt)
     },
 
     error() {
@@ -81,7 +80,7 @@ export default {
         height: '100%',
         locale: {
           strings: {
-            dropHereOr: this.getTrans('upload-resume'),
+            dropHereOr: this.$getTrans('upload-resume'),
           },
         },
       })

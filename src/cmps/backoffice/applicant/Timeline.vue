@@ -1,6 +1,6 @@
 <template>
   <section class="timeline-app">
-    <h4>{{ getTrans('timeline') }}</h4>
+    <h4>{{ $getTrans('timeline') }}</h4>
     <div class="timeline-list">
       <time-event-preview
         v-for="(timeEvent, idx) in timelineToShow"

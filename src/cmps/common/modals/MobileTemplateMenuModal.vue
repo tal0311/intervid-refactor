@@ -1,11 +1,11 @@
 <template>
   <div class="mobile-template-menu-modal mobile-modal-content">
-    <button @click="$emit('on-edit-template')">{{ getTrans('edit') }}</button>
+    <button @click="$emit('on-edit-template')">{{ $getTrans('edit') }}</button>
     <button v-if="!isDefault" @click="$emit('emit-action', 'default')">
-      {{ getTrans('make-default') }}
+      {{ $getTrans('make-default') }}
     </button>
     <button @click="$emit('emit-action', 'archive')">
-      {{ archivedAt ? getTrans('restore') : getTrans('archive') }}
+      {{ archivedAt ? $getTrans('restore') : $getTrans('archive') }}
     </button>
   </div>
 </template>

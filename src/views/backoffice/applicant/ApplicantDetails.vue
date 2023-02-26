@@ -42,7 +42,7 @@
     <div class="content">
       <div class="candidate-container">
         <div class="interview-container">
-          <h4>{{ getTrans('interview') }}</h4>
+          <h4>{{ $getTrans('interview') }}</h4>
           <div class="video-container" :class="{empty: !Object.keys(applicant.answerMap).length}">
             <div class="ans-player-container">
               <video-player
@@ -61,7 +61,7 @@
                       <i class="material-icons">expand_more</i>
                     </button>
                   </div>
-                  <p class="quest-desc" v-html="selectedQuest.desc || getTrans('no-description')"></p>
+                  <p class="quest-desc" v-html="selectedQuest.desc || $getTrans('no-description')"></p>
                 </div> -->
 
           <video-list
@@ -181,7 +181,7 @@ export default {
     },
 
     isFreeUser() {
-      return !userService.verifyPerm(advancedPermsMap.UNLIMITED_INTERVIEWS)
+      return !this.$store.getters['auth/verifyPerm'](advancedPermsMap.UNLIMITED_INTERVIEWS)
     },
   },
 

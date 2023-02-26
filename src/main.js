@@ -24,7 +24,7 @@ import BasicSelect from '@/cmps/common/BasicSelect.vue'
 import {clickOutside} from './directivs'
 
 import './assets/scss/global.scss'
-import {getTrans} from './services/i18nService'
+// import {getTrans} from './services/i18nService'
 // import {getSvg} from './services/svgService'
 import config from './config'
 

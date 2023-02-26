@@ -6,27 +6,27 @@
         <div class="content">
           <img v-if="coverUrl" :src="coverUrl" alt="job-cover" />
           <div class="greeting" :class="{'no-cover': !coverUrl}">
-            <h2>{{ getTrans('smile') }}</h2>
-            <p class="color">{{ getTrans('you-about-to-be-on-camera') }} ;)</p>
+            <h2>{{ $getTrans('smile') }}</h2>
+            <p class="color">{{ $getTrans('you-about-to-be-on-camera') }} ;)</p>
             <div class="time-container">
-              <p>{{ getTrans('please-make-sure-you-have') }}</p>
-              <span class="color">{{ `${totalDuration} ${getTrans('minutes')}` }}</span>
-              <p>{{ getTrans('to-complete-the-interview') }}</p>
+              <p>{{ $getTrans('please-make-sure-you-have') }}</p>
+              <span class="color">{{ `${totalDuration} ${$getTrans('minutes')}` }}</span>
+              <p>{{ $getTrans('to-complete-the-interview') }}</p>
             </div>
           </div>
         </div>
       </div>
-      <h3>{{ getTrans('before-the-interview-we-need-to-know-you') }}</h3>
+      <h3>{{ $getTrans('before-the-interview-we-need-to-know-you') }}</h3>
       <application-index />
       <form ref="form" novalidate @submit.prevent="validateForm">
         <p class="form-title">
-          {{ getTrans('fill-in-your-personal-details') }}
+          {{ $getTrans('fill-in-your-personal-details') }}
         </p>
         <div class="inputs">
           <div class="input-group">
             <main-input
               inputName="firstname"
-              :label="getTrans('first-name')"
+              :label="$getTrans('first-name')"
               validate="required"
               v-model.trim="applicantInfo.fName"
               :onBlur="validateField"
@@ -36,7 +36,7 @@
 
             <main-input
               inputName="lastname"
-              :label="getTrans('last-name')"
+              :label="$getTrans('last-name')"
               validate="required"
               v-model.trim="applicantInfo.lName"
               :onBlur="validateField"
@@ -48,7 +48,7 @@
           <main-input
             inputName="email"
             type="email"
-            :label="getTrans('email')"
+            :label="$getTrans('email')"
             validate="required|email"
             v-model.trim="applicantInfo.email"
             :onBlur="validateField"
@@ -58,7 +58,7 @@
 
           <main-input
             inputName="hometown"
-            :label="getTrans('hometown')"
+            :label="$getTrans('hometown')"
             validate="required"
             v-model.trim="applicantInfo.hometown"
             :onBlur="validateField"
@@ -69,7 +69,7 @@
           <main-input
             inputName="phone"
             type="tel"
-            :label="getTrans('phone')"
+            :label="$getTrans('phone')"
             validate="required|phone"
             v-model.trim="applicantInfo.phone"
             :onBlur="validateField"
@@ -82,8 +82,8 @@
           </div>
         </div>
         <div class="btn-container">
-          <button class="main-btn">{{ getTrans('continue') }}</button>
-          <span>{{ getTrans('the-interview-will-not-start-yet') }}</span>
+          <button class="main-btn">{{ $getTrans('continue') }}</button>
+          <span>{{ $getTrans('the-interview-will-not-start-yet') }}</span>
         </div>
       </form>
     </div>

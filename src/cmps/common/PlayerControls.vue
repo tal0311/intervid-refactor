@@ -33,7 +33,7 @@
         <div class="speed-container">
           <button class="setting-btn speed-btn" @click="toggleSpeedModal">
             <i class="material-icons">speed</i>
-            <span>{{ getTrans('speed') }}</span>
+            <span>{{ $getTrans('speed') }}</span>
           </button>
 
           <div class="speed-modal" :class="{open: isSpeedOpen}">
@@ -55,7 +55,7 @@
           @click="$emit('toggle-is-draggable-shown')"
         >
           <i class="material-icons">desktop_windows</i>
-          <span>{{ getTrans('add-screen') }}</span>
+          <span>{{ $getTrans('add-screen') }}</span>
         </button>
 
         <button
@@ -64,12 +64,12 @@
           @click="$emit('toggle-main-video')"
         >
           <i class="material-icons">cameraswitch</i>
-          <span>{{ getTrans('switch-screen') }}</span>
+          <span>{{ $getTrans('switch-screen') }}</span>
         </button>
 
         <button class="setting-btn fullscreen-btn" @click="$emit('toggle-fullscreen')">
           <i class="material-icons">{{ playerState.isFullScreen ? 'fullscreen' : 'fullscreen_exit' }}</i>
-          <span>{{ getTrans('full-screen') }}</span>
+          <span>{{ $getTrans('full-screen') }}</span>
         </button>
       </div>
     </div>

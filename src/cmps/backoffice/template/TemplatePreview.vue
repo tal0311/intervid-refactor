@@ -18,7 +18,7 @@
 
     <div class="use-template" @click.stop="">
       <button v-if="!$route.path.includes('archive')" class="use-template-btn" @click="onUseTemplate">
-        {{ getTrans('use') }}
+        {{ $getTrans('use') }}
       </button>
     </div>
 
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import {formatDate, getFullName} from '@/services/utilService'
+import { getFullName} from '@/services/utilService'
 import cloneDeep from 'lodash.clonedeep'
 
 import TemplateMenu from '@/cmps/backoffice/template/TemplateMenu.vue'
@@ -51,7 +51,7 @@ export default {
     templateCreationDate() {
       const date = this.template.createdAt
       if (!date) return 'None'
-      return formatDate(date)
+      return $formatDate(date)
     },
   },
 

@@ -7,7 +7,7 @@
         <div v-if="!!lastRecordedVideo" :class="{playing: isPlaying}" class="recorded-video-btn-container">
           <i class="material-icons" @click="onPlay">play_arrow</i>
           <p>
-            {{ getTrans('play-the-video-clip-to-see-how-youll-look-and-sound') }}
+            {{ $getTrans('play-the-video-clip-to-see-how-youll-look-and-sound') }}
           </p>
 
           <div v-if="!!lastRecordedVideo" class="progress">
@@ -29,9 +29,9 @@
         <div :class="{center: isSettingsOpen}" class="settings-info-container">
           <button class="back-btn" @click="isSettingsOpen = false">
             <i class="material-icons">arrow_back_ios</i>
-            {{ getTrans('go-back') }}
+            {{ $getTrans('go-back') }}
           </button>
-          <h2>{{ getTrans('settings') }}</h2>
+          <h2>{{ $getTrans('settings') }}</h2>
           <div class="device-select-container">
             <device-select
               v-if="!!mediaDevice.audio && !!selectedDevice.audio"
@@ -49,7 +49,7 @@
             />
           </div>
           <button class="reload-btn" @click="initVideoMixin">
-            {{ getTrans('reload-devices') }}
+            {{ $getTrans('reload-devices') }}
           </button>
         </div>
 
@@ -61,20 +61,20 @@
           }"
           v-if="!isLoading"
         >
-          <h2>{{ getTrans('preview-how-you-look-and-sound') }}</h2>
-          <p>{{ getTrans('record-and-play-a-short-video-sample-msg') }}</p>
+          <h2>{{ $getTrans('preview-how-you-look-and-sound') }}</h2>
+          <p>{{ $getTrans('record-and-play-a-short-video-sample-msg') }}</p>
           <div class="btn-container">
             <button class="main-btn" @click="onNextStep">
-              {{ getTrans('camera-and-audio-check') }}
+              {{ $getTrans('camera-and-audio-check') }}
             </button>
             <button class="link-btn" @click="isSettingsOpen = true">
-              {{ getTrans('update-settings') }}
+              {{ $getTrans('update-settings') }}
             </button>
           </div>
         </div>
 
         <div class="check-info-content media-check-loader" v-else>
-          <span>{{ getTrans('getting-ready-media-check') }}</span>
+          <span>{{ $getTrans('getting-ready-media-check') }}</span>
           <video-loader />
         </div>
 
@@ -86,11 +86,11 @@
             left: currStep > 1,
           }"
         >
-          <h2>{{ getTrans('say-something') }}</h2>
+          <h2>{{ $getTrans('say-something') }}</h2>
           <div>
-            <p>{{ getTrans('for-example') }}</p>
+            <p>{{ $getTrans('for-example') }}</p>
             <p class="bold">
-              {{ getTrans('im-just-testing-my-audio-and-video') }}
+              {{ $getTrans('im-just-testing-my-audio-and-video') }}
             </p>
           </div>
           <div class="timer">
@@ -111,13 +111,13 @@
         >
           <button class="back-btn" @click="resetCheck">
             <i class="material-icons">arrow_back_ios</i>
-            {{ getTrans('go-back') }}
+            {{ $getTrans('go-back') }}
           </button>
 
-          <h2>{{ getTrans('your-results') }}</h2>
+          <h2>{{ $getTrans('your-results') }}</h2>
 
           <p v-if="!isAllReady">
-            {{ getTrans('fix-the-issues-and-then-click-check-again') }}
+            {{ $getTrans('fix-the-issues-and-then-click-check-again') }}
           </p>
 
           <div class="device-list">
@@ -132,7 +132,7 @@
             >
               <i class="material-icons device">mic</i>
               <div class="device-status">
-                <p>{{ getTrans('microphone') }}</p>
+                <p>{{ $getTrans('microphone') }}</p>
                 <p>{{ microphoneStatus.txt }}</p>
               </div>
               <i class="material-icons arrow">chevron_right</i>
@@ -148,7 +148,7 @@
             >
               <i class="material-icons device">videocam</i>
               <div class="device-status">
-                <p>{{ getTrans('camera') }}</p>
+                <p>{{ $getTrans('camera') }}</p>
                 <p>{{ cameraStatus.txt }}</p>
               </div>
               <i class="material-icons arrow">chevron_right</i>
@@ -164,7 +164,7 @@
             >
               <i class="material-icons device">monitor</i>
               <div class="device-status">
-                <p>{{ getTrans('screen') }}</p>
+                <p>{{ $getTrans('screen') }}</p>
                 <p>{{ screenStatus.txt }}</p>
               </div>
               <i class="material-icons arrow">chevron_right</i>
@@ -180,7 +180,7 @@
             >
               <i class="material-icons device">wifi</i>
               <div class="device-status">
-                <p>{{ getTrans('connection') }}</p>
+                <p>{{ $getTrans('connection') }}</p>
                 <p>{{ connectionStatus.txt }}</p>
               </div>
               <i class="material-icons arrow">chevron_right</i>
@@ -190,12 +190,12 @@
           <div class="btn-container">
             <button class="link-btn" @click="checkAgain()" :class="{border: !isAllReady}">
               <i class="material-icons">cached</i>
-              <span>{{ getTrans('check-again') }}</span>
+              <span>{{ $getTrans('check-again') }}</span>
             </button>
 
             <button class="main-btn" @click="$emit('on-next-step')" v-if="isAllReady">
               <!-- <button class="main-btn" @click="$emit('on-next-step')"> -->
-              {{ getTrans('start-interview') }}
+              {{ $getTrans('start-interview') }}
             </button>
           </div>
         </div>
@@ -203,22 +203,22 @@
         <div class="error-info-container" :class="{center: !!selectedError}">
           <button class="back-btn" @click="selectedError = null">
             <i class="material-icons">arrow_back_ios</i>
-            {{ getTrans('go-back') }}
+            {{ $getTrans('go-back') }}
           </button>
           <div v-if="!!selectedError" class="error-info">
             <p class="error-title" :class="{'non-blocking': !selectedError.isBlocking}">
               <i class="material-icons">{{ errorIcon }}</i>
-              {{ getTrans(`${selectedError.type}_TITLE`) }}
+              {{ $getTrans(`${selectedError.type}_TITLE`) }}
             </p>
             <p class="error-txt">
-              {{ getTrans(`${selectedError.type}_TXT`) }}
+              {{ $getTrans(`${selectedError.type}_TXT`) }}
             </p>
             <p v-if="selectedError.desc" class="error-desc">
-              {{ getTrans(`${selectedError.type}_DESC${getAdditionTag(selectedError.type)}`) }}
+              {{ $getTrans(`${selectedError.type}_DESC${getAdditionTag(selectedError.type)}`) }}
             </p>
           </div>
           <button v-if="selectedError && selectedError.device === 'screen'" class="share-screen" @click="shareScreen">
-            {{ getTrans('share-screen') }}
+            {{ $getTrans('share-screen') }}
           </button>
           <device-select
             v-else-if="
@@ -314,13 +314,13 @@ export default {
       const errs = this.videoErrors.filter((err) => err.device === 'microphone')
       if (errs.length) {
         return {
-          txt: this.getTrans(`${errs[0].type}_TITLE`),
+          txt: this.$getTrans(`${errs[0].type}_TITLE`),
           isError: true,
           error: errs[0],
         }
       } else if (!this.isAudioReady) {
         return {
-          txt: this.getTrans('MIC_LOW_VOLUME_TITLE'),
+          txt: this.$getTrans('MIC_LOW_VOLUME_TITLE'),
           isError: true,
           error: videoErrorMap.MIC_LOW_VOLUME,
         }
@@ -331,13 +331,13 @@ export default {
       const errs = this.videoErrors.filter((err) => err.device === 'camera')
       if (errs.length)
         return {
-          txt: this.getTrans(`${errs[0].type}_TITLE`),
+          txt: this.$getTrans(`${errs[0].type}_TITLE`),
           isError: true,
           error: errs[0],
         }
       else if (!this.isFaceReady)
         return {
-          txt: this.getTrans('NOT_RECOGNIZED_TITLE'),
+          txt: this.$getTrans('NOT_RECOGNIZED_TITLE'),
           isError: true,
           error: videoErrorMap.NOT_RECOGNIZED,
         }
@@ -348,7 +348,7 @@ export default {
       const errs = this.screenErrors.filter((err) => err.device === 'screen')
       if (errs.length) {
         return {
-          txt: this.getTrans(`${errs[0].type}_TITLE`),
+          txt: this.$getTrans(`${errs[0].type}_TITLE`),
           isError: true,
           error: errs[0],
         }
@@ -359,7 +359,7 @@ export default {
       const errs = this.videoErrors.filter((err) => err.device === 'connection')
       if (errs.length)
         return {
-          txt: this.getTrans(`${errs[0].type}_TITLE`),
+          txt: this.$getTrans(`${errs[0].type}_TITLE`),
           isError: true,
           error: errs[0],
         }

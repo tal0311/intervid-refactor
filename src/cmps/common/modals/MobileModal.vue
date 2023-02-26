@@ -6,7 +6,7 @@
     :style="{transform: `translateY(${dragPercent + '%'}`}"
   >
     <div class="modal-header" v-touch:start="onDown" v-touch:end="onUp">
-      <h4>{{ getTrans(cmpName) }}</h4>
+      <h4>{{ $getTrans(cmpName) }}</h4>
     </div>
 
     <component

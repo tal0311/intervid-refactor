@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import {formatDate} from '@/services/utilService'
 import RecordDetails from '@/cmps/backoffice/admin/RecordDetails.vue'
 
 export default {
@@ -46,7 +45,7 @@ export default {
     formattedRecordDate() {
       const date = new Date(this.record.timestamp)
       if (!date) return 'None'
-      return formatDate(date, {
+      return $formatDate(date, {
         getFullDate: true,
         includeTime: true,
         includeSeconds: true,

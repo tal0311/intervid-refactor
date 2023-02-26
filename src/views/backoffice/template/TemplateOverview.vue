@@ -102,8 +102,8 @@ export default {
 
     overviewTitle() {
       return this.filterBy.showArchived
-        ? `${this.getTrans('templates')} (${this.getTrans('archive-lowercase')})`
-        : this.getTrans('templates')
+        ? `${this.$getTrans('templates')} (${this.$getTrans('archive-lowercase')})`
+        : this.$getTrans('templates')
     },
   },
 

@@ -10,17 +10,17 @@
         </div>
 
         <div v-if="isAlmostDone" class="time-is-running-out">
-          <p>{{ getTrans('time-is-running-out') }}</p>
+          <p>{{ $getTrans('time-is-running-out') }}</p>
         </div>
       </div>
       <div v-if="!isRecording" class="no-recording-err">
-        <p>{{ getTrans('recording-has-not-yet-begun') }}</p>
-        <p>{{ getTrans('to-begin-recording-click-start-recording') }}</p>
+        <p>{{ $getTrans('recording-has-not-yet-begun') }}</p>
+        <p>{{ $getTrans('to-begin-recording-click-start-recording') }}</p>
       </div>
 
       <div class="screen-preview-wrapper" v-if="isScreenAns" :class="{open: isScreenPreviewOpen}">
         <div class="screen-header">
-          <p>{{ getTrans('your-screen-is-being-captured') }}</p>
+          <p>{{ $getTrans('your-screen-is-being-captured') }}</p>
           <i class="material-icons" @click="toggleScreenPreview">expand_more</i>
         </div>
         <video ref="screenVideo" playsinline></video>

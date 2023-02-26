@@ -1,18 +1,18 @@
 <template>
   <section class="instructions">
     <div class="content">
-      <h2>{{ getTrans('you-ready-to-go') }}</h2>
+      <h2>{{ $getTrans('you-ready-to-go') }}</h2>
       <div class="top">
         <p>
-          {{ getTrans('the-interview-include') }} {{ questions }} {{ getTrans('and a total answer time of') }}
+          {{ $getTrans('the-interview-include') }} {{ questions }} {{ $getTrans('and a total answer time of') }}
           {{ totalTime }}
-          {{ getTrans('minutes') }}
+          {{ $getTrans('minutes') }}
         </p>
 
-        <p>{{ getTrans('click-to-start-the-interview') }}</p>
+        <p>{{ $getTrans('click-to-start-the-interview') }}</p>
       </div>
       <button class="main-btn" @click="$emit('on-next-step')">
-        {{ getTrans('start-interview') }}
+        {{ $getTrans('start-interview') }}
       </button>
     </div>
   </section>
@@ -27,7 +27,7 @@ export default {
 
     questions() {
       const questCount = this.job.quests.length
-      return questCount > 1 ? `${questCount} ${this.getTrans('questions')}` : this.getTrans('one-question')
+      return questCount > 1 ? `${questCount} ${this.$getTrans('questions')}` : this.$getTrans('one-question')
     },
 
     totalTime() {

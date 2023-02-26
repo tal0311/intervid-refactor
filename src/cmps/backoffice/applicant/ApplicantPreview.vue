@@ -18,7 +18,7 @@
 
     <div class="applicant-name">
       {{ applicantFullName }}
-      <span v-if="applicant.info.isPreview">({{ getTrans('demo') }})</span>
+      <span v-if="applicant.info.isPreview">({{ $getTrans('demo') }})</span>
     </div>
 
     <div class="job-title">
@@ -44,7 +44,7 @@ import {timelineService} from '@/services/timelineService'
 // import { activityMap } from '@/services/activityService'
 import {userService} from '@/services/userService'
 import {advancedPermsMap} from '@/services/constData'
-import {formatDate, getFullName} from '@/services/utilService'
+import { getFullName} from '@/services/utilService'
 import StatusDropdown from '@/cmps/common/statusDropdown.vue'
 import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
 
@@ -63,7 +63,7 @@ export default {
     },
 
     isFreeUser() {
-      return !userService.verifyPerm(advancedPermsMap.UNLIMITED_INTERVIEWS)
+      return !this.$store.getters['auth/verifyPerm'](advancedPermsMap.UNLIMITED_INTERVIEWS)
     },
   },
 
@@ -74,7 +74,7 @@ export default {
         : this.applicant.timestamp.submitted || this.applicant.timestamp.quited
 
       if (!date) return 'N/A'
-      return formatDate(date)
+      return $formatDate(date)
     },
 
     goToDetails() {

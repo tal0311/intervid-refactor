@@ -5,17 +5,17 @@
     </div>
     <div :class="{open: isOpen && !isMobile && loggedInUser}" class="user-modal">
       <button @click="onGoTo('ApplicantOverview')">
-        {{ getTrans('backoffice') }}
+        {{ $getTrans('backoffice') }}
       </button>
       <button v-if="isAdmin" @click="onGoTo('AccountOverview')">
-        {{ getTrans('accounts') }}
+        {{ $getTrans('accounts') }}
       </button>
       <button v-if="isAdmin" @click="onGoTo('RecordOverview')">
-        {{ getTrans('logs') }}
+        {{ $getTrans('logs') }}
       </button>
-      <!-- <button v-if="isAdmin" @click="onGoTo('ActivityOverview')">{{ getTrans('activity') }}</button> -->
-      <button @click="onGoTo('UserMgmt')">{{ getTrans('profile') }}</button>
-      <button @click="onLogout">{{ getTrans('logout') }}</button>
+      <!-- <button v-if="isAdmin" @click="onGoTo('ActivityOverview')">{{ $getTrans('activity') }}</button> -->
+      <button @click="onGoTo('UserMgmt')">{{ $getTrans('profile') }}</button>
+      <button @click="onLogout">{{ $getTrans('logout') }}</button>
     </div>
     <RouterLink v-if="!loggedInUser" class="link" :to="authPath.to">{{ authPath.txt }}</RouterLink>
 
@@ -53,8 +53,8 @@ export default {
 
     authPath() {
       return this.$route.path.includes('login')
-        ? {to: '/signup', txt: this.getTrans('signup')}
-        : {to: '/login', txt: this.getTrans('login')}
+        ? {to: '/signup', txt: this.$getTrans('signup')}
+        : {to: '/login', txt: this.$getTrans('login')}
     },
 
     isAdmin() {

@@ -2,7 +2,7 @@
   <section class="quest-edit">
     <i v-if="questsCount > 1" class="material-icons drag-indicator"> drag_indicator </i>
     <div class="quest-header">
-      <h4>{{ getTrans('question') }} {{ idx + 1 }}</h4>
+      <h4>{{ $getTrans('question') }} {{ idx + 1 }}</h4>
       <div class="quest-rules">
         <timelimit-menu :quest="mutableQuest" @change-timelimit="onUpdateQuest" />
         <ans-rule-menu :quest="mutableQuest" :isOneTry="isOneTry" @change-ans="onUpdateQuest" />
@@ -16,11 +16,11 @@
         <div class="answer-modal">
           <button type="button" class="menu-btn" @click="onDuplicateQuest">
             <i class="material-icons">content_copy</i>
-            {{ getTrans('duplicate') }}
+            {{ $getTrans('duplicate') }}
           </button>
           <button type="button" class="menu-btn remove" v-if="questsCount > 1" @click="onRemoveQuest">
             <i class="material-icons"> delete_outline </i>
-            {{ getTrans('remove') }}
+            {{ $getTrans('remove') }}
           </button>
         </div>
       </div>
@@ -30,7 +30,7 @@
       <div class="quest-title">
         <main-input
           :inputName="`quest-title-${mutableQuest.id}`"
-          :placeholder="getTrans('question')"
+          :placeholder="$getTrans('question')"
           validate="required"
           v-model.trim="mutableQuest.txt"
           :onBlur="validateField"
@@ -49,14 +49,14 @@
       </div>
 
       <div class="actions">
-        <i class="icon material-icons duplicate-btn" @click="onDuplicateQuest" :title="getTrans('duplicate')"
+        <i class="icon material-icons duplicate-btn" @click="onDuplicateQuest" :title="$getTrans('duplicate')"
           >content_copy</i
         >
         <i
           v-if="questsCount > 1"
           class="icon material-icons remove-btn"
           @click="onRemoveQuest"
-          :title="getTrans('remove')"
+          :title="$getTrans('remove')"
           >delete_outline</i
         >
       </div>

@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import {formatDate} from '@/services/utilService'
 import {timelineService} from '@/services/timelineService'
 import TimeEventMenu from './TimeEventMenu.vue'
 
@@ -33,7 +32,7 @@ export default {
     },
 
     formattedDate() {
-      return formatDate(this.timeEvent.createdAt)
+      return $formatDate(this.timeEvent.createdAt)
     },
 
     isNote() {

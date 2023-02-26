@@ -1,6 +1,6 @@
 // import store from '@/store'
-import {detect} from 'detect-browser'
-import {getPlural} from './utilService'
+import { detect } from 'detect-browser'
+
 
 
 const browser = detect()
@@ -443,7 +443,8 @@ const gTrans = {
   },
 
   // PAGE-SIGNUP
-  // TODO: FIND BETTER TRANSLATION - unisex
+  // TODO: FIND BETTER TRANSLATION - unisex 
+  //התחילו לקבל ראיונות מוקלטים בווידאו עוד היום  ?
   'signup-header': {
     en: 'Start receiving video recorded interviews today',
     he: 'התחל לקבל ראיונות מוקלטים בווידאו עוד היום',
@@ -1998,12 +1999,54 @@ const gTrans = {
 // avoiding the need to import the store in every file that needs to use them, and also avoiding
 // the need for a global mixin.
 // making this change will allow us to remove the store import from this file, which is causing problems, because of the circular dependency.
+const DEFAULT_LANG = 'en'
+var gLang = DEFAULT_LANG
 
-export function getTrans(str, currLng = 'en') {
+export function setLang(lang) {
+  gLang = lang
+}
+
+export function getTrans(str, currLng = gLang || DEFAULT_LANG) {
   // const currLng = store.getters['app/lang']
   const translation = gTrans[str]
   if (!translation) return 'undefined'
   return translation[currLng]
+}
+
+export function getPlural(word, count) {
+  return (count > 1 ? word + 's' : word)
+}
+
+
+/**
+ * Formats MS to any desired duration.
+ * With no options returns H:M h / M:S min / S sec
+ * @param {number} ms
+ * @param {{noWords:boolean,singleLetter:boolean,fullWord:boolean}} options
+ * @returns string
+ */
+export function formatDuration(ms, {noWords, singleLetter, fullWord} = {}, lang = DEFAULT_LANG) {
+  let seconds = ms / 1000
+  let minutes = parseInt(seconds / 60)
+  seconds = Math.round(seconds % 60)
+  const hours = parseInt(minutes / 60)
+  minutes = Math.round(minutes % 60)
+
+  const timeStr = hours ? _padNum(hours) + ':' + _padNum(minutes) : _padNum(minutes) + ':' + _padNum(seconds)
+
+  if (noWords) return timeStr
+
+  if (!minutes && !hours) {
+    const word = singleLetter ? 's' : fullWord ? getPlural('second', seconds) : 'sec'
+    return timeStr + ' ' + word
+  }
+  let word = hours ? 'h' : 'min'
+  if (singleLetter) {
+    word = hours ? 'h' : 'm'
+  } else if (fullWord) {
+    word = hours ? getPlural('hour', hours) : getPlural('minute', minutes)
+  }
+  return timeStr + ' ' + word
 }
 
 export function getAlertTrans(key, item, itemCount) {
@@ -2084,12 +2127,18 @@ export function getAlertTrans(key, item, itemCount) {
     },
   }
 
-  const currLng = store.getters['app/lang']
+  // const currLng = store.getters['app/lang']
+  const currLng = gLang
   return gMsgTrans[key][currLng]
 }
 
+
+export function formatNum(num, currLng = gLang) {
+  return new Intl.NumberFormat(currLng).format(num)
+}
+
 export function getDateTrans(date) {
-  const currLng = store.getters['app/lang']
+  const currLng = gLang
   const options = {
     month: 'short',
     day: 'numeric',
@@ -2101,18 +2150,33 @@ export function getDateTrans(date) {
   return dateStr.split(' ').reverse().join(' ')
 }
 
-export function getTimeTrans(date, isIncludeSec) {
+
+export function formatDate(date, options = {lang: DEFAULT_LANG}) {
+  if (typeof date === 'string' || typeof date === 'number') date = new Date(date)
+  const now = new Date()
+  if (!options.getFullDate && now.getFullYear() === date.getFullYear()) {
+    if (now.getDate() === date.getDate() && now.getMonth() === date.getMonth()) {
+      return getTimeTrans(date, options.includeSeconds, options.lang)
+    } else {
+      return getDateTrans(date)
+    }
+  } else {
+    var timeStr = getTimeTrans(date, options.includeSeconds, options.lang)
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${options.includeTime ? timeStr : ''}`
+  }
+}
+
+export function getTimeTrans(date, isIncludeSec, lang) {
   const options = {
     hour: '2-digit',
     minute: '2-digit',
   }
   if (isIncludeSec) options.second = '2-digit'
-  const currLang = _getLocaleLang()
+  const currLang = _getLocaleLang(lang)
   return date.toLocaleTimeString(currLang, options)
 }
 
-function _getLocaleLang() {
-  const currLng = store.getters['app/lang']
+function _getLocaleLang(currLng = gLang) {
   let langFormat = 'en-US'
   if (currLng === 'he') {
     langFormat = 'he-IL'

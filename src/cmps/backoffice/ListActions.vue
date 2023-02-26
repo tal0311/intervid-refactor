@@ -4,7 +4,7 @@
       <i
         class="material-icons bottom-tooltip"
         @click="$emit('archive')"
-        :data-tooltip="filterBy.showArchived ? getTrans('restore') : getTrans('archive')"
+        :data-tooltip="filterBy.showArchived ? $getTrans('restore') : $getTrans('archive')"
       >
         {{ filterBy.showArchived ? 'unarchive' : 'archive' }}
       </i>

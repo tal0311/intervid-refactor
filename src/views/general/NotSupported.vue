@@ -1,8 +1,8 @@
 <template>
   <div class="not-supported">
     <i class="material-icons">warning_amber</i>
-    <h1>{{ getTrans(`${err.type}_TXT`) }}</h1>
-    <h3>{{ getTrans(`${err.type}_DESC`) }}</h3>
+    <h1>{{ $getTrans(`${err.type}_TXT`) }}</h1>
+    <h3>{{ $getTrans(`${err.type}_DESC`) }}</h3>
 
     <!-- Chrome -->
     <div class="browser-list">

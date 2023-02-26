@@ -1,7 +1,7 @@
 // import store from '@/store'
 import axios from 'axios'
 import {breakpoint} from './constData'
-import {getDateTrans, getTimeTrans} from './i18nService'
+import {getDateTrans, getTimeTrans, getPlural} from './i18nService'
 
 // added this back here temporarly to prevent error until migration of useSort is done
 export function getSortFunc(sort) {
@@ -33,52 +33,6 @@ export function secondsToTime(seconds, {isMinutes} = {}) {
   const secs = Math.floor(divisorForSecs)
   if (isMinutes) return `${mins}:${_padNum(secs)}`
   return `${hrs ? _padNum(hrs) + ':' : ''}${_padNum(mins)}:${_padNum(secs)}`
-}
-
-/**
- * Formats MS to any desired duration.
- * With no options returns H:M h / M:S min / S sec
- * @param {number} ms
- * @param {{noWords:boolean,singleLetter:boolean,fullWord:boolean}} options
- * @returns string
- */
-export function formatDuration(ms, {noWords, singleLetter, fullWord} = {}) {
-  let seconds = ms / 1000
-  let minutes = parseInt(seconds / 60)
-  seconds = Math.round(seconds % 60)
-  const hours = parseInt(minutes / 60)
-  minutes = Math.round(minutes % 60)
-
-  const timeStr = hours ? _padNum(hours) + ':' + _padNum(minutes) : _padNum(minutes) + ':' + _padNum(seconds)
-
-  if (noWords) return timeStr
-
-  if (!minutes && !hours) {
-    const word = singleLetter ? 's' : fullWord ? getPlural('second', seconds) : 'sec'
-    return timeStr + ' ' + word
-  }
-  let word = hours ? 'h' : 'min'
-  if (singleLetter) {
-    word = hours ? 'h' : 'm'
-  } else if (fullWord) {
-    word = hours ? getPlural('hour', hours) : getPlural('minute', minutes)
-  }
-  return timeStr + ' ' + word
-}
-
-export function formatDate(date, options = {}) {
-  if (typeof date === 'string' || typeof date === 'number') date = new Date(date)
-  const now = new Date()
-  if (!options.getFullDate && now.getFullYear() === date.getFullYear()) {
-    if (now.getDate() === date.getDate() && now.getMonth() === date.getMonth()) {
-      return getTimeTrans(date, options.includeSeconds)
-    } else {
-      return getDateTrans(date)
-    }
-  } else {
-    var timeStr = getTimeTrans(date, options.includeSeconds)
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${options.includeTime ? timeStr : ''}`
-  }
 }
 
 export function makeId(length = 6) {
@@ -117,9 +71,6 @@ function _padNum(num) {
   return num >= 10 ? num : '0' + num
 }
 
-export const getPlural = (word, count) => (count > 1 ? word + 's' : word)
-
-export const formatNum = (num) => new Intl.NumberFormat().format(num)
 
 export const paginate = (items, currPage = 0, itemsPerPage = 30) => {
   return items.filter((item, index) => {

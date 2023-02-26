@@ -9,8 +9,8 @@
             <div :style="{width: donePercent + '%'}" class="inner"></div>
           </div>
           <div class="uploading-msg">
-            <p>{{ getTrans('do-not-close-this-window') }}</p>
-            <p>{{ getTrans('your-inteview-recordings-uploaded') }}</p>
+            <p>{{ $getTrans('do-not-close-this-window') }}</p>
+            <p>{{ $getTrans('your-inteview-recordings-uploaded') }}</p>
           </div>
         </div>
 
@@ -18,9 +18,9 @@
           <div class="no-network-modal">
             <div class="head-container">
               <i class="material-icons"> wifi_off </i>
-              <p>{{ getTrans('no-internet-connection') }}</p>
+              <p>{{ $getTrans('no-internet-connection') }}</p>
             </div>
-            <p>{{ getTrans('make-sure-wifi-connected') }}</p>
+            <p>{{ $getTrans('make-sure-wifi-connected') }}</p>
           </div>
         </div>
       </div>
@@ -29,9 +29,9 @@
     <template v-else>
       <div class="goodbye">
         <div class="content">
-          <h1>{{ getTrans('thanks') }}</h1>
-          <p>{{ getTrans('your-application-has-been-successfully-sent') }}</p>
-          <p>{{ getTrans('well-be-in-touch-with-you-as-soon-as-possible') }}</p>
+          <h1>{{ $getTrans('thanks') }}</h1>
+          <p>{{ $getTrans('your-application-has-been-successfully-sent') }}</p>
+          <p>{{ $getTrans('well-be-in-touch-with-you-as-soon-as-possible') }}</p>
         </div>
         <img
           loading="lazy"

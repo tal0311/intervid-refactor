@@ -3,23 +3,23 @@
     <app-loader v-if="isAuthing" />
 
     <div v-else-if="!token && user" class="confirm-email">
-      <h1>{{ getTrans('confirm-your-email') }}</h1>
+      <h1>{{ $getTrans('confirm-your-email') }}</h1>
       <p>
-        {{ `${getTrans('confirm-to-activate')}` }} <span>{{ email }}</span>
+        {{ `${$getTrans('confirm-to-activate')}` }} <span>{{ email }}</span>
       </p>
       <button @click="sendEmailAgain">
-        {{ getTrans('send-email-again') }}
+        {{ $getTrans('send-email-again') }}
       </button>
     </div>
 
     <div v-else-if="authError" class="confirmation-failed">
-      <h2>{{ getTrans('email-confirmation-failed') }}</h2>
+      <h2>{{ $getTrans('email-confirmation-failed') }}</h2>
       <div>
-        <p>{{ getTrans('confirmation-code-doesnt-match') }}</p>
-        <p>{{ getTrans('try-resend-confirmation-email') }}</p>
+        <p>{{ $getTrans('confirmation-code-doesnt-match') }}</p>
+        <p>{{ $getTrans('try-resend-confirmation-email') }}</p>
       </div>
       <button @click="sendEmailAgain">
-        {{ getTrans('send-email-again') }}
+        {{ $getTrans('send-email-again') }}
       </button>
     </div>
   </section>

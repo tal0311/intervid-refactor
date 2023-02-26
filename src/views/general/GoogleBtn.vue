@@ -3,7 +3,7 @@
     <google-login :callback="onSuccess" :error="onFailure" />
 
     <!-- <GoogleLogin popup-type="CODE">
-      <button @click="onSuccess">{{ getTrans("continue-with-google") }}</button>
+      <button @click="onSuccess">{{ $getTrans("continue-with-google") }}</button>
     </GoogleLogin> -->
 
     <img

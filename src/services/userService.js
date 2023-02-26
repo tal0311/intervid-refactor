@@ -3,6 +3,8 @@ import httpService from './httpService'
 // import store from '../store'
 import {_handleCancelRequest} from './utilService'
 
+
+
 export const userService = {
   query,
   getById,
@@ -70,10 +72,8 @@ function verifyApplicant(applicantId, code) {
   })
 }
 
-// TODO: This should probably be a getter in the store, see https://vuex.vuejs.org/guide/getters.html#property-style-access
-// making this a getter will allow us to remove the store import from this file, which is causing problems, because of the circular dependency.
-function verifyPerm(requieredPerm, user = store.getters['user/loggedInUser']) {
-  const userAdvancedPerm = store.getters['user/loggedInUserAdvancedPrm']
+function verifyPerm(requieredPerm, user, userAdvancedPerm) {
+  if (!user) return
   const userPerm = Object.values(permissions).find((perm) => perm.id === user.perm)
   return (
     !requieredPerm.isBlocked &&

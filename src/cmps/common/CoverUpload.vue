@@ -7,19 +7,19 @@
     </div>
 
     <button v-if="initialCover" type="button" @click="toggleModal('change-cover')" class="open-modal">
-      {{ getTrans('change-cover') }}
+      {{ $getTrans('change-cover') }}
     </button>
 
     <div v-if="isOpen" @click="toggleModal('change-cover')" class="modal-wrapper">
       <div class="modal-content" @click.stop="">
         <div class="modal-header">
           <div class="modal-header-content">
-            <h1>{{ getTrans('select-cover-image') }}</h1>
+            <h1>{{ $getTrans('select-cover-image') }}</h1>
             <div class="search-input">
               <main-input
                 @input="onGetImgs"
                 inputName="search"
-                :placeholder="getTrans('search')"
+                :placeholder="$getTrans('search')"
                 v-model.trim="value"
                 styled="basic"
               />
@@ -44,7 +44,7 @@
 
           <section v-else class="your-files">
             <p>
-              {{ getTrans('your-files') }}
+              {{ $getTrans('your-files') }}
               <i
                 class="material-icons info-tooltip"
                 data-tooltip="we supports all image files types such as JPG, PNG, GIF, WEBP"
@@ -55,7 +55,7 @@
             <div class="img-container">
               <label class="upload-label" :for="`upload-${id}`">
                 <i class="material-icons">add</i>
-                <p>{{ getTrans('browse') }}</p>
+                <p>{{ $getTrans('browse') }}</p>
               </label>
 
               <input
@@ -69,7 +69,7 @@
 
               <div class="remove-cover" @click="onRemoveCover">
                 <i class="material-icons">image_not_supported</i>
-                <p>{{ getTrans('no-cover') }}</p>
+                <p>{{ $getTrans('no-cover') }}</p>
               </div>
 
               <img
@@ -85,7 +85,7 @@
           </section>
 
           <section class="site-files" v-if="user.coverUrls && !imgs">
-            <p>{{ getTrans('site-files') }}</p>
+            <p>{{ $getTrans('site-files') }}</p>
             <div class="img-container">
               <img
                 v-for="img in coverImgs"
@@ -101,7 +101,7 @@
         </div>
 
         <button type="button" @click="onAddCover" class="select-btn">
-          {{ getTrans('select') }}
+          {{ $getTrans('select') }}
         </button>
       </div>
     </div>

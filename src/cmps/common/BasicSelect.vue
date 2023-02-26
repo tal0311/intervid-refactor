@@ -6,8 +6,8 @@
       <div :id="'select' + id" class="selected" :class="{open: open}" @click="open = !open" v-if="selected">
         {{ selected.txt }}
 
-        <!-- Note: We can't use getTrans here! - rendering user emails on ActivityFilter -->
-        <!-- {{  getTrans(selected.txt)  }} -->
+        <!-- Note: We can't use $getTrans here! - rendering user emails on ActivityFilter -->
+        <!-- {{  $getTrans(selected.txt)  }} -->
 
         <i class="material-icons">expand_more</i>
       </div>
@@ -16,8 +16,8 @@
         <div v-for="(option, i) of options" :key="i" @click="onSelect(option)">
           {{ option.txt }}
 
-          <!-- Note: We can't use getTrans here! - rendering user emails on ActivityFilter -->
-          <!-- {{  getTrans(option.txt)  }} -->
+          <!-- Note: We can't use $getTrans here! - rendering user emails on ActivityFilter -->
+          <!-- {{  $getTrans(option.txt)  }} -->
         </div>
       </div>
     </div>

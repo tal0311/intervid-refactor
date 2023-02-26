@@ -1,14 +1,14 @@
 <template>
   <section class="quest-edit" v-if="mutableQuest">
     <div class="quest-header">
-      <h4>{{ getTrans('question') }} #{{ idx + 1 }}</h4>
+      <h4>{{ $getTrans('question') }} #{{ idx + 1 }}</h4>
       <quest-menu @on-remove-quest="onRemoveQuest" :quest="mutableQuest" />
     </div>
 
     <div class="quest-content">
       <main-input
         :inputName="`txt-${mutableQuest.id}`"
-        :placeholder="getTrans('question')"
+        :placeholder="$getTrans('question')"
         validate="required"
         v-model.trim="mutableQuest.txt"
         :onBlur="validateField"
@@ -23,7 +23,7 @@
 
       <p class="toggle-desc-btn" @click="isDesc = !isDesc">
         <i class="material-icons md-16">{{ isDesc ? 'remove' : 'add' }}</i>
-        <span>{{ isDesc ? getTrans('remove-description') : getTrans('add-description') }}</span>
+        <span>{{ isDesc ? $getTrans('remove-description') : $getTrans('add-description') }}</span>
       </p>
     </div>
 
@@ -76,8 +76,8 @@ export default {
     },
 
     pluralMinute() {
-      if (!this.mutableQuest.timeLimit) return this.getTrans('minute')
-      return this.getTrans(this.mutableQuest.timeLimit > 1 ? 'minutes' : 'minute')
+      if (!this.mutableQuest.timeLimit) return this.$getTrans('minute')
+      return this.$getTrans(this.mutableQuest.timeLimit > 1 ? 'minutes' : 'minute')
     },
 
     ansRuleValue() {

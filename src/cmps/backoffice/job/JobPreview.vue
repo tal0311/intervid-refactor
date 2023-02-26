@@ -36,8 +36,8 @@
     </div>
 
     <div class="link" @click.stop="onCopyUrl">
-      <i class="material-icons" :title="getTrans('copy-link')">link</i>
-      <p>{{ getTrans('copy-link') }}</p>
+      <i class="material-icons" :title="$getTrans('copy-link')">link</i>
+      <p>{{ $getTrans('copy-link') }}</p>
     </div>
 
     <div class="actions" @click.stop="">
@@ -81,12 +81,12 @@
         </div>
       </div>
 
-      <div class="bottom-line">{{ job.applicantSummary.applicantCount }} {{ getTrans('applicants') }}</div>
+      <div class="bottom-line">{{ job.applicantSummary.applicantCount }} {{ $getTrans('applicants') }}</div>
     </div>
 
     <div class="link" @click.stop="onCopyUrl">
-      <i class="material-icons" :title="getTrans('copy-link')">link</i>
-      <p>{{ getTrans('copy-link') }}</p>
+      <i class="material-icons" :title="$getTrans('copy-link')">link</i>
+      <p>{{ $getTrans('copy-link') }}</p>
     </div>
   </section>
 </template>
@@ -94,7 +94,6 @@
 <script>
 import {ref} from 'vue'
 import {msgService} from '@/services/msgService'
-import {formatDate} from '@/services/utilService'
 
 import JobMenu from '@/cmps/backoffice/job/JobMenu.vue'
 import Avatar from '@/cmps/common/ApplicantAvatar.vue'
@@ -135,7 +134,7 @@ export default {
     jobCreationDate() {
       const date = this.job.createdAt
       if (!date) return 'None'
-      return formatDate(date)
+      return $formatDate(date)
     },
   },
 
