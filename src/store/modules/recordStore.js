@@ -42,10 +42,13 @@ export const record = {
   },
 
   actions: {
-    async loadRecords({commit}, {filterBy, sort}) {
+    async loadRecords({commit, dispatch}, {filterBy, sort}) {
       commit('setIsFetching', true)
       try {
-        const {records, totalRecordCount} = await recordService.query(filterBy, sort)
+        // #HANDLE CANCEL
+        const key = 'record/query'
+        const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
+        const {records, totalRecordCount} = await recordService.query(filterBy, sort, cancelToken)
         commit('settotalRecordCount', {totalRecordCount})
         commit('setRecords', {records})
       } catch (err) {

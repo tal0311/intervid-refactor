@@ -1,5 +1,6 @@
+import axios from 'axios'
 import {isMobile, isMobileDevice} from '@/services/utilService'
-import { setLang } from '@/services/i18nService'
+import {setLang} from '@/services/i18nService'
 import {detect} from 'detect-browser'
 console.log(import.meta.env.MODE)
 export const app = {
@@ -86,6 +87,12 @@ export const app = {
   },
 
   actions: {
+    handleCancelRequest({commit, dispatch}, key) {
+      const source = axios.CancelToken.source()
+      dispatch('cancelRequest', key)
+      commit('setCancelRequest', {cancel: source.cancel, key})
+      return source.token
+    },
     cancelRequest({state}, key) {
       if (!state.cancelRequestMap[key]) return
       state.cancelRequestMap[key](`Request ${key} Cancelled`)

@@ -1,13 +1,13 @@
 import httpService from './httpService'
-import {getUrlParamsFromObj, _handleCancelRequest} from './utilService'
+import {getUrlParamsFromObj} from './utilService'
 
 export const recordService = {
   query,
 }
 
-function query(filterBy, sort) {
-  const key = 'record/query'
-  const token = _handleCancelRequest(key)
+function query(filterBy, sort, cancelToken) {
+  // const key = 'record/query'
+  // const token = _handleCancelRequest(key)
   const {itemsPerPage, currPage} = filterBy
   delete filterBy.itemsPerPage
   delete filterBy.currPage
@@ -17,7 +17,7 @@ function query(filterBy, sort) {
     'get',
     `record?limit=${itemsPerPage}&skip=${currPage * itemsPerPage}&${filterQuery.substring(1)}`,
     null,
-    {cancelToken: token},
+    {cancelToken},
   )
   // return httpService.get(`record?limit=${itemsPerPage}&skip=${currPage * itemsPerPage}&${filterQuery.substr(1)}`)
 }

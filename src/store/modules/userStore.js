@@ -78,10 +78,13 @@ export const user = {
   },
 
   actions: {
-    async loadUsers({commit}) {
+    async loadUsers({commit, dispatch}) {
       commit('setIsFetching', true)
       try {
-        const users = await userService.query()
+        // #HANDLE CANCEL
+        const key = 'job/getExpectedApplicantCount'
+        const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
+        const users = await userService.query(cancelToken)
         commit('setUsers', {users})
       } catch (err) {
         console.log('Error from user store, loadUsers', err)

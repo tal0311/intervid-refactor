@@ -114,7 +114,7 @@ import VideoList from '@/cmps/backoffice/applicant/VideoList.vue'
 import ApplicantEdit from '@/cmps/backoffice/applicant/ApplicantEdit.vue'
 import ApplicantMenu from '@/cmps/backoffice/applicant/ApplicantMenu.vue'
 import CvMenu from '@/cmps/backoffice/applicant/CvMenu.vue'
-import {userService} from '@/services/userService'
+// import {userService} from '@/services/userService'
 
 export default {
   data() {
@@ -207,7 +207,10 @@ export default {
 
     async loadApplicantVideos() {
       const {applicantId} = this.$route.params
-      const {answerMap} = await jobService.getApplicantVideos(applicantId, this.job._id)
+      // #HANDLE CANCEL
+      const key = 'job/getApplicantVideos'
+      const cancelToken = await this.$store.dispatch('app/handleCancelRequest', key)
+      const {answerMap} = await jobService.getApplicantVideos(applicantId, this.job._id, cancelToken)
       if (applicantId !== this.applicant.id) return
       this.applicant.answerMap = answerMap
       // this.setPlayerState('isLoading', false)

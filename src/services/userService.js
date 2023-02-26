@@ -1,9 +1,5 @@
 import {permissions} from './constData'
 import httpService from './httpService'
-// import store from '../store'
-import {_handleCancelRequest} from './utilService'
-
-
 
 export const userService = {
   query,
@@ -23,12 +19,12 @@ export const userService = {
 
 const BASE_URL = 'user/'
 
-function query() {
-  const key = 'user/query'
-  const token = _handleCancelRequest(key)
+function query(cancelToken) {
+  // const key = 'user/query'
+  // const token = _handleCancelRequest(key)
 
   return httpService.customRequest('get', BASE_URL, null, {
-    cancelToken: token,
+    cancelToken,
   })
 }
 

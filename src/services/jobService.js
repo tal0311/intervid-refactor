@@ -1,5 +1,6 @@
+// import store from '@/store'
 import httpService from './httpService'
-import {getUrlParamsFromObj, _handleCancelRequest} from './utilService'
+import {getUrlParamsFromObj} from './utilService'
 import {companyService} from './companyService'
 import {templateService} from './templateService'
 import {userService} from '@/services/userService'
@@ -27,22 +28,22 @@ export const jobService = {
 
 const ROUTE = 'job'
 
-function query(filterBy, sort) {
-  const key = 'job/query'
-  const token = _handleCancelRequest(key)
+function query(filterBy, sort, cancelToken) {
+  // const key = 'job/query'
+  // const token = _handleCancelRequest(key)
 
   const urlParams = getUrlParamsFromObj({...filterBy, ...sort})
   const url = ROUTE + urlParams
-  return httpService.customRequest('get', url, null, {cancelToken: token})
+  return httpService.customRequest('get', url, null, {cancelToken})
 }
 
-function getApplicants(filterBy, sort) {
-  const key = 'job/getApplicants'
-  const token = _handleCancelRequest(key)
+function getApplicants(filterBy, sort, cancelToken) {
+  // const key = 'job/getApplicants'
+  // const token = _handleCancelRequest(key)
 
   const urlParams = getUrlParamsFromObj({...filterBy, ...sort})
   const url = ROUTE + '/applicant' + urlParams
-  return httpService.customRequest('get', url, null, {cancelToken: token})
+  return httpService.customRequest('get', url, null, {cancelToken})
 }
 
 function getById(jobId) {
@@ -75,31 +76,31 @@ function removeApplicants(applicants) {
   return httpService.put(`${ROUTE}/applicantDelete`, {applicants})
 }
 
-function getApplicantVideos(applicantId, jobId) {
-  const key = 'job/getApplicantVideos'
-  const token = _handleCancelRequest(key)
+function getApplicantVideos(applicantId, jobId, cancelToken) {
+  // const key = 'job/getApplicantVideos'
+  // const token = _handleCancelRequest(key)
   // return httpService.get(`${ROUTE}/applicantVideos/${applicantId}/${jobId}`)
   const url = `${ROUTE}/applicantVideos/${applicantId}/${jobId}`
-  return httpService.customRequest('get', url, null, {cancelToken: token})
+  return httpService.customRequest('get', url, null, {cancelToken})
 }
 function getJobWithApplicant(jobId, applicantId) {
   return httpService.get(`${ROUTE}/${jobId}/${applicantId}`)
 }
 
-function getExpectedApplicantCount(filterBy) {
-  const key = 'job/getExpectedApplicantCount'
-  const token = _handleCancelRequest(key)
+function getExpectedApplicantCount(filterBy, cancelToken) {
+  // const key = 'job/getExpectedApplicantCount'
+  // const token = _handleCancelRequest(key)
 
   const urlParams = getUrlParamsFromObj({...filterBy})
-  return httpService.customRequest('get', ROUTE + '/applicantCount' + urlParams, null, {cancelToken: token})
+  return httpService.customRequest('get', ROUTE + '/applicantCount' + urlParams, null, {cancelToken})
 }
 
-function getExpectedJobCount(filterBy) {
-  const key = 'job/getExpectedJobCount'
-  const token = _handleCancelRequest(key)
+function getExpectedJobCount(filterBy, cancelToken) {
+  // const key = 'job/getExpectedJobCount'
+  // const token = _handleCancelRequest(key)
 
   const urlParams = getUrlParamsFromObj({...filterBy})
-  return httpService.customRequest('get', ROUTE + '/jobCount' + urlParams, null, {cancelToken: token})
+  return httpService.customRequest('get', ROUTE + '/jobCount' + urlParams, null, {cancelToken})
 }
 
 function getEmptyJob(user) {
