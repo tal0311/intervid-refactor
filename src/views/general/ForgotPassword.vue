@@ -3,7 +3,7 @@
     <div class="content">
       <component :is="componentToShow" @on-next-step="onNextStep" :email="email">
         <div class="error" v-if="authError">
-          {{ getTrans(authError) }}
+          {{ $getTrans(authError) }}
         </div>
       </component>
     </div>

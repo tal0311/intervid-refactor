@@ -2,17 +2,17 @@
   <section class="mobile-filter-modal">
     <div class="content">
       <div v-if="isApplicantOverview" class="filter-container status-filter">
-        <h3 class="filter-title">{{ getTrans('by-status') }}</h3>
+        <h3 class="filter-title">{{ $getTrans('by-status') }}</h3>
         <div class="filter-list">
           <label v-for="(status, idx) in statuses" :key="status.label" @input="$emit('select-status', idx)">
             <input type="checkbox" :checked="isStatusSelected(idx)" />
-            <span>{{ getTrans(`${status.label}`) }}</span>
+            <span>{{ $getTrans(`${status.label}`) }}</span>
           </label>
         </div>
       </div>
 
       <div class="filter-container date-filter">
-        <h3 class="filter-title">{{ getTrans('by-date') }}</h3>
+        <h3 class="filter-title">{{ $getTrans('by-date') }}</h3>
         <div class="filter-list">
           <label :class="{selected: !mutableUpdatedFilterBy.daysAgo}" @input="$emit('edit-filter', 'daysAgo', '')">
             <input
@@ -21,7 +21,7 @@
               :checked="!mutableUpdatedFilterBy.daysAgo"
               v-model="mutableUpdatedFilterBy.daysAgo"
             />
-            {{ getTrans('all') }}
+            {{ $getTrans('all') }}
           </label>
           <label
             v-for="date in filterDates"
@@ -35,13 +35,13 @@
               :checked="mutableUpdatedFilterBy.daysAgo == date.daysAgo"
               v-model="mutableUpdatedFilterBy.daysAgo"
             />
-            {{ getTrans(date.label) }}
+            {{ $getTrans(date.label) }}
           </label>
         </div>
       </div>
 
       <div class="filter-container view-filter">
-        <h3 class="filter-title">{{ getTrans('view-only') }}</h3>
+        <h3 class="filter-title">{{ $getTrans('view-only') }}</h3>
         <div class="filter-list">
           <label
             :class="{selected: mutableUpdatedFilterBy.incomplete === undefined}"
@@ -58,7 +58,7 @@
               :value="undefined"
               v-model="mutableUpdatedFilterBy.incomplete"
             />
-            {{ getTrans('show-all') }}
+            {{ $getTrans('show-all') }}
           </label>
 
           <label
@@ -72,7 +72,7 @@
               :checked="mutableUpdatedFilterBy.incomplete === false"
               v-model="mutableUpdatedFilterBy.incomplete"
             />
-            {{ getTrans('show-incomplete') }}
+            {{ $getTrans('show-incomplete') }}
           </label>
           <label
             v-if="isApplicantOverview"
@@ -85,18 +85,18 @@
               :checked="mutableUpdatedFilterBy.incomplete"
               v-model="mutableUpdatedFilterBy.incomplete"
             />
-            {{ getTrans('show-complete') }}
+            {{ $getTrans('show-complete') }}
           </label>
 
           <!-- <label :class="{ selected: isShowArchived }"
             @input="$emit('edit-filter', 'showArchived', $event.target.checked)">
             <input type="radio" :checked="isShowArchived" />
-            {{ getTrans('show-archived') }}
+            {{ $getTrans('show-archived') }}
           </label> -->
         </div>
       </div>
       <div class="filter-container archive-filter">
-        <h3 class="filter-title">{{ getTrans('show-archived') }}</h3>
+        <h3 class="filter-title">{{ $getTrans('show-archived') }}</h3>
         <div class="toggle-option">
           <div class="main-toggle">
             <label for="show-archived">
@@ -171,15 +171,15 @@ export default {
     },
 
     showCount() {
-      const {getTrans} = this
+      const {$getTrans} = this
       if (this.expectedEntityCount > 1)
-        return `${getTrans('show')} ${this.expectedEntityCount} 
-          ${getTrans(`${this.entity}s`.toLowerCase()).toLowerCase()}`
+        return `${$getTrans('show')} ${this.expectedEntityCount} 
+          ${$getTrans(`${this.entity}s`.toLowerCase()).toLowerCase()}`
       else if (this.expectedEntityCount === 1) {
         return this.lng === 'en'
-          ? `${getTrans('show')} ${this.expectedEntityCount} ${getTrans(`${this.entity}`.toLowerCase()).toLowerCase()}`
-          : `${getTrans('show')} ${getTrans(`${this.entity}`.toLowerCase()).toLowerCase()} ${this.expectedEntityCount}`
-      } else return getTrans('no-exact-matches')
+          ? `${$getTrans('show')} ${this.expectedEntityCount} ${$getTrans(`${this.entity}`.toLowerCase()).toLowerCase()}`
+          : `${$getTrans('show')} ${$getTrans(`${this.entity}`.toLowerCase()).toLowerCase()} ${this.expectedEntityCount}`
+      } else return $getTrans('no-exact-matches')
     },
 
     lng() {

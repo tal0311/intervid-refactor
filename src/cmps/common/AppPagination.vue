@@ -42,8 +42,6 @@
 </template>
 
 <script>
-import {formatNum} from '@/services/utilService'
-
 export default {
   props: ['itemCount', 'currPage', 'itemsPerPage'],
 
@@ -84,7 +82,7 @@ export default {
     },
 
     formatNum(num) {
-      return formatNum(num)
+      return this.$formatNum(num)
     },
   },
 }

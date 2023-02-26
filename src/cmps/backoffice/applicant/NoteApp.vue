@@ -1,6 +1,6 @@
 <template>
   <div class="note-app">
-    <h4>{{ getTrans('note') }}</h4>
+    <h4>{{ $getTrans('note') }}</h4>
     <add-note :loggedInUser="loggedInUser" @add-note="onAddNote" />
     <note-preview v-if="lastNote" :note="lastNote" />
   </div>

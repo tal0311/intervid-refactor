@@ -1,6 +1,6 @@
 <template>
   <section class="interview-countdown" v-if="isCounterShown">
-    <p>{{ getTrans('interview-start-in') }}</p>
+    <p>{{ $getTrans('interview-start-in') }}</p>
     <div class="counter"></div>
   </section>
 </template>

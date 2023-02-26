@@ -1,5 +1,5 @@
 import { App } from "@vue/runtime-core"
-import { getTrans, setLang } from "../services/i18nService"
+import { formatNum, getTrans, setLang } from "../services/i18nService"
 
 interface Options {
     getLang: () => string
@@ -14,10 +14,12 @@ setLang(getLang())
 export const i18nPlugin = {
     install: (app: App, options: Options | null) => {
         getLang = options?.getLang || getLang
-        
-        app.config.globalProperties.getTrans = (word: string) => {
+
+        app.config.globalProperties.$getTrans = (word: string) => {
             setLang(getLang())
-            return getTrans(word)
+            return getTrans(word, getLang())
         }
+
+        app.config.globalProperties.$formatNum = (num) => formatNum(num, getLang())
     }
 }

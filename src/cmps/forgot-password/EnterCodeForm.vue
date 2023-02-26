@@ -1,12 +1,12 @@
 <template>
   <section class="enter-code">
-    <h1>{{ getTrans('enter-code') }}</h1>
+    <h1>{{ $getTrans('enter-code') }}</h1>
     <form class="enter-code-form" @submit.prevent="handleSubmit">
       <h2>
-        {{ getTrans('enter-the-code-we-sent-to') }}
+        {{ $getTrans('enter-the-code-we-sent-to') }}
         <p>{{ email }}</p>
       </h2>
-      <small>{{ getTrans('small-msg-about-otp') }}</small>
+      <small>{{ $getTrans('small-msg-about-otp') }}</small>
       <section class="password-inputs">
         <code-digit-input
           v-for="(item, idx) in 6"
@@ -21,7 +21,7 @@
         />
       </section>
       <slot></slot>
-      <button>{{ getTrans('login') }}</button>
+      <button>{{ $getTrans('login') }}</button>
     </form>
   </section>
 </template>

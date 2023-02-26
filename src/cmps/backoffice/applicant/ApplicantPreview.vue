@@ -18,7 +18,7 @@
 
     <div class="applicant-name">
       {{ applicantFullName }}
-      <span v-if="applicant.info.isPreview">({{ getTrans('demo') }})</span>
+      <span v-if="applicant.info.isPreview">({{ $getTrans('demo') }})</span>
     </div>
 
     <div class="job-title">

@@ -2,14 +2,14 @@
   <div class="activity-filter">
     <basic-select
       v-if="users.length"
-      :label="getTrans('account')"
+      :label="$getTrans('account')"
       @input="onSetFilterByKey('userId', $event)"
       :defaultValue="filterBy.userId"
       :options="userOpts"
     />
     <div class="date-container">
       <label for="fromDate">
-        <p>{{ getTrans('from-date') }}</p>
+        <p>{{ $getTrans('from-date') }}</p>
         <input
           type="date"
           id="fromDate"
@@ -19,7 +19,7 @@
         />
       </label>
       <label for="toDate">
-        <p>{{ getTrans('to-date') }}</p>
+        <p>{{ $getTrans('to-date') }}</p>
         <input
           type="date"
           id="toDate"
@@ -42,7 +42,7 @@ export default {
         txt: user.email,
         value: user._id,
       }))
-      userOpts.unshift({txt: this.getTrans('choose-account'), value: ''})
+      userOpts.unshift({txt: this.$getTrans('choose-account'), value: ''})
       return userOpts
     },
   },

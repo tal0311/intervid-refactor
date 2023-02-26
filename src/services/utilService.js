@@ -1,7 +1,7 @@
 // import store from '@/store'
 import axios from 'axios'
 import {breakpoint} from './constData'
-import {getDateTrans, getTimeTrans} from './i18nService'
+import {getDateTrans, getTimeTrans, getPlural} from './i18nService'
 
 // added this back here temporarly to prevent error until migration of useSort is done
 export function getSortFunc(sort) {
@@ -117,9 +117,6 @@ function _padNum(num) {
   return num >= 10 ? num : '0' + num
 }
 
-export const getPlural = (word, count) => (count > 1 ? word + 's' : word)
-
-export const formatNum = (num) => new Intl.NumberFormat().format(num)
 
 export const paginate = (items, currPage = 0, itemsPerPage = 30) => {
   return items.filter((item, index) => {

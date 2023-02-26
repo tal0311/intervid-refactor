@@ -36,8 +36,8 @@
     </div>
 
     <div class="link" @click.stop="onCopyUrl">
-      <i class="material-icons" :title="getTrans('copy-link')">link</i>
-      <p>{{ getTrans('copy-link') }}</p>
+      <i class="material-icons" :title="$getTrans('copy-link')">link</i>
+      <p>{{ $getTrans('copy-link') }}</p>
     </div>
 
     <div class="actions" @click.stop="">
@@ -81,12 +81,12 @@
         </div>
       </div>
 
-      <div class="bottom-line">{{ job.applicantSummary.applicantCount }} {{ getTrans('applicants') }}</div>
+      <div class="bottom-line">{{ job.applicantSummary.applicantCount }} {{ $getTrans('applicants') }}</div>
     </div>
 
     <div class="link" @click.stop="onCopyUrl">
-      <i class="material-icons" :title="getTrans('copy-link')">link</i>
-      <p>{{ getTrans('copy-link') }}</p>
+      <i class="material-icons" :title="$getTrans('copy-link')">link</i>
+      <p>{{ $getTrans('copy-link') }}</p>
     </div>
   </section>
 </template>

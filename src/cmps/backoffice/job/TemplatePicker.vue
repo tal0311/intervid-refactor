@@ -1,6 +1,6 @@
 <template>
   <div class="template-picker">
-    <h2>{{ getTrans('create-new-interview') }}</h2>
+    <h2>{{ $getTrans('create-new-interview') }}</h2>
     <div class="list-wrapper">
       <div class="template-card-list" ref="scrollable-list" v-mounted @scroll="setArrows">
         <button class="material-icons scroll-btn start" v-if="isStartBtnShowen" @click="scrollTo(-1)">
@@ -8,7 +8,7 @@
         </button>
         <div class="template-card-preview add" @click="$router.push({name: 'JobEdit'})">
           <i class="material-icons">add</i>
-          <h2>{{ getTrans('create-new') }}</h2>
+          <h2>{{ $getTrans('create-new') }}</h2>
         </div>
         <div
           v-for="template in defaultTemplates"

@@ -1,6 +1,6 @@
 // import store from '@/store'
 import { detect } from 'detect-browser'
-import { getPlural } from './utilService'
+
 
 
 const browser = detect()
@@ -2013,6 +2013,10 @@ export function getTrans(str, currLng = gLang || DEFAULT_LANG) {
   return translation[currLng]
 }
 
+export function getPlural(word, count) {
+  return (count > 1 ? word + 's' : word)
+}
+
 export function getAlertTrans(key, item, itemCount) {
   const gMsgTrans = {
     add: {
@@ -2094,6 +2098,11 @@ export function getAlertTrans(key, item, itemCount) {
   // const currLng = store.getters['app/lang']
   const currLng = gLang
   return gMsgTrans[key][currLng]
+}
+
+
+export function formatNum(num, currLng = gLang) {
+  return new Intl.NumberFormat(currLng).format(num)
 }
 
 export function getDateTrans(date) {

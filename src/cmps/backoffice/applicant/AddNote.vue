@@ -7,11 +7,11 @@
       class="note-input"
       :class="{active: txt.length}"
       name="txt"
-      :placeholder="getTrans('add-note-on-candidate')"
+      :placeholder="$getTrans('add-note-on-candidate')"
     />
     <div class="btn-container">
       <button type="button" @mousedown="addNote" class="save-btn">
-        {{ getTrans('save') }}
+        {{ $getTrans('save') }}
       </button>
 
       <div v-if="verifyPerm(advancedPermsMap.BOOKMARKS)" class="bookmark-container">
@@ -32,7 +32,6 @@
 <script>
 import {getNote} from '@/services/applicantService'
 import {advancedPermsMap} from '@/services/constData'
-import {getTrans} from '@/services/i18nService'
 import {userService} from '@/services/userService'
 
 export default {
@@ -58,9 +57,6 @@ export default {
       this.tsSecs = null
       this.isTsOpen = false
       this.$emit('add-note', note)
-    },
-    getTrans(str) {
-      return getTrans(str)
     },
     checkLimit(ev) {
       const {name, value} = ev.target

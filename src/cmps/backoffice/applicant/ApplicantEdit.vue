@@ -2,13 +2,13 @@
   <section class="applicant-edit-wrapper" v-if="applicantToEdit.info" ref="edit-wrapper">
     <div class="applicant-edit" @click.stop="">
       <h2>
-        {{ getTrans('edit-applicant') }}
+        {{ $getTrans('edit-applicant') }}
         <button @click="closeModal" ref="close-btn" class="material-icons">close</button>
       </h2>
       <form @submit.prevent="onUpdateApplicant" novalidate>
         <main-input
           inputName="fName"
-          :label="getTrans('f-name')"
+          :label="$getTrans('f-name')"
           type="text"
           v-model.trim="applicantToEdit.info.fName"
           :errors="errors"
@@ -17,7 +17,7 @@
         />
         <main-input
           inputName="lName"
-          :label="getTrans('l-name')"
+          :label="$getTrans('l-name')"
           type="text"
           v-model.trim="applicantToEdit.info.lName"
           :errors="errors"
@@ -25,7 +25,7 @@
         />
         <main-input
           inputName="email"
-          :label="getTrans('email')"
+          :label="$getTrans('email')"
           type="email"
           v-model.trim="applicantToEdit.info.email"
           :errors="errors"
@@ -33,7 +33,7 @@
         />
         <main-input
           inputName="phone"
-          :label="getTrans('phone-number')"
+          :label="$getTrans('phone-number')"
           type="phone"
           v-model.trim="applicantToEdit.info.phone"
           :errors="errors"
@@ -41,14 +41,14 @@
         />
         <main-input
           inputName="hometown"
-          :label="getTrans('hometown')"
+          :label="$getTrans('hometown')"
           type="text"
           v-model.trim="applicantToEdit.info.hometown"
           :errors="errors"
           styled="main"
         />
 
-        <button>{{ getTrans('save') }}</button>
+        <button>{{ $getTrans('save') }}</button>
       </form>
     </div>
   </section>

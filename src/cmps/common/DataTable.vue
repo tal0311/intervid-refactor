@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th v-for="header in headers" :key="header.idx" :class="{actions: header.txt === 'Actions'}">
-          {{ getTrans(header.txt) }}
+          {{ $getTrans(header.txt) }}
         </th>
       </tr>
     </thead>
@@ -18,7 +18,7 @@
       </tr>
       <tr v-if="!items || !items.length">
         <td class="no-results" :colspan="headers.length">
-          {{ getTrans('no-results') }}
+          {{ $getTrans('no-results') }}
         </td>
       </tr>
     </tbody>

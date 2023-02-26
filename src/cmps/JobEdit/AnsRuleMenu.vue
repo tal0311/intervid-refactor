@@ -13,7 +13,7 @@
       </i>
 
       <button type="button">
-        {{ getTrans(answerType) }}
+        {{ $getTrans(answerType) }}
         <i class="expand material-icons">expand_more</i>
       </button>
 
@@ -31,7 +31,7 @@
           }"
         >
           <i class="icon material-icons">{{ ansRule.icon }}</i>
-          {{ getTrans(ansRule.txt) }}
+          {{ $getTrans(ansRule.txt) }}
         </button>
       </div>
 
@@ -46,7 +46,7 @@
     </div>
 
     <p class="ans-rule-error" v-if="!isOneTry && selectedAnsRule === 'isScreenAns'">
-      {{ getTrans('answer-type-not-available') }}
+      {{ $getTrans('answer-type-not-available') }}
     </p>
   </section>
 </template>

@@ -30,7 +30,7 @@
 
       <div class="add add-quest" @click="onAddQuest">
         <i class="material-icons">add_circle_outline</i>
-        {{ getTrans('add-question') }}
+        {{ $getTrans('add-question') }}
       </div>
 
       <button
@@ -43,7 +43,7 @@
         ]"
         @click.prevent="onShare"
       >
-        {{ getTrans('send') }}
+        {{ $getTrans('send') }}
       </button>
     </form>
 
@@ -232,13 +232,13 @@ export default {
 
     setDefaultValue(inputName) {
       if (inputName === 'title') {
-        this.job.info.title = this.getTrans('untitled-job')
+        this.job.info.title = this.$getTrans('untitled-job')
       } else if (inputName === 'company') {
-        this.job.company.name = this.getTrans('company')
+        this.job.company.name = this.$getTrans('company')
       } else if (inputName.startsWith('quest-title-')) {
         this.job.quests.forEach((quest) => {
           if (quest.txt) return
-          quest.txt = this.getTrans('question')
+          quest.txt = this.$getTrans('question')
         })
       }
     },

@@ -72,7 +72,7 @@ export default {
   methods: {
     startInterval() {
       this.timeInterval = setInterval(() => {
-        document.title = this.isTimeRunOut ? this.getTrans('time-is-running-out') : this.defaultTitle
+        document.title = this.isTimeRunOut ? this.$getTrans('time-is-running-out') : this.defaultTitle
         this.timeLeft = this.targetTime - Date.now()
         let timeLeftPercent = (this.timeLeft / (this.timeLimit * 1000 * 60)) * 100
 

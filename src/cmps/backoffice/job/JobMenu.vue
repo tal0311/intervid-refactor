@@ -6,19 +6,19 @@
 
     <div class="menu-modal" :ref="job._id" @contextmenu.stop.prevent="" :style="modalStyle" :class="modalClass">
       <template v-if="!job.archivedAt">
-        <div @click="onCopyUrl">{{ getTrans('copy-invitation-url') }}</div>
+        <div @click="onCopyUrl">{{ $getTrans('copy-invitation-url') }}</div>
         <div @click="onGoToPage({name: 'JobEdit', params: {jobId: job._id}})">
-          {{ getTrans('edit-job') }}
+          {{ $getTrans('edit-job') }}
         </div>
-        <div @click="onOpenPreview">{{ getTrans('preview-job') }}</div>
-        <div @click="onCloneJob">{{ getTrans('clone-job') }}</div>
-        <div @click="onShare">{{ getTrans('share-job') }}</div>
+        <div @click="onOpenPreview">{{ $getTrans('preview-job') }}</div>
+        <div @click="onCloneJob">{{ $getTrans('clone-job') }}</div>
+        <div @click="onShare">{{ $getTrans('share-job') }}</div>
       </template>
       <div @click="onToggleArchive">
-        {{ job.archivedAt ? getTrans('restore') : getTrans('archive-job') }}
+        {{ job.archivedAt ? $getTrans('restore') : $getTrans('archive-job') }}
       </div>
       <div v-if="job.archivedAt" @click="onRemoveJob">
-        {{ getTrans('delete-permanently') }}
+        {{ $getTrans('delete-permanently') }}
       </div>
     </div>
 

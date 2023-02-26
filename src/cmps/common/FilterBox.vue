@@ -12,26 +12,26 @@
       <button @click="toggleModal('Filter')">
         <!-- <div v-html="svgs.filter"></div> -->
         <i class="material-icons">tune</i>
-        {{ getTrans('filter-btn') }}
+        {{ $getTrans('filter-btn') }}
       </button>
 
       <div class="filter-modal" :class="{open: isFilterModalOpen}" v-click-outside="onResetFilter">
         <div v-if="isApplicantOverview" class="filter-container status-filter">
-          <h3 class="filter-title">{{ getTrans('by-status') }}</h3>
+          <h3 class="filter-title">{{ $getTrans('by-status') }}</h3>
           <div class="filter-list">
             <label v-for="(status, idx) in statuses" :key="status.label" @input="onSelectStatus(idx)">
               <input type="checkbox" :checked="isStatusSelected(idx)" />
-              <span>{{ getTrans(`${status.label}`) }}</span>
+              <span>{{ $getTrans(`${status.label}`) }}</span>
             </label>
           </div>
         </div>
 
         <div class="filter-container date-filter">
-          <h3 class="filter-title">{{ getTrans('by-date') }}</h3>
+          <h3 class="filter-title">{{ $getTrans('by-date') }}</h3>
           <div class="filter-list">
             <label :class="{selected: !updatedFilterBy.daysAgo}">
               <input type="radio" value="" :checked="!updatedFilterBy.daysAgo" v-model="updatedFilterBy.daysAgo" />
-              {{ getTrans('all') }}
+              {{ $getTrans('all') }}
             </label>
             <label
               v-for="date in filterDates"
@@ -44,13 +44,13 @@
                 :checked="updatedFilterBy.daysAgo == date.daysAgo"
                 v-model="updatedFilterBy.daysAgo"
               />
-              {{ getTrans(date.label) }}
+              {{ $getTrans(date.label) }}
             </label>
           </div>
         </div>
 
         <div class="filter-container view-filter" v-if="isApplicantOverview">
-          <h3 class="filter-title">{{ getTrans('view-only') }}</h3>
+          <h3 class="filter-title">{{ $getTrans('view-only') }}</h3>
           <div class="filter-list">
             <label :class="{selected: updatedFilterBy.incomplete === undefined}">
               <input
@@ -59,7 +59,7 @@
                 :value="undefined"
                 v-model="updatedFilterBy.incomplete"
               />
-              {{ `${getTrans('show-all')}` }}
+              {{ `${$getTrans('show-all')}` }}
             </label>
 
             <label :class="{selected: updatedFilterBy.incomplete}">
@@ -69,7 +69,7 @@
                 :checked="updatedFilterBy.incomplete === false"
                 v-model="updatedFilterBy.incomplete"
               />
-              {{ getTrans('show-incomplete') }}
+              {{ $getTrans('show-incomplete') }}
             </label>
             <label :class="{selected: updatedFilterBy.incomplete === false}">
               <input
@@ -78,12 +78,12 @@
                 :checked="updatedFilterBy.incomplete"
                 v-model="updatedFilterBy.incomplete"
               />
-              {{ getTrans('show-complete') }}
+              {{ $getTrans('show-complete') }}
             </label>
           </div>
         </div>
         <div class="filter-container archive-filter">
-          <h3 class="filter-title">{{ getTrans('show-archived') }}</h3>
+          <h3 class="filter-title">{{ $getTrans('show-archived') }}</h3>
           <div class="toggle-option">
             <div class="main-toggle">
               <label for="show-archived">
@@ -104,7 +104,7 @@
 
         <div class="filter-footer">
           <a class="clear-filters-btn" :class="{bold: isFiltering}" :disabled="!isFiltering" @click="onClearFilter">
-            {{ getTrans('clear-filters') }}
+            {{ $getTrans('clear-filters') }}
           </a>
           <button class="set-filter-btn" @click="onSetFilter">
             {{ showCount }}
@@ -226,15 +226,15 @@ export default {
     },
 
     showCount() {
-      const {getTrans} = this
+      const {$getTrans} = this
       if (this.expectedEntityCount > 1)
-        return `${getTrans('show')} ${this.expectedEntityCount} 
-          ${getTrans(`${this.entity}s`.toLowerCase()).toLowerCase()}`
+        return `${$getTrans('show')} ${this.expectedEntityCount} 
+          ${$getTrans(`${this.entity}s`.toLowerCase()).toLowerCase()}`
       else if (this.expectedEntityCount === 1) {
         return this.lng === 'en'
-          ? `${getTrans('show')} ${this.expectedEntityCount} ${getTrans(`${this.entity}`.toLowerCase()).toLowerCase()}`
-          : `${getTrans('show')} ${getTrans(`${this.entity}`.toLowerCase()).toLowerCase()} ${this.expectedEntityCount}`
-      } else return getTrans('no-exact-matches')
+          ? `${$getTrans('show')} ${this.expectedEntityCount} ${$getTrans(`${this.entity}`.toLowerCase()).toLowerCase()}`
+          : `${$getTrans('show')} ${$getTrans(`${this.entity}`.toLowerCase()).toLowerCase()} ${this.expectedEntityCount}`
+      } else return $getTrans('no-exact-matches')
     },
 
     lng() {

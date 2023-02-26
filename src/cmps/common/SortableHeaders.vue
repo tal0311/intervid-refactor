@@ -11,7 +11,7 @@
       :class="{[header.class]: header.class}"
     >
       <div :class="getSortableClass(header)">
-        <span v-if="header.txt"> {{ getTrans(header.txt) }}</span>
+        <span v-if="header.txt"> {{ $getTrans(header.txt) }}</span>
         <span v-if="header.txt && !isFreeUser" class="sort-arrows"></span>
       </div>
     </div>

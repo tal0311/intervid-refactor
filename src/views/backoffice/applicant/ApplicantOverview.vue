@@ -164,7 +164,7 @@ export default {
 
     overviewTitle() {
       if (this.job) return this.job.info.title
-      return this.getTrans('applications')
+      return this.$getTrans('applications')
     },
 
     isAllSelected() {
@@ -176,13 +176,13 @@ export default {
     },
 
     filterCount() {
-      const {getTrans} = this
+      const {$getTrans} = this
       if (this.filteredApplicantCount > 1)
-        return `${getTrans('showing')} ${this.filteredApplicantCount} ${getTrans('applicants').toLowerCase()}`
+        return `${$getTrans('showing')} ${this.filteredApplicantCount} ${$getTrans('applicants').toLowerCase()}`
       else if (this.filteredApplicantCount === 1) {
         return this.lng === 'en'
-          ? `${getTrans('showing')} ${this.filteredApplicantCount} ${getTrans('applicant').toLowerCase()}`
-          : `${getTrans('showing')} ${getTrans('applicant').toLowerCase()} ${this.filteredApplicantCount}`
+          ? `${$getTrans('showing')} ${this.filteredApplicantCount} ${$getTrans('applicant').toLowerCase()}`
+          : `${$getTrans('showing')} ${$getTrans('applicant').toLowerCase()} ${this.filteredApplicantCount}`
       } else return ''
     },
 

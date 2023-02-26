@@ -11,10 +11,10 @@
       <div class="btn-container">
         <div v-if="isJobEdit && jobToEdit" class="job-actions-container">
           <p v-if="!isFirstChange && !jobEditErrors.length" class="saving">
-            {{ isSaving ? getTrans('saving') : getTrans('changes-saved') }}
+            {{ isSaving ? $getTrans('saving') : $getTrans('changes-saved') }}
           </p>
           <p v-if="jobEditErrors.length" class="saving error">
-            {{ getTrans('required-fields-missing') }}
+            {{ $getTrans('required-fields-missing') }}
           </p>
           <i v-if="jobToEdit._id" class="material-icons" @click="openPreview">visibility</i>
           <button
@@ -27,7 +27,7 @@
             ]"
             @click="onShare"
           >
-            {{ getTrans('send') }}
+            {{ $getTrans('send') }}
           </button>
           <share-btns :job="jobToEdit" v-if="modal.type === 'share'" />
         </div>
@@ -39,12 +39,12 @@
             :class="{selected: currRouteName === 'ApplicantOverview'}"
           >
             <i class="material-icons">group</i>
-            <span>{{ getTrans('applications') }}</span>
+            <span>{{ $getTrans('applications') }}</span>
           </RouterLink>
 
           <RouterLink to="/backoffice/job" class="backoffice-nav" :class="{selected: currRouteName === 'JobOverview'}">
             <i class="material-icons">work</i>
-            <span>{{ getTrans('jobs') }}</span>
+            <span>{{ $getTrans('jobs') }}</span>
           </RouterLink>
 
           <RouterLink
@@ -54,7 +54,7 @@
             :class="{selected: currRouteName === 'TemplateOverview'}"
           >
             <i class="material-icons">assignment</i>
-            <span>{{ getTrans('templates') }}</span>
+            <span>{{ $getTrans('templates') }}</span>
           </RouterLink>
         </div>
 

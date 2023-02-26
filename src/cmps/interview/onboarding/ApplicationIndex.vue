@@ -11,15 +11,15 @@
 
       <div class="application-info">
         <div class="job-title">
-          <p>{{ getTrans('job-title') }}</p>
+          <p>{{ $getTrans('job-title') }}</p>
           <p>{{ job.info.title }}</p>
         </div>
         <div class="job-location" v-if="job.info.location">
-          <p>{{ getTrans('location') }}</p>
+          <p>{{ $getTrans('location') }}</p>
           <p>{{ job.info.location }}</p>
         </div>
         <div class="job-decription" v-if="job.info.desc">
-          <p>{{ getTrans('job-description') }}</p>
+          <p>{{ $getTrans('job-description') }}</p>
           <p>{{ job.info.desc }}</p>
         </div>
       </div>

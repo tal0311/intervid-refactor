@@ -2,18 +2,18 @@
   <section class="overview job-overview">
     <div class="title-container">
       <h2 class="overview-title">
-        {{ getTrans('jobs') }}
+        {{ $getTrans('jobs') }}
         <div class="view-btns">
           <i
             class="material-icons info-tooltip"
-            :data-tooltip="getTrans('list-view')"
+            :data-tooltip="$getTrans('list-view')"
             :class="{selected: viewType === 'list'}"
             @click="setView('list')"
             >view_list</i
           >
           <i
             class="material-icons info-tooltip"
-            :data-tooltip="getTrans('card-view')"
+            :data-tooltip="$getTrans('card-view')"
             :class="{selected: viewType === 'cards'}"
             @click="setView('cards')"
             >view_module</i
@@ -23,14 +23,14 @@
 
       <button class="create-job-btn" @click="$router.push({name: 'JobEdit'})">
         <i class="material-icons">add</i>
-        <span>{{ getTrans('create-new-job') }}</span>
+        <span>{{ $getTrans('create-new-job') }}</span>
       </button>
     </div>
 
     <template-picker v-if="viewType === 'cards'" />
 
     <h2 v-if="viewType === 'cards'" class="overview-subtitle">
-      {{ getTrans('my-jobs') }}
+      {{ $getTrans('my-jobs') }}
     </h2>
     <div class="overview-header">
       <div class="search-filter-container">
@@ -174,13 +174,13 @@ export default {
     },
 
     filterCount() {
-      const {getTrans} = this
+      const {$getTrans} = this
       if (this.filteredJobCount > 1)
-        return `${getTrans('showing')} ${this.filteredJobCount} ${getTrans('jobs').toLowerCase()}`
+        return `${$getTrans('showing')} ${this.filteredJobCount} ${$getTrans('jobs').toLowerCase()}`
       else if (this.filteredJobCount === 1) {
         return this.lng === 'en'
-          ? `${getTrans('showing')} ${this.filteredJobCount} ${getTrans('job').toLowerCase()}`
-          : `${getTrans('showing')} ${getTrans('job').toLowerCase()} ${this.filteredJobCount}`
+          ? `${$getTrans('showing')} ${this.filteredJobCount} ${$getTrans('job').toLowerCase()}`
+          : `${$getTrans('showing')} ${$getTrans('job').toLowerCase()} ${this.filteredJobCount}`
       } else return ''
     },
   },

@@ -1,12 +1,12 @@
 <template>
   <div class="time-up">
-    <h3 class="title">{{ getTrans('you-ran-out-of-time') }}</h3>
+    <h3 class="title">{{ $getTrans('you-ran-out-of-time') }}</h3>
     <p>
-      {{ getTrans('moving-on-in') }}
-      <span>{{ secondsLeft }} {{ getTrans('seconds') }}</span>
+      {{ $getTrans('moving-on-in') }}
+      <span>{{ secondsLeft }} {{ $getTrans('seconds') }}</span>
     </p>
     <button class="material-btn blue" @click="onNextQuest">
-      {{ getTrans('next-question') }}
+      {{ $getTrans('next-question') }}
     </button>
   </div>
 </template>

@@ -12,7 +12,7 @@
       }"
     >
       <i class="icon material-icons">{{ ansRule.icon }}</i>
-      {{ getTrans(ansRule.txt) }}
+      {{ $getTrans(ansRule.txt) }}
     </button>
   </div>
 </template>

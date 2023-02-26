@@ -7,7 +7,7 @@
   >
     <div class="answer-info">
       <div class="top">
-        <p>{{ getTrans('question') }} {{ idx + 1 }} - {{ quest.txt }}</p>
+        <p>{{ $getTrans('question') }} {{ idx + 1 }} - {{ quest.txt }}</p>
         <div class="icons-container">
           <i v-if="answer.faceUrl" class="material-icons">videocam</i>
           <i v-if="answer.screenUrl" class="material-icons">desktop_windows</i>
@@ -21,7 +21,7 @@
         <p v-if="quest.desc" class="desc" ref="desc" v-mounted :class="{expand: isExpand}" v-html="description"></p>
       </div>
       <button class="show-more-btn" v-if="quest.desc && idx === selectedQuestIdx && isOverflowing">
-        <span @click="toggleExpand">{{ isExpand ? getTrans('read-less') : getTrans('read-more') }}</span>
+        <span @click="toggleExpand">{{ isExpand ? $getTrans('read-less') : $getTrans('read-more') }}</span>
         <i class="material-icons">{{ isExpand ? 'expand_less' : 'expand_more' }}</i>
       </button>
     </div>

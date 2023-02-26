@@ -18,7 +18,7 @@
 
     <div class="use-template" @click.stop="">
       <button v-if="!$route.path.includes('archive')" class="use-template-btn" @click="onUseTemplate">
-        {{ getTrans('use') }}
+        {{ $getTrans('use') }}
       </button>
     </div>
 

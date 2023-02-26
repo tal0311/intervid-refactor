@@ -5,7 +5,7 @@
       <div class="form-title">
         <main-input
           inputName="title"
-          :placeholder="getTrans('job-title')"
+          :placeholder="$getTrans('job-title')"
           validate="required"
           v-model.trim="mutableJob.info.title"
           :onBlur="validateField"
@@ -18,7 +18,7 @@
         <img-upload @upload="onSetImg" :initialImg="job.company.logoUrl" />
         <main-input
           inputName="company"
-          :label="getTrans('company-name')"
+          :label="$getTrans('company-name')"
           validate="required"
           v-model.trim="mutableJob.company.name"
           :onBlur="validateField"
@@ -27,7 +27,7 @@
         />
         <main-input
           inputName="location"
-          :label="getTrans('location')"
+          :label="$getTrans('location')"
           v-model.trim="mutableJob.info.location"
           :onBlur="validateField"
           :errors="errors"
@@ -39,7 +39,7 @@
         <i class="icon material-icons remove-btn" @click="onClearDesc">close</i>
         <main-input
           inputName="description"
-          :placeholder="getTrans('description')"
+          :placeholder="$getTrans('description')"
           validate="required"
           v-model.trim="mutableJob.info.desc"
           :errors="errors"
@@ -51,34 +51,34 @@
 
       <div class="toggle-container">
         <div class="main-toggle">
-          <label> {{ getTrans('candidate-cv') }}</label>
+          <label> {{ $getTrans('candidate-cv') }}</label>
           <input type="checkbox" id="cv" name="cv" v-model="mutableJob.rule.isCvRequired" />
           <div class="outer">
             <div class="inner"></div>
-            <p>{{ getTrans('not-required') }}</p>
-            <p>{{ getTrans('required') }}</p>
+            <p>{{ $getTrans('not-required') }}</p>
+            <p>{{ $getTrans('required') }}</p>
           </div>
         </div>
 
         <div class="main-toggle">
-          <label> {{ getTrans('video-recording') }}</label>
+          <label> {{ $getTrans('video-recording') }}</label>
           <input type="checkbox" id="one-try" name="one-try" v-model="mutableJob.rule.isOneTry" />
           <div class="outer">
             <div class="inner"></div>
-            <p>{{ getTrans('allow-multiple-tries') }}</p>
-            <p>{{ getTrans('allow-only-once') }}</p>
+            <p>{{ $getTrans('allow-multiple-tries') }}</p>
+            <p>{{ $getTrans('allow-only-once') }}</p>
           </div>
         </div>
       </div>
 
       <div class="add add-desc" @click="isDesc = !isDesc" v-if="!isDesc">
         <i class="material-icons">add_circle_outline</i>
-        {{ getTrans('add-description') }}
+        {{ $getTrans('add-description') }}
       </div>
 
       <div v-if="!mutableJob.info.coverUrl" class="add add-desc" @click="toggleModal('change-cover')">
         <i class="material-icons">add_circle_outline</i>
-        {{ getTrans('add-cover') }}
+        {{ $getTrans('add-cover') }}
       </div>
     </section>
   </div>

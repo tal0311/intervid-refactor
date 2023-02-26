@@ -5,7 +5,7 @@
       v-model.trim="txt"
       :autofocus="autofocus"
       @focus="isFocus = true"
-      :placeholder="getTrans(placeholder)"
+      :placeholder="$getTrans(placeholder)"
       autocomplete="off"
       results="5"
     />
