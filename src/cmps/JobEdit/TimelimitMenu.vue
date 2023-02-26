@@ -62,7 +62,7 @@ export default {
     },
 
     timelimits() {
-      return getTimeLimits()
+      return getTimeLimits($getTrans('mini-minutes'))
     },
   },
 

@@ -106,7 +106,7 @@ function getEmptyJob(user) {
   return {
     info: {
       coverUrl: defaultImgUrl.jobCover,
-      title: getTrans('untitled-job'),
+      title: '',
       desc: '',
       location: '',
     },
@@ -117,7 +117,7 @@ function getEmptyJob(user) {
     quests: templateService.getDefaultQuests(),
     applicants: [],
     owner: userService.getMiniUser(user),
-    company: companyService.getMiniCompany(user),
+    company: companyService.getMiniCompany(user) || '',
     archivedAt: null,
   }
 }

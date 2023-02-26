@@ -86,7 +86,7 @@ export default {
     },
 
     timeLimits() {
-      return getTimeLimits()
+      return getTimeLimits($getTrans('mini-minutes'))
     },
 
     modal() {

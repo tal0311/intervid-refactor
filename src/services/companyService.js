@@ -1,5 +1,3 @@
-import {getTrans} from './i18nService'
-
 export const companyService = {
   getMiniCompany,
 }
@@ -7,7 +5,7 @@ export const companyService = {
 function getMiniCompany(user) {
   // TODO: // if(user)
   return {
-    name: user.companyName || getTrans('company'),
+    name: user.companyName || '',
     logoUrl: user.logoUrl || '',
   }
 }

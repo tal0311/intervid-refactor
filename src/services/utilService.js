@@ -1,7 +1,6 @@
 // import store from '@/store'
 import axios from 'axios'
 import {breakpoint} from './constData'
-import {getDateTrans, getTimeTrans, getPlural} from './i18nService'
 
 // added this back here temporarly to prevent error until migration of useSort is done
 export function getSortFunc(sort) {
