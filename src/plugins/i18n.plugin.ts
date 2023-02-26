@@ -1,5 +1,5 @@
 import { App } from "@vue/runtime-core"
-import { formatNum, getTrans, setLang } from "../services/i18nService"
+import { formatDate, formatNum, getTrans, setLang } from "../services/i18nService"
 
 interface Options {
     getLang: () => string
@@ -21,5 +21,9 @@ export const i18nPlugin = {
         }
 
         app.config.globalProperties.$formatNum = (num) => formatNum(num, getLang())
+
+        app.config.globalProperties.$formatDate = (date, options) => {
+            return formatDate(date, {lang: getLang(), ...options})
+        }
     }
 }

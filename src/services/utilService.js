@@ -66,20 +66,6 @@ export function formatDuration(ms, {noWords, singleLetter, fullWord} = {}) {
   return timeStr + ' ' + word
 }
 
-export function formatDate(date, options = {}) {
-  if (typeof date === 'string' || typeof date === 'number') date = new Date(date)
-  const now = new Date()
-  if (!options.getFullDate && now.getFullYear() === date.getFullYear()) {
-    if (now.getDate() === date.getDate() && now.getMonth() === date.getMonth()) {
-      return getTimeTrans(date, options.includeSeconds)
-    } else {
-      return getDateTrans(date)
-    }
-  } else {
-    var timeStr = getTimeTrans(date, options.includeSeconds)
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${options.includeTime ? timeStr : ''}`
-  }
-}
 
 export function makeId(length = 6) {
   let str = ''

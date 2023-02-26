@@ -94,7 +94,6 @@
 <script>
 import {ref} from 'vue'
 import {msgService} from '@/services/msgService'
-import {formatDate} from '@/services/utilService'
 
 import JobMenu from '@/cmps/backoffice/job/JobMenu.vue'
 import Avatar from '@/cmps/common/ApplicantAvatar.vue'
@@ -135,7 +134,7 @@ export default {
     jobCreationDate() {
       const date = this.job.createdAt
       if (!date) return 'None'
-      return formatDate(date)
+      return $formatDate(date)
     },
   },
 

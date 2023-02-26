@@ -33,7 +33,6 @@
 
 <script>
 import {uploaderService} from '@/services/uploaderService'
-import {formatDate} from '@/services/utilService'
 
 import DragDrop from '@uppy/drag-drop'
 import ValidationMsg from '@/cmps/common/ValidationMsg.vue'
@@ -57,7 +56,7 @@ export default {
 
   computed: {
     createdAt() {
-      return formatDate(this.uploadedAt)
+      return $formatDate(this.uploadedAt)
     },
 
     error() {

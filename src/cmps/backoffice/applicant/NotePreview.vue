@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import {formatDate} from '@/services/utilService'
 
 export default {
   props: ['note'],

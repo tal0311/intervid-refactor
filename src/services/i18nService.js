@@ -2118,18 +2118,33 @@ export function getDateTrans(date) {
   return dateStr.split(' ').reverse().join(' ')
 }
 
-export function getTimeTrans(date, isIncludeSec) {
+
+export function formatDate(date, options = {lang: DEFAULT_LANG}) {
+  if (typeof date === 'string' || typeof date === 'number') date = new Date(date)
+  const now = new Date()
+  if (!options.getFullDate && now.getFullYear() === date.getFullYear()) {
+    if (now.getDate() === date.getDate() && now.getMonth() === date.getMonth()) {
+      return getTimeTrans(date, options.includeSeconds, options.lang)
+    } else {
+      return getDateTrans(date)
+    }
+  } else {
+    var timeStr = getTimeTrans(date, options.includeSeconds, options.lang)
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${options.includeTime ? timeStr : ''}`
+  }
+}
+
+export function getTimeTrans(date, isIncludeSec, lang) {
   const options = {
     hour: '2-digit',
     minute: '2-digit',
   }
   if (isIncludeSec) options.second = '2-digit'
-  const currLang = _getLocaleLang()
+  const currLang = _getLocaleLang(lang)
   return date.toLocaleTimeString(currLang, options)
 }
 
-function _getLocaleLang() {
-  const currLng = gLang
+function _getLocaleLang(currLng = gLang) {
   let langFormat = 'en-US'
   if (currLng === 'he') {
     langFormat = 'he-IL'

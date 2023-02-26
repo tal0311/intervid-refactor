@@ -15,14 +15,13 @@
 </template>
 
 <script>
-import {formatDate} from '@/services/utilService'
 
 export default {
   props: ['activity'],
 
   computed: {
     startTime() {
-      return formatDate(new Date(this.activity.date), {
+      return $formatDate(new Date(this.activity.date), {
         includeSeconds: true,
         getFullDate: true,
         includeTime: true,
