@@ -8,7 +8,7 @@ import {getTrans} from '@/services/i18nService.js'
 // we want this composable to be able to be used in components that already use the useFilter composable (while sharing its state),
 // so we need to be able to pass in the useFilter composable as an argument, while maintaining the ability to use it on it's own,
 // so we use destructuring and a default value
-export function useTags({useFilter: {onSetFilterByKey} = useFilter()}) {
+export function useTags({onSetFilterByKey} = useFilter()) {
   const tagList = computed(() => {
     const queries = useRoute().query
 

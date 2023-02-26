@@ -35,7 +35,7 @@ import ListActions from '@/cmps/backoffice/ListActions.vue'
 import {useFilter} from '@/composables/useFilter'
 import {useSort} from '@/composables/useSort'
 import {useSelection} from '@/composables/useSelection'
-import {usePagination} from '@/composables/usePaging'
+import {usePagination} from '@/composables/usePagination'
 
 export default {
   setup() {

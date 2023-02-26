@@ -48,6 +48,14 @@ import EmptyList from '@/cmps/backoffice/EmptyList.vue'
 import JobSkeleton from './job/JobSkeleton.vue'
 import ApplicantSkeleton from './applicant/ApplicantSkeleton.vue'
 
+// const cmps = {
+//   template: TemplatePreview,
+//   job: JobPreview,
+//   applicant: ApplicantPreview,
+//   account: AccountPreview,
+//   record: RecordPreview,
+//   activity: ActivityPreview,
+// }
 export default {
   props: [
     'items',
@@ -65,14 +73,6 @@ export default {
 
   data() {
     return {
-      cmps: {
-        template: TemplatePreview,
-        job: JobPreview,
-        applicant: ApplicantPreview,
-        account: AccountPreview,
-        record: RecordPreview,
-        activity: ActivityPreview,
-      },
       skeletons: {
         job: JobSkeleton,
         applicant: ApplicantSkeleton,
@@ -82,7 +82,7 @@ export default {
 
   computed: {
     itemName() {
-      const itemNames = Object.keys(this.cmps)
+      const itemNames = ['job', 'applicant', 'account', 'record', 'activity']
       return itemNames.find((itemName) => this.$route.path.includes(itemName))
     },
 
@@ -91,11 +91,13 @@ export default {
     },
 
     componentToShow() {
-      return this.cmps[this.itemName]
+      console.log('this.itemName', this.itemName)
+      // console.log(cmps)
+      return this.itemName
     },
 
     skeletonToShow() {
-      return this.skeletons[this.itemName]
+      return `${this.itemName}Skeleton}`
     },
 
     isInfiniteScroll() {
@@ -123,16 +125,19 @@ export default {
   },
 
   components: {
+    //   template: TemplatePreview,
+    job: JobPreview,
+    applicant: ApplicantPreview,
+    account: AccountPreview,
+    record: RecordPreview,
+    activity: ActivityPreview,
     TemplatePreview,
-    JobPreview,
-    ApplicantPreview,
     ListActions,
     AppLoader,
     SortableHeaders,
     EmptyList,
-    AccountPreview,
-    ActivityPreview,
-    JobSkeleton,
+    jobSkeleton: JobSkeleton,
+    applicantSkeleton: ApplicantSkeleton,
   },
 }
 </script>

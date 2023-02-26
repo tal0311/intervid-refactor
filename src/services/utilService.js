@@ -1,5 +1,3 @@
-// import store from '@/store'
-import axios from 'axios'
 import {breakpoint} from './constData'
 
 // added this back here temporarly to prevent error until migration of useSort is done
@@ -69,7 +67,6 @@ export function getUrlParamsFromObj(obj) {
 function _padNum(num) {
   return num >= 10 ? num : '0' + num
 }
-
 
 export const paginate = (items, currPage = 0, itemsPerPage = 30) => {
   return items.filter((item, index) => {
@@ -174,15 +171,16 @@ export function getVideoLength(videoUrl) {
   })
 }
 
-// TODO: This function is by no means a utility function, it should be moved to a different file, probably the store file,
+// THIS CHANGE WAS DONE ALREADY, LEAVING THIS HERE FOR REFERENCE
+// This function is by no means a utility function, it should be moved to a different file, probably the store file,
 // it is also named as a private function, but it is exported, this is a bad practice, and should be changed.
 // making this change will allow us to remove the store import from this file, which is causing problems, because of the circular dependency.
-export function _handleCancelRequest(key) {
-  const source = axios.CancelToken.source()
-  store.dispatch('app/cancelRequest', key)
-  store.commit('app/setCancelRequest', {cancel: source.cancel, key})
-  return source.token
-}
+// export function _handleCancelRequest(key) {
+//   const source = axios.CancelToken.source()
+//   store.dispatch('app/cancelRequest', key)
+//   store.commit('app/setCancelRequest', {cancel: source.cancel, key})
+//   return source.token
+// }
 
 // function deepEqual(object1, object2) {
 //   const keys1 = Object.keys(object1)

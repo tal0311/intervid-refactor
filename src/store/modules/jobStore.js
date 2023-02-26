@@ -240,17 +240,19 @@ export const job = {
     setViewType(state, {viewType}) {
       state.viewType = viewType
     },
-
     setJobEditErrors(state, {jobEditErrors}) {
       state.jobEditErrors = jobEditErrors
     },
   },
 
   actions: {
-    async loadJobs({commit, state}, {filterBy, sort, shouldGather = false}) {
+    async loadJobs({commit, state, dispatch}, {filterBy, sort, shouldGather = false}) {
       commit('setIsFetching', true)
       try {
-        let {jobs, pageCount, filteredJobCount, totalJobCount} = await jobService.query(filterBy, sort)
+        // #HANDLE CANCEL
+        const key = 'job/query'
+        const cancelToken = await dispatch('app/handleCancelRequest', key)
+        let {jobs, pageCount, filteredJobCount, totalJobCount} = await jobService.query(filterBy, sort, cancelToken)
         if (!jobs) return
 
         if (shouldGather) {
@@ -279,10 +281,12 @@ export const job = {
       }
     },
 
-    async loadApplicants({commit, state}, {filterBy = {}, sort = {}, shouldGather = false}) {
+    async loadApplicants({commit, dispatch, state}, {filterBy = {}, sort = {}, shouldGather = false}) {
       commit('setIsFetching', true)
       try {
-        const res = await jobService.getApplicants(filterBy, sort)
+        const key = 'job/getApplicants'
+        const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
+        const res = await jobService.getApplicants(filterBy, sort, cancelToken)
         if (!res) return
         let {applicants, pageCount, filteredApplicantCount} = res
         if (shouldGather) {
@@ -395,18 +399,25 @@ export const job = {
       }
     },
 
-    async getExpectedApplicantCount({commit}, {filterBy}) {
+    async getExpectedApplicantCount({commit, dispatch}, {filterBy}) {
       try {
-        const expectedApplicantCount = await jobService.getExpectedApplicantCount(filterBy)
+        // #HANDLE CANCEL
+        const key = 'job/getExpectedApplicantCount'
+        const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
+        // console.log(cancelToken)
+        const expectedApplicantCount = await jobService.getExpectedApplicantCount(filterBy, cancelToken)
         if (expectedApplicantCount === undefined) return
         commit('setExpectedApplicantCount', {expectedApplicantCount})
       } catch (err) {
         loggerService.error(`[JobStore] [getExpectedApplicantCount]`, err)
       }
     },
-    async getExpectedJobCount({commit}, {filterBy}) {
+    async getExpectedJobCount({commit, dispatch}, {filterBy}) {
       try {
-        const expectedJobCount = await jobService.getExpectedJobCount(filterBy)
+        // #HANDLE CANCEL
+        const key = 'job/getExpectedJobCount'
+        const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
+        const expectedJobCount = await jobService.getExpectedJobCount(filterBy, cancelToken)
         commit('setExpectedJobCount', {expectedJobCount})
       } catch (err) {
         loggerService.error(`[JobStore] [getExpectedJobCount]`, err)
