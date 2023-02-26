@@ -72,50 +72,47 @@ import FilterBox from '@/cmps/common/FilterBox.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 import ShareJob from '@/cmps/common/ShareJob.vue'
 // composables
-import {useOverview} from '@/composables/useOverview'
+// import {useOverview} from '@/composables/useOverview'
+import {useFilter} from '@/composables/useFilter'
+import {useSort} from '@/composables/useSort'
+import {useTags} from '@/composables/useTags'
+import {useSelection} from '@/composables/useSelection'
+import {useToggle} from '@/composables/useToggle'
+import {usePagination} from '@/composables/usePagination'
 // services
-import {userService} from '@/services/userService'
+// import {userService} from '@/services/userService'
 // misc
 import {advancedPermsMap} from '@/services/constData'
 
 export default {
   name: 'ApplicantOverview',
   setup() {
-    const {
-      filterBy = {},
-      sort,
-      tagList = [],
-      selectedItems = [],
-      shouldGather,
-      setSelectedItems = [],
-      setShouldGather,
-      isSelected,
-      onSetFilterByKey,
-      onSetFilter,
-      resetFilters,
-      onChangePage,
-      onSelectAll,
-      onSort,
-      onSelectItem,
-      onRemoveTag,
-    } = useOverview()
+    const {filterBy, onSetFilterByKey, onSetFilter, setFilterFromRoute, resetFilters} = useFilter()
+    const {sort, onSort} = useSort()
+    const {selectedItems, setSelectedItems, onSelectAll, isSelected, onSelectItem, clearSelectedItems} = useSelection()
+    const {data: shouldGather, setData: setShouldGather} = useToggle()
+    const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
+    const {tagList, onRemoveTag} = useTags({onSetFilterByKey})
+
     return {
       filterBy,
-      sort,
-      tagList,
-      selectedItems,
-      shouldGather,
-      setSelectedItems,
-      setShouldGather,
-      isSelected,
       onSetFilterByKey,
       onSetFilter,
       resetFilters,
+      setFilterFromRoute,
       onChangePage,
-      onSelectAll,
+      sort,
       onSort,
-      onSelectItem,
+      tagList,
       onRemoveTag,
+      selectedItems,
+      isSelected,
+      setSelectedItems,
+      onSelectAll,
+      onSelectItem,
+      clearSelectedItems,
+      shouldGather,
+      setShouldGather,
     }
   },
   async created() {
