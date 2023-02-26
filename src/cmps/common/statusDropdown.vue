@@ -1,5 +1,5 @@
 <template>
-  <div class="status-dropdown" ref="modal-wrapper" :class="{'full-width': isFullWidth}">
+  <div class="status-dropdown" ref="modalWrapper" :class="{'full-width': isFullWidth}">
     <button
       class="status-btn"
       :class="{
@@ -18,7 +18,7 @@
       <i v-if="!isDisabled && !isShowArchived" class="material-icons">expand_more</i>
     </button>
 
-    <div class="status-modal">
+    <div class="status-modal" :class="modalClass" :style="modalStyle">
       <button
         v-for="(status, idx) in statusMap"
         :key="status.label"
@@ -59,8 +59,13 @@ export default {
     const store = useStore()
     const modalHeight = computed(() => 342)
     const modalWrapper = ref(null)
+    // console.log('🚀 ~ file: statusDropdown.vue:84 ~ modalWrapper', modalWrapper.value)
 
-    const {isOpen, top, insetInlineStart, isBottom} = useModal({
+    // onMounted(() => {
+    //   console.log('🚀 ~ file: statusDropdown.vue:87 ~ onMounted ~ modalWrapper', modalWrapper.value)
+    // })
+    // console.log()
+    const {isOpen, top, actualModalWidth, isBottom} = useModal({
       modalHeight,
       modalType: 'status-picker',
       modalId: props.applicant.id,
@@ -74,7 +79,7 @@ export default {
     const modalStyle = computed(() => {
       return {
         top: `${top.value}px`,
-        insetInlineStart: `${insetInlineStart.value}px`,
+        width: `${actualModalWidth.value}px`,
       }
     })
 
@@ -86,9 +91,12 @@ export default {
     })
 
     return {
+      modalWrapper,
       isOpen,
       modalClass,
       modalStyle,
+      isBottom,
+      isMobile,
     }
   },
 

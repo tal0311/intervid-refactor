@@ -25,7 +25,7 @@ import {clickOutside} from './directivs'
 
 import './assets/scss/global.scss'
 // import {getTrans} from './services/i18nService'
-// import {getSvg} from './services/svgService'
+import {getSvg} from './services/svgService'
 import config from './config'
 
 import App from './App.vue'
@@ -108,12 +108,12 @@ app.directive('click-outside', clickOutside)
 app.directive('observe-visibility', ObserveVisibility)
 
 // ?delete
-// app.mixin({
-//   methods: {
-//     getTrans,
-//     getSvg
-//   },
-// })
+app.mixin({
+  methods: {
+    // getTrans,
+    getSvg,
+  },
+})
 app.use(i18nPlugin, {
   getLang: () => store.getters['app/lang'],
 })

@@ -15,7 +15,7 @@
       <component
         v-for="item in items"
         :key="item._id"
-        :is="componentToShow"
+        :is="itemName"
         :filterBy="filterBy"
         ref="preview"
         v-bind="getNamedProp(item)"
@@ -73,10 +73,10 @@ export default {
 
   data() {
     return {
-      skeletons: {
-        job: JobSkeleton,
-        applicant: ApplicantSkeleton,
-      },
+      // skeletons: {
+      //   job: JobSkeleton,
+      //   applicant: ApplicantSkeleton,
+      // },
     }
   },
 
@@ -97,7 +97,7 @@ export default {
     },
 
     skeletonToShow() {
-      return `${this.itemName}Skeleton}`
+      return ApplicantSkeleton
     },
 
     isInfiniteScroll() {
