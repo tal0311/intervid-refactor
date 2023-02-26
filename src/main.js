@@ -7,7 +7,7 @@ import {createApp} from 'vue'
 // import { clickOutside } from './directivs'
 
 // TODO CHECK IF NEEDED
-// import { ObserveVisibility } from 'vue-observe-visibility'
+import {ObserveVisibility} from 'vue3-observe-visibility'
 import Vue3TouchEvents from 'vue3-touch-events'
 import vue3GoogleLogin from 'vue3-google-login'
 import VueSocialSharing from 'vue-social-sharing'
@@ -43,8 +43,8 @@ import store from './store'
 // })()
 
 // Accessibillty helper:
-;import { i18nPlugin } from './plugins/i18n.plugin'
-(function () {
+import {i18nPlugin} from './plugins/i18n.plugin'
+;(function () {
   window.interdeal = {
     sitekey: 'eb985e13938463d3b349126ea36d814e',
     Position: 'Start',
@@ -105,7 +105,7 @@ app.component('basic-select', BasicSelect)
 app.component('check-box', CheckBox)
 
 app.directive('click-outside', clickOutside)
-// app.directive('observe-visibility', ObserveVisibility)
+app.directive('observe-visibility', ObserveVisibility)
 
 // ?delete
 // app.mixin({
@@ -115,7 +115,7 @@ app.directive('click-outside', clickOutside)
 //   },
 // })
 app.use(i18nPlugin, {
-  getLang: ()=> store.getters['app/lang'],
+  getLang: () => store.getters['app/lang'],
 })
 
 app.use(VueSocialSharing)
