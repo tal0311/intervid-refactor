@@ -150,7 +150,7 @@ export default {
 
   created() {
     // this.resetFilter()
-    this.svgs.filter = this.getSvg('filter')
+    // this.svgs.filter = this.getSvg('filter')
   },
 
   computed: {

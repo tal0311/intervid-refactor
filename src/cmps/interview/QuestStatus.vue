@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {formatDuration} from '@/services/utilService'
+import {formatDuration} from '@/services/i18nService'
 
 export default {
   props: ['timeLimit', 'startTime', 'isAlmostDone', 'isHalfwayDone'],

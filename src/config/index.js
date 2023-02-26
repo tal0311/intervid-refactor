@@ -5,7 +5,7 @@ import development from './development'
 var config
 
 if (import.meta.env.PROD) {
-  // TODO: find the vite equivalent of process.env.VUE_APP_ENV
+  // TODO: find the vite equivalent of import.meta.env.VUE_APP_ENV
   if (import.meta.env.VUE_APP_ENV === 'staging') {
     config = staging
   } else {

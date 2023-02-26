@@ -35,38 +35,6 @@ export function secondsToTime(seconds, {isMinutes} = {}) {
   return `${hrs ? _padNum(hrs) + ':' : ''}${_padNum(mins)}:${_padNum(secs)}`
 }
 
-/**
- * Formats MS to any desired duration.
- * With no options returns H:M h / M:S min / S sec
- * @param {number} ms
- * @param {{noWords:boolean,singleLetter:boolean,fullWord:boolean}} options
- * @returns string
- */
-export function formatDuration(ms, {noWords, singleLetter, fullWord} = {}) {
-  let seconds = ms / 1000
-  let minutes = parseInt(seconds / 60)
-  seconds = Math.round(seconds % 60)
-  const hours = parseInt(minutes / 60)
-  minutes = Math.round(minutes % 60)
-
-  const timeStr = hours ? _padNum(hours) + ':' + _padNum(minutes) : _padNum(minutes) + ':' + _padNum(seconds)
-
-  if (noWords) return timeStr
-
-  if (!minutes && !hours) {
-    const word = singleLetter ? 's' : fullWord ? getPlural('second', seconds) : 'sec'
-    return timeStr + ' ' + word
-  }
-  let word = hours ? 'h' : 'min'
-  if (singleLetter) {
-    word = hours ? 'h' : 'm'
-  } else if (fullWord) {
-    word = hours ? getPlural('hour', hours) : getPlural('minute', minutes)
-  }
-  return timeStr + ' ' + word
-}
-
-
 export function makeId(length = 6) {
   let str = ''
   const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'

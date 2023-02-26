@@ -82,12 +82,12 @@ export default {
   name: 'ApplicantOverview',
   setup() {
     const {
-      filterBy,
+      filterBy = {},
       sort,
-      tagList,
-      selectedItems,
+      tagList = [],
+      selectedItems = [],
       shouldGather,
-      setSelectedItems,
+      setSelectedItems = [],
       setShouldGather,
       isSelected,
       onSetFilterByKey,
