@@ -1,9 +1,10 @@
 # There is a bug with prettier, where it dosen't respect the EOL setting in .prettierrc.json when formatting via vscode (see https://github.com/prettier/prettier-vscode/issues/1327#issuecomment-820235411).
-#  This is a workaround for that. Everyone should download the EditorConfig for VS Code extension.
+# This is a workaround for that. Everyone should download the EditorConfig for VS Code extension.
 # EditorConfig is awesome apperantly: http://editorconfig.org/, 
 
 # top-most EdiotConfig file
 root = true
 
+# all files
 [*]
 end_of_line = lf
