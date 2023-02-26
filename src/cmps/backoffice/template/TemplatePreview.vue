@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { getFullName} from '@/services/utilService'
+import {getFullName} from '@/services/utilService'
 import cloneDeep from 'lodash.clonedeep'
 
 import TemplateMenu from '@/cmps/backoffice/template/TemplateMenu.vue'
@@ -51,7 +51,7 @@ export default {
     templateCreationDate() {
       const date = this.template.createdAt
       if (!date) return 'None'
-      return $formatDate(date)
+      return this.$formatDate(date)
     },
   },
 

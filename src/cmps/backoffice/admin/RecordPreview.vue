@@ -45,7 +45,7 @@ export default {
     formattedRecordDate() {
       const date = new Date(this.record.timestamp)
       if (!date) return 'None'
-      return $formatDate(date, {
+      return this.$formatDate(date, {
         getFullDate: true,
         includeTime: true,
         includeSeconds: true,

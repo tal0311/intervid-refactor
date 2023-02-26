@@ -32,7 +32,7 @@ export default {
     },
 
     formattedDate() {
-      return $formatDate(this.timeEvent.createdAt)
+      return this.$formatDate(this.timeEvent.createdAt)
     },
 
     isNote() {

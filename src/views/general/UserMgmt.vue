@@ -168,7 +168,7 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
-import { getFullName} from '@/services/utilService'
+import {getFullName} from '@/services/utilService'
 import cloneDeep from 'lodash.clonedeep'
 import {getValidateMsg, validate} from '@/services/errorService.js'
 
@@ -199,7 +199,7 @@ export default {
     ...mapGetters('user', ['loggedInUser']),
 
     lastLogin() {
-      return this.loggedInUser.lastLogin ? $formatDate(this.loggedInUser.lastLogin) : 'First login'
+      return this.loggedInUser.lastLogin ? this.$formatDate(this.loggedInUser.lastLogin) : 'First login'
     },
 
     userFullName() {
