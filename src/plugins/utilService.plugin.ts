@@ -5,7 +5,7 @@ import {utilService} from '../services/utilService.js'
 
 
 export const utilServicePlugin = {
-    install: (app: App, options: Options | null) => {
+    install: (app) => {
         app.config.globalProperties.$utilService = utilService
 
     }
