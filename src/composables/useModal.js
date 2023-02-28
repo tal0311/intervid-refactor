@@ -82,7 +82,7 @@ export function useModal({emit, modalId, modalHeight, modalWidth, modalType, mou
 
 function useModalPosFromClick({modalHeight, modalWidth = 0, mousePos, isEnglish}) {
   const bodyBounding = document.body.getBoundingClientRect()
-  const isBottom = mousePos.y + modalHeight.value > bodyBounding.value.height
+  const isBottom = mousePos.y + modalHeight.value > bodyBounding.height
 
   const top = isBottom ? mousePos.y - modalHeight.value : mousePos.y
   // TODO: This is a mess, and needs to be refactored

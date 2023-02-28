@@ -32,7 +32,6 @@ export function useFilter() {
     filterBy.value = {...filter}
   }
   const onSetFilter = (filter) => {
-    console.log('onSetFilter', filter)
     _setFilter(filter)
     onSetQuery(filterBy.value, _archiveBy.value)
   }
@@ -51,7 +50,7 @@ export function useFilter() {
   // TODO: find a better name for this func
   const setFilterFromRoute = () => {
     if (!_shouldParseFilter.value) return _setDefaultFilter()
-    // TODO: Check if _parseFilter can somehow use JSON.parse and avoid the horryfying ternary statement and assignments
+    // // TODO: Check if _parseFilter can somehow use JSON.parse and avoid the horryfying ternary statement and assignments
     const parsedFilterBy = _parseFilter(route.query)
     parsedFilterBy.showArchived = parsedFilterBy.showArchived === 'true'
     parsedFilterBy.incomplete =
@@ -59,10 +58,11 @@ export function useFilter() {
         ? JSON.parse(parsedFilterBy.incomplete)
         : undefined
     parsedFilterBy.daysAgo = parsedFilterBy.daysAgo || ''
-    _setFilter(parsedFilterBy)
+    // _setFilter(parsedFilterBy)
   }
 
   onMounted(() => {
+    console.log('useFilter mounted')
     setFilterFromRoute()
   })
 
@@ -85,6 +85,5 @@ function _parseFilter(query) {
     }
   }
   if (filterBy.currPage) filterBy.currPage = +filterBy.currPage
-  console.log('filterBy', filterBy)
   return filterBy
 }

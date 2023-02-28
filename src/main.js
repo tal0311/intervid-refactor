@@ -33,14 +33,14 @@ import router from './router'
 import store from './store'
 
 // NOTE: remove this func, set it as guard in the router index. see:
-// ;(async function () {
-//   console.log('router.get', router)
-//   const isInInterview = router.history._startLocation.startsWith('/interview')
-//   if (isInInterview) return
-//   if (tokenService.getToken()) {
-//     store.dispatch('user/loadLoggedUser')
-//   }
-// })()
+;(async function () {
+  console.log('router.get', router)
+  const isInInterview = false
+  if (isInInterview) return
+  if (tokenService.getToken()) {
+    store.dispatch('user/loadLoggedUser')
+  }
+})()
 
 // Accessibillty helper:
 import {i18nPlugin} from './plugins/i18n.plugin'
