@@ -5,6 +5,7 @@ import {msgService} from '@/services/msgService'
 // import { activityMap } from '@/services/activityService'
 import { getTrans } from '../../services/i18nService'
 
+
 export const job = {
   namespaced: true,
 

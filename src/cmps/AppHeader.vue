@@ -72,12 +72,18 @@ import UserMenu from './common/UserMenu.vue'
 import ShareBtns from './JobEdit/ShareBtns.vue'
 import LngMenu from './common/LngMenu.vue'
 import config from '@/config'
+import { useShareJob } from '../composables/job/useShareJob'
 
 export default {
   data() {
     return {
       isJobEdit: false,
       isSmallContainer: false,
+    }
+  },
+  setup(){
+    return {
+      onShareJob: useShareJob()
     }
   },
 
@@ -130,7 +136,8 @@ export default {
 
   methods: {
     onShare() {
-      this.$root.$emit('share-job')
+      // this.$root.$emit('share-job')
+      this.onShareJob()
     },
 
     openPreview() {
