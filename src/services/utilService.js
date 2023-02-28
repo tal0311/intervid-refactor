@@ -46,13 +46,14 @@ function verifyBeforeExit(e) {
 }
 
 function secondsToTime(seconds, { isMinutes } = {}) {
-  const hrs = Math.floor(seconds / (60 * 60))
+  const hrs = `${Math.floor(seconds / (60 * 60))}`
   const divisorForMins = seconds % (60 * 60)
-  const mins = Math.floor(divisorForMins / 60)
+  const mins = `${Math.floor(divisorForMins / 60)}`
   const divisorForSecs = divisorForMins % 60
-  const secs = Math.floor(divisorForSecs)
-  if (isMinutes) return `${mins}:${_padNum(secs)}`
-  return `${hrs ? _padNum(hrs) + ':' : ''}${_padNum(mins)}:${_padNum(secs)}`
+  const secs = `${Math.floor(divisorForSecs)}`
+  if (isMinutes) return `${mins}:${secs.padStart(2, '0')}`
+  console.log('hrs', typeof hrs)
+  return `${hrs ? hrs.padStart(2, '0') + ':' : ''}${mins.padStart(2, '0')}:${secs.padStart(2, '0')}`
 }
 
 function makeId(length = 6) {
@@ -86,10 +87,11 @@ function getUrlParamsFromObj(obj) {
   }
   return params.length ? '?' + params.join('&') : ''
 }
-
-function _padNum(num) {
-  return num >= 10 ? num : '0' + num
-}
+//Replaced with padStart
+// function _padNum(num) {
+//   console.log('num', num)
+//   return num >= 10 ? num : '0' + num
+// }
 
 function paginate(items, currPage = 0, itemsPerPage = 30) {
   return items.filter((item, index) => {

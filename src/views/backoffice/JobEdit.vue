@@ -62,7 +62,7 @@ import QuestEdit from '@/cmps/JobEdit/QuestEdit.vue'
 import JobForm from '@/cmps/JobEdit/JobForm.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
 import config from '@/config'
-
+import cloneDeep from 'lodash.clonedeep'
 export default {
   data() {
     return {
@@ -72,7 +72,7 @@ export default {
 
   async created() {
     await this.loadJob()
-    this.job = structuredClone(this.jobToEdit)
+    this.job = cloneDeep(this.jobToEdit)
     if (this.$route.query.templateId) await this.loadTemplateQuests()
   },
 
@@ -244,7 +244,7 @@ export default {
 
   watch: {
     jobToEdit() {
-      this.job = structuredClone(this.jobToEdit)
+      this.job = cloneDeep(this.jobToEdit)
     },
   },
 

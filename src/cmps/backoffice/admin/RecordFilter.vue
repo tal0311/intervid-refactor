@@ -86,7 +86,6 @@ export default {
       levels: ['debug', 'http', 'info', 'warn', 'error'],
     }
   },
-
   methods: {
     onSetFilterByKey(key, value) {
       this.$emit('set-filter', key, value)
@@ -100,7 +99,7 @@ export default {
       this.onSetFilterByKey('levels', levels.join(','))
     },
 
-    // handleChange: this.$utilService.debounce(function (ev) {
+    // handleChange: this.$utilService['debounce'](function (ev) {
     //   this.onSetFilterByKey(ev.target.name, ev.target.value)
     // }, 0),
   },
