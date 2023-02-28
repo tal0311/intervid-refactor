@@ -114,7 +114,7 @@ import ApplicantEdit from '@/cmps/backoffice/applicant/ApplicantEdit.vue'
 import ApplicantMenu from '@/cmps/backoffice/applicant/ApplicantMenu.vue'
 import CvMenu from '@/cmps/backoffice/applicant/CvMenu.vue'
 // import {userService} from '@/services/userService'
-import {cloneDeep} from 'lodash.clonedeep'
+import cloneDeep from 'lodash.clonedeep'
 
 export default {
   data() {
@@ -310,7 +310,7 @@ export default {
     },
 
     async removeNoteEvent(noteId) {
-      const timelineToSave = structuredClone(
+      const timelineToSave = cloneDeep(
         this.applicant.timeline.filter((timeEvent) => timeEvent.type !== 'note' || timeEvent.noteId !== noteId),
       )
       const notesToSave = structuredClone(this.applicant.notes.filter((note) => note.id !== noteId))

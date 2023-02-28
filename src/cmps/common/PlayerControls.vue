@@ -98,7 +98,7 @@ export default {
     },
 
     formattedCurrTime() {
-      return this.$this.$utilService.secondsToTime(this.playerState.currTime)
+      return this.$utilService.secondsToTime(this.playerState.currTime)
     },
 
     isPlayerReady() {
