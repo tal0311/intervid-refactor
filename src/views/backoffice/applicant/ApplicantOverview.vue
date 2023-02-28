@@ -77,7 +77,7 @@ import {useFilter} from '@/composables/useFilter'
 import {useSort} from '@/composables/useSort'
 import {useTags} from '@/composables/useTags'
 import {useSelection} from '@/composables/useSelection'
-import {useToggle} from '@/composables/useToggle'
+import {useShouldGather} from '@/composables/overview/useShouldGather'
 import {usePagination} from '@/composables/usePagination'
 // services
 // import {userService} from '@/services/userService'
@@ -90,7 +90,7 @@ export default {
     const {filterBy, onSetFilterByKey, onSetFilter, setFilterFromRoute, resetFilters} = useFilter()
     const {sort, onSort} = useSort()
     const {selectedItems, setSelectedItems, onSelectAll, isSelected, onSelectItem, clearSelectedItems} = useSelection()
-    const {data: shouldGather, setData: setShouldGather} = useToggle()
+    const {shouldGather, setShouldGather} = useShouldGather()
     const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
     const {tagList, onRemoveTag} = useTags({onSetFilterByKey})
 
