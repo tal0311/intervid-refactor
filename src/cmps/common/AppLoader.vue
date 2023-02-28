@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import {getSvg} from '@/services/svgService'
+
 export default {
   props: ['isLocal'],
 
@@ -15,7 +17,7 @@ export default {
   },
 
   created() {
-    this.loaderSvg = this.getSvg('loader')
+    this.loaderSvg = getSvg('loader')
   },
 }
 </script>
