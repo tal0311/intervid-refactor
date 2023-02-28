@@ -1,6 +1,6 @@
 // import store from '@/store'
 import httpService from './httpService'
-import {getUrlParamsFromObj} from './utilService'
+import {utilService} from './utilService'
 import {companyService} from './companyService'
 import {templateService} from './templateService'
 import {userService} from '@/services/userService'
@@ -31,7 +31,7 @@ function query(filterBy, sort, cancelToken) {
   // const key = 'job/query'
   // const token = _handleCancelRequest(key)
 
-  const urlParams = getUrlParamsFromObj({...filterBy, ...sort})
+  const urlParams = utilService.getUrlParamsFromObj({...filterBy, ...sort})
   const url = ROUTE + urlParams
   return httpService.customRequest('get', url, null, {cancelToken})
 }
@@ -40,7 +40,7 @@ function getApplicants(filterBy, sort, cancelToken) {
   // const key = 'job/getApplicants'
   // const token = _handleCancelRequest(key)
 
-  const urlParams = getUrlParamsFromObj({...filterBy, ...sort})
+  const urlParams = utilService.getUrlParamsFromObj({...filterBy, ...sort})
   const url = ROUTE + '/applicant' + urlParams
   return httpService.customRequest('get', url, null, {cancelToken})
 }
@@ -90,7 +90,7 @@ function getExpectedApplicantCount(filterBy, cancelToken) {
   // const key = 'job/getExpectedApplicantCount'
   // const token = _handleCancelRequest(key)
 
-  const urlParams = getUrlParamsFromObj({...filterBy})
+  const urlParams = utilService.getUrlParamsFromObj({...filterBy})
   return httpService.customRequest('get', ROUTE + '/applicantCount' + urlParams, null, {cancelToken})
 }
 
@@ -98,7 +98,7 @@ function getExpectedJobCount(filterBy, cancelToken) {
   // const key = 'job/getExpectedJobCount'
   // const token = _handleCancelRequest(key)
 
-  const urlParams = getUrlParamsFromObj({...filterBy})
+  const urlParams = utilService.getUrlParamsFromObj({...filterBy})
   return httpService.customRequest('get', ROUTE + '/jobCount' + urlParams, null, {cancelToken})
 }
 

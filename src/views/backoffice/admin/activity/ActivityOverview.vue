@@ -36,7 +36,6 @@ import {useSort} from '@/composables/useSort'
 import {useSelection} from '@/composables/useSelection'
 import {usePagination} from '@/composables/usePagination'
 // services
-import {getSortFunc} from '@/services/utilService'
 
 export default {
   setup() {
@@ -70,7 +69,7 @@ export default {
     activities() {
       return this.$store.getters['activity/activities']
         .map((activity) => ({...activity, start: new Date(activity.start)}))
-        .sort(getSortFunc(this.sort))
+        .sort(this.$utilService.getSortFunc(this.sort))
     },
 
     totalActivityCount() {

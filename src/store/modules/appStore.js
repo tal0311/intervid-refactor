@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {isMobile, isMobileDevice} from '@/services/utilService'
+import {utilService} from '@/services/utilService'
 import {setLang} from '@/services/i18nService'
 import {detect} from 'detect-browser'
 console.log(import.meta.env.MODE)
@@ -13,8 +13,8 @@ export const app = {
       isDarkScreen: false,
     },
     alertData: null,
-    isMobile: isMobile(),
-    isMobileDevice: isMobileDevice(),
+    isMobile: utilService.isMobile(),
+    isMobileDevice: utilService.isMobileDevice(),
     browser: detect(),
     progressBar: {
       isShown: false,

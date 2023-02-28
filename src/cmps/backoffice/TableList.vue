@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import {isTabletScreen} from '@/services/utilService'
 
 import TemplatePreview from '@/cmps/backoffice/template/TemplatePreview.vue'
 import JobPreview from '@/cmps/backoffice/job/JobPreview.vue'
@@ -101,7 +100,7 @@ export default {
     },
 
     isInfiniteScroll() {
-      return isTabletScreen()
+      return this.$utilService.isTabletScreen()
     },
 
     isAllItems() {

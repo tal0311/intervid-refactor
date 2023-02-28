@@ -113,7 +113,6 @@ import AppSpinner from './AppSpinner.vue'
 
 
 import {mediaService} from '@/services/mediaService'
-import {debounce} from '@/services/utilService'
 import {coverImgs} from '@/services/constData'
 
 export default {
@@ -163,13 +162,13 @@ export default {
       this.onAddCover()
     },
 
-    onGetImgs: debounce(async function () {
-      if (!this.value) {
-        this.imgs = null
-        return
-      }
-      this.imgs = await mediaService.getImgs(this.value)
-    }, 500),
+    // onGetImgs: this.$utilService.debounce(async function () {
+    //   if (!this.value) {
+    //     this.imgs = null
+    //     return
+    //   }
+    //   this.imgs = await mediaService.getImgs(this.value)
+    // }, 500),
 
     onSelectImg(img) {
       this.selectedImg = img

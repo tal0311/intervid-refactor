@@ -14,7 +14,6 @@
 <script>
 import {msgService} from '@/services/msgService'
 import {socketService, SOCKET_ON_DONE_INTERVIEW, SOCKET_ON_SAVE_APPLICANT} from '@/services/socketService'
-import {getFullName} from '@/services/utilService'
 
 export default {
   async created() {
@@ -67,7 +66,7 @@ export default {
     alertInterviewStatus({type, applicant}) {
       this.$store.commit({
         type: 'app/setAlertData',
-        alertData: msgService[type](getFullName(applicant.info)),
+        alertData: msgService[type](this.$utilService.getFullName(applicant.info)),
       })
     },
   },

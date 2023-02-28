@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import {getFullName} from '@/services/utilService'
 
 import ApplicantAvatar from './ApplicantAvatar.vue'
 import MobileModal from './modals/MobileModal.vue'
@@ -36,7 +35,8 @@ export default {
     },
 
     userFullName() {
-      return getFullName(this.loggedInUser)
+      // return this.$getFullName(this.loggedInUser)
+      return this.$utilService.getFullName(this.loggedInUser)
     },
 
     isMobile() {

@@ -1,4 +1,4 @@
-import {isEmailValid, isPhoneValid, isPasswordValid} from '@/services/utilService'
+import {utilService} from '@/services/utilService'
 import {detect} from 'detect-browser'
 
 const browser = detect()
@@ -127,13 +127,13 @@ export const validate = (els) => {
     if (validator.includes('range') && (+el.min > +el.value || +el.max < +el.value)) {
       errors.push(getValidateMsg('OUT_OF_RANGE', el))
     }
-    if (validator.includes('email') && !isEmailValid(el.value)) {
+    if (validator.includes('email') && !utilService.isEmailValid(el.value)) {
       errors.push(getValidateMsg('EMAIL', el))
     }
-    if (validator.includes('phone') && !isPhoneValid(el.value)) {
+    if (validator.includes('phone') && !utilService.isPhoneValid(el.value)) {
       errors.push(getValidateMsg('PHONE', el))
     }
-    if (validator.includes('password') && !isPasswordValid(el.value)) {
+    if (validator.includes('password') && !utilService.isPasswordValid(el.value)) {
       errors.push(getValidateMsg('PASSWORD', el))
     }
   })

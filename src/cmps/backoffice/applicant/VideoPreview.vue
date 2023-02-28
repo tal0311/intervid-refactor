@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import {getVideoLength, secondsToTime} from '@/services/utilService'
 
 export default {
   props: ['answer', 'idx', 'quest', 'selectedQuestIdx'],
@@ -56,7 +55,7 @@ export default {
 
   methods: {
     secondsToTime(answerTime) {
-      return secondsToTime(answerTime)
+      return this.$utilService.secondsToTime(answerTime)
     },
 
     toggleExpand() {
@@ -66,7 +65,7 @@ export default {
 
   watch: {
     async 'answer.faceUrl'() {
-      this.answerDuration = await getVideoLength(this.answer.faceUrl)
+      this.answerDuration = await this.$utilService.getVideoLength(this.answer.faceUrl)
     },
   },
 

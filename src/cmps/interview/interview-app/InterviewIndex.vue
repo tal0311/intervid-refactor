@@ -109,7 +109,6 @@ import {uploaderService} from '@/services/uploaderService'
 import {timelineService} from '@/services/timelineService'
 import {screenErrorMap} from '@/services/errorService'
 import {loggerService} from '@/services/loggerService'
-import {verifyBeforeExit} from '@/services/utilService'
 
 import VideoMixin from '@/mixins/VideoMixin'
 import ScreenMixin from '@/mixins/ScreenMixin'
@@ -143,7 +142,7 @@ export default {
     this.addApplicant()
     window.onbeforeunload = (ev) => {
       loggerService.info('[Interview] [onBeforeUnload] Applicant try to leave the interview - open confirmation modal')
-      verifyBeforeExit(ev)
+      this.$utilService.verifyBeforeExit(ev)
     } // Open confirmation modal
     document.body.onunload = () => {
       loggerService.info('[Interview] [onunload] Applicant try to leave the interview - send quit timeEvent')

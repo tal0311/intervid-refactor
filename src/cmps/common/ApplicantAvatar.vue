@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import {getInitials} from '@/services/utilService'
 
 export default {
   props: {
@@ -122,7 +121,7 @@ export default {
 
     userInitial() {
       if (!this.isImage) {
-        const initials = this.initials || getInitials(this.username)
+        const initials = this.initials || this.$utilService.getInitials(this.username)
         return initials
       }
       return ''

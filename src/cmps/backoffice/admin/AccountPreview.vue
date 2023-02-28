@@ -37,14 +37,14 @@
 </template>
 
 <script>
-import {getFullName} from '@/services/utilService'
 
 export default {
   props: ['account'],
 
   computed: {
     fullName() {
-      return getFullName(this.account)
+      return this.$utilService.getFullName(this.account)
+      // return this.$getFullName(this.account)
     },
 
     viewAsUser() {

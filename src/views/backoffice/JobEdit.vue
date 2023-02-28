@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import {debounce} from '@/services/utilService'
 import {msgService} from '@/services/msgService'
 import {validate} from '@/services/errorService.js'
 import {templateService} from '@/services/templateService'
@@ -190,10 +189,10 @@ export default {
       await this.saveJob()
     },
 
-    handleChange: debounce(async function ({target}) {
-      if (target.name && (target.name === 'search' || target.name.includes('upload'))) return
-      await this.validateForm()
-    }, 1500),
+    // handleChange: this.$utilService.debounce(async function ({target}) {
+    //   if (target.name && (target.name === 'search' || target.name.includes('upload'))) return
+    //   await this.validateForm()
+    // }, 1500),
 
     onDragEnd(ev) {
       if (ev.oldIndex === ev.newIndex) return

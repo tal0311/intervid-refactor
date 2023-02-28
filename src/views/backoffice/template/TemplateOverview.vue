@@ -55,7 +55,6 @@ import {usePagination} from '@/composables/usePagination'
 // services
 import {filterTemplates} from '@/services/templateService'
 import {msgService} from '@/services/msgService'
-import {paginate, getSortFunc} from '@/services/utilService'
 
 export default {
   setup() {
@@ -91,8 +90,8 @@ export default {
     },
 
     templatesToShow() {
-      const templates = this.filteredTemplates.slice().sort(getSortFunc(this.sort))
-      return paginate(templates, this.filterBy.currPage, this.filterBy.itemsPerPage)
+      const templates = this.filteredTemplates.slice().sort(this.$utilService.getSortFunc(this.sort))
+      return this.$utilService.paginate(templates, this.filterBy.currPage, this.filterBy.itemsPerPage)
     },
 
     isFetching() {
