@@ -1,9 +1,8 @@
 import {ref} from 'vue'
 
-export function useToggle() {
-  const data = ref(false)
+export function useToggle(startingValue = false) {
+  const data = ref(startingValue)
 
-  // Methods
   const setData = (val) => {
     data.value = val
   }

@@ -32,6 +32,7 @@ export function useFilter() {
     filterBy.value = {...filter}
   }
   const onSetFilter = (filter) => {
+    console.log('onSetFilter', filter)
     _setFilter(filter)
     onSetQuery(filterBy.value, _archiveBy.value)
   }
@@ -80,10 +81,10 @@ function _parseFilter(query) {
   for (let [key, value] of searchParams) {
     if (value) {
       if (key === 'statuses') value = value.split(',')
-      filterBy[key] = JSON.parse(value)
-      console.log('key', key, 'value', value)
+      filterBy[key] = value
     }
   }
   if (filterBy.currPage) filterBy.currPage = +filterBy.currPage
+  console.log('filterBy', filterBy)
   return filterBy
 }

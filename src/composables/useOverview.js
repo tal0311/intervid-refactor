@@ -5,12 +5,6 @@ import {useStore} from 'vuex'
 
 export function useOverview() {
   const store = useStore()
-  const shouldGather = ref(false)
-
-  // Methods
-  const setShouldGather = (val) => {
-    shouldGather.value = val
-  }
 
   const sendAlert = (alertData) => {
     store.commit({
