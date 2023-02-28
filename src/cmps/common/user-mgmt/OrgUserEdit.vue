@@ -92,7 +92,6 @@ import {validate} from '@/services/errorService'
 
 import {advancedPermsMap, permissions} from '@/services/constData'
 
-import cloneDeep from 'lodash.clonedeep'
 import {mapActions} from 'vuex'
 
 import ImgUpload from '@/cmps/common/ImgUpload.vue'
@@ -109,7 +108,7 @@ export default {
   },
 
   created() {
-    if (this.data?.userToEdit) this.user = cloneDeep(this.data.userToEdit)
+    if (this.data?.userToEdit) this.user = structuredClone(this.data.userToEdit)
     if (!this.user.advancedPrm) this.user.advancedPrm = {}
   },
 
@@ -180,7 +179,7 @@ export default {
   watch: {
     userToEdit() {
       if (this.userToEdit) {
-        this.user = cloneDeep(this.userToEdit)
+        this.user = structuredClone(this.userToEdit)
       }
     },
   },

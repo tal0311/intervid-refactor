@@ -30,7 +30,6 @@
 
 <script>
 import {getFullName} from '@/services/utilService'
-import cloneDeep from 'lodash.clonedeep'
 
 import TemplateMenu from '@/cmps/backoffice/template/TemplateMenu.vue'
 
@@ -57,7 +56,7 @@ export default {
 
   methods: {
     onToggleArchive() {
-      const template = cloneDeep(this.template)
+      const template = structuredClone(this.template)
       this.$store.dispatch('template/toggleArchivedTemplate', {template})
     },
 

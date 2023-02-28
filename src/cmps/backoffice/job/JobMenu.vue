@@ -42,7 +42,6 @@
 import {computed} from 'vue'
 // lib
 import {useStore} from 'vuex'
-import cloneDeep from 'lodash.clonedeep'
 // import { useStore } from 'vuex'
 // services
 import {msgService} from '@/services/msgService'
@@ -122,7 +121,7 @@ export default {
 
     async onCloneJob() {
       this.toggleModal()
-      const jobToSave = cloneDeep(this.job)
+      const jobToSave = structuredClone(this.job)
       delete jobToSave._id
       delete jobToSave.createdAt
       jobToSave.applicants = []

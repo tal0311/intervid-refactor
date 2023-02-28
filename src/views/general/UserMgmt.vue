@@ -169,7 +169,6 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import {getFullName} from '@/services/utilService'
-import cloneDeep from 'lodash.clonedeep'
 import {getValidateMsg, validate} from '@/services/errorService.js'
 
 import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
@@ -193,7 +192,6 @@ export default {
 
   mounted() {
     this.userToEdit = structuredClone(this.loggedInUser)
-    // this.userToEdit = cloneDeep(this.loggedInUser)
   },
 
   computed: {

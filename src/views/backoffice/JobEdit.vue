@@ -57,7 +57,6 @@ import {msgService} from '@/services/msgService'
 import {validate} from '@/services/errorService.js'
 import {templateService} from '@/services/templateService'
 
-import cloneDeep from 'lodash.clonedeep'
 import draggable from 'vuedraggable'
 
 import QuestEdit from '@/cmps/JobEdit/QuestEdit.vue'
@@ -74,7 +73,7 @@ export default {
 
   async created() {
     await this.loadJob()
-    this.job = cloneDeep(this.jobToEdit)
+    this.job = structuredClone(this.jobToEdit)
     if (this.$route.query.templateId) await this.loadTemplateQuests()
   },
 
@@ -246,7 +245,7 @@ export default {
 
   watch: {
     jobToEdit() {
-      this.job = cloneDeep(this.jobToEdit)
+      this.job = structuredClone(this.jobToEdit)
     },
   },
 
