@@ -35,14 +35,14 @@ import store from './store'
 import {i18nPlugin} from './plugins/i18n.plugin'
 import {utilServicePlugin} from './plugins/utilService.plugin'
 // NOTE: remove this func, set it as guard in the router index. see:
-;(async function () {
-  console.log('router.get', router)
-  const isInInterview = false
-  if (isInInterview) return
-  if (tokenService.getToken()) {
-    store.dispatch('user/loadLoggedUser')
-  }
-})()
+// ;(async function () {
+//   console.log('router.get', router)
+//   const isInInterview = false
+//   if (isInInterview) return
+//   if (tokenService.getToken()) {
+//     store.dispatch('user/loadLoggedUser')
+//   }
+// })()
 
 // Accessibillty helper:
 ;(function () {
