@@ -44,7 +44,7 @@
       <job-menu
         :job="job"
         :mouse-pos="mousePos"
-        @modal-closed="mousePos = null"
+        @modal-closed="onCloseMenu"
         @archive="onToggleArchive"
         @load-jobs="$emit('load-items')"
         ref="job-menu"
@@ -74,7 +74,7 @@
             :job="job"
             @archive="onToggleArchive"
             :mouse-pos="mousePos"
-            @modal-closed="mousePos = null"
+            @modal-closed="onCloseMenu"
             @load-jobs="$emit('load-items')"
             @remove="$emit('remove', $event)"
           />
@@ -105,11 +105,17 @@ export default {
   setup() {
     const mousePos = ref(null)
     const onOpenMenu = ({pageX, pageY}) => {
+      console.log('onOpenMenu')
       mousePos.value = {x: pageX, y: pageY}
+    }
+    const onCloseMenu = () => {
+      console.log('onCloseMenu')
+      mousePos.value = null
     }
     return {
       mousePos,
       onOpenMenu,
+      onCloseMenu,
     }
   },
   data() {
