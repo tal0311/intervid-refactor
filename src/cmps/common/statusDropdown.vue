@@ -5,7 +5,7 @@
       :class="{
         open: isOpen && !isMobile,
         recruitment: isRecruitmentStatus,
-        top: isBottom,
+        top: modalPos.isBottom,
       }"
       :style="{
         backgroundColor: isDisabled ? '#EBEEF2' : applicantStatus.color,
@@ -55,17 +55,12 @@ import MobileModal from './modals/MobileModal.vue'
 
 export default {
   props: ['applicant', 'isShowArchived', 'isFullWidth'],
-  setup(props) {
+  setup(props, {emit}) {
     const store = useStore()
     const modalHeight = computed(() => 342)
     const modalWrapper = ref(null)
-    // console.log('🚀 ~ file: statusDropdown.vue:84 ~ modalWrapper', modalWrapper.value)
-
-    // onMounted(() => {
-    //   console.log('🚀 ~ file: statusDropdown.vue:87 ~ onMounted ~ modalWrapper', modalWrapper.value)
-    // })
-    // console.log()
-    const {isOpen, top, actualModalWidth, isBottom} = useModal({
+    const {isOpen, modalPos} = useModal({
+      emit,
       modalHeight,
       modalType: 'status-picker',
       modalId: props.applicant.id,
@@ -78,15 +73,15 @@ export default {
 
     const modalStyle = computed(() => {
       return {
-        top: `${top.value}px`,
-        width: `${actualModalWidth.value}px`,
+        top: `${modalPos?.value.top}px`,
+        width: `${modalPos?.value.modalWidth}px`,
       }
     })
 
     const modalClass = computed(() => {
       return {
         open: isOpen.value && !isMobile.value,
-        top: isBottom.value,
+        top: modalPos.value.isBottom,
       }
     })
 
@@ -95,7 +90,7 @@ export default {
       isOpen,
       modalClass,
       modalStyle,
-      isBottom,
+      modalPos,
       isMobile,
     }
   },
