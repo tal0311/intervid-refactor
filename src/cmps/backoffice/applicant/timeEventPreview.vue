@@ -28,7 +28,7 @@ export default {
   props: ['timeEvent', 'idx', 'jobTitle', 'applicantName'],
   computed: {
     timeEventToShow() {
-      return timelineService.getTimeEventToShow(this.timeEvent, this.applicantName, this.jobTitle)
+      return timelineService.getTimeEventToShow(this.timeEvent, this.applicantName, this.jobTitle, this.$getTrans)
     },
 
     formattedDate() {

@@ -1,5 +1,3 @@
-import {getTrans} from '../services/i18nService.js'
-
 // Empty array means all values are valid
 const sortableHeaders = {
   job: [
@@ -302,15 +300,15 @@ export const ansRules = [
   },
 ]
 
-export function getTimeLimits() {
-  const minutes = getTrans('mini-minutes')
+export function getTimeLimits(minutesDisplay = 'm') {
+  // const minutes = getTrans('mini-minutes')
   return [
-    {txt: `1${minutes}`, value: '1'},
-    {txt: `2${minutes}`, value: '2'},
-    {txt: `5${minutes}`, value: '5'},
-    {txt: `10${minutes}`, value: '10'},
-    {txt: `20${minutes}`, value: '20'},
-    {txt: `30${minutes}`, value: '30'},
+    {txt: `1${minutesDisplay}`, value: '1'},
+    {txt: `2${minutesDisplay}`, value: '2'},
+    {txt: `5${minutesDisplay}`, value: '5'},
+    {txt: `10${minutesDisplay}`, value: '10'},
+    {txt: `20${minutesDisplay}`, value: '20'},
+    {txt: `30${minutesDisplay}`, value: '30'},
   ]
 }
 

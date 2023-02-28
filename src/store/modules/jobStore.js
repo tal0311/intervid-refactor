@@ -4,6 +4,7 @@ import {mutationHistory} from '../mutationHistory'
 import {msgService} from '@/services/msgService'
 // import { activityMap } from '@/services/activityService'
 import cloneDeep from 'lodash.clonedeep'
+import { getTrans } from '../../services/i18nService'
 
 export const job = {
   namespaced: true,
@@ -309,6 +310,12 @@ export const job = {
         commit('setIsFetching', true)
         const user = rootGetters['user/loggedInUser']
         const jobToEdit = jobId ? await jobService.getById(jobId, user) : jobService.getEmptyJob(user)
+        if (!jobToEdit.title) {
+          jobToEdit.title = getTrans('untitled-job', rootGetters['app/lang'])
+        }
+        if (!jobToEdit.company) {
+          jobToEdit.company = getTrans('company', rootGetters['app/lang'])
+        }
         commit('setJobToEdit', {jobToEdit})
       } catch (err) {
         loggerService.error('[JobStore] [loadJobToEdit] Failed to load job', err)

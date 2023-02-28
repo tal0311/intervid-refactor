@@ -31,7 +31,7 @@ function getJobById(jobId) {
 
 // TODO: MAKE A TIMEVENTSERVICE JUST LIKE MSGSERVICE
 
-function getDefaultApplicant() {
+function getDefaultApplicant(currApplicantJob) {
   return {
     id: makeId(),
     info: null,
@@ -42,7 +42,7 @@ function getDefaultApplicant() {
       quited: null,
     },
     answerMap: {},
-    timeline: [timelineService.createdJobEvent()],
+    timeline: [timelineService.createdJobEvent(currApplicantJob)],
     notes: [],
     status: 0,
     archivedAt: null,

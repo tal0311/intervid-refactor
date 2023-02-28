@@ -112,12 +112,12 @@ export const applicant = {
       }
     },
 
-    async loadApplicant({commit}, {applicantId}) {
+    async loadApplicant({commit, state}, {applicantId}) {
       commit('setIsFetching', true)
       try {
         const applicant = applicantId
           ? await applicantService.getById(applicantId)
-          : applicantService.getDefaultApplicant()
+          : applicantService.getDefaultApplicant(state.job)
 
         commit('setApplicant', {applicant})
       } catch (err) {
