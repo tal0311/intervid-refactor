@@ -32,7 +32,6 @@ import RecordFilter from '@/cmps/backoffice/admin/RecordFilter.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 // composables
-// import {useOverview} from '@/composables/useOverview'
 import {useFilter} from '@/composables/useFilter'
 import {useSort} from '@/composables/useSort'
 import {useSelection} from '@/composables/useSelection'
@@ -45,7 +44,6 @@ export default {
     const {sort, onSort} = useSort()
     const {selectedItems, isSelected} = useSelection()
 
-    // const {filterBy, sort, selectedItems, isSelected, onChangePage, onSort} = useOverview()
     return {
       filterBy,
       onSetFilterByKey,
