@@ -111,7 +111,6 @@
 <script>
 import AppSpinner from './AppSpinner.vue'
 
-import cloneDeep from 'lodash.clonedeep'
 
 import {mediaService} from '@/services/mediaService'
 import {debounce} from '@/services/utilService'
@@ -132,7 +131,7 @@ export default {
   },
 
   created() {
-    this.user = cloneDeep(this.loggedInUser)
+    this.user = structuredClone(this.loggedInUser)
   },
 
   computed: {
@@ -225,7 +224,7 @@ export default {
 
   watch: {
     loggedInUser() {
-      this.user = cloneDeep(this.loggedInUser)
+      this.user = structuredClone(this.loggedInUser)
     },
   },
 

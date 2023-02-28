@@ -57,7 +57,6 @@
 <script>
 import {validate} from '@/services/errorService.js'
 import MainInput from '@/cmps/common/MainInput.vue'
-import cloneDeep from 'lodash.clonedeep'
 
 export default {
   props: ['applicant'],
@@ -70,7 +69,7 @@ export default {
   },
 
   mounted() {
-    this.applicantToEdit = cloneDeep(this.applicant)
+    this.applicantToEdit = structuredClone(this.applicant)
   },
 
   methods: {

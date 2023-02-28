@@ -7,7 +7,6 @@ import {userService} from '@/services/userService'
 import {defaultImgUrl} from '@/services/constData'
 import {getTrans} from './i18nService'
 
-// import cloneDeep from 'lodash.clonedeep'
 
 export const jobService = {
   query,

@@ -102,7 +102,6 @@ import {msgService} from '@/services/msgService'
 import {socketService, SOCKET_ON_SAVE_APPLICANT} from '@/services/socketService'
 
 import {historyRoutes} from '@/router'
-import cloneDeep from 'lodash.clonedeep'
 
 import NoteApp from '@/cmps/backoffice/applicant/NoteApp.vue'
 import StatusDropdown from '@/cmps/common/statusDropdown.vue'
@@ -197,7 +196,7 @@ export default {
         return
       }
       this.applicant = {
-        ...cloneDeep(this.job.applicant),
+        ...structuredClone(this.job.applicant),
         jobInfo: {
           title: this.job.info.title,
           jobId: this.job._id,
@@ -251,7 +250,7 @@ export default {
 
     async saveApplicant() {
       return await this.$store.dispatch('job/updateApplicants', {
-        applicants: [cloneDeep(this.applicant)],
+        applicants: [structuredClone(this.applicant)],
       })
     },
 
@@ -310,10 +309,10 @@ export default {
     },
 
     async removeNoteEvent(noteId) {
-      const timelineToSave = cloneDeep(
+      const timelineToSave = structuredClone(
         this.applicant.timeline.filter((timeEvent) => timeEvent.type !== 'note' || timeEvent.noteId !== noteId),
       )
-      const notesToSave = cloneDeep(this.applicant.notes.filter((note) => note.id !== noteId))
+      const notesToSave = structuredClone(this.applicant.notes.filter((note) => note.id !== noteId))
       this.applicant = {
         ...this.applicant,
         timeline: timelineToSave,

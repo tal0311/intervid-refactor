@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import cloneDeep from 'lodash.clonedeep'
 import TimeEventPreview from './timeEventPreview.vue'
 
 export default {
@@ -24,7 +23,7 @@ export default {
 
   computed: {
     timelineToShow() {
-      const timelineToShow = cloneDeep(this.timeline)
+      const timelineToShow = structuredClone(this.timeline)
       return timelineToShow.reverse()
     },
   },
