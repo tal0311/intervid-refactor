@@ -94,7 +94,7 @@ export default {
     },
 
     formattedTotalDuration() {
-      return this.$this.$utilService.secondsToTime(this.playerState.totalDuration)
+      return this.$utilService.secondsToTime(this.playerState.totalDuration)
     },
 
     formattedCurrTime() {
