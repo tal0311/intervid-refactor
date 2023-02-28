@@ -1,5 +1,4 @@
 import httpService from './httpService'
-import {getUrlParamsFromObj} from './utilService'
 
 export const recordService = {
   query,
@@ -11,7 +10,7 @@ function query(filterBy, sort, cancelToken) {
   const {itemsPerPage, currPage} = filterBy
   delete filterBy.itemsPerPage
   delete filterBy.currPage
-  const filterQuery = getUrlParamsFromObj({...filterBy, ...sort})
+  const filterQuery = this.$getUrlParamsFromObj({...filterBy, ...sort})
 
   return httpService.customRequest(
     'get',

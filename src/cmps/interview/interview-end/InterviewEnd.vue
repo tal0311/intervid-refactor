@@ -49,7 +49,6 @@
 
 <script>
 import {uploaderService} from '@/services/uploaderService'
-import {verifyBeforeExit} from '@/services/utilService'
 import {loggerService} from '@/services/loggerService'
 import VideoMixin from '@/mixins/VideoMixin'
 import UploadingAnimation from '@/cmps/common/UploadingAnimation.vue'
@@ -70,7 +69,7 @@ export default {
       loggerService.info(
         '[InterviewEnd] [onBeforeUnload] Applicant try to leave the interview - open confirmation modal',
       )
-      verifyBeforeExit(ev)
+      this.$verifyBeforeExit(ev)
     } // Open confirmation modal
     document.body.onunload = () => {
       if (!this.isUploadDone) {

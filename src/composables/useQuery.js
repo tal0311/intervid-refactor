@@ -1,7 +1,7 @@
 // lib
 import {useRoute, useRouter} from 'vue-router'
 // services & data
-import {debounce, isEmpty} from '@/services/utilService.js'
+import {utilService} from '@/services/utilService.js'
 
 export function useQuery() {
   const route = useRoute()
@@ -11,12 +11,12 @@ export function useQuery() {
   //     return route.query
   //   })
 
-  const onSetQuery = debounce((query, path) => {
+  const onSetQuery = utilService.debounce((query, path) => {
     // TODO: Check if this is the best way to get the params
     const {params} = route || null
 
     const newRoute = {query}
-    if (!isEmpty(params)) newRoute.params = params
+    if (!utilService.isEmpty(params)) newRoute.params = params
     else if (path) newRoute.path = path
     // if (!isEmpty(params)) newRoute.params = params
     // if (path && isEmpty(params)) newRoute.path = path

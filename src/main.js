@@ -14,8 +14,8 @@ import VueSocialSharing from 'vue-social-sharing'
 
 // import './registerServiceWorker'
 
-import {tokenService} from './services/tokenService'
-import {isMobile} from './services/utilService'
+// import {tokenService} from './services/tokenService'
+import {utilService} from './services/utilService'
 import {loggerService} from './services/loggerService'
 
 import MainInput from '@/cmps/common/MainInput.vue'
@@ -32,6 +32,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import {i18nPlugin} from './plugins/i18n.plugin'
+import {utilServicePlugin} from './plugins/utilService.plugin'
 // NOTE: remove this func, set it as guard in the router index. see:
 // ;(async function () {
 //   console.log('router.get', router)
@@ -43,7 +45,6 @@ import store from './store'
 // })()
 
 // Accessibillty helper:
-import {i18nPlugin} from './plugins/i18n.plugin'
 ;(function () {
   window.interdeal = {
     sitekey: 'eb985e13938463d3b349126ea36d814e',
@@ -80,7 +81,7 @@ import {i18nPlugin} from './plugins/i18n.plugin'
 })()
 
 window.addEventListener('resize', () => {
-  store.commit({type: 'app/setIsMobile', isMobile: isMobile()})
+  store.commit({type: 'app/setIsMobile', isMobile: utilService.isMobile()})
 })
 
 window.onerror = function (message) {
@@ -114,9 +115,11 @@ app.mixin({
     getSvg,
   },
 })
+//plugin
 app.use(i18nPlugin, {
   getLang: () => store.getters['app/lang'],
 })
+app.use(utilServicePlugin)
 
 app.use(VueSocialSharing)
 app.use(Vue3TouchEvents, {

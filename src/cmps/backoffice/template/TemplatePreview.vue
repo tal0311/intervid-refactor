@@ -29,8 +29,6 @@
 </template>
 
 <script>
-import {getFullName} from '@/services/utilService'
-
 import TemplateMenu from '@/cmps/backoffice/template/TemplateMenu.vue'
 
 export default {
@@ -40,7 +38,8 @@ export default {
 
   computed: {
     ownerFullName() {
-      return getFullName(this.template.owner)
+      // return this.$getFullName(this.template.owner)
+      return this.$utilService.getFullName(this.template.owner)
     },
 
     isDefault() {

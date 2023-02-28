@@ -33,7 +33,6 @@ import ListActions from '@/cmps/backoffice/ListActions.vue'
 // composables
 import {useOverview} from '@/composables/useOverview'
 // services
-import {getSortFunc} from '@/services/utilService'
 
 export default {
   setup() {
@@ -54,7 +53,7 @@ export default {
     activities() {
       return this.$store.getters['activity/activities']
         .map((activity) => ({...activity, start: new Date(activity.start)}))
-        .sort(getSortFunc(this.sort))
+        .sort(this.$utilService.getSortFunc(this.sort))
     },
 
     totalActivityCount() {

@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import {getFullName, isEmpty, secondsToTime} from '@/services/utilService'
+import {utilService} from '@/services/utilService'
 import {advancedPermsMap} from '@/services/constData'
 import {timelineService} from '@/services/timelineService'
 import {jobService} from '@/services/jobService'
@@ -114,6 +114,7 @@ import ApplicantEdit from '@/cmps/backoffice/applicant/ApplicantEdit.vue'
 import ApplicantMenu from '@/cmps/backoffice/applicant/ApplicantMenu.vue'
 import CvMenu from '@/cmps/backoffice/applicant/CvMenu.vue'
 // import {userService} from '@/services/userService'
+import {cloneDeep} from 'lodash.clonedeep'
 
 export default {
   data() {
@@ -159,7 +160,7 @@ export default {
 
     applicantFullName() {
       if (!this.applicant?.info) return ''
-      return getFullName(this.applicant.info)
+      return utilService.getFullName(this.applicant.info)
     },
 
     modal() {
@@ -196,7 +197,7 @@ export default {
         return
       }
       this.applicant = {
-        ...structuredClone(this.job.applicant),
+        ...cloneDeep(this.job.applicant),
         jobInfo: {
           title: this.job.info.title,
           jobId: this.job._id,
@@ -213,7 +214,7 @@ export default {
       if (applicantId !== this.applicant.id) return
       this.applicant.answerMap = answerMap
       // this.setPlayerState('isLoading', false)
-      if (isEmpty(answerMap)) return
+      if (this.$utilService.isEmpty(answerMap)) return
       this.$nextTick(() => {
         // next tick so the ref of the video player is not undefined
         if (this.$refs.videoPlayer) {
@@ -250,7 +251,7 @@ export default {
 
     async saveApplicant() {
       return await this.$store.dispatch('job/updateApplicants', {
-        applicants: [structuredClone(this.applicant)],
+        applicants: [cloneDeep(this.applicant)],
       })
     },
 
@@ -355,7 +356,6 @@ export default {
       this.$store.dispatch('app/toggleModal', {type: 'applicant-edit'})
     },
 
-    secondsToTime,
   },
 
   watch: {

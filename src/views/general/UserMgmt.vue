@@ -168,7 +168,6 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
-import {getFullName} from '@/services/utilService'
 import {getValidateMsg, validate} from '@/services/errorService.js'
 
 import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
@@ -202,7 +201,7 @@ export default {
     },
 
     userFullName() {
-      return getFullName(this.loggedInUser)
+      return this.$utilService.getFullName(this.loggedInUser)
     },
   },
   methods: {
