@@ -10,14 +10,7 @@ import {useStore} from 'vuex'
 //  } | null),
 //  modalWrapper: template ref | null,
 // }
-export function useModal({
-  modalId,
-  modalHeight,
-  modalWidth = ref(0),
-  modalType,
-  mousePos = ref(null),
-  modalWrapper = ref(null),
-}) {
+export function useModal({modalId, modalHeight, modalWidth = ref(0), modalType, mousePos, modalWrapper}) {
   const store = useStore()
 
   const isEnglish = computed(() => {
@@ -48,7 +41,7 @@ export function useModal({
   //   };
   // });
   const startingPos = computed(() => {
-    return mousePos.value || modalWrapperBounding.value
+    return mousePos ? mousePos.value : modalWrapperBounding.value
   })
 
   const {top, insetInlineStart, isBottom, actualModalWidth} = useModalPos({

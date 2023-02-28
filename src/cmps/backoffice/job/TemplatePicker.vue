@@ -2,7 +2,10 @@
   <div class="template-picker">
     <h2>{{ $getTrans('create-new-interview') }}</h2>
     <div class="list-wrapper">
-      <div class="template-card-list" ref="scrollable-list" v-mounted @scroll="setArrows">
+      <!-- TODO: This div should have a v-mounted, which is the directive defined locally in this cmp
+      I turned it off for now since it throws errors, it should be added back when the directive is defined
+      -->
+      <div class="template-card-list" ref="scrollable-list" @scroll="setArrows">
         <button class="material-icons scroll-btn start" v-if="isStartBtnShowen" @click="scrollTo(-1)">
           chevron_left
         </button>
@@ -77,7 +80,8 @@ export default {
 
   directives: {
     mounted(el, _, {context}) {
-      context.$nextTick(() => {
+      console.log(context)
+      context.nextTick(() => {
         const {clientWidth, scrollWidth} = el
         if (clientWidth === scrollWidth) {
           context.isStartBtnShowen = false

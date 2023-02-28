@@ -39,7 +39,7 @@
 
 <script>
 // core
-import {computed} from 'vue'
+import {computed, toRefs} from 'vue'
 // lib
 import {useStore} from 'vuex'
 // import { useStore } from 'vuex'
@@ -56,6 +56,8 @@ export default {
   props: ['job', 'mousePos'],
 
   setup(props) {
+    console.log(props)
+    const {mousePos} = toRefs(props)
     const modalWidth = 200
 
     const store = useStore()
@@ -64,7 +66,7 @@ export default {
     const {isOpen, top, insetInlineStart, isBottom} = useModal({
       modalId: props.job._id,
       modalType: 'job-menu',
-      mousePos: props.mousePos,
+      mousePos,
       modalWidth,
       modalHeight,
     })
