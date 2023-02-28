@@ -56,7 +56,6 @@ export default {
   props: ['job', 'mousePos'],
 
   setup(props) {
-    console.log(props)
     const {mousePos} = toRefs(props)
     const modalWidth = 200
 
