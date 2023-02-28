@@ -1,5 +1,4 @@
 import httpService from './httpService'
-import store from '@/store'
 
 const BASE_URL = 'record'
 const STORAGE_LOGS = 'storageLogs'
@@ -21,9 +20,15 @@ export const loggerService = {
   },
 }
 
-function doLog(level = 'DEBUG', ...lines) {
+async function doLog(level = 'DEBUG', ...lines) {
+  const { default: store } = await import('../store/index.js')
+  const appState = {
+    applicant: store.getters['applicant/applicant'],
+    user: store.getters['user/loggedInUser'],
+    browser: store.getters['app/browser'].name
+  }
   const line = _formatLines(lines)
-  const log = _createLog(level, line)
+  const log = _createLog(level, line, appState)
   // TODO: find the vite equivalent of import.meta.env.VUE_APP_ENV
   if (import.meta.env.VUE_APP_ENV !== 'production') console.log(...lines)
   if (level !== 'DEBUG') gLogs.push(log)
@@ -48,9 +53,11 @@ async function _sendLogs() {
   }
 }
 
-function _createLog(level, line) {
-  const applicant = store.getters['applicant/applicant']
-  const user = store.getters['user/loggedInUser']
+function _createLog(level, line, appState) {
+  const applicant = appState?.applicant || ''
+  const user = appState?.loggedInUser || ''
+  const browser = appState?.browser || ''
+
   const log = {
     level,
     timestamp: Date.now(),
@@ -61,16 +68,16 @@ function _createLog(level, line) {
       referrer: window.location.href,
       // TODO: find the vite equivalent of import.meta.env.VUE_APP_ENV
       enviroment: import.meta.env.VUE_APP_ENV,
-      browser: store.getters['app/browser'].name,
+      browser,
     },
   }
 
   if (applicant?.id) {
-    const {id, info} = applicant
-    log.meta.applicant = {id, info}
+    const { id, info } = applicant
+    log.meta.applicant = { id, info }
   } else if (user?._id) {
-    const {_id, fName, lName, companyName, email, perm, role} = user
-    log.meta.user = {_id, fName, lName, companyName, email, perm, role}
+    const { _id, fName, lName, companyName, email, perm, role } = user
+    log.meta.user = { _id, fName, lName, companyName, email, perm, role }
   }
   return log
 }
