@@ -231,7 +231,6 @@ export default {
 
     setView(viewType) {
       this.$store.commit('job/setViewType', {viewType})
-      // GOD NO, PLEASE NO
       sessionStorage.setItem('jobViewType', viewType)
     },
 
@@ -244,6 +243,7 @@ export default {
 
   watch: {
     $route() {
+      console.log('watcher')
       this.clearSelectedItems()
       this.setFilterFromRoute()
       this.loadJobs()

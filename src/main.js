@@ -13,6 +13,7 @@ import vue3GoogleLogin from 'vue3-google-login'
 import VueSocialSharing from 'vue-social-sharing'
 
 // import './registerServiceWorker'
+import 'material-icons/iconfont/material-icons.css';
 
 // import {tokenService} from './services/tokenService'
 import {utilService} from './services/utilService'
@@ -37,7 +38,7 @@ import {utilServicePlugin} from './plugins/utilService.plugin'
 // NOTE: remove this func, set it as guard in the router index. see:
 // ;(async function () {
 //   console.log('router.get', router)
-//   const isInInterview = router.history._startLocation.startsWith('/interview')
+//   const isInInterview = false
 //   if (isInInterview) return
 //   if (tokenService.getToken()) {
 //     store.dispatch('user/loadLoggedUser')

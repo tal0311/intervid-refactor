@@ -19,7 +19,7 @@ export default {
 
   computed: {
     formattedDate() {
-      return formatDate(this.note.createdAt)
+      return this.$formatDate(this.note.createdAt)
     },
   },
 }

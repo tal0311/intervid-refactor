@@ -14,7 +14,6 @@ import AppSignup from '@/views/general/AppSignup.vue'
 import ForgotPassword from '@/views/general/ForgotPassword.vue'
 import EmbededPreview from '@/cmps/common/EmbededPreview.vue'
 
-
 // INTERVIEW
 // import JobEdit from '@/views/backoffice/JobEdit.vue'
 import JobEdit from '@/views/backoffice/JobEdit.vue'
@@ -43,7 +42,7 @@ import InterviewEnd from '@/cmps/interview/interview-end/InterviewEnd.vue'
 import config from '@/config'
 import {advancedPermsMap} from '@/services/constData'
 import {userService} from '@/services/userService'
-import { tokenService } from '../services/tokenService'
+import {tokenService} from '../services/tokenService'
 
 const routes = [
   {
@@ -75,11 +74,11 @@ const routes = [
     path: '/',
     component: () => import(/* webpackChunkName: "back-office" */ '@/views/MainApp.vue'),
     beforeEnter: () => {
-      console.log('check login');
-      if(tokenService.getToken()) {
-        console.log('found token -> set loadLoggedUser');        
+      console.log('check login')
+      if (tokenService.getToken()) {
+        console.log('found token -> set loadLoggedUser')
         store.dispatch('user/loadLoggedUser')
-      }     
+      }
       return true
     },
     children: [
