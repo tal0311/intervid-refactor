@@ -1,6 +1,4 @@
 import {getStatusByCode} from '@/services/constData'
-import store from '@/store'
-import {getTrans} from './i18nService'
 
 export const timelineService = {
   statusEvent(statusCode) {
@@ -26,15 +24,17 @@ export const timelineService = {
     }
   },
 
-  createdJobEvent() {
-    const createdAt = store.getters['applicant/job'].createdAt
+  createdJobEvent(currJob) {
+    // const createdAt = store.getters['applicant/job'].createdAt
+    const {createdAt} = currJob
     return {
       ..._getTimeEvent('activity', createdAt),
       activity: 'created',
     }
   },
+    
 
-  getTimeEventToShow(timeEvent, applicantName, jobTitle) {
+  getTimeEventToShow(timeEvent, applicantName, jobTitle, getTrans = (str)=>str.replace('-',' ')) {
     let timeEventToShow = {}
     let status = null
     switch (timeEvent.type) {

@@ -74,7 +74,7 @@ export default {
         : this.applicant.timestamp.submitted || this.applicant.timestamp.quited
 
       if (!date) return 'N/A'
-      return $formatDate(date)
+      return this.$formatDate(date)
     },
 
     goToDetails() {
