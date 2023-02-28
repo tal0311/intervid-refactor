@@ -110,12 +110,12 @@ import {msgService} from '@/services/msgService'
 
 export default {
   setup() {
-    const {filterBy, onSetFilter, onSetFilterByKey, resetFilters} = useFilter()
+    const {filterBy, onSetFilter, onSetFilterByKey, resetFilters, setFilterFromRoute} = useFilter()
     const {sort, onSort} = useSort()
-    const {selectedItems, onSelectAll, onSelectItem, isSelected} = useSelection()
+    const {selectedItems, onSelectAll, onSelectItem, isSelected, clearSelectedItems} = useSelection()
     const {shouldGather, setShouldGather} = useShouldGather()
     const {tagList, onRemoveTag} = useTags({filterBy, onSetFilterByKey})
-    const {onChangePage} = usePagination({onSetFilterByKey})
+    const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
     const {sendAlert} = useAlert()
 
     return {
@@ -123,11 +123,13 @@ export default {
       onSetFilter,
       onSetFilterByKey,
       resetFilters,
+      setFilterFromRoute,
       sort,
       onSort,
       selectedItems,
       onSelectAll,
       onSelectItem,
+      clearSelectedItems,
       isSelected,
       shouldGather,
       setShouldGather,
