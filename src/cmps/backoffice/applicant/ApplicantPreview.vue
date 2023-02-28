@@ -44,7 +44,7 @@ import {timelineService} from '@/services/timelineService'
 // import { activityMap } from '@/services/activityService'
 import {userService} from '@/services/userService'
 import {advancedPermsMap} from '@/services/constData'
-import { getFullName} from '@/services/utilService'
+import {getFullName} from '@/services/utilService'
 import StatusDropdown from '@/cmps/common/statusDropdown.vue'
 import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
 

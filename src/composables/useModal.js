@@ -13,7 +13,7 @@ import {useStore} from 'vuex'
 export function useModal({
   modalId,
   modalHeight,
-  modalWidth = 0,
+  modalWidth = ref(0),
   modalType,
   mousePos = ref(null),
   modalWrapper = ref(null),
@@ -51,7 +51,7 @@ export function useModal({
     return mousePos.value || modalWrapperBounding.value
   })
 
-  const {top, insetInlineStart, isBottom} = useModalPos({
+  const {top, insetInlineStart, isBottom, actualModalWidth} = useModalPos({
     modalHeight,
     modalWidth,
     startingPos,
@@ -64,12 +64,13 @@ export function useModal({
     top,
     insetInlineStart,
     isBottom,
+    actualModalWidth,
   }
 }
 
 // params:{
 //  modalHeight: computed number
-//  modalWidth: number
+//  modalWidth: Ref number
 //  startingPos : computed object: {
 //    x: number
 //    y: number
@@ -79,18 +80,26 @@ export function useModal({
 //  }
 //   isEnglish: computed boolean
 // }
-export function useModalPos({modalHeight, modalWidth = 0, startingPos, isEnglish}) {
+export function useModalPos({modalHeight, modalWidth = ref(0), startingPos, isEnglish}) {
   // TODO: Check if a computed is needed here
   const bodyBounding = computed(() => document.body.getBoundingClientRect())
+  // TODO: Find better name
+  const actualModalWidth = computed(() => {
+    if (modalWidth.value) return modalWidth.value
+    if (startingPos.value?.width) return startingPos.value.width
+    return 0
+  })
 
   const isBottom = computed(() => {
-    if (startingPos.bottom !== null && startingPos.bottom !== undefined) {
-      return startingPos?.bottom + modalHeight.value > bodyBounding.value.height
+    if (!startingPos.value) return
+    if (startingPos.value?.bottom !== null && startingPos.value?.bottom !== undefined) {
+      return startingPos.value.bottom + modalHeight.value > bodyBounding.value.height
     }
-    return startingPos.y + modalHeight.value > bodyBounding.value.height
+    return startingPos.value.y + modalHeight.value > bodyBounding.value.height
   })
 
   const top = computed(() => {
+    if (!startingPos.value) return
     // TODO: Find better name
     // start with the value for the bottom, which is the same for both cases
     let top = startingPos.value.y - modalHeight.value
@@ -109,25 +118,28 @@ export function useModalPos({modalHeight, modalWidth = 0, startingPos, isEnglish
   })
 
   const insetInlineStart = computed(() => {
+    if (!startingPos.value) return
+    // TODO: This is a mess, we need to find a better way to do this when time permits
     if (!isEnglish.value) {
       if (startingPos.value.left !== undefined && startingPos.value.left !== null) {
-        return bodyBounding.value.width - startingPos.value.left - modalWidth
+        return bodyBounding.value.width - startingPos.value.left - actualModalWidth.value
       }
-      if (bodyBounding.value.width - startingPos.value.x - modalWidth > 0) {
-        return bodyBounding.value.width - startingPos.value.x - modalWidth
+      if (bodyBounding.value.width - startingPos.value.x - actualModalWidth.value > 0) {
+        return bodyBounding.value.width - startingPos.value.x - actualModalWidth.value
       }
     } else {
       if (startingPos.value.right !== undefined && startingPos.value.right !== null) {
-        return startingPos.value.right - modalWidth
+        return startingPos.value.right - actualModalWidth.value
       }
-      if (startingPos.value.x - modalWidth > 0) {
-        return startingPos.value.x - modalWidth
+      if (startingPos.value.x - actualModalWidth.value > 0) {
+        return startingPos.value.x - actualModalWidth.value
       }
     }
     return 10
   })
 
   return {
+    actualModalWidth,
     isBottom,
     top,
     insetInlineStart,

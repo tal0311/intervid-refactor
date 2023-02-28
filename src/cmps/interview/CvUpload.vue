@@ -56,7 +56,7 @@ export default {
 
   computed: {
     createdAt() {
-      return $formatDate(this.uploadedAt)
+      return this.$formatDate(this.uploadedAt)
     },
 
     error() {

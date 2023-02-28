@@ -134,7 +134,7 @@ export default {
     jobCreationDate() {
       const date = this.job.createdAt
       if (!date) return 'None'
-      return $formatDate(date)
+      return this.$formatDate(date)
     },
   },
 
