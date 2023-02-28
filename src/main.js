@@ -13,6 +13,7 @@ import vue3GoogleLogin from 'vue3-google-login'
 import VueSocialSharing from 'vue-social-sharing'
 
 // import './registerServiceWorker'
+import 'material-icons/iconfont/material-icons.css';
 
 // import {tokenService} from './services/tokenService'
 import {utilService} from './services/utilService'
