@@ -9,6 +9,7 @@ import {applicant} from './modules/applicantStore'
 import {player} from './modules/playerStore'
 import {activity} from './modules/activityStore'
 // import {mutationHistory} from './mutationHistory.js'
+import cloneDeep from 'lodash.clonedeep'
 
 const initialStoreModules = {
   app,
@@ -37,14 +38,14 @@ const initialStoreModules = {
 
 const store = createStore({
   strict: true,
-  modules: structuredClone(initialStoreModules),
+  modules: cloneDeep(initialStoreModules),
   mutations: {
     emptyState(state) {
       state = {}
     },
     resetState(state) {
       Object.keys(initialStoreModules).forEach((key) => {
-        state[key] = structuredClone(initialStoreModules[key].state)
+        state[key] = cloneDeep(initialStoreModules[key].state)
       })
     },
   },
