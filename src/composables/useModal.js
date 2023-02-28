@@ -1,5 +1,6 @@
 import {ref, computed, watch} from 'vue'
 import {useStore} from 'vuex'
+import {useElementBounding} from './util/useElementBounding'
 
 // params : {
 //  modalHeight.value: computed number,
@@ -31,47 +32,40 @@ export function useModal({emit, modalId, modalHeight, modalWidth, modalType, mou
     return modal.value.type === modalType && modal.value.data.modalId === modalId
   })
 
-  const modalWrapperBounding = computed(() => {
-    return modalWrapper.value?.getBoundingClientRect()
-  })
+  const modalWrapperBounding = useElementBounding('.list-content', modalWrapper)
 
   const isFromMousePos = computed(() => !!mousePos?.value)
 
   const startingPos = computed(() => {
-    return isFromMousePos.value ? mousePos.value : modalWrapperBounding?.value
+    return isFromMousePos.value ? mousePos.value : modalWrapperBounding.value
   })
 
-  watch(startingPos, (newVal) => {
-    if (!newVal) {
-      modalPos.value = {
-        modalWidth: 0,
-        isBottom: false,
-        top: 0,
-      }
-      return
-    }
+  watch([startingPos, isOpen], ([startingPos, isOpen], oldVal) => {
+    if (!isOpen && oldVal[1]) return emit('modal-closed')
+    if (!isOpen) return
+    console.log('startingPos changed', startingPos)
     if (isFromMousePos.value) {
       modalPos.value = useModalPosFromClick({
         modalHeight,
         modalWidth,
-        mousePos: newVal,
+        mousePos: startingPos,
         isEnglish,
       })
     } else {
       modalPos.value = useModalPosFromBounding({
         modalHeight,
-        modalBounding: modalWrapperBounding,
+        modalBounding: startingPos,
         modalWidth,
         isEnglish,
       })
     }
   })
 
-  watch(isOpen, (newVal, oldVal) => {
-    if (oldVal && !newVal) {
-      emit('modal-closed')
-    }
-  })
+  // watch(isOpen, (newVal, oldVal) => {
+  //   if (!newVal && oldVal) {
+  //     emit('modal-closed')
+  //   }
+  // })
 
   return {
     isEnglish,
@@ -104,17 +98,17 @@ function useModalPosFromClick({modalHeight, modalWidth = 0, mousePos, isEnglish}
 
 function useModalPosFromBounding({modalHeight, modalBounding, isEnglish, modalWidth}) {
   const bodyBounding = document.body.getBoundingClientRect()
-  if (!modalWidth) modalWidth = modalBounding.value.width
+  if (!modalWidth) modalWidth = modalBounding.width
 
-  const isBottom = modalBounding.value.bottom + modalHeight.value > bodyBounding.height
+  const isBottom = modalBounding.bottom + modalHeight.value > bodyBounding.height
 
-  const top = isBottom ? modalBounding.value.y - modalHeight.value : modalBounding.value.y + modalBounding.value.height
+  const top = isBottom ? modalBounding.y - modalHeight.value : modalBounding.y + modalBounding.height
   // TODO: This is a mess, and needs to be refactored
   const insetInlineStart = isEnglish.value
-    ? modalBounding.value.right - modalWidth < 0
+    ? modalBounding.right - modalWidth < 0
       ? 10
-      : modalBounding.value.right - modalWidth
-    : bodyBounding.width - modalBounding.value.left - modalWidth
+      : modalBounding.right - modalWidth
+    : bodyBounding.width - modalBounding.left - modalWidth
 
   return {
     modalWidth,

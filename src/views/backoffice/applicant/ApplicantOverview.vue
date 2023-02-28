@@ -45,6 +45,7 @@
     </div>
 
     <table-list
+      @scroll="(ev) => console.log(ev)"
       :items="applicants"
       :selectedItemCount="selectedItems && selectedItems.length"
       :totalItemCount="applicants && applicants.length"

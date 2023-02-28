@@ -5,7 +5,6 @@ import {companyService} from './companyService'
 import {templateService} from './templateService'
 import {userService} from '@/services/userService'
 import {defaultImgUrl} from '@/services/constData'
-import {getTrans} from './i18nService'
 
 
 export const jobService = {
