@@ -19,7 +19,7 @@ export const utilService = {
   getInitials,
   isEmpty,
   getVideoLength,
-  isMobile
+  isMobile,
 }
 // added this back here temporarly to prevent error until migration of useSort is done
 

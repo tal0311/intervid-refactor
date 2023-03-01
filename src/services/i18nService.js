@@ -1,5 +1,6 @@
 // import store from '@/store'
 import { detect } from 'detect-browser'
+import { utilService } from './utilService'
 
 
 
@@ -2032,7 +2033,8 @@ export function formatDuration(ms, {noWords, singleLetter, fullWord} = {}, lang 
   const hours = parseInt(minutes / 60)
   minutes = Math.round(minutes % 60)
 
-  const timeStr = hours ? _padNum(hours) + ':' + _padNum(minutes) : _padNum(minutes) + ':' + _padNum(seconds)
+  const pad2Digit = (num) => num.toString().padStart(2,0)
+  const timeStr = hours ? pad2Digit(hours) + ':' +  pad2Digit(minutes) :  pad2Digit(minutes) + ':' +  pad2Digit(seconds)
 
   if (noWords) return timeStr
 
