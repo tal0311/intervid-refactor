@@ -97,12 +97,12 @@ import ListActions from '@/cmps/backoffice/ListActions.vue'
 import TemplatePicker from '@/cmps/backoffice/job/TemplatePicker.vue'
 import FilterBox from '@/cmps/common/FilterBox.vue'
 // composables
-import {useFilter} from '@/composables/overview/useFilter.jsFilter.js'
-import {useSort} from '@/composables/overview/useSort.js'
-import {useSelection} from '@/composables/overview/useSelection.js'
-import {useShouldGather} from '@/composables/overview/useShouldGather.js'
-import {useTags} from '@/composables/overview/useTags.js'
-import {usePagination} from '@/composables/overview/usePagination.js'
+import {useFilter} from '@/composables/overview/useFilter'
+import {useSort} from '@/composables/overview/useSort'
+import {useSelection} from '@/composables/overview/useSelection'
+import {useShouldGather} from '@/composables/overview/useShouldGather'
+import {useTags} from '@/composables/overview/useTags'
+import {usePagination} from '@/composables/overview/usePagination'
 import {useAlert} from '@/composables/overview/useAlert'
 
 // services

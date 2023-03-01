@@ -73,7 +73,7 @@ import FilterBox from '@/cmps/common/FilterBox.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 import ShareJob from '@/cmps/common/ShareJob.vue'
 // composables
-import {useFilter} from '@/composables/overview/useFilteruseFilter'
+import {useFilter} from '@/composables/overview/useFilter'
 import {useSort} from '@/composables/overview/useSort'
 import {useTags} from '@/composables/overview/useTags'
 import {useSelection} from '@/composables/overview/useSelection'

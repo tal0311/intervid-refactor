@@ -32,7 +32,7 @@
 import TableList from '@/cmps/backoffice/TableList.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 // composables
-import {useFilter} from '@/composables/overview/useFilteruseFilter'
+import {useFilter} from '@/composables/overview/useFilter'
 import {useSort} from '@/composables/overview/useSort'
 import {useSelection} from '@/composables/overview/useSelection'
 import {usePagination} from '@/composables/overview/usePagination'
