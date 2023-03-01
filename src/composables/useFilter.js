@@ -62,7 +62,6 @@ export function useFilter() {
   }
 
   onMounted(() => {
-    console.log('useFilter mounted')
     setFilterFromRoute()
   })
 

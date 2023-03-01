@@ -21,8 +21,6 @@ export function useModal({
   modalWrapper,
   listContainerSelector,
 }) {
-  console.log('🚀 ~ file: useModal.js:15 ~ useModal ~ modalWrapper:', modalWrapper.value)
-
   const store = useStore()
 
   const modalPos = ref({
@@ -44,7 +42,6 @@ export function useModal({
   })
 
   const modalWrapperBounding = useElementBounding(modalWrapper, listContainerSelector)
-  console.log('modalWrapperBounding', modalWrapperBounding.value)
   const isFromMousePos = computed(() => !!mousePos?.value)
 
   const startingPos = computed(() => {
@@ -54,7 +51,6 @@ export function useModal({
   watch([startingPos, isOpen], ([startingPos, isOpen], oldVal) => {
     if (!isOpen && oldVal[1]) return emit('modal-closed')
     if (!isOpen) return
-    console.log('startingPos changed', startingPos)
     if (isFromMousePos.value) {
       modalPos.value = useModalPosFromClick({
         modalHeight,

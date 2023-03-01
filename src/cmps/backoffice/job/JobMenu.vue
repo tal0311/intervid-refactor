@@ -183,7 +183,6 @@ export default {
   watch: {
     mousePos: {
       handler() {
-        // console.log('mousePos watch', this.mousePos)
         if (this.mousePos) {
           this.toggleModal()
         }

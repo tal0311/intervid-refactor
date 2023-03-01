@@ -8,7 +8,6 @@ export function useEventListener(selector, type, listener, options = null) {
 
   return {
     remove() {
-      console.log('remove', type, listener)
       target.removeEventListener(type, eventListener, options)
     },
   }
