@@ -71,12 +71,12 @@ export default {
       modalWrapper,
       modalWidth,
       modalHeight,
+      listContainerSelector: '.backoffice-content',
     })
 
     const isMobile = computed(() => store.getters['app/isMobile'])
 
     const modalStyle = computed(() => {
-      // console.log('modalPos.value', modalPos.value)
       return {
         top: `${modalPos.value.top}px`,
         insetInlineStart: `${modalPos.value.insetInlineStart}px`,
