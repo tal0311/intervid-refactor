@@ -79,8 +79,8 @@ export default {
   },
 
   created() {
-    this.svgs.whatsapp = this.getSvg('whatsappIcon')
-    this.svgs.facebook = this.getSvg('facebookIcon')
+    this.svgs.whatsapp = this.$getSvg('whatsappIcon')
+    this.svgs.facebook = this.$getSvg('facebookIcon')
   },
 
   computed: {

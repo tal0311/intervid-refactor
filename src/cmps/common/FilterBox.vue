@@ -150,7 +150,7 @@ export default {
 
   created() {
     // this.resetFilter()
-    // this.svgs.filter = this.getSvg('filter')
+    // this.svgs.filter = this.$getSvg('filter')
   },
 
   computed: {
@@ -232,8 +232,12 @@ export default {
           ${$getTrans(`${this.entity}s`.toLowerCase()).toLowerCase()}`
       else if (this.expectedEntityCount === 1) {
         return this.lng === 'en'
-          ? `${$getTrans('show')} ${this.expectedEntityCount} ${$getTrans(`${this.entity}`.toLowerCase()).toLowerCase()}`
-          : `${$getTrans('show')} ${$getTrans(`${this.entity}`.toLowerCase()).toLowerCase()} ${this.expectedEntityCount}`
+          ? `${$getTrans('show')} ${this.expectedEntityCount} ${$getTrans(
+              `${this.entity}`.toLowerCase(),
+            ).toLowerCase()}`
+          : `${$getTrans('show')} ${$getTrans(`${this.entity}`.toLowerCase()).toLowerCase()} ${
+              this.expectedEntityCount
+            }`
       } else return $getTrans('no-exact-matches')
     },
 

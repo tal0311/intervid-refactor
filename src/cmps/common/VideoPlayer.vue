@@ -77,7 +77,7 @@ export default {
   },
 
   created() {
-    this.svgs.playPauseAnimation = this.getSvg('playPauseAnimationIcons')
+    this.svgs.playPauseAnimation = this.$getSvg('playPauseAnimationIcons')
   },
 
   async mounted() {
