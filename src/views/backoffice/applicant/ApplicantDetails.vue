@@ -104,7 +104,7 @@ import {socketService, SOCKET_ON_SAVE_APPLICANT} from '@/services/socketService'
 import {historyRoutes} from '@/router'
 
 import NoteApp from '@/cmps/backoffice/applicant/NoteApp.vue'
-import StatusDropdown from '@/cmps/common/statusDropdown.vue'
+import StatusDropdown from '@/cmps/common/StatusDropdown.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
 import TimeLine from '@/cmps/backoffice/applicant/TimeLine.vue'
 import VideoPlayer from '@/cmps/common/VideoPlayer.vue'
@@ -355,7 +355,6 @@ export default {
       await this.saveApplicant()
       this.$store.dispatch('app/toggleModal', {type: 'applicant-edit'})
     },
-
   },
 
   watch: {

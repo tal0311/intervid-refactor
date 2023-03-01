@@ -43,7 +43,7 @@
 import {timelineService} from '@/services/timelineService'
 // import { activityMap } from '@/services/activityService'
 import {advancedPermsMap} from '@/services/constData'
-import StatusDropdown from '@/cmps/common/statusDropdown.vue'
+import StatusDropdown from '@/cmps/common/StatusDropdown.vue'
 import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
 
 export default {
