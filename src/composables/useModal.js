@@ -11,7 +11,18 @@ import {useElementBounding} from './util/useElementBounding'
 //  } | null),
 //  modalWrapper: template ref | null,
 // }
-export function useModal({emit, modalId, modalHeight, modalWidth, modalType, mousePos, modalWrapper}) {
+export function useModal({
+  emit,
+  modalId,
+  modalHeight,
+  modalWidth,
+  modalType,
+  mousePos,
+  modalWrapper,
+  listContainerSelector,
+}) {
+  console.log('🚀 ~ file: useModal.js:15 ~ useModal ~ modalWrapper:', modalWrapper.value)
+
   const store = useStore()
 
   const modalPos = ref({
@@ -32,8 +43,8 @@ export function useModal({emit, modalId, modalHeight, modalWidth, modalType, mou
     return modal.value.type === modalType && modal.value.data.modalId === modalId
   })
 
-  const modalWrapperBounding = useElementBounding('.list-content', modalWrapper)
-
+  const modalWrapperBounding = useElementBounding(modalWrapper, listContainerSelector)
+  console.log('modalWrapperBounding', modalWrapperBounding.value)
   const isFromMousePos = computed(() => !!mousePos?.value)
 
   const startingPos = computed(() => {
