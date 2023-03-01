@@ -1,11 +1,11 @@
 <template>
-  <div class="status-dropdown" ref="modal-wrapper" :class="{'full-width': isFullWidth}">
+  <div class="status-dropdown" ref="modalWrapper" :class="{'full-width': isFullWidth}">
     <button
       class="status-btn"
       :class="{
         open: isOpen && !isMobile,
         recruitment: isRecruitmentStatus,
-        top: isBottom,
+        top: modalPos.isBottom,
       }"
       :style="{
         backgroundColor: isDisabled ? '#EBEEF2' : applicantStatus.color,
@@ -18,7 +18,7 @@
       <i v-if="!isDisabled && !isShowArchived" class="material-icons">expand_more</i>
     </button>
 
-    <div class="status-modal">
+    <div class="status-modal" :class="modalClass" :style="modalStyle">
       <button
         v-for="(status, idx) in statusMap"
         :key="status.label"
@@ -55,16 +55,17 @@ import MobileModal from './modals/MobileModal.vue'
 
 export default {
   props: ['applicant', 'isShowArchived', 'isFullWidth'],
-  setup(props) {
+  setup(props, {emit}) {
     const store = useStore()
     const modalHeight = computed(() => 342)
     const modalWrapper = ref(null)
-
-    const {isOpen, top, insetInlineStart, isBottom} = useModal({
+    const {isOpen, modalPos} = useModal({
+      emit,
       modalHeight,
       modalType: 'status-picker',
       modalId: props.applicant.id,
       modalWrapper,
+      listContainerSelector: '.list-content',
     })
 
     const isMobile = computed(() => {
@@ -72,23 +73,27 @@ export default {
     })
 
     const modalStyle = computed(() => {
+      // console.log('modalPos.value', modalPos.value)
       return {
-        top: `${top.value}px`,
-        insetInlineStart: `${insetInlineStart.value}px`,
+        top: `${modalPos?.value.top}px`,
+        width: `${modalPos?.value.modalWidth}px`,
       }
     })
 
     const modalClass = computed(() => {
       return {
         open: isOpen.value && !isMobile.value,
-        top: isBottom.value,
+        top: modalPos.value.isBottom,
       }
     })
 
     return {
+      modalWrapper,
       isOpen,
       modalClass,
       modalStyle,
+      modalPos,
+      isMobile,
     }
   },
 

@@ -29,9 +29,6 @@
 </template>
 
 <script>
-import { getFullName} from '@/services/utilService'
-import cloneDeep from 'lodash.clonedeep'
-
 import TemplateMenu from '@/cmps/backoffice/template/TemplateMenu.vue'
 
 export default {
@@ -41,7 +38,8 @@ export default {
 
   computed: {
     ownerFullName() {
-      return getFullName(this.template.owner)
+      // return this.$getFullName(this.template.owner)
+      return this.$utilService.getFullName(this.template.owner)
     },
 
     isDefault() {
@@ -51,13 +49,13 @@ export default {
     templateCreationDate() {
       const date = this.template.createdAt
       if (!date) return 'None'
-      return $formatDate(date)
+      return this.$formatDate(date)
     },
   },
 
   methods: {
     onToggleArchive() {
-      const template = cloneDeep(this.template)
+      const template = structuredClone(this.template)
       this.$store.dispatch('template/toggleArchivedTemplate', {template})
     },
 

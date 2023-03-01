@@ -15,13 +15,12 @@
 </template>
 
 <script>
-
 export default {
   props: ['activity'],
 
   computed: {
     startTime() {
-      return $formatDate(new Date(this.activity.date), {
+      return this.$formatDate(new Date(this.activity.date), {
         includeSeconds: true,
         getFullDate: true,
         includeTime: true,

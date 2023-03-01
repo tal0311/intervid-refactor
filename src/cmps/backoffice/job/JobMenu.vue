@@ -1,5 +1,5 @@
 <template>
-  <section class="action-menu" ref="modal-wrapper">
+  <section class="action-menu" ref="modalWrapper">
     <button class="menu-btn" @click="toggleModal">
       <span class="material-icons"> more_horiz </span>
     </button>
@@ -39,10 +39,9 @@
 
 <script>
 // core
-import {computed} from 'vue'
+import {ref, computed, toRefs, watch} from 'vue'
 // lib
 import {useStore} from 'vuex'
-import cloneDeep from 'lodash.clonedeep'
 // import { useStore } from 'vuex'
 // services
 import {msgService} from '@/services/msgService'
@@ -56,33 +55,38 @@ import config from '@/config'
 export default {
   props: ['job', 'mousePos'],
 
-  setup(props) {
+  setup(props, {emit}) {
+    const {mousePos} = toRefs(props)
     const modalWidth = 200
+    const modalWrapper = ref(null)
 
     const store = useStore()
 
     const modalHeight = computed(() => (props.job.archivedAt ? 100 : 300))
-    const {isOpen, top, insetInlineStart, isBottom} = useModal({
+    const {isOpen, modalPos} = useModal({
+      emit,
       modalId: props.job._id,
       modalType: 'job-menu',
-      mousePos: props.mousePos,
+      mousePos,
+      modalWrapper,
       modalWidth,
       modalHeight,
+      listContainerSelector: '.backoffice-content',
     })
 
     const isMobile = computed(() => store.getters['app/isMobile'])
 
     const modalStyle = computed(() => {
       return {
-        top: `${top.value}px`,
-        insetInlineStart: `${insetInlineStart.value}px`,
+        top: `${modalPos.value.top}px`,
+        insetInlineStart: `${modalPos.value.insetInlineStart}px`,
       }
     })
 
     const modalClass = computed(() => {
       return {
         open: isOpen.value && !isMobile.value,
-        top: isBottom.value,
+        top: modalPos.value.isBottom,
       }
     })
 
@@ -91,6 +95,7 @@ export default {
       isOpen,
       modalStyle,
       modalClass,
+      modalWrapper,
     }
   },
 
@@ -111,7 +116,6 @@ export default {
 
   methods: {
     toggleModal() {
-      if (this.mousePos) this.$emit('modal-closed')
       // WTF is this??
       const modalId = this.isJobMenuOpen ? null : this.job._id
       this.$store.dispatch('app/toggleModal', {
@@ -122,7 +126,7 @@ export default {
 
     async onCloneJob() {
       this.toggleModal()
-      const jobToSave = cloneDeep(this.job)
+      const jobToSave = structuredClone(this.job)
       delete jobToSave._id
       delete jobToSave.createdAt
       jobToSave.applicants = []
@@ -177,10 +181,13 @@ export default {
   },
 
   watch: {
-    mousePos() {
-      if (this.mousePos) {
-        this.toggleModal()
-      }
+    mousePos: {
+      handler() {
+        if (this.mousePos) {
+          this.toggleModal()
+        }
+      },
+      deep: true,
     },
   },
   components: {

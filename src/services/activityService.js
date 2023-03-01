@@ -1,5 +1,5 @@
 import httpService from './httpService'
-import {getUrlParamsFromObj} from './utilService'
+import {utilService} from './utilService'
 
 export const activityService = {
   query,
@@ -12,7 +12,7 @@ function query(filterBy) {
   const {itemsPerPage, currPage} = filterBy
   delete filterBy.itemsPerPage
   delete filterBy.currPage
-  const filterQuery = getUrlParamsFromObj(filterBy)
+  const filterQuery = utilService.getUrlParamsFromObj(filterBy)
   return httpService.get(`${ROUTE}?limit=${itemsPerPage}&skip=${currPage * itemsPerPage}&${filterQuery.substring(1)}`)
 }
 

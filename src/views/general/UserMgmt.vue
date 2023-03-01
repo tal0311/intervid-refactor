@@ -168,8 +168,6 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
-import { getFullName} from '@/services/utilService'
-import cloneDeep from 'lodash.clonedeep'
 import {getValidateMsg, validate} from '@/services/errorService.js'
 
 import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
@@ -192,18 +190,18 @@ export default {
   },
 
   mounted() {
-    this.userToEdit = cloneDeep(this.loggedInUser)
+    this.userToEdit = structuredClone(this.loggedInUser)
   },
 
   computed: {
     ...mapGetters('user', ['loggedInUser']),
 
     lastLogin() {
-      return this.loggedInUser.lastLogin ? $formatDate(this.loggedInUser.lastLogin) : 'First login'
+      return this.loggedInUser.lastLogin ? this.$formatDate(this.loggedInUser.lastLogin) : 'First login'
     },
 
     userFullName() {
-      return getFullName(this.loggedInUser)
+      return this.$utilService.getFullName(this.loggedInUser)
     },
   },
   methods: {

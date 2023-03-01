@@ -50,7 +50,7 @@ export function useFilter() {
   // TODO: find a better name for this func
   const setFilterFromRoute = () => {
     if (!_shouldParseFilter.value) return _setDefaultFilter()
-    // TODO: Check if _parseFilter can somehow use JSON.parse and avoid the horryfying ternary statement and assignments
+    // // TODO: Check if _parseFilter can somehow use JSON.parse and avoid the horryfying ternary statement and assignments
     const parsedFilterBy = _parseFilter(route.query)
     parsedFilterBy.showArchived = parsedFilterBy.showArchived === 'true'
     parsedFilterBy.incomplete =
@@ -58,7 +58,7 @@ export function useFilter() {
         ? JSON.parse(parsedFilterBy.incomplete)
         : undefined
     parsedFilterBy.daysAgo = parsedFilterBy.daysAgo || ''
-    _setFilter(parsedFilterBy)
+    // _setFilter(parsedFilterBy)
   }
 
   onMounted(() => {
@@ -80,8 +80,7 @@ function _parseFilter(query) {
   for (let [key, value] of searchParams) {
     if (value) {
       if (key === 'statuses') value = value.split(',')
-      filterBy[key] = JSON.parse(value)
-      console.log('key', key, 'value', value)
+      filterBy[key] = value
     }
   }
   if (filterBy.currPage) filterBy.currPage = +filterBy.currPage

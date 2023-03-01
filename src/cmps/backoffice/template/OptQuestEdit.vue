@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import cloneDeep from 'lodash.clonedeep'
 export default {
   props: ['optsToEdit'],
 
@@ -29,7 +28,7 @@ export default {
   }),
 
   created() {
-    this.opts = cloneDeep(this.optsToEdit)
+    this.opts = structuredClone(this.optsToEdit)
   },
 
   methods: {
@@ -75,7 +74,7 @@ export default {
   watch: {
     optsToEdit() {
       if (this.optsToEdit) {
-        this.opts = cloneDeep(this.optsToEdit)
+        this.opts = structuredClone(this.optsToEdit)
       }
     },
   },

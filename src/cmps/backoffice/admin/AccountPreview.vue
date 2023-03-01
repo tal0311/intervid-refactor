@@ -37,14 +37,14 @@
 </template>
 
 <script>
-import { getFullName} from '@/services/utilService'
 
 export default {
   props: ['account'],
 
   computed: {
     fullName() {
-      return getFullName(this.account)
+      return this.$utilService.getFullName(this.account)
+      // return this.$getFullName(this.account)
     },
 
     viewAsUser() {
@@ -54,7 +54,7 @@ export default {
     lastLoginDate() {
       const date = this.account.lastLogin
       if (!date) return 'None'
-      return $formatDate(date, {
+      return this.$formatDate(date, {
         getFullDate: true,
         includeTime: true,
         includeSeconds: true,

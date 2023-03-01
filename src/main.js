@@ -13,9 +13,10 @@ import vue3GoogleLogin from 'vue3-google-login'
 import VueSocialSharing from 'vue-social-sharing'
 
 // import './registerServiceWorker'
+import 'material-icons/iconfont/material-icons.css';
 
-import {tokenService} from './services/tokenService'
-import {isMobile} from './services/utilService'
+// import {tokenService} from './services/tokenService'
+import {utilService} from './services/utilService'
 import {loggerService} from './services/loggerService'
 
 import MainInput from '@/cmps/common/MainInput.vue'
@@ -24,17 +25,20 @@ import BasicSelect from '@/cmps/common/BasicSelect.vue'
 import {clickOutside} from './directivs'
 
 import './assets/scss/global.scss'
-// import {getSvg} from './services/svgService'
+// import {getTrans} from './services/i18nService'
+import {getSvg} from './services/svgService'
 import config from './config'
 
 import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import {i18nPlugin} from './plugins/i18n.plugin'
+import {utilServicePlugin} from './plugins/utilService.plugin'
 // NOTE: remove this func, set it as guard in the router index. see:
 // ;(async function () {
 //   console.log('router.get', router)
-//   const isInInterview = router.history._startLocation.startsWith('/interview')
+//   const isInInterview = false
 //   if (isInInterview) return
 //   if (tokenService.getToken()) {
 //     store.dispatch('user/loadLoggedUser')
@@ -42,7 +46,6 @@ import store from './store'
 // })()
 
 // Accessibillty helper:
-import {i18nPlugin} from './plugins/i18n.plugin'
 ;(function () {
   window.interdeal = {
     sitekey: 'eb985e13938463d3b349126ea36d814e',
@@ -79,7 +82,7 @@ import {i18nPlugin} from './plugins/i18n.plugin'
 })()
 
 window.addEventListener('resize', () => {
-  store.commit({type: 'app/setIsMobile', isMobile: isMobile()})
+  store.commit({type: 'app/setIsMobile', isMobile: utilService.isMobile()})
 })
 
 window.onerror = function (message) {
@@ -107,15 +110,17 @@ app.directive('click-outside', clickOutside)
 app.directive('observe-visibility', ObserveVisibility)
 
 // ?delete
-// app.mixin({
-//   methods: {
-//     getTrans,
-//     getSvg
-//   },
-// })
+app.mixin({
+  methods: {
+    // getTrans,
+    getSvg,
+  },
+})
+//plugin
 app.use(i18nPlugin, {
   getLang: () => store.getters['app/lang'],
 })
+app.use(utilServicePlugin)
 
 app.use(VueSocialSharing)
 app.use(Vue3TouchEvents, {

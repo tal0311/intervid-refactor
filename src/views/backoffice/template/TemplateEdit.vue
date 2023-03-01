@@ -55,7 +55,6 @@
 import {templateService} from '@/services/templateService'
 import {validate} from '@/services/errorService.js'
 
-import cloneDeep from 'lodash.clonedeep'
 
 import QuestEdit from '@/cmps/backoffice/template/QuestEdit.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
@@ -102,7 +101,7 @@ export default {
     async loadTemplate(templateId) {
       if (templateId) {
         await this.$store.dispatch('template/loadTemplate', {templateId})
-        this.templateToEdit = cloneDeep(this.template)
+        this.templateToEdit = structuredClone(this.template)
       } else {
         this.templateToEdit = templateService.getDefaultTemplate()
       }

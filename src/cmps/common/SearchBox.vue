@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import {debounce} from '@/services/utilService'
 
 export default {
   props: ['value', 'autofocus', 'debounce', 'placeholder'],
@@ -37,7 +36,7 @@ export default {
     },
 
     createDebounce() {
-      this.debouncedInput = debounce(
+      this.debouncedInput = this.$utilService.debounce(
         function (newVal) {
           this.$emit('input', 'txt', newVal)
         },

@@ -47,32 +47,30 @@ import TableList from '@/cmps/backoffice/TableList.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 import FilterBox from '@/cmps/common/FilterBox.vue'
 // composables
-import {useOverview} from '@/composables/useOverview'
+import {useFilter} from '@/composables/useFilter'
+import {useSort} from '@/composables/useSort'
+import {useSelection} from '@/composables/useSelection'
+import {usePagination} from '@/composables/usePagination'
+
 // services
 import {filterTemplates} from '@/services/templateService'
 import {msgService} from '@/services/msgService'
-import {paginate, getSortFunc} from '@/services/utilService'
 
 export default {
   setup() {
-    const {
-      filterBy,
-      sort,
-      selectedItems,
-      clearSelectedItems,
-      onSelectAll,
-      onSort,
-      onSelectItem,
-      isSelected,
-      onChangePage,
-    } = useOverview()
+    // TODO: No idea if this works, the route is blocked
+    const {filterBy, onSetFilterByKey} = useFilter()
+    const {sort, onSort} = useSort()
+    const {selectedItems, isSelected, onSelectAll, onSelectItem, clearSelectedItems} = useSelection()
+    const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
+
     return {
       filterBy,
       sort,
+      onSort,
       selectedItems,
       clearSelectedItems,
       onSelectAll,
-      onSort,
       onSelectItem,
       isSelected,
       onChangePage,
@@ -92,8 +90,8 @@ export default {
     },
 
     templatesToShow() {
-      const templates = this.filteredTemplates.slice().sort(getSortFunc(this.sort))
-      return paginate(templates, this.filterBy.currPage, this.filterBy.itemsPerPage)
+      const templates = this.filteredTemplates.slice().sort(this.$utilService.getSortFunc(this.sort))
+      return this.$utilService.paginate(templates, this.filterBy.currPage, this.filterBy.itemsPerPage)
     },
 
     isFetching() {

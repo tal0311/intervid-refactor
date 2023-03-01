@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import cloneDeep from 'lodash.clonedeep'
 import TimeEventPreview from './timeEventPreview.vue'
+import cloneDeep from 'lodash.clonedeep'
 
 export default {
   props: ['timeline', 'applicantName', 'jobTitle'],

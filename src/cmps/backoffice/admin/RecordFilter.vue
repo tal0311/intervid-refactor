@@ -77,7 +77,6 @@
 
 <script>
 import SearchBox from '@/cmps/common/SearchBox.vue'
-import {debounce} from '@/services/utilService'
 
 export default {
   props: ['filterBy'],
@@ -87,7 +86,6 @@ export default {
       levels: ['debug', 'http', 'info', 'warn', 'error'],
     }
   },
-
   methods: {
     onSetFilterByKey(key, value) {
       this.$emit('set-filter', key, value)
@@ -101,9 +99,9 @@ export default {
       this.onSetFilterByKey('levels', levels.join(','))
     },
 
-    handleChange: debounce(function (ev) {
-      this.onSetFilterByKey(ev.target.name, ev.target.value)
-    }, 0),
+    // handleChange: this.$utilService['debounce'](function (ev) {
+    //   this.onSetFilterByKey(ev.target.name, ev.target.value)
+    // }, 0),
   },
 
   components: {SearchBox},

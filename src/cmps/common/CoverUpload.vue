@@ -111,11 +111,10 @@
 <script>
 import AppSpinner from './AppSpinner.vue'
 
-import cloneDeep from 'lodash.clonedeep'
 
 import {mediaService} from '@/services/mediaService'
-import {debounce} from '@/services/utilService'
 import {coverImgs} from '@/services/constData'
+import cloneDeep from 'lodash.clonedeep'
 
 export default {
   props: ['initialCover', 'id'],
@@ -164,13 +163,13 @@ export default {
       this.onAddCover()
     },
 
-    onGetImgs: debounce(async function () {
-      if (!this.value) {
-        this.imgs = null
-        return
-      }
-      this.imgs = await mediaService.getImgs(this.value)
-    }, 500),
+    // onGetImgs: this.$utilService.debounce(async function () {
+    //   if (!this.value) {
+    //     this.imgs = null
+    //     return
+    //   }
+    //   this.imgs = await mediaService.getImgs(this.value)
+    // }, 500),
 
     onSelectImg(img) {
       this.selectedImg = img
@@ -225,7 +224,7 @@ export default {
 
   watch: {
     loggedInUser() {
-      this.user = cloneDeep(this.loggedInUser)
+      this.user = structuredClone(this.loggedInUser)
     },
   },
 

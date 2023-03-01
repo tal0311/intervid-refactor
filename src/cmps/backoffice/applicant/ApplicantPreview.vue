@@ -42,9 +42,7 @@
 <script>
 import {timelineService} from '@/services/timelineService'
 // import { activityMap } from '@/services/activityService'
-import {userService} from '@/services/userService'
 import {advancedPermsMap} from '@/services/constData'
-import { getFullName} from '@/services/utilService'
 import StatusDropdown from '@/cmps/common/statusDropdown.vue'
 import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
 
@@ -59,7 +57,8 @@ export default {
 
   computed: {
     applicantFullName() {
-      return getFullName(this.applicant.info)
+      // return this.$getFullName(this.applicant.info)
+      return this.$utilService.getFullName(this.applicant.info)
     },
 
     isFreeUser() {

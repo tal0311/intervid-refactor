@@ -112,6 +112,7 @@ input {
     &::-ms-reveal {
       display: none;
     }
+
     &::-ms-clear {
       display: none;
     }
@@ -124,12 +125,17 @@ input {
 
 .material-icons {
   direction: inherit;
+  font-variation-settings:
+    'FILL' 0,
 }
+
 
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
+
+
 
 @include from-narrow-layout {
   ::-webkit-scrollbar {

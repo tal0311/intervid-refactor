@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import {getFullName, isEmpty, secondsToTime} from '@/services/utilService'
+import {utilService} from '@/services/utilService'
 import {advancedPermsMap} from '@/services/constData'
 import {timelineService} from '@/services/timelineService'
 import {jobService} from '@/services/jobService'
@@ -102,7 +102,6 @@ import {msgService} from '@/services/msgService'
 import {socketService, SOCKET_ON_SAVE_APPLICANT} from '@/services/socketService'
 
 import {historyRoutes} from '@/router'
-import cloneDeep from 'lodash.clonedeep'
 
 import NoteApp from '@/cmps/backoffice/applicant/NoteApp.vue'
 import StatusDropdown from '@/cmps/common/statusDropdown.vue'
@@ -115,6 +114,7 @@ import ApplicantEdit from '@/cmps/backoffice/applicant/ApplicantEdit.vue'
 import ApplicantMenu from '@/cmps/backoffice/applicant/ApplicantMenu.vue'
 import CvMenu from '@/cmps/backoffice/applicant/CvMenu.vue'
 // import {userService} from '@/services/userService'
+import cloneDeep from 'lodash.clonedeep'
 
 export default {
   data() {
@@ -160,7 +160,7 @@ export default {
 
     applicantFullName() {
       if (!this.applicant?.info) return ''
-      return getFullName(this.applicant.info)
+      return utilService.getFullName(this.applicant.info)
     },
 
     modal() {
@@ -214,7 +214,7 @@ export default {
       if (applicantId !== this.applicant.id) return
       this.applicant.answerMap = answerMap
       // this.setPlayerState('isLoading', false)
-      if (isEmpty(answerMap)) return
+      if (this.$utilService.isEmpty(answerMap)) return
       this.$nextTick(() => {
         // next tick so the ref of the video player is not undefined
         if (this.$refs.videoPlayer) {
@@ -313,7 +313,7 @@ export default {
       const timelineToSave = cloneDeep(
         this.applicant.timeline.filter((timeEvent) => timeEvent.type !== 'note' || timeEvent.noteId !== noteId),
       )
-      const notesToSave = cloneDeep(this.applicant.notes.filter((note) => note.id !== noteId))
+      const notesToSave = structuredClone(this.applicant.notes.filter((note) => note.id !== noteId))
       this.applicant = {
         ...this.applicant,
         timeline: timelineToSave,
@@ -356,7 +356,6 @@ export default {
       this.$store.dispatch('app/toggleModal', {type: 'applicant-edit'})
     },
 
-    secondsToTime,
   },
 
   watch: {

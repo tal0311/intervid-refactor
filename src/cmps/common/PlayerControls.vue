@@ -77,7 +77,6 @@
 </template>
 
 <script>
-import {secondsToTime} from '@/services/utilService.js'
 
 export default {
   props: ['isBuffering', 'resTime', 'isDraggableShown', 'isSecVideo', 'isPlaying'],
@@ -95,11 +94,11 @@ export default {
     },
 
     formattedTotalDuration() {
-      return secondsToTime(this.playerState.totalDuration)
+      return this.$utilService.secondsToTime(this.playerState.totalDuration)
     },
 
     formattedCurrTime() {
-      return secondsToTime(this.playerState.currTime)
+      return this.$utilService.secondsToTime(this.playerState.currTime)
     },
 
     isPlayerReady() {

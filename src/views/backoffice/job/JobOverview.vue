@@ -97,45 +97,47 @@ import ListActions from '@/cmps/backoffice/ListActions.vue'
 import TemplatePicker from '@/cmps/backoffice/job/TemplatePicker.vue'
 import FilterBox from '@/cmps/common/FilterBox.vue'
 // composables
-import {useOverview} from '@/composables/useOverview'
+import {useFilter} from '@/composables/useFilter.js'
+import {useSort} from '@/composables/useSort.js'
+import {useSelection} from '@/composables/useSelection.js'
+import {useShouldGather} from '@/composables/overview/useShouldGather.js'
+import {useTags} from '@/composables/useTags.js'
+import {usePagination} from '@/composables/usePagination.js'
+import {useAlert} from '@/composables/overview/useAlert'
+
 // services
 import {msgService} from '@/services/msgService'
 
 export default {
   setup() {
-    const {
-      filterBy,
-      sort,
-      selectedItems,
-      shouldGather,
-      // setShouldGather,
-      // setSelectedItems,
-      tagList,
-      onSelectAll,
-      onSelectItem,
-      onSetFilter,
-      onSetFilterByKey,
-      onRemoveTag,
-      onChangePage,
-      onSort,
-      sendAlert,
-    } = useOverview()
+    const {filterBy, onSetFilter, onSetFilterByKey, resetFilters, setFilterFromRoute} = useFilter()
+    const {sort, onSort} = useSort()
+    const {selectedItems, onSelectAll, onSelectItem, isSelected, clearSelectedItems} = useSelection()
+    const {shouldGather, setShouldGather} = useShouldGather()
+    const {tagList, onRemoveTag} = useTags({filterBy, onSetFilterByKey})
+    const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
+    const {sendAlert} = useAlert()
+
     return {
       filterBy,
-      sort,
-      selectedItems,
-      shouldGather,
-      // setShouldGather,
-      // setSelectedItems,
-      tagList,
-      onSelectAll,
-      onSelectItem,
       onSetFilter,
       onSetFilterByKey,
+      resetFilters,
+      setFilterFromRoute,
+      sort,
+      onSort,
+      selectedItems,
+      onSelectAll,
+      onSelectItem,
+      clearSelectedItems,
+      isSelected,
+      shouldGather,
+      setShouldGather,
+      tagList,
       onRemoveTag,
       onChangePage,
-      onSort,
       sendAlert,
+      // setSelectedItems,
     }
   },
   async created() {
@@ -229,7 +231,6 @@ export default {
 
     setView(viewType) {
       this.$store.commit('job/setViewType', {viewType})
-      // GOD NO, PLEASE NO
       sessionStorage.setItem('jobViewType', viewType)
     },
 
@@ -242,6 +243,7 @@ export default {
 
   watch: {
     $route() {
+      console.log('watcher')
       this.clearSelectedItems()
       this.setFilterFromRoute()
       this.loadJobs()

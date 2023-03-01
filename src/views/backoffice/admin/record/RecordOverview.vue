@@ -32,12 +32,28 @@ import RecordFilter from '@/cmps/backoffice/admin/RecordFilter.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 // composables
-import {useOverview} from '@/composables/useOverview'
+import {useFilter} from '@/composables/useFilter'
+import {useSort} from '@/composables/useSort'
+import {useSelection} from '@/composables/useSelection'
+import {usePagination} from '@/composables/usePagination'
 
 export default {
   setup() {
-    const {filterBy, sort, selectedItems, isSelected, onChangePage, onSort} = useOverview()
-    return {filterBy, sort, selectedItems, isSelected, onChangePage, onSort}
+    const {filterBy, onSetFilterByKey, setFilterFromRoute} = useFilter()
+    const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
+    const {sort, onSort} = useSort()
+    const {selectedItems, isSelected} = useSelection()
+
+    return {
+      filterBy,
+      onSetFilterByKey,
+      setFilterFromRoute,
+      sort,
+      selectedItems,
+      isSelected,
+      onChangePage,
+      onSort,
+    }
   },
   async created() {
     await this.loadRecords()

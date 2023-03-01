@@ -1,7 +1,7 @@
 import {userService} from '@/services/userService'
 import {timelineService} from './timelineService'
 import httpService from './httpService'
-import {makeId} from './utilService'
+import {utilService} from '../services/utilService'
 
 export const applicantService = {
   getById,
@@ -33,7 +33,7 @@ function getJobById(jobId) {
 
 function getDefaultApplicant(currApplicantJob) {
   return {
-    id: makeId(),
+    id: utilService.makeId(),
     info: null,
     timestamp: {
       sent: null,
@@ -54,7 +54,7 @@ function getDefaultApplicant(currApplicantJob) {
 export function getNote(txt, user) {
   const miniUser = userService.getMiniUser(user)
   return {
-    id: makeId(),
+    id: utilService.makeId(),
     createdAt: Date.now(),
     owner: miniUser,
     txt,

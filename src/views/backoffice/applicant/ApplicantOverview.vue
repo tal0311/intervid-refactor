@@ -45,6 +45,7 @@
     </div>
 
     <table-list
+      @scroll="(ev) => console.log(ev)"
       :items="applicants"
       :selectedItemCount="selectedItems && selectedItems.length"
       :totalItemCount="applicants && applicants.length"
@@ -72,12 +73,11 @@ import FilterBox from '@/cmps/common/FilterBox.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 import ShareJob from '@/cmps/common/ShareJob.vue'
 // composables
-// import {useOverview} from '@/composables/useOverview'
 import {useFilter} from '@/composables/useFilter'
 import {useSort} from '@/composables/useSort'
 import {useTags} from '@/composables/useTags'
 import {useSelection} from '@/composables/useSelection'
-import {useToggle} from '@/composables/useToggle'
+import {useShouldGather} from '@/composables/overview/useShouldGather'
 import {usePagination} from '@/composables/usePagination'
 // services
 // import {userService} from '@/services/userService'
@@ -90,7 +90,7 @@ export default {
     const {filterBy, onSetFilterByKey, onSetFilter, setFilterFromRoute, resetFilters} = useFilter()
     const {sort, onSort} = useSort()
     const {selectedItems, setSelectedItems, onSelectAll, isSelected, onSelectItem, clearSelectedItems} = useSelection()
-    const {data: shouldGather, setData: setShouldGather} = useToggle()
+    const {shouldGather, setShouldGather} = useShouldGather()
     const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
     const {tagList, onRemoveTag} = useTags({onSetFilterByKey})
 
@@ -258,7 +258,7 @@ export default {
   },
 
   watch: {
-    async $route() {
+    $route() {
       this.clearSelectedItems()
       this.setFilterFromRoute()
       this.loadApplicants()

@@ -1,6 +1,6 @@
 import httpService from './httpService'
 import {getTrans} from './i18nService'
-import {getFullName, getUrlParamsFromObj, makeId} from './utilService'
+import { utilService} from './utilService'
 
 export const templateService = {
   query,
@@ -18,7 +18,7 @@ export const templateService = {
 const ROUTE = 'template'
 
 async function query(filterBy) {
-  const filterUrlParam = getUrlParamsFromObj(filterBy)
+  const filterUrlParam = utilService.getUrlParamsFromObj(filterBy)
   return await httpService.get(ROUTE + filterUrlParam)
 }
 
@@ -56,7 +56,7 @@ function getDefaultTemplate() {
 
 function createQuest(txt = getTrans('question'), desc = '', ansRule, timeLimit = 5) {
   return {
-    id: makeId(),
+    id: utilService.makeId(),
     txt,
     desc,
     vidUrl: '',
@@ -92,7 +92,7 @@ export function filterTemplates(templates, filterBy) {
   const {txt, showArchived} = filterBy
   const regexTxt = new RegExp(txt || '', 'i')
   return templates.filter((temp) => {
-    if (showArchived) return temp.archivedAt && (regexTxt.test(temp.name) || regexTxt.test(getFullName(temp.owner)))
-    return !temp.archivedAt && (regexTxt.test(temp.title) || regexTxt.test(getFullName(temp.owner)))
+    if (showArchived) return temp.archivedAt && (regexTxt.test(temp.name) || regexTxt.test(this.$getFullName(temp.owner)))
+    return !temp.archivedAt && (regexTxt.test(temp.title) || regexTxt.test(this.$getFullName(temp.owner)))
   })
 }

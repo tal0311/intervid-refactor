@@ -92,8 +92,7 @@
 
 <script>
 import {validate, getValidateMsg} from '@/services/errorService'
-import {getFullName} from '@/services/utilService'
-//
+
 import {loggerService} from '@/services/loggerService'
 
 import CvUpload from '../CvUpload.vue'
@@ -139,7 +138,8 @@ export default {
     },
 
     applicantFullName() {
-      return getFullName(this.applicantInfo)
+      // return this.$getFullName(this.applicantInfo)
+      return this.$utilService.getFullName(this.applicantInfo)
     },
 
     isCvRequired() {

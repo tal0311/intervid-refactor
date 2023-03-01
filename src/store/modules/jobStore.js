@@ -3,8 +3,8 @@ import {loggerService} from '@/services/loggerService'
 import {mutationHistory} from '../mutationHistory'
 import {msgService} from '@/services/msgService'
 // import { activityMap } from '@/services/activityService'
-import cloneDeep from 'lodash.clonedeep'
 import { getTrans } from '../../services/i18nService'
+
 
 export const job = {
   namespaced: true,
@@ -251,7 +251,7 @@ export const job = {
       try {
         // #HANDLE CANCEL
         const key = 'job/query'
-        const cancelToken = await dispatch('app/handleCancelRequest', key)
+        const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
         let {jobs, pageCount, filteredJobCount, totalJobCount} = await jobService.query(filterBy, sort, cancelToken)
         if (!jobs) return
 
@@ -375,7 +375,7 @@ export const job = {
     async toggleArchiveJob({commit, state}, {jobs}) {
       // { dispatch }
       const cachedJobs = state.jobs
-      const jobsCopy = cloneDeep(jobs)
+      const jobsCopy = structuredClone(jobs)
       const updatedJobs = jobsCopy.map((job) => {
         job.archivedAt = job.archivedAt ? null : Date.now()
         return job
@@ -459,7 +459,7 @@ export const job = {
     async toggleArchiveApplicant({commit, state}, {applicants, isAllSelected}) {
       // { dispatch }
       const cachedApplicants = state.applicants
-      const applicantsCopy = cloneDeep(applicants)
+      const applicantsCopy = structuredClone(applicants)
       const updatedApplicants = applicantsCopy.map((applicant) => {
         applicant.archivedAt = applicant.archivedAt ? null : Date.now()
         return applicant
