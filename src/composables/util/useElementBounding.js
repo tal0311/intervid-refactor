@@ -20,7 +20,7 @@ export function useElementBounding(elementRef) {
   })
 
   onUnmounted(() => {
-    document.querySelector(scrollContainerSelector).removeEventListener('scroll', updateBounding)
+    document.querySelector(scrollContainerSelector)?.removeEventListener('scroll', updateBounding)
   })
 
   return bounding

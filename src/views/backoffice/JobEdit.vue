@@ -44,7 +44,8 @@ import QuestEdit from '@/cmps/JobEdit/QuestEdit.vue'
 import JobForm from '@/cmps/JobEdit/JobForm.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
 import config from '@/config'
-import { useShareJob } from '../../composables/job/useShareJob'
+import cloneDeep from 'lodash.clonedeep'
+import { useShareJob } from '@/composables/job/useShareJob'
 
 export default {
   data() {
@@ -60,7 +61,7 @@ export default {
 
   async created() {
     await this.loadJob()
-    this.job = structuredClone(this.jobToEdit)
+    this.job = cloneDeep(this.jobToEdit)
     if (this.$route.query.templateId) await this.loadTemplateQuests()
   },
 
@@ -233,7 +234,7 @@ export default {
 
   watch: {
     jobToEdit() {
-      this.job = structuredClone(this.jobToEdit)
+      this.job = cloneDeep(this.jobToEdit)
     },
   },
 
