@@ -21,8 +21,8 @@ export default {
   },
 
   created() {
-    this.svgs.laptop = this.getSvg('laptopUploadingAnimation')
-    this.svgs.video = this.getSvg('videoUploadingAnimation')
+    this.svgs.laptop = this.$getSvg('laptopUploadingAnimation')
+    this.svgs.video = this.$getSvg('videoUploadingAnimation')
   },
 }
 </script>

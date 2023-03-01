@@ -55,7 +55,7 @@ export default {
         }
       }
       // if (this.currStep > 2) this.$router.push(`/interview/${this.job._id}/inprogress`)
-      if (this.currStep > 2) this.$router.push({name: 'Interview'})
+      if (this.currStep > 2) this.$router.push({name: 'InterviewIndex'})
     },
   },
 
