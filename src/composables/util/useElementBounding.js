@@ -6,15 +6,15 @@ import {useIntersectionObserver} from './useIntersectionObserver'
 export function useElementBounding(elementRef, scrollContainerSelector = 'body') {
   const bounding = ref({})
 
-  let _unobserveElement = null
-  let _removeListener = null
-  const intersectionOptions = {
+  const _intersectionOptions = {
     root: document.body,
     rootMargin: '0px',
     threshold: 0.01,
   }
+  let _unobserveElement = null
+  let _removeListener = null
 
-  const updateBounding = (bundingClientRect) => {
+  const _updateBounding = (bundingClientRect) => {
     if (!elementRef?.value) return
     bounding.value = bundingClientRect
   }
@@ -23,11 +23,11 @@ export function useElementBounding(elementRef, scrollContainerSelector = 'body')
   // so we use an intersection observer to determine when the element is in view, and then add the listener, or remove it when it's not in view
   // add a listener to the scroll container for each element
   // there are two options here, option 1, add a listener to the scroll container for each element, and remove it when it's not in view
-  const obsCb = ({target, isIntersecting}) => {
+  const _setBoundingListener = ({target, isIntersecting}) => {
     if (!isIntersecting) return _removeListener?.()
-    updateBounding(target.getBoundingClientRect())
+    _updateBounding(target.getBoundingClientRect())
     const {remove} = useEventListener(scrollContainerSelector, 'scroll', () =>
-      updateBounding(target.getBoundingClientRect()),
+      _updateBounding(target.getBoundingClientRect()),
     )
     _removeListener = remove
     return
@@ -39,16 +39,19 @@ export function useElementBounding(elementRef, scrollContainerSelector = 'body')
   onMounted(() => {
     if (!elementRef?.value) return
     const {observe, unobserve} = useIntersectionObserver({
-      options: intersectionOptions,
-      forEachCb: obsCb,
+      options: _intersectionOptions,
+      cb: (entries) => {
+        entries.forEach(_setBoundingListener)
+      },
     })
+
     observe(elementRef.value)
     _unobserveElement = unobserve
   })
 
   onUnmounted(() => {
-    if (!elementRef?.value || !_unobserveElement) return
-    _unobserveElement(elementRef.value)
+    if (!elementRef?.value) return
+    _unobserveElement?.(elementRef.value)
     _removeListener?.()
   })
 
