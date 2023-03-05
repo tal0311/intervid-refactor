@@ -40,9 +40,11 @@ const store = createStore({
   strict: true,
   modules: initialStoreModules,
   mutations: {
-    emptyState(state) {
-      state = {}
-    },
+    //not in used
+    // emptyState(state) {
+    //   state = {}
+    // },
+    //used in logout (in mutation history)
     resetState(state) {
       // Object.keys(initialStoreModules).forEach((key) => {
       //   state[key] = cloneDeep(initialStoreModules[key].state)
