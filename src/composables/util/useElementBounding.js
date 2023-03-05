@@ -4,9 +4,10 @@ import {useIntersectionObserver} from './useIntersectionObserver'
 
 // this composable receives a ref and returns the bounding rect of the element, which updates on scroll
 export function useElementBounding(elementRef, scrollContainerSelector = 'body') {
-  let unobserveElement = null
-  let removeListener = null
   const bounding = ref({})
+
+  let _unobserveElement = null
+  let _removeListener = null
   const intersectionOptions = {
     root: document.body,
     rootMargin: '0px',
@@ -23,12 +24,12 @@ export function useElementBounding(elementRef, scrollContainerSelector = 'body')
   // add a listener to the scroll container for each element
   // there are two options here, option 1, add a listener to the scroll container for each element, and remove it when it's not in view
   const obsCb = ({target, isIntersecting}) => {
-    if (!isIntersecting) return removeListener?.()
+    if (!isIntersecting) return _removeListener?.()
     updateBounding(target.getBoundingClientRect())
     const {remove} = useEventListener(scrollContainerSelector, 'scroll', () =>
       updateBounding(target.getBoundingClientRect()),
     )
-    removeListener = remove
+    _removeListener = remove
     return
   }
 
@@ -42,13 +43,13 @@ export function useElementBounding(elementRef, scrollContainerSelector = 'body')
       forEachCb: obsCb,
     })
     observe(elementRef.value)
-    unobserveElement = unobserve
+    _unobserveElement = unobserve
   })
 
   onUnmounted(() => {
-    if (!elementRef?.value || !unobserveElement) return
-    unobserveElement(elementRef.value)
-    removeListener?.()
+    if (!elementRef?.value || !_unobserveElement) return
+    _unobserveElement(elementRef.value)
+    _removeListener?.()
   })
 
   return bounding

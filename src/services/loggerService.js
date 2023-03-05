@@ -4,7 +4,7 @@ const BASE_URL = 'record'
 const STORAGE_LOGS = 'storageLogs'
 let gLogs = []
 let gTimeout
-let isOn = false
+
 export const loggerService = {
   debug(...line) {
     doLog('DEBUG', ...line)
@@ -21,7 +21,6 @@ export const loggerService = {
 }
 
 async function doLog(level = 'DEBUG', ...lines) {
-  if (!isOn) return
   const {default: store} = await import('../store/index.js')
   const appState = {
     applicant: store.getters['applicant/applicant'],

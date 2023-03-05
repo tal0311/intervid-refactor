@@ -245,22 +245,26 @@
 </template>
 
 <script>
+// services
 import {screenErrorMap, videoErrorMap, videoErrorTypes} from '@/services/errorService'
 import {mediaService} from '@/services/mediaService'
 import {faceService} from '@/services/faceService'
-
 import {loggerService} from '@/services/loggerService'
-
-import VideoMixin from '@/mixins/VideoMixin'
-import ScreenMixin from '@/mixins/ScreenMixin'
-
+// composables
+import {useScreen} from '@/composables/screen/useScreen'
+// cmps
 import AudioMeter from '@/cmps/interview/AudioMeter.vue'
 import DeviceSelect from '@/cmps/interview/DeviceSelect.vue'
 import VideoLoader from '@/cmps/common/VideoLoader.vue'
 
-export default {
-  mixins: [VideoMixin, ScreenMixin],
+import VideoMixin from '@/mixins/VideoMixin'
 
+export default {
+  mixins: [VideoMixin],
+  setup() {
+    const {screenStream, initScreen, screenErrors} = useScreen()
+    return {screenStream, initScreen, screenErrors}
+  },
   data() {
     return {
       isAudioReady: false,
@@ -288,7 +292,7 @@ export default {
     loggerService.info('[onBoarding] [MediaCheck] Mounted')
     await this.initPreconditions()
     await this.initVideoMixin()
-    if (this.isScreenAns) this.initScreenMixin()
+    if (this.isScreenAns) this.initScreen()
     this.addNetworkListener()
     await this.initFaceCapture()
   },
@@ -393,17 +397,21 @@ export default {
     },
 
     isAllReady() {
-      // TODO: make it better
-      if (this.isScreenAns)
-        return (
-          this.isVideoReady &&
-          this.isFaceReady &&
-          this.isAudioReady &&
-          this.isStreaming &&
-          !!this.screenStream &&
-          !this.blockingErrors
-        )
-      return this.isVideoReady && this.isFaceReady && this.isAudioReady && this.isStreaming && !this.blockingErrors
+      // TODO: make it even better
+      const isReady = this.isVideoReady && this.isFaceReady && this.isAudioReady && !this.blockingErrors
+      if (this.isScreenAns) return isReady && !!this.screenStream
+      return isReady
+      // const isScreenReady = this.isScreenAns && this.isScreenReady
+      // if (this.isScreenAns)
+      //   return (
+      //     this.isVideoReady &&
+      //     this.isFaceReady &&
+      //     this.isAudioReady &&
+      //     this.isStreaming &&
+      //     !!this.screenStream &&
+      //     !this.blockingErrors
+      //   )
+      // return this.isVideoReady && this.isFaceReady && this.isAudioReady && this.isStreaming && !this.blockingErrors
     },
 
     isScreenAns() {
@@ -493,7 +501,7 @@ export default {
 
     async shareScreen() {
       loggerService.info('[MediaCheck] [shareScreen]')
-      await this.initScreenMixin()
+      await this.initScreen()
       if (!this.screenStatus.isError) this.selectedError = null
     },
 
@@ -535,7 +543,7 @@ export default {
       this.lastRecordedVideo = null
       await this.initVideoMixin()
       this.handleFaceCapture()
-      if (this.isScreenAns) await this.initScreenMixin()
+      if (this.isScreenAns) await this.initScreen()
       this.currStep = 0
       this.currTime = 0
       this.isPlaying = false

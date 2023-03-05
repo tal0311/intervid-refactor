@@ -104,23 +104,48 @@
 </template>
 
 <script>
+// core
+import {ref} from 'vue'
+// services
 import {templateService} from '@/services/templateService'
 import {uploaderService} from '@/services/uploaderService'
 import {timelineService} from '@/services/timelineService'
 import {screenErrorMap} from '@/services/errorService'
 import {loggerService} from '@/services/loggerService'
-
+// composables
+import {useScreen} from '@/composables/screen/useScreen'
 import VideoMixin from '@/mixins/VideoMixin'
-import ScreenMixin from '@/mixins/ScreenMixin'
-
+// cmps
 import VideoRecorder from '@/cmps/common/VideoRecorder.vue'
 import QuestStatus from '@/cmps/interview/QuestStatus.vue'
 import QuestCountdown from '@/cmps/interview/interview-app/QuestCountdown.vue'
+
 // import TextAns from '@/cmps/interview/TextAns.vue'
 
 export default {
-  mixins: [VideoMixin, ScreenMixin],
-
+  mixins: [VideoMixin],
+  setup() {
+    const vidRecorder = ref(null)
+    const {
+      initScreen,
+      screenErrors,
+      startScreenRecording,
+      stopScreenRecorder,
+      stopScreenRecording,
+      disposeScreenStream,
+      removeScreenError,
+    } = useScreen({vidRecorder})
+    return {
+      initScreen,
+      screenErrors,
+      startScreenRecording,
+      stopScreenRecorder,
+      stopScreenRecording,
+      disposeScreenStream,
+      removeScreenError,
+      vidRecorder,
+    }
+  },
   data() {
     return {
       timeLeft: 100,
@@ -274,8 +299,9 @@ export default {
       loggerService.info('[Interview] [initRecorders]')
       await this.initVideoMixin()
       if (!this.isAllowRetake) this.startVideoRecording()
+      console.log('this.isScreenAns', this.isScreenAns)
       if (!this.isScreenAns) return
-      await this.initScreenMixin()
+      await this.initScreen()
       this.startScreenRecording()
     },
 
