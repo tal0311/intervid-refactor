@@ -281,7 +281,7 @@ export default {
   },
 
   created() {
-    this.svgs.faceHelper = this.getSvg('faceHelperMediaCheck')
+    this.svgs.faceHelper = this.$getSvg('faceHelperMediaCheck')
   },
 
   async mounted() {

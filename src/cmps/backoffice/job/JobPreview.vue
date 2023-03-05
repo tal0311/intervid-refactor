@@ -105,11 +105,9 @@ export default {
   setup() {
     const mousePos = ref(null)
     const onOpenMenu = ({pageX, pageY}) => {
-      console.log('onOpenMenu')
       mousePos.value = {x: pageX, y: pageY}
     }
     const onCloseMenu = () => {
-      console.log('onCloseMenu')
       mousePos.value = null
     }
     return {

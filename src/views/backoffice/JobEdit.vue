@@ -4,12 +4,17 @@
       <job-form :job="job" :errors="jobEditErrors" @update-job="validateForm" @validate-field="validateField" />
 
       <div class="quest-list">
-        <draggable v-model="job.quests" @end="onDragEnd" v-bind="dragOptions" handle=".drag-indicator"
-          ghost-class="ghost">
-          <quest-edit v-for="(quest, idx) in job.quests" :key="quest.id" :idx="idx" :quest="quest"
-            :questsCount="job.quests.length" :errors="jobEditErrors" @remove-quest="onRemoveQuest"
-            @update-quest="onUpdateQuest" @duplicate-quest="onDuplicateQuest" @validate-field="validateField"
-            :isOneTry="job.rule.isOneTry" />
+        <draggable v-model="job.quests" @end="onDragEnd" v-bind="dragOptions"
+        handle=".drag-indicator"
+        ghost-class="ghost"
+        item-key="id"
+        >
+          <template #item>
+            <quest-edit v-for="(quest, idx) in job.quests" :key="quest.id" :idx="idx" :quest="quest"
+              :questsCount="job.quests.length" :errors="jobEditErrors" @remove-quest="onRemoveQuest"
+              @update-quest="onUpdateQuest" @duplicate-quest="onDuplicateQuest" @validate-field="validateField"
+              :isOneTry="job.rule.isOneTry" />
+          </template>
           <!-- TODO: Delete isOneTry prop on V2 -->
         </draggable>
       </div>

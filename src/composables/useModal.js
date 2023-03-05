@@ -11,7 +11,16 @@ import {useElementBounding} from './util/useElementBounding'
 //  } | null),
 //  modalWrapper: template ref | null,
 // }
-export function useModal({emit, modalId, modalHeight, modalWidth, modalType, mousePos, modalWrapper}) {
+export function useModal({
+  emit,
+  modalId,
+  modalHeight,
+  modalWidth,
+  modalType,
+  mousePos,
+  modalWrapper,
+  listContainerSelector,
+}) {
   const store = useStore()
 
   const modalPos = ref({
@@ -32,8 +41,7 @@ export function useModal({emit, modalId, modalHeight, modalWidth, modalType, mou
     return modal.value.type === modalType && modal.value.data.modalId === modalId
   })
 
-  const modalWrapperBounding = useElementBounding('.list-content', modalWrapper)
-
+  const modalWrapperBounding = useElementBounding(modalWrapper, listContainerSelector)
   const isFromMousePos = computed(() => !!mousePos?.value)
 
   const startingPos = computed(() => {
@@ -43,7 +51,6 @@ export function useModal({emit, modalId, modalHeight, modalWidth, modalType, mou
   watch([startingPos, isOpen], ([startingPos, isOpen], oldVal) => {
     if (!isOpen && oldVal[1]) return emit('modal-closed')
     if (!isOpen) return
-    console.log('startingPos changed', startingPos)
     if (isFromMousePos.value) {
       modalPos.value = useModalPosFromClick({
         modalHeight,

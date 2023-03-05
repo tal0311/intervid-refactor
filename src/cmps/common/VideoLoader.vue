@@ -11,7 +11,7 @@ export default {
   },
 
   created() {
-    this.svgs.videoLoader = this.getSvg('videoLoader')
+    this.svgs.videoLoader = this.$getSvg('videoLoader')
   },
 }
 </script>

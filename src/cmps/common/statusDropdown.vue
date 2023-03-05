@@ -65,6 +65,7 @@ export default {
       modalType: 'status-picker',
       modalId: props.applicant.id,
       modalWrapper,
+      listContainerSelector: '.list-content',
     })
 
     const isMobile = computed(() => {
@@ -72,6 +73,7 @@ export default {
     })
 
     const modalStyle = computed(() => {
+      // console.log('modalPos.value', modalPos.value)
       return {
         top: `${modalPos?.value.top}px`,
         width: `${modalPos?.value.modalWidth}px`,
