@@ -245,6 +245,8 @@
 </template>
 
 <script>
+// core
+import {ref} from 'vue'
 // services
 import {screenErrorMap, videoErrorMap, videoErrorTypes} from '@/services/errorService'
 import {mediaService} from '@/services/mediaService'
@@ -252,23 +254,79 @@ import {faceService} from '@/services/faceService'
 import {loggerService} from '@/services/loggerService'
 // composables
 import {useScreen} from '@/composables/screen/useScreen'
+import {useVideo} from '@/composables/video/useVideo'
 // cmps
 import AudioMeter from '@/cmps/interview/AudioMeter.vue'
 import DeviceSelect from '@/cmps/interview/DeviceSelect.vue'
 import VideoLoader from '@/cmps/common/VideoLoader.vue'
 
-import VideoMixin from '@/mixins/VideoMixin'
-
 export default {
-  mixins: [VideoMixin],
-  setup() {
+  setup(props, {emit}) {
     const {screenStream, initScreen, screenErrors} = useScreen()
-    return {screenStream, initScreen, screenErrors}
+    const video = ref(null)
+    const {
+      // SHARED WITH CMP
+      isAudioReady,
+      selectedError,
+      isFaceReady,
+      // DATA
+      isStreaming,
+      isVideoReady,
+      videoStream,
+      videoDevices,
+      audioDevices,
+      selectedDevices,
+      videoErrors,
+      // COMPUTED
+      elVideo,
+      browser,
+      // METHODS
+      initVideoMixin,
+      stopVideoStream,
+      startVideoRecording,
+      stopVideoRecording,
+      onSelectDevice,
+      addVideoError,
+      removeVideoError,
+      addNetworkListener,
+      removeNetworkListener,
+      stopMediaRecorder,
+      initPreconditions,
+      checkNetwork,
+    } = useVideo({emit, videoRef: video})
+    return {
+      screenStream,
+      initScreen,
+      screenErrors,
+      video,
+      isAudioReady,
+      selectedError,
+      isFaceReady,
+      isStreaming,
+      isVideoReady,
+      videoStream,
+      videoDevices,
+      audioDevices,
+      selectedDevices,
+      videoErrors,
+      elVideo,
+      browser,
+      initVideoMixin,
+      stopVideoStream,
+      startVideoRecording,
+      stopVideoRecording,
+      onSelectDevice,
+      addVideoError,
+      removeVideoError,
+      addNetworkListener,
+      removeNetworkListener,
+      stopMediaRecorder,
+      initPreconditions,
+      checkNetwork,
+    }
   },
   data() {
     return {
-      isAudioReady: false,
-      isFaceReady: false,
       currStep: 0,
       isRecording: false,
       lastRecordedVideo: null,
@@ -276,7 +334,6 @@ export default {
       recordingInterval: null,
       currTime: 0,
       previewDuration: 500,
-      selectedError: null,
       isSettingsOpen: false,
       isPlaying: false,
       isLoading: true,
@@ -398,10 +455,10 @@ export default {
 
     isAllReady() {
       // TODO: make it even better
-      const isReady = this.isVideoReady && this.isFaceReady && this.isAudioReady && !this.blockingErrors
+      const isReady =
+        this.isVideoReady && this.isFaceReady && this.isAudioReady && this.isStreaming && !this.blockingErrors
       if (this.isScreenAns) return isReady && !!this.screenStream
       return isReady
-      // const isScreenReady = this.isScreenAns && this.isScreenReady
       // if (this.isScreenAns)
       //   return (
       //     this.isVideoReady &&
@@ -438,10 +495,6 @@ export default {
         default:
           return 'monitor'
       }
-    },
-
-    browser() {
-      return this.$store.getters['app/browser']
     },
   },
 

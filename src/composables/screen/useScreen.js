@@ -10,15 +10,24 @@ import {screenService} from '@/services/screenService.js'
 import {screenErrorMap} from '@/services/errorService'
 
 export function useScreen({vidRecorder} = {vidRecorder: null}) {
-  const store = useStore()
+  // Data
 
+  // #public
   const screenStream = ref(null)
   const screenErrors = ref([])
+
+  // #private
   let _screenChunks = []
   let _screenRecorder = null
+
+  const store = useStore()
+
+  // #unused
   let isRecordingScreen = false
 
-  async function init() {
+  // Methods
+  // #public
+  const init = async () => {
     loggerService.info('[ScreenMixin] [initScreenMixin]')
     try {
       screenStream.value = await screenService.getScreenStream()
@@ -43,20 +52,20 @@ export function useScreen({vidRecorder} = {vidRecorder: null}) {
     }
   }
 
-  function startScreenRecording() {
+  const startScreenRecording = () => {
     isRecordingScreen = true
     _screenRecorder.start(1000)
     loggerService.info('[ScreenMixin] [startScreenRecording]')
   }
 
-  function stopScreenRecorder() {
+  const stopScreenRecorder = () => {
     if (_screenRecorder && _screenRecorder.state !== 'inactive') {
       _screenRecorder.stop()
       loggerService.info('[ScreenMixin] [stopScreenRecorder]')
     }
   }
 
-  function stopScreenRecording(interviewId, questId) {
+  const stopScreenRecording = (interviewId, questId) => {
     return new Promise((res) => {
       const createScreenBlob = () => {
         const blob = new Blob(_screenChunks, {
@@ -85,25 +94,35 @@ export function useScreen({vidRecorder} = {vidRecorder: null}) {
     })
   }
 
-  function disposeScreenStream() {
+  const disposeScreenStream = () => {
     if (!screenStream.value) return
     screenStream.value = screenService.disposeScreenStream()
     loggerService.info('[ScreenMixin] [disposeScreenStream]')
   }
 
-  function removeScreenError(errorToRemove) {
+  const removeScreenError = (errorToRemove) => {
     if (screenErrors.value.some((err) => err.type === errorToRemove.type)) {
       screenErrors.value = screenErrors.value.filter((error) => error.type !== errorToRemove.type)
       loggerService.info('[ScreenMixin] [removeScreenError] Screen error removed', {errorToRemove})
     }
   }
 
-  function _getElScreenVideo() {
+  // #private
+  const _getElScreenVideo = () => {
     // why the actual fuck
     return vidRecorder?.value?.$refs?.screenVideo
   }
 
-  function _addStreamStopListener() {
+  const _addScreenError = (err) => {
+    if (screenErrors.value.includes(err)) return
+    screenErrors.value.push(err)
+    loggerService.info('[ScreenMixin] [addScreenError] Screen error added', {
+      err,
+    })
+  }
+
+  // #unused
+  const _addStreamStopListener = () => {
     // Adds stop stream events -> In order to get the event everytime the stream stops.
     loggerService.info('[ScreenMixin] [addStreamStopListener]')
     return new Promise((resolve, reject) => {
@@ -113,7 +132,7 @@ export function useScreen({vidRecorder} = {vidRecorder: null}) {
 
         const listenerFunc = (e) => {
           callback(e)
-          callback = function () {}
+          callback = () => {}
         }
 
         if (screenStream.value) {
@@ -132,13 +151,6 @@ export function useScreen({vidRecorder} = {vidRecorder: null}) {
     })
   }
 
-  function _addScreenError(err) {
-    if (screenErrors.value.includes(err)) return
-    screenErrors.value.push(err)
-    loggerService.info('[ScreenMixin] [addScreenError] Screen error added', {
-      err,
-    })
-  }
   return {
     screenStream,
     screenErrors,

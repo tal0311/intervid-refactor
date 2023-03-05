@@ -114,7 +114,7 @@ import {screenErrorMap} from '@/services/errorService'
 import {loggerService} from '@/services/loggerService'
 // composables
 import {useScreen} from '@/composables/screen/useScreen'
-import VideoMixin from '@/mixins/VideoMixin'
+import {useVideo} from '@/composables/video/useVideo'
 // cmps
 import VideoRecorder from '@/cmps/common/VideoRecorder.vue'
 import QuestStatus from '@/cmps/interview/QuestStatus.vue'
@@ -123,8 +123,7 @@ import QuestCountdown from '@/cmps/interview/interview-app/QuestCountdown.vue'
 // import TextAns from '@/cmps/interview/TextAns.vue'
 
 export default {
-  mixins: [VideoMixin],
-  setup() {
+  setup(props, {emit}) {
     const vidRecorder = ref(null)
     const {
       initScreen,
@@ -135,6 +134,36 @@ export default {
       disposeScreenStream,
       removeScreenError,
     } = useScreen({vidRecorder})
+
+    const {
+      // SHARED WITH CMP
+      isAudioReady,
+      selectedError,
+      isFaceReady,
+      // DATA
+      isStreaming,
+      isVideoReady,
+      videoStream,
+      videoDevices,
+      audioDevices,
+      selectedDevices,
+      videoErrors,
+      // COMPUTED
+      elVideo,
+      browser,
+      // METHODS
+      initVideoMixin,
+      stopVideoStream,
+      startVideoRecording,
+      stopVideoRecording,
+      onSelectDevice,
+      addVideoError,
+      removeVideoError,
+      addNetworkListener,
+      removeNetworkListener,
+      stopMediaRecorder,
+      initPreconditions,
+    } = useVideo({emit, videoRecorderRef: vidRecorder})
     return {
       initScreen,
       screenErrors,
@@ -144,6 +173,29 @@ export default {
       disposeScreenStream,
       removeScreenError,
       vidRecorder,
+      isAudioReady,
+      selectedError,
+      isFaceReady,
+      isStreaming,
+      isVideoReady,
+      videoStream,
+      videoDevices,
+      audioDevices,
+      selectedDevices,
+      videoErrors,
+      elVideo,
+      browser,
+      initVideoMixin,
+      stopVideoStream,
+      startVideoRecording,
+      stopVideoRecording,
+      onSelectDevice,
+      addVideoError,
+      removeVideoError,
+      addNetworkListener,
+      removeNetworkListener,
+      stopMediaRecorder,
+      initPreconditions,
     }
   },
   data() {
