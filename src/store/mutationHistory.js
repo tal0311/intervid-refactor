@@ -6,6 +6,7 @@ class MutationHistory {
   ignoreMutations = []
   store
 
+  //not in used (or only for development)
   addMutation(mutation) {
     if (mutation.type !== EMPTY_STATE && this.ignoreMutations.indexOf(mutation.type) === -1) {
       this.done.push(mutation)

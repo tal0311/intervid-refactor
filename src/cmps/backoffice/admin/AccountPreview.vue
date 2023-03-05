@@ -26,7 +26,7 @@
       <i
         @click.stop="setViewAs"
         title="View as Account"
-        class="material-icons"
+        class="material-icons-outlined"
         :class="{
           'md-dark': viewAsUser ? viewAsUser._id !== account._id : true,
         }"

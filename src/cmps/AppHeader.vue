@@ -16,7 +16,7 @@
           <p v-if="jobEditErrors.length" class="saving error">
             {{ $getTrans('required-fields-missing') }}
           </p>
-          <i v-if="jobToEdit._id" class="material-icons" @click="openPreview">visibility</i>
+          <i v-if="jobToEdit._id" class="material-icons-outlined" @click="openPreview">visibility</i>
           <button
             class="send-btn"
             :class="[
@@ -38,12 +38,12 @@
             class="backoffice-nav"
             :class="{selected: currRouteName === 'ApplicantOverview'}"
           >
-            <i class="material-icons">group</i>
+            <i class="material-icons-outlined">group</i>
             <span>{{ $getTrans('applications') }}</span>
           </RouterLink>
 
           <RouterLink to="/backoffice/job" class="backoffice-nav" :class="{selected: currRouteName === 'JobOverview'}">
-            <i class="material-icons">work</i>
+            <i class="material-icons-round">work_outline</i>
             <span>{{ $getTrans('jobs') }}</span>
           </RouterLink>
 

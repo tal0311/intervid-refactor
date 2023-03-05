@@ -11,15 +11,15 @@
           <div class="contact">
             <div class="applicant-contact">
               <p @click="onCopyField('email')" :class="{muted: !applicant.info.email}">
-                <i class="material-icons">email</i>
+                <i class="material-icons-outlined">email</i>
                 <span>{{ applicant.info.email || 'N/A' }}</span>
               </p>
               <p @click="onCopyField('phone')" :class="{muted: !applicant.info.phone}">
-                <i class="material-icons">phone</i>
+                <i class="material-icons-outlined">phone</i>
                 <span>{{ applicant.info.phone || 'N/A' }}</span>
               </p>
               <p @click="onCopyField('hometown')" :class="{muted: !applicant.info.hometown}">
-                <i class="material-icons">home</i>
+                <i class="material-icons-outlined">home</i>
                 <span>{{ applicant.info.hometown || 'N/A' }}</span>
               </p>
             </div>
