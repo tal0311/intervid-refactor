@@ -41,16 +41,22 @@ export function useModal({
     return modal.value.type === modalType && modal.value.data.modalId === modalId
   })
 
-  const modalWrapperBounding = useElementBounding(modalWrapper, listContainerSelector)
+  const modalWrapperBounding = useElementBounding({
+    elementRef: modalWrapper,
+    listeners: ['scroll'],
+    scrollContainerSelector: listContainerSelector,
+  })
   const isFromMousePos = computed(() => !!mousePos?.value)
 
   const startingPos = computed(() => {
     return isFromMousePos.value ? mousePos.value : modalWrapperBounding.value
   })
 
-  watch([startingPos, isOpen], ([startingPos, isOpen], oldVal) => {
-    if (!isOpen && oldVal[1]) return emit('modal-closed')
-    if (!isOpen) return
+  watch([startingPos, isOpen], ([startingPos, isOpen], [, oldIsOpen]) => {
+    if (!isOpen) {
+      if (oldIsOpen) emit('modal-closed')
+      return
+    }
     if (isFromMousePos.value) {
       modalPos.value = useModalPosFromClick({
         modalHeight,

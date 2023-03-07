@@ -1,14 +1,26 @@
-export function useEventListener(selector, type, listener, options = null) {
-  const target = document.querySelector(selector)
-  if (!target) return
+import {onMounted, onUnmounted, shallowRef} from 'vue'
 
-  const eventListener = (event) => listener(event)
+export function useEventListener(target, event, callback, isUseLifecycles = true) {
+  const elTarget = shallowRef(typeof target !== 'string' ? target : null)
 
-  target.addEventListener(type, eventListener, options)
+  const _setElement = () => {
+    if (!elTarget.value) elTarget.value = document.querySelector(target)
+  }
+  const _addListener = () => elTarget.value?.addEventListener(event, callback)
+  const remove = () => elTarget.value?.removeEventListener(event, callback)
 
+  if (isUseLifecycles) {
+    // target = typeof target === 'string' ? document.querySelector(target) : target
+    onMounted(() => {
+      _setElement()
+      _addListener()
+    })
+    onUnmounted(() => elTarget.value?.removeEventListener(event, callback))
+  } else {
+    _setElement()
+    _addListener()
+  }
   return {
-    remove() {
-      target.removeEventListener(type, eventListener, options)
-    },
+    remove,
   }
 }
