@@ -258,10 +258,12 @@ export default {
   },
 
   watch: {
-    $route() {
-      this.clearSelectedItems()
-      this.setFilterFromRoute()
-      this.loadApplicants()
+    'this.$route.params': {
+      handler() {
+        this.clearSelectedItems()
+        this.setFilterFromRoute()
+        this.loadApplicants()
+      },
     },
     sort: {
       handler() {

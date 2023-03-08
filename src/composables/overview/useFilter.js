@@ -5,13 +5,19 @@ import {useQuery} from '@/composables/overview/useQuery.js'
 // services & data
 import {getDefaultFilter} from '@/services/constData.js'
 
-export function useFilter() {
+/**
+ * @description A composable to get the filterBy object, and update it in various ways
+ * @param {Object} initialValue - The initial value of the filterBy object. Optional, if not provided the default filter will be used
+ * @returns {Object} The object containing the filterBy, resetFilters, onSetFilter, onSetFilterByKey, setFilterFromRoute functions
+ */
+export function useFilter(initialValue) {
   const {route, onSetQuery} = useQuery()
-  const filterBy = ref(getDefaultFilter(route.name))
+  const filterBy = ref(initialValue ?? getDefaultFilter(route.name))
 
   const _shouldParseFilter = computed(() => {
     return !!Object.values(route.query).length
   })
+
   const _archiveBy = computed(() => {
     switch (route.name) {
       case 'ApplicantOverview':
@@ -25,32 +31,27 @@ export function useFilter() {
     }
   })
 
-  const _setDefaultFilter = () => {
-    _setFilter(getDefaultFilter(route.name))
-  }
-  const _setFilter = (filter) => {
-    filterBy.value = {...filter}
-  }
-  const onSetFilter = (filter) => {
+  function onSetFilter(filter) {
     _setFilter(filter)
     onSetQuery(filterBy.value, _archiveBy.value)
   }
-  const onSetFilterByKey = (key, value) => {
+
+  function onSetFilterByKey(key, value) {
     const filterValue = value === filterBy.value[key] && key !== 'currPage' ? '' : value
     const newFilterBy = {...filterBy.value, [key]: filterValue}
     if (key !== 'currPage') newFilterBy.currPage = 0
     onSetFilter(newFilterBy)
-    // filterBy.value = newFilterBy
-    // onSetQuery(newFilterBy, _archiveBy.value)
   }
-  const resetFilters = () => {
+
+  function resetFilters() {
     _setDefaultFilter()
     onSetQuery({})
   }
+
   // TODO: find a better name for this func
-  const setFilterFromRoute = () => {
+  function setFilterFromRoute() {
     if (!_shouldParseFilter.value) return _setDefaultFilter()
-    // // TODO: Check if _parseFilter can somehow use JSON.parse and avoid the horryfying ternary statement and assignments
+    // // TODO: Check if _parseFilter can somehow use better parsing and avoid the horryfying ternary statement and assignments
     const parsedFilterBy = _parseFilter(route.query)
     parsedFilterBy.showArchived = parsedFilterBy.showArchived === 'true'
     parsedFilterBy.incomplete =
@@ -58,8 +59,12 @@ export function useFilter() {
         ? JSON.parse(parsedFilterBy.incomplete)
         : undefined
     parsedFilterBy.daysAgo = parsedFilterBy.daysAgo || ''
-    // _setFilter(parsedFilterBy)
+    _setFilter(parsedFilterBy)
   }
+
+  const _setDefaultFilter = () => _setFilter(getDefaultFilter(route.name))
+
+  const _setFilter = (filter) => (filterBy.value = {...filter})
 
   onMounted(() => {
     setFilterFromRoute()

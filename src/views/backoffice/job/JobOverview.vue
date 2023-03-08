@@ -243,7 +243,6 @@ export default {
 
   watch: {
     $route() {
-      console.log('watcher')
       this.clearSelectedItems()
       this.setFilterFromRoute()
       this.loadJobs()
