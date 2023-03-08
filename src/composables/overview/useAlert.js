@@ -5,7 +5,7 @@ import {useStore} from 'vuex'
  */
 export function useAlert() {
   const store = useStore()
-  const sendAlert = (alertData) => {
+  function sendAlert(alertData) {
     store.commit({
       type: 'app/setAlertData',
       alertData,
