@@ -1,16 +1,21 @@
 import {ref, onMounted, onUnmounted} from 'vue'
 import {useEventListener} from './useEventListener'
-// import {useGlobalEventListener} from './useGlobalEventListener'
 import {useIntersectionObserver} from './useIntersectionObserver'
 
-// this composable receives a ref and returns the bounding rect of the element, which updates on scroll
+/**
+ * @description A composable to get the bounding rect of an element, and update it in reaction to different events
+ * @param {object} options - The options to pass to the composable
+ * @param {Ref<HTMLElement>} options.elementRef - The ref to the element to get the bounding rect of
+ * @param {string[]} options.listeners - The events to listen for to update the bounding rect. Defaults to ['resize']
+ * @param {string} options.scrollContainerSelector - The selector to find the scroll container to listen for scroll events on. Only required if the listeners array includes 'scroll'
+ * @returns {Ref<{x:number,y:number,bottom:number,height:number,left:number,right:number,top:number,width:number}>} The bounding rect of the element
+ */
 export function useElementBounding({elementRef, listeners, scrollContainerSelector}) {
   const bounding = ref({})
+
   // TODO: Find better const names
   const _defaultListeners = ['resize']
-
   const _listeners = [..._defaultListeners, ...listeners]
-
   if (_listeners.includes('scroll') && !scrollContainerSelector) {
     throw new Error(
       `Scroll listener requested, but no scrollContainerSelector provided, with data: 
@@ -23,17 +28,15 @@ export function useElementBounding({elementRef, listeners, scrollContainerSelect
     resize: window,
     scroll: scrollContainerSelector,
   }
-
   const _intersectionOptions = {
     root: document.body,
     rootMargin: '0px',
     threshold: 0.01,
   }
-
   let _unobserveElement = null
   let _listenersToRemove = []
 
-  const _updateBounding = (bundingClientRect) => {
+  function _updateBounding(bundingClientRect) {
     // console.log('updating bounding')
     if (!elementRef?.value) return
     bounding.value = bundingClientRect
@@ -49,7 +52,7 @@ export function useElementBounding({elementRef, listeners, scrollContainerSelect
   // option 2 is not implemented yet, but it's probably the way to go
 
   // option 1:
-  const _addListeners = () => {
+  function _addListeners() {
     _listeners.forEach((listenerName) => {
       const target = _listenerTargetMap[listenerName]
       const {remove} = useEventListener(
@@ -67,7 +70,8 @@ export function useElementBounding({elementRef, listeners, scrollContainerSelect
     _listenersToRemove = []
   }
 
-  const _setBoundingListener = ({target, isIntersecting}) => {
+  function _setBoundingListener({target, isIntersecting}) {
+    // This  short circuit is to prevent the listener from being added when the element is not in view & remove existing listeners if there are any
     if (!isIntersecting) return _listenersToRemove.length && _removeListeners()
     _updateBounding(target.getBoundingClientRect())
     _addListeners()
@@ -76,12 +80,9 @@ export function useElementBounding({elementRef, listeners, scrollContainerSelect
 
   onMounted(() => {
     if (!elementRef?.value) return
-    const {observe, unobserve} = useIntersectionObserver({
-      options: _intersectionOptions,
-      cb: (entries) => {
-        entries.forEach(_setBoundingListener)
-      },
-    })
+    const {observe, unobserve} = useIntersectionObserver((entries) => {
+      entries.forEach(_setBoundingListener)
+    }, _intersectionOptions)
 
     observe(elementRef.value)
     _unobserveElement = unobserve
@@ -90,7 +91,7 @@ export function useElementBounding({elementRef, listeners, scrollContainerSelect
   onUnmounted(() => {
     if (!elementRef?.value) return
     _unobserveElement?.(elementRef.value)
-    _listenersToRemove()
+    _removeListeners()
   })
 
   return bounding
