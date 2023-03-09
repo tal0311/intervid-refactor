@@ -10,6 +10,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['quill'],
   },
+  // Sets the default evnironment to js-dom, so we can omit that from the npm script
   plugins: [vue()],
   resolve: {
     alias: {

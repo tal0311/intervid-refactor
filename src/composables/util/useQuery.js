@@ -6,9 +6,6 @@ import {utilService} from '@/services/utilService.js'
 /**
  * @description A Vue 3 composable that provides a debounced wrapper for the Vue Router route object, along with an easy-to-use `onSetQuery` function.
  *
- * @requires vue-router
- * @requires utilService
- *
  * @returns An object containing the current route object and an `onSetQuery` function.
  *
  * @example
@@ -67,7 +64,7 @@ export function useQuery() {
   /**
    * The current Vue Router route object.
    *
-   * @type {import('vue-router').RouteLocationNormalized}
+   * @type {import('vue-router').Route}
    */
   const route = useRoute()
 
@@ -85,7 +82,7 @@ export function useQuery() {
    * @param {string} [path] - The new path to navigate to (if the route has no params).
    */
   const onSetQuery = utilService.debounce((query, path) => {
-    const {params} = route || null
+    const {params} = route
 
     const newRoute = {query}
     if (!utilService.isEmpty(params)) {
@@ -93,7 +90,6 @@ export function useQuery() {
     } else if (path) {
       newRoute.path = path
     }
-
     router.push(newRoute)
   }, 200)
 
