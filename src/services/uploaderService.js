@@ -31,6 +31,8 @@ function initVideoUpload() {
     // getChunkSize: (file) => 20,
     createMultipartUpload,
     prepareUploadPart,
+    // prepareUploadParts,
+    // signPart,
     listParts,
     completeMultipartUpload,
     abortMultipartUpload,
@@ -105,7 +107,9 @@ async function createMultipartUpload(file) {
   }
 }
 
+//deprecated - replaced by "signPart" func below.
 function prepareUploadPart(file, { number, key, uploadId }) {
+// function prepareUploadParts(file, { number, key, uploadId }) {
   try {
     return httpService.get(`${ROUTE}/sign_multipart?fileKey=${key}&uploadId=${uploadId}&partNum=${number}`)
   } catch (err) {
@@ -113,6 +117,27 @@ function prepareUploadPart(file, { number, key, uploadId }) {
     throw err
   }
 }
+/*
+signPart(file, partData)
+A function that generates a signed URL for the specified part number.
+The partData argument is an object with the keys:
+
+uploadId - The UploadID of this Multipart upload.
+key - The object key in the S3 bucket.
+partNumber - can’t be zero.
+body – The data that will be signed.
+signal – An AbortSignal that may be used to abort an ongoing request
+*/
+
+function signPart(file, {uploadId,  key,  partNumber,  body,  signal}){
+  try {
+    return httpService.get(`${ROUTE}/sign_multipart?fileKey=${key}&uploadId=${uploadId}&partNum=${partNumber}`)
+  } catch (err) {
+    loggerService.error('[uploaderService] Error when signing upload part url', err)
+    throw err
+  }
+}
+
 async function listParts(file, { uploadId, key }) {
   try {
     const { parts } = await httpService.post(`${ROUTE}/list_parts?fileKey=${key}&uploadId=${uploadId}`)
