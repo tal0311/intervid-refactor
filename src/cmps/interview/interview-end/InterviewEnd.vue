@@ -48,15 +48,78 @@
 </template>
 
 <script>
+// services
 import {uploaderService} from '@/services/uploaderService'
 import {loggerService} from '@/services/loggerService'
-import VideoMixin from '@/mixins/VideoMixin'
+// composables
+import {useVideo} from '@/composables/video/useVideo'
+// cmps
 import UploadingAnimation from '@/cmps/common/UploadingAnimation.vue'
 import ApplicationIndex from '../onboarding/ApplicationIndex.vue'
 import ConfettiAnimation from '@/cmps/common/ConfettiAnimation.vue'
 
 export default {
-  mixins: [VideoMixin],
+  setup(props, {emit}) {
+    const {
+      // SHARED WITH CMP
+      isAudioReady,
+      selectedError,
+      isFaceReady,
+      // DATA
+      isStreaming,
+      isVideoReady,
+      videoStream,
+      videoDevices,
+      audioDevices,
+      selectedDevices,
+      videoErrors,
+      // COMPUTED
+      elVideo,
+      browser,
+      // METHODS
+      initVideoMixin,
+      stopVideoStream,
+      startVideoRecording,
+      stopVideoRecording,
+      onSelectDevice,
+      addVideoError,
+      removeVideoError,
+      addNetworkListener,
+      removeNetworkListener,
+      stopMediaRecorder,
+      initPreconditions,
+    } = useVideo({emit})
+
+    return {
+      // SHARED WITH CMP
+      isAudioReady,
+      selectedError,
+      isFaceReady,
+      // DATA
+      isStreaming,
+      isVideoReady,
+      videoStream,
+      videoDevices,
+      audioDevices,
+      selectedDevices,
+      videoErrors,
+      // COMPUTED
+      elVideo,
+      browser,
+      // METHODS
+      initVideoMixin,
+      stopVideoStream,
+      startVideoRecording,
+      stopVideoRecording,
+      onSelectDevice,
+      addVideoError,
+      removeVideoError,
+      addNetworkListener,
+      removeNetworkListener,
+      stopMediaRecorder,
+      initPreconditions,
+    }
+  },
 
   data() {
     return {

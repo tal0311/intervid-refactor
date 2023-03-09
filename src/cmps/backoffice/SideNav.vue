@@ -15,7 +15,7 @@
             >
               expand_less
             </i>
-            <i class="material-icons">group</i>
+            <i class="material-icons-outlined">group</i>
             <span>{{ $getTrans('applications') }}</span>
           </div>
           <span class="nav-item-count" v-if="applicantCount">
@@ -50,8 +50,7 @@
             >
               expand_less
             </i>
-            <i class="material-icons">work</i>
-            <span>{{ $getTrans('jobs') }}</span>
+            <i class="material-icons-round">work_outline</i> <span>{{ $getTrans('jobs') }}</span>
           </div>
 
           <span class="nav-item-count" v-if="totalJobCount">
@@ -124,7 +123,7 @@
         <div class="nav-item-header">
           <div class="nav-item-name" @click="setIsOpen('isAccountOpen')">
             <i class="expand"></i>
-            <i class="material-icons">group</i>
+            <i class="material-icons-outlined">group</i>
             <span>{{ $getTrans('accounts') }}</span>
           </div>
         </div>

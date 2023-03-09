@@ -21,11 +21,11 @@ export const loggerService = {
 }
 
 async function doLog(level = 'DEBUG', ...lines) {
-  const { default: store } = await import('../store/index.js')
+  const {default: store} = await import('../store/index.js')
   const appState = {
     applicant: store.getters['applicant/applicant'],
     user: store.getters['user/loggedInUser'],
-    browser: store.getters['app/browser'].name
+    browser: store.getters['app/browser'].name,
   }
   const line = _formatLines(lines)
   const log = _createLog(level, line, appState)
@@ -73,11 +73,11 @@ function _createLog(level, line, appState) {
   }
 
   if (applicant?.id) {
-    const { id, info } = applicant
-    log.meta.applicant = { id, info }
+    const {id, info} = applicant
+    log.meta.applicant = {id, info}
   } else if (user?._id) {
-    const { _id, fName, lName, companyName, email, perm, role } = user
-    log.meta.user = { _id, fName, lName, companyName, email, perm, role }
+    const {_id, fName, lName, companyName, email, perm, role} = user
+    log.meta.user = {_id, fName, lName, companyName, email, perm, role}
   }
   return log
 }

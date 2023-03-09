@@ -104,23 +104,100 @@
 </template>
 
 <script>
+// core
+import {ref} from 'vue'
+// services
 import {templateService} from '@/services/templateService'
 import {uploaderService} from '@/services/uploaderService'
 import {timelineService} from '@/services/timelineService'
 import {screenErrorMap} from '@/services/errorService'
 import {loggerService} from '@/services/loggerService'
-
-import VideoMixin from '@/mixins/VideoMixin'
-import ScreenMixin from '@/mixins/ScreenMixin'
-
+// composables
+import {useScreen} from '@/composables/screen/useScreen'
+import {useVideo} from '@/composables/video/useVideo'
+// cmps
 import VideoRecorder from '@/cmps/common/VideoRecorder.vue'
 import QuestStatus from '@/cmps/interview/QuestStatus.vue'
 import QuestCountdown from '@/cmps/interview/interview-app/QuestCountdown.vue'
+
 // import TextAns from '@/cmps/interview/TextAns.vue'
 
 export default {
-  mixins: [VideoMixin, ScreenMixin],
+  setup(props, {emit}) {
+    const vidRecorder = ref(null)
+    const {
+      initScreen,
+      screenErrors,
+      startScreenRecording,
+      stopScreenRecorder,
+      stopScreenRecording,
+      disposeScreenStream,
+      removeScreenError,
+    } = useScreen({vidRecorder})
 
+    const {
+      // SHARED WITH CMP
+      isAudioReady,
+      selectedError,
+      isFaceReady,
+      // DATA
+      isStreaming,
+      isVideoReady,
+      videoStream,
+      videoDevices,
+      audioDevices,
+      selectedDevices,
+      videoErrors,
+      // COMPUTED
+      elVideo,
+      browser,
+      // METHODS
+      initVideoMixin,
+      stopVideoStream,
+      startVideoRecording,
+      stopVideoRecording,
+      onSelectDevice,
+      addVideoError,
+      removeVideoError,
+      addNetworkListener,
+      removeNetworkListener,
+      stopMediaRecorder,
+      initPreconditions,
+    } = useVideo({emit, videoRecorderRef: vidRecorder})
+    return {
+      initScreen,
+      screenErrors,
+      startScreenRecording,
+      stopScreenRecorder,
+      stopScreenRecording,
+      disposeScreenStream,
+      removeScreenError,
+      vidRecorder,
+      isAudioReady,
+      selectedError,
+      isFaceReady,
+      isStreaming,
+      isVideoReady,
+      videoStream,
+      videoDevices,
+      audioDevices,
+      selectedDevices,
+      videoErrors,
+      elVideo,
+      browser,
+      initVideoMixin,
+      stopVideoStream,
+      startVideoRecording,
+      stopVideoRecording,
+      onSelectDevice,
+      addVideoError,
+      removeVideoError,
+      addNetworkListener,
+      removeNetworkListener,
+      stopMediaRecorder,
+      initPreconditions,
+    }
+  },
   data() {
     return {
       timeLeft: 100,
@@ -274,8 +351,9 @@ export default {
       loggerService.info('[Interview] [initRecorders]')
       await this.initVideoMixin()
       if (!this.isAllowRetake) this.startVideoRecording()
+      console.log('this.isScreenAns', this.isScreenAns)
       if (!this.isScreenAns) return
-      await this.initScreenMixin()
+      await this.initScreen()
       this.startScreenRecording()
     },
 
