@@ -79,9 +79,9 @@ export default {
   },
 
   directives: {
-    mounted(el, _, {context}) {
+    mounted(el, _, {context}) { //in vue 3 there is no "context" inside vnode anymore. try "ctx.ctx".
       console.log(context)
-      context.nextTick(() => {
+      context.nextTick(() => { // maybe "$nextTick"
         const {clientWidth, scrollWidth} = el
         if (clientWidth === scrollWidth) {
           context.isStartBtnShowen = false

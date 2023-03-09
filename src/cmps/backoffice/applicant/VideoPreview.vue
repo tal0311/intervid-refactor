@@ -70,14 +70,16 @@ export default {
   },
 
   directives: {
-    mounted(el, _, {context}) {
+    // attention!! the name of this directive is "mounted" - and it used on the the "<p>" tag in line 21.
+    mounted(el, _, vnode) {
+      const {ctx: cmp} = vnode.ctx // to get something from the "this" of the component, we need to get "vnode.ctx.ctx"
       if (
-        context.selectedQuestIdx === context.idx &&
+        cmp.selectedQuestIdx === cmp.idx &&
         el.scrollHeight &&
         el.clientHeight &&
-        context.isOverflowing === null
+        cmp.isOverflowing === null
       ) {
-        context.isOverflowing = el.scrollHeight > el.clientHeight
+        cmp.isOverflowing = el.scrollHeight > el.clientHeight
       }
     },
   },
