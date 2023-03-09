@@ -1,7 +1,7 @@
 // core
 import {ref, computed, onMounted} from 'vue'
 // composables
-import {useQuery} from '@/composables/overview/useQuery.js'
+import {useQuery} from '@/composables/util/useQuery.js'
 // services & data
 import {getDefaultFilter} from '@/services/constData.js'
 /**
