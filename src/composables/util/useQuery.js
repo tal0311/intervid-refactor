@@ -87,7 +87,8 @@ export function useQuery() {
     const newRoute = {query}
     if (!utilService.isEmpty(params)) {
       newRoute.params = params
-    } else if (path) {
+    }
+    if (path) {
       newRoute.path = path
     }
     router.push(newRoute)
