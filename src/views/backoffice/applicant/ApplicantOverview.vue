@@ -6,6 +6,13 @@
     </h2>
     <div class="overview-header">
       <div class="search-filter-container">
+        <!-- second option, need to check with tal -->
+        <!-- <search-box v-model="filterByTxt" placeholder="search-applicants" /> -->
+        <!-- In script: -->
+        <!-- const filterByTxt = computed({
+          get: () => filterBy.value.txt,
+          set:  onSetFilterByKey,
+        }) -->
         <search-box :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-applicants" />
         <filter-box
           @set-filter="onSetFilter"
@@ -45,7 +52,6 @@
     </div>
 
     <table-list
-      @scroll="(ev) => console.log(ev)"
       :items="applicants"
       :selectedItemCount="selectedItems && selectedItems.length"
       :totalItemCount="applicants && applicants.length"
@@ -66,6 +72,11 @@
 </template>
 
 <script>
+// core
+import {watch} from 'vue'
+// lib
+import {useStore} from 'vuex'
+import {useRoute} from 'vue-router'
 // cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
 import SearchBox from '@/cmps/common/SearchBox.vue'
@@ -87,13 +98,34 @@ import {advancedPermsMap} from '@/services/constData'
 export default {
   name: 'ApplicantOverview',
   setup() {
-    const {filterBy, onSetFilterByKey, onSetFilter, setFilterFromRoute, resetFilters} = useFilter()
+    const store = useStore()
+    const route = useRoute()
+
+    const {filterBy, onSetFilterByKey, onSetFilter, setFilterFromRoute, resetFilters, onDeleteFilterByKey} = useFilter()
     const {sort, onSort} = useSort()
     const {selectedItems, setSelectedItems, onSelectAll, isSelected, onSelectItem, clearSelectedItems} = useSelection()
     const {shouldGather, setShouldGather} = useShouldGather()
     const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
     const {tagList, onRemoveTag} = useTags({onSetFilterByKey})
 
+    watch(route, () => {
+      clearSelectedItems()
+      // this.setFilterFromRoute()
+      loadApplicants()
+    })
+
+    async function loadApplicants() {
+      const {jobId} = route.params
+      if (jobId) onSetFilterByKey('jobId', jobId)
+      else onDeleteFilterByKey('jobId')
+      console.log('loadApplicants', filterBy.value, sort.value, shouldGather.value)
+      await store.dispatch('job/loadApplicants', {
+        filterBy: filterBy.value,
+        sort: sort.value,
+        shouldGather: shouldGather.value,
+      })
+      if (shouldGather.value) setShouldGather(false)
+    }
     return {
       filterBy,
       onSetFilterByKey,
@@ -113,6 +145,7 @@ export default {
       clearSelectedItems,
       shouldGather,
       setShouldGather,
+      loadApplicants,
     }
   },
   async created() {
@@ -193,18 +226,6 @@ export default {
   },
 
   methods: {
-    async loadApplicants() {
-      const {jobId} = this.$route.params
-      if (jobId) this.onSetFilterByKey('jobId', jobId)
-      else delete this.filterBy.jobId
-      await this.$store.dispatch('job/loadApplicants', {
-        filterBy: this.filterBy,
-        sort: this.sort,
-        shouldGather: this.shouldGather,
-      })
-      if (this.shouldGather) this.setShouldGather(false)
-    },
-
     async loadJob() {
       const {jobId} = this.$route.params
       if (!jobId) return this.$store.commit('job/setJob', {job: null})
@@ -258,13 +279,15 @@ export default {
   },
 
   watch: {
-    'this.$route.params': {
-      handler() {
-        this.clearSelectedItems()
-        this.setFilterFromRoute()
-        this.loadApplicants()
-      },
-    },
+    // 'this.$route.query': {
+    //   handler() {
+    //     console.log('route changed')
+    //     this.clearSelectedItems()
+    //     this.setFilterFromRoute()
+    //     this.loadApplicants()
+    //   },
+    //   deep: true,
+    // },
     sort: {
       handler() {
         this.loadApplicants()

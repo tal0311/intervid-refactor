@@ -1,5 +1,5 @@
 // core
-import {ref, computed, onMounted} from 'vue'
+import {ref, computed, onMounted, watch} from 'vue'
 // composables
 import {useQuery} from '@/composables/util/useQuery.js'
 // services & data
@@ -85,6 +85,7 @@ export function useFilter(initialValue) {
    * @param {*} value - The value to assign to the key in the filter object.
    */
   function onSetFilterByKey(key, value) {
+    // console.log('onSetFilterByKey', key, value)
     const filterValue = value === filterBy.value[key] && key !== 'currPage' ? '' : value
     const newFilterBy = {...filterBy.value, [key]: filterValue}
     if (key !== 'currPage') newFilterBy.currPage = 0
@@ -99,6 +100,16 @@ export function useFilter(initialValue) {
     onSetQuery({})
   }
 
+  /**
+   * Deletes a filter by key
+   * @param {string} key
+   */
+  function onDeleteFilterByKey(key) {
+    // I hate this, but I left it here as to not break anything and change too much logic atm
+    const newFilterBy = {...filterBy.value}
+    delete newFilterBy[key]
+    onSetFilter(newFilterBy)
+  }
   /**
    *  Sets the filter based on the query parameters in the route, or sets the default filter if there are no query parameters.
    */
@@ -127,12 +138,16 @@ export function useFilter(initialValue) {
     setFilterFromRoute()
   })
 
+  watch(route.query, () => {
+    setFilterFromRoute()
+  })
   return {
     filterBy,
     resetFilters,
     onSetFilter,
     onSetFilterByKey,
     setFilterFromRoute,
+    onDeleteFilterByKey,
   }
 }
 
