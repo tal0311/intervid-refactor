@@ -41,7 +41,7 @@ import InterviewIndex from '@/cmps/interview/interview-app/InterviewIndex.vue'
 import InterviewEnd from '@/cmps/interview/interview-end/InterviewEnd.vue'
 import config from '@/config'
 import {advancedPermsMap} from '@/services/constData'
-import {userService} from '@/services/userService'
+// import {userService} from '@/services/userService'
 import {tokenService} from '../services/tokenService'
 
 const routes = [
@@ -237,6 +237,11 @@ router.beforeEach(async (to, from, next) => {
   const requiredPerm = to.meta.requiredPerm
   const onlyWhenLoggedOut = to.matched.some((record) => record.meta.onlyWhenLoggedOut)
 
+  // If the route is not a part of an interview, load the logged in user
+  // probably don't need to check the full path, but just in case
+  if (!to.path.includes('interview') && !to.fullPath.includes('interview') && tokenService.getToken()) {
+    await store.dispatch('user/loadLoggedUser')
+  }
   let loggedInUser = store.getters['user/loggedInUser']
   const loggedInPrm = store.getters['user/loggedInUserPrm']
   const applicant = store.getters['applicant/applicant']

@@ -282,7 +282,6 @@ export default {
     },
 
     async progressLoop() {
-      console.log('progLoop')
       const {totalDuration} = this.playerState
       const currTime = this.elMainVideo.currentTime
       if (!totalDuration) return

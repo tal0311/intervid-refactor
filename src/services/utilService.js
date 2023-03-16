@@ -52,7 +52,7 @@ function secondsToTime(seconds, {isMinutes} = {}) {
   const divisorForSecs = divisorForMins % 60
   const secs = `${Math.floor(divisorForSecs)}`
   if (isMinutes) return `${mins}:${secs.padStart(2, '0')}`
-  console.log('hrs', typeof hrs)
+  // console.log('hrs', typeof hrs)
   return `${hrs ? hrs.padStart(2, '0') + ':' : ''}${mins.padStart(2, '0')}:${secs.padStart(2, '0')}`
 }
 
