@@ -6,7 +6,6 @@ import {templateService} from './templateService'
 import {userService} from '@/services/userService'
 import {defaultImgUrl} from '@/services/constData'
 
-
 export const jobService = {
   query,
   getById,

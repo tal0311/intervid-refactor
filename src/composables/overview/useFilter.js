@@ -138,7 +138,7 @@ export function useFilter(initialValue) {
     setFilterFromRoute()
   })
 
-  watch(route.query, () => {
+  watch(route, () => {
     setFilterFromRoute()
   })
   return {

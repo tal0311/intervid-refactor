@@ -3,8 +3,7 @@ import {loggerService} from '@/services/loggerService'
 import {mutationHistory} from '../mutationHistory'
 import {msgService} from '@/services/msgService'
 // import { activityMap } from '@/services/activityService'
-import { getTrans } from '../../services/i18nService'
-
+import {getTrans} from '../../services/i18nService'
 
 export const job = {
   namespaced: true,
@@ -249,13 +248,19 @@ export const job = {
     async loadJobs({commit, state, dispatch}, {filterBy, sort, shouldGather = false}) {
       commit('setIsFetching', true)
       try {
+        // loggerService.debug('[JobStore] [loadJobs] Loading jobs', filterBy, sort, shouldGather)
         // #HANDLE CANCEL
         const key = 'job/query'
         const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
-        let {jobs, pageCount, filteredJobCount, totalJobCount} = await jobService.query(filterBy, sort, cancelToken)
+        let data = await jobService.query(filterBy, sort, cancelToken)
+        // Now idea how this worked before
+        // TODO: check wtf went on here
+        if (!data) return
+        let {jobs = null, pageCount, filteredJobCount, totalJobCount} = data
         if (!jobs) return
 
         if (shouldGather) {
+          console.log('jobs', jobs)
           if (jobs.length === 0) return
           jobs = [...state.jobs, ...jobs]
         }
