@@ -8,8 +8,8 @@
     }"
     @click="goToDetails"
   >
-    <div class="checkbox" @click.stop="">
-      <check-box inline :value="isSelected" @input="$emit('select', applicant)"></check-box>
+    <div class="checkbox" @click.stop>
+      <CheckboxInput inline :value="isSelected" @input="$emit('select', applicant)" />
     </div>
 
     <div class="avatar">

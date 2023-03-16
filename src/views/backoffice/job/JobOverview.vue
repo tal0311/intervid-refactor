@@ -90,6 +90,8 @@
 </template>
 
 <script>
+// core
+import {watch} from 'vue'
 // cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
 import SearchBox from '@/cmps/common/SearchBox.vue'
@@ -104,20 +106,37 @@ import {useShouldGather} from '@/composables/overview/useShouldGather'
 import {useTags} from '@/composables/overview/useTags'
 import {usePagination} from '@/composables/overview/usePagination'
 import {useAlert} from '@/composables/overview/useAlert'
-
+import {useLoadItems} from '@/composables/overview/useLoadItems'
 // services
 import {msgService} from '@/services/msgService'
+import {useRoute} from 'vue-router'
 
 export default {
   setup() {
-    const {filterBy, onSetFilter, onSetFilterByKey, resetFilters, setFilterFromRoute} = useFilter()
+    const route = useRoute()
+    const {filterBy, onSetFilter, onSetFilterByKey, resetFilters, setFilterFromRoute} = useFilter('job/loadJobs')
     const {sort, onSort} = useSort()
     const {selectedItems, onSelectAll, onSelectItem, isSelected, clearSelectedItems} = useSelection()
     const {shouldGather, setShouldGather} = useShouldGather()
     const {tagList, onRemoveTag} = useTags({filterBy, onSetFilterByKey})
     const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
     const {sendAlert} = useAlert()
+    const {loadItems: loadJobs} = useLoadItems({
+      dispatchName: 'job/loadJobs',
+      filterBy,
+      sort,
+      shouldGather,
+      setShouldGather,
+    })
 
+    watch(route, () => {
+      clearSelectedItems()
+      loadJobs()
+    })
+
+    // async function  loadJobs() {
+
+    // }
     return {
       filterBy,
       onSetFilter,
@@ -137,6 +156,7 @@ export default {
       onRemoveTag,
       onChangePage,
       sendAlert,
+      loadJobs,
       // setSelectedItems,
     }
   },
@@ -188,15 +208,6 @@ export default {
   },
 
   methods: {
-    async loadJobs() {
-      await this.$store.dispatch('job/loadJobs', {
-        filterBy: this.filterBy,
-        sort: this.sort,
-        shouldGather: this.shouldGather,
-      })
-      if (this.shouldGather) this.setShouldGather(false)
-    },
-
     async onArchiveSelected() {
       await this.$store.dispatch('job/toggleArchiveJob', {
         jobs: this.selectedItems,

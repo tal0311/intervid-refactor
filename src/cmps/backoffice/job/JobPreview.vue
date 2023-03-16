@@ -7,7 +7,7 @@
     @click="goToApplicants"
   >
     <div class="checkbox" @click.stop="">
-      <check-box inline :value="isSelected" @input="$emit('select', job)"></check-box>
+      <CheckboxInput inline :value="isSelected" @input="$emit('select', job)" />
     </div>
 
     <div class="title">

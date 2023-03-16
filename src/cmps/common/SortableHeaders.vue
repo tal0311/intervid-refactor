@@ -1,7 +1,7 @@
 <template>
   <div class="list-header">
     <div class="list-item checkbox" v-if="itemCount >= 0">
-      <check-box :checked="allChecked" :partial="partialChecked" @input="$emit('select-all')" class="checkbox" />
+      <CheckboxInput :checked="allChecked" :partial="partialChecked" @input="$emit('select-all')" class="checkbox" />
     </div>
     <div
       v-for="(header, idx) in headers"

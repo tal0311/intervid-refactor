@@ -33,7 +33,6 @@
 </template>
 
 <script>
-
 import TemplatePreview from '@/cmps/backoffice/template/TemplatePreview.vue'
 import JobPreview from '@/cmps/backoffice/job/JobPreview.vue'
 import ApplicantPreview from '@/cmps/backoffice/applicant/ApplicantPreview.vue'

@@ -1,7 +1,7 @@
 <template>
   <section class="template-preview" :class="{selected: isSelected}" @click="goToDetails">
     <div class="checkbox" @click.stop="">
-      <check-box :value="isSelected" @input="$emit('select')"></check-box>
+      <CheckboxInput :value="isSelected" @input="$emit('select')" />
     </div>
 
     <div class="title">

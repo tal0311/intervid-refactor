@@ -69,12 +69,12 @@
                 :class="{blocked: advancedPerm.isBlocked}"
                 :key="index"
               >
-                <check-box
+                <CheckboxInput
                   inline
                   :value="isAdvancedSelected(advancedPerm)"
                   @input="onToggleAdvancedPerm(advancedPerm.name)"
                   :disabled="isDefaultSelect(advancedPerm) || advancedPerm.isBlocked"
-                ></check-box>
+                />
                 <span>{{ $getTrans(advancedPerm.name) }}</span>
               </div>
             </div>

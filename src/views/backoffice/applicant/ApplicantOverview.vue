@@ -118,7 +118,6 @@ export default {
       const {jobId} = route.params
       if (jobId) onSetFilterByKey('jobId', jobId)
       else onDeleteFilterByKey('jobId')
-      console.log('loadApplicants', filterBy.value, sort.value, shouldGather.value)
       await store.dispatch('job/loadApplicants', {
         filterBy: filterBy.value,
         sort: sort.value,

@@ -29,7 +29,6 @@
 </template>
 
 <script>
-
 export default {
   props: ['answer', 'idx', 'quest', 'selectedQuestIdx'],
 
@@ -73,12 +72,7 @@ export default {
     // attention!! the name of this directive is "mounted" - and it used on the the "<p>" tag in line 21.
     mounted(el, _, vnode) {
       const {ctx: cmp} = vnode.ctx // to get something from the "this" of the component, we need to get "vnode.ctx.ctx"
-      if (
-        cmp.selectedQuestIdx === cmp.idx &&
-        el.scrollHeight &&
-        el.clientHeight &&
-        cmp.isOverflowing === null
-      ) {
+      if (cmp.selectedQuestIdx === cmp.idx && el.scrollHeight && el.clientHeight && cmp.isOverflowing === null) {
         cmp.isOverflowing = el.scrollHeight > el.clientHeight
       }
     },

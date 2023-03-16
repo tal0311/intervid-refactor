@@ -1,14 +1,13 @@
 <template>
   <div class="opt-quest-preview">
-    <check-box
+    <CheckboxInput
       color="blue"
       v-for="(opt, idx) in opts"
       :key="idx"
       :checked="optIdxs.includes(idx)"
       @input="onChoseOpt(idx)"
-    >
-      {{ opt.txt }}
-    </check-box>
+      :txt="opt.txt"
+    />
   </div>
 </template>
 
