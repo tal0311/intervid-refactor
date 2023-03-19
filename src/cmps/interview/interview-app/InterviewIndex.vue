@@ -351,7 +351,7 @@ export default {
       loggerService.info('[Interview] [initRecorders]')
       await this.initVideoMixin()
       if (!this.isAllowRetake) this.startVideoRecording()
-      console.log('this.isScreenAns', this.isScreenAns)
+      // console.log('this.isScreenAns', this.isScreenAns)
       if (!this.isScreenAns) return
       await this.initScreen()
       this.startScreenRecording()

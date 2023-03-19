@@ -6,7 +6,7 @@ const globalEventListeners = new Map()
 export function useGlobalEventListener({target, type, listener, options = null}) {
   // TODO: Add comments
   if (typeof target === 'string') target = document.querySelector(target)
-  console.log('target', target)
+  // console.log('target', target)
   if (!target)
     return {
       remove() {},
@@ -18,7 +18,7 @@ export function useGlobalEventListener({target, type, listener, options = null})
   }
   const targetTypeListeners = globalEventListeners.get(target).get(type)
   if (!targetTypeListeners) {
-    console.log('adding listener', type)
+    // console.log('adding listener', type)
     globalEventListeners.get(target).set(type, [listener])
     target.addEventListener(
       type,

@@ -89,7 +89,7 @@ export default {
     },
 
     componentToShow() {
-      console.log('this.itemName', this.itemName)
+      // console.log('this.itemName', this.itemName)
       // console.log(cmps)
       return this.itemName
     },

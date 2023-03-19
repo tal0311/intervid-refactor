@@ -47,7 +47,6 @@ function setFocus(val) {
   isFocus.value = val
 }
 function onInput(val) {
-  console.log('onInput', val)
   if (props.debounce) debouncedEmit('input', 'txt', val)
   else emit('input', 'txt', val)
 }

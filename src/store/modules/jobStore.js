@@ -260,7 +260,7 @@ export const job = {
         if (!jobs) return
 
         if (shouldGather) {
-          console.log('jobs', jobs)
+          // console.log('jobs', jobs)
           if (jobs.length === 0) return
           jobs = [...state.jobs, ...jobs]
         }

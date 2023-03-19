@@ -2,7 +2,7 @@ import axios from 'axios'
 import {utilService} from '@/services/utilService'
 import {setLang} from '@/services/i18nService'
 import {detect} from 'detect-browser'
-console.log(import.meta.env.MODE)
+// console.log(import.meta.env.MODE)
 export const app = {
   namespaced: true,
 

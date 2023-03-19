@@ -271,7 +271,7 @@ export default {
         this.setPlayerState('isPlaying', false)
       } else if (!this.isBuffering) {
         this.elMainVideo.currentTime = currTime
-        console.log('in togglePlay')
+        // console.log('in togglePlay')
         await this.elMainVideo.play()
         if (this.secVideoSrc) {
           this.elMainVideo.currentTime = currTime

@@ -60,11 +60,11 @@ export const auth = {
       commit('loginRequest')
       try {
         const user = await authService.login(userCred)
-        console.log('login in store - after service', 'user', user)
+        // console.log('login in store - after service', 'user', user)
         commit('loginSuccess')
         await commit('user/setLoggedInUser', {user}, {root: true})
         // dispatch('activity/addActivity', activityMap.user({ type: 'login' }), { root: true })
-        console.log('login in store - after service')
+        // console.log('login in store - after service')
 
         router.push({name: 'ApplicantOverview'})
       } catch (err) {
