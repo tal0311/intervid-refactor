@@ -45,23 +45,7 @@ export function useVideo({emit, videoRef = null, videoRecorderRef = null}) {
   // #public
   const elVideo = computed({
     get: () => {
-      console.log(
-        '🚀 ~ file: useVideo.js:49 ~ elVideo ~ videoRef?.value || videoRecorderRef?.value?.$refs?.video:',
-        videoRef?.value || videoRecorderRef?.value?.$refs?.video,
-      )
-
       return videoRef?.value || videoRecorderRef?.value?.$refs?.video
-    },
-    set: (val) => {
-      console.log('🚀 ~ file: useVideo.js:55 ~ elVideo ~ val', val)
-
-      // if (videoRef?.value) {
-      //     videoRef.value = val
-      // }
-
-      // else if (videoRecorderRef?.value) {
-      //     videoRecorderRef.value.$refs.video = val
-      // }
     },
   })
 

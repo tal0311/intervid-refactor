@@ -42,7 +42,7 @@ export default {
     } catch (err) {
       if (!this.user) this.$router.push({name: 'Login'})
     } finally {
-      console.log('FINALLY')
+      // console.log('FINALLY')
       // TODO: LOGGER SERVICE HERE
     }
   },

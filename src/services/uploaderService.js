@@ -2,7 +2,7 @@ import Uppy from '@uppy/core'
 import AwsS3 from '@uppy/aws-s3'
 import AwsS3Multipart from '@uppy/aws-s3-multipart'
 import httpService from './httpService'
-import { loggerService } from './loggerService'
+import {loggerService} from './loggerService'
 import store from '@/store'
 
 export const uploaderService = {
@@ -32,7 +32,7 @@ function initVideoUpload() {
     createMultipartUpload,
     prepareUploadPart,
     // prepareUploadParts,
-    // signPart,
+    signPart,
     listParts,
     completeMultipartUpload,
     abortMultipartUpload,
@@ -55,13 +55,13 @@ function initUpload(bucketName, restrictions) {
         filename: file.name,
       }),
     )
-    return { method: 'PUT', url: target.signedURL }
+    return {method: 'PUT', url: target.signedURL}
   }
   return uppy
 }
 
 async function uploadFile(blob, name) {
-  loggerService.info('[UploaderService] [uploadFile]', { name })
+  loggerService.info('[UploaderService] [uploadFile]', {name})
   gUppy.addFile({
     data: blob,
     name: name,
@@ -71,7 +71,7 @@ async function uploadFile(blob, name) {
 
 function handleNetworkError(fileId) {
   function handleOnReconnect() {
-    store.commit('applicant/setWaitForNetwork', { waitForNetwork: false })
+    store.commit('applicant/setWaitForNetwork', {waitForNetwork: false})
     gUppy.retryUpload(fileId)
     loggerService.info(`Retrying file upload after network reconnect, file ID: ${fileId}`)
     window.removeEventListener('online', handleOnReconnect)
@@ -99,8 +99,8 @@ function _getUppy(restrictions = {}) {
 async function createMultipartUpload(file) {
   const fileKey = `${file.data.interviewData.interviewId}/${file.name}`
   try {
-    const { uploadId } = await httpService.get(`${ROUTE}/start_multipart?fileKey=${fileKey}&fileType=${file.type}`)
-    return { key: fileKey, uploadId }
+    const {uploadId} = await httpService.get(`${ROUTE}/start_multipart?fileKey=${fileKey}&fileType=${file.type}`)
+    return {key: fileKey, uploadId}
   } catch (err) {
     loggerService.error('[uploaderService] Error when creating multipart upload', err)
     throw err
@@ -108,8 +108,8 @@ async function createMultipartUpload(file) {
 }
 
 //deprecated - replaced by "signPart" func below.
-function prepareUploadPart(file, { number, key, uploadId }) {
-// function prepareUploadParts(file, { number, key, uploadId }) {
+function prepareUploadPart(file, {number, key, uploadId}) {
+  // function prepareUploadParts(file, { number, key, uploadId }) {
   try {
     return httpService.get(`${ROUTE}/sign_multipart?fileKey=${key}&uploadId=${uploadId}&partNum=${number}`)
   } catch (err) {
@@ -129,7 +129,7 @@ body – The data that will be signed.
 signal – An AbortSignal that may be used to abort an ongoing request
 */
 
-function signPart(file, {uploadId,  key,  partNumber,  body,  signal}){
+async function signPart(file, {uploadId, key, partNumber, body, signal}) {
   try {
     return httpService.get(`${ROUTE}/sign_multipart?fileKey=${key}&uploadId=${uploadId}&partNum=${partNumber}`)
   } catch (err) {
@@ -138,9 +138,9 @@ function signPart(file, {uploadId,  key,  partNumber,  body,  signal}){
   }
 }
 
-async function listParts(file, { uploadId, key }) {
+async function listParts(file, {uploadId, key}) {
   try {
-    const { parts } = await httpService.post(`${ROUTE}/list_parts?fileKey=${key}&uploadId=${uploadId}`)
+    const {parts} = await httpService.post(`${ROUTE}/list_parts?fileKey=${key}&uploadId=${uploadId}`)
     return parts
   } catch (err) {
     loggerService.error('[uploaderService] Error when listing parts', err)
@@ -148,7 +148,7 @@ async function listParts(file, { uploadId, key }) {
   }
 }
 
-function completeMultipartUpload(file, { uploadId, key, parts }) {
+function completeMultipartUpload(file, {uploadId, key, parts}) {
   try {
     return httpService.post(`${ROUTE}/complete_multipart?uploadId=${uploadId}&fileKey=${key}`, parts)
   } catch (err) {
@@ -157,7 +157,7 @@ function completeMultipartUpload(file, { uploadId, key, parts }) {
   }
 }
 
-function abortMultipartUpload(file, { uploadId, key }) {
+function abortMultipartUpload(file, {uploadId, key}) {
   try {
     return httpService.get(`${ROUTE}/abort_multipart?uploadId=${uploadId}&fileKey=${key}`)
   } catch (err) {

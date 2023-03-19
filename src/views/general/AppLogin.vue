@@ -97,7 +97,7 @@ export default {
       const userCred = {
         token,
       }
-      console.log('🚀 ~ file: AppLogin.vue:101 ~ onGoogleLogin ~ userCred:', userCred)
+      // console.log('🚀 ~ file: AppLogin.vue:101 ~ onGoogleLogin ~ userCred:', userCred)
       await this.login({userCred})
     },
 

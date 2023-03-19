@@ -237,9 +237,6 @@ router.beforeEach(async (to, from, next) => {
   const requiredPerm = to.meta.requiredPerm
   const onlyWhenLoggedOut = to.matched.some((record) => record.meta.onlyWhenLoggedOut)
 
-  // If the route is not a part of an interview, load the logged in user
-  // probably don't need to check the full path, but just in case
-
   let loggedInUser = store.getters['user/loggedInUser']
   const loggedInPrm = store.getters['user/loggedInUserPrm']
   const applicant = store.getters['applicant/applicant']
@@ -253,7 +250,6 @@ router.beforeEach(async (to, from, next) => {
 
   // If no route match found
   if (!to.matched.length && to.path !== '/home') {
-    console.log('no route match found')
     if (!loggedInUser && !loggedInPrm) {
       return next({
         name: 'Login',
@@ -265,10 +261,6 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // Happens on landing when user is already signed in
-  console.log(
-    '🚀 ~ file: index.js:269 ~ router.beforeEach ~ !_isInInterview(to, from) && !loggedInUser && loggedInPrm && tokenService.getToken():',
-    !_isInInterview(to, from) && !loggedInUser && !!tokenService.getToken(),
-  )
   if (!_isInInterview(to, from) && !loggedInUser && tokenService.getToken()) {
     await store.dispatch('user/loadLoggedUser')
     loggedInUser = store.getters['user/loggedInUser']
@@ -276,7 +268,6 @@ router.beforeEach(async (to, from, next) => {
 
   // If user not logged in trying to get private route: redirect to login page
   if (!isPublic && !loggedInUser && to.path !== '/home') {
-    console.log('not logged in')
     return next({
       name: 'Login',
       query: {redirect: to.fullPath}, // Store the full path to redirect the user to after login

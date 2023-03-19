@@ -35,12 +35,7 @@ export default {
   },
 
   methods: {
-    onClickDiv() {
-      console.log('onClickDiv')
-      // this.$emit('input', !this.value)
-    },
     onChange(ev) {
-      // console.log('onChange', ev.target.checked)
       this.$emit('input', ev.target.checked)
     },
   },
