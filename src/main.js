@@ -139,7 +139,7 @@ app.use(Vue3TouchEvents, {
 //   snippetVersion: 6,
 // })
 app.use(vue3GoogleLogin, {
-  clientId: '459352034354-5afbe95ab9e5ffu3dg5s974qm1qf0aia.apps.googleusercontent.com',
+  clientId: import.meta.env.VITE_GOOGLE_LOGIN_CLIENT_ID,
 })
 // app.use(VueAnalytics, {
 //   id: 'UA-189794399-1',

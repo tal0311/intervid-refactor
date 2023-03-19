@@ -239,9 +239,7 @@ router.beforeEach(async (to, from, next) => {
 
   // If the route is not a part of an interview, load the logged in user
   // probably don't need to check the full path, but just in case
-  if (!to.path.includes('interview') && !to.fullPath.includes('interview') && tokenService.getToken()) {
-    await store.dispatch('user/loadLoggedUser')
-  }
+
   let loggedInUser = store.getters['user/loggedInUser']
   const loggedInPrm = store.getters['user/loggedInUserPrm']
   const applicant = store.getters['applicant/applicant']
@@ -266,8 +264,8 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // Happens on landing when user is already signed in
-  if (!loggedInUser && loggedInPrm) {
-    await loggedInPrm
+  if (!_isInInterview(to, from) && !loggedInUser && loggedInPrm && tokenService.getToken()) {
+    await store.dispatch('user/loadLoggedUser')
     loggedInUser = store.getters['user/loggedInUser']
   }
 
@@ -334,3 +332,12 @@ router.beforeEach(async (to, from, next) => {
 })
 
 export default router
+
+function _isInInterview(to, from) {
+  return (
+    !to.path.includes('interview') &&
+    !to.fullPath.includes('interview') &&
+    !from.path.includes('interview') &&
+    !from.fullPath.includes('interview')
+  )
+}
