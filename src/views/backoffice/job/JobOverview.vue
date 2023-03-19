@@ -92,6 +92,8 @@
 <script>
 // core
 import {watch} from 'vue'
+// lib
+import {useRoute} from 'vue-router'
 // cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
 import SearchBox from '@/cmps/common/SearchBox.vue'
@@ -109,7 +111,6 @@ import {useAlert} from '@/composables/overview/useAlert'
 import {useLoadItems} from '@/composables/overview/useLoadItems'
 // services
 import {msgService} from '@/services/msgService'
-import {useRoute} from 'vue-router'
 
 export default {
   setup() {
@@ -128,9 +129,9 @@ export default {
       shouldGather,
       setShouldGather,
     })
-
     watch(route, () => {
       clearSelectedItems()
+      // this.setFilterFromRoute()
       loadJobs()
     })
 
