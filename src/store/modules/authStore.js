@@ -2,7 +2,7 @@ import {authService} from '../../services/authService'
 // import { activityMap } from '@/services/activityService'
 import {loggerService} from '@/services/loggerService'
 import router from '@/router'
-import { userService } from '../../services/userService'
+import {userService} from '../../services/userService'
 
 export const auth = {
   namespaced: true,
@@ -21,11 +21,11 @@ export const auth = {
     isAuthing(state) {
       return state.isAuthing
     },
-    verifyPerm: (state, getters, rootState, rootGetters)=> (requieredPerm)=> {
+    verifyPerm: (state, getters, rootState, rootGetters) => (requieredPerm) => {
       const user = rootGetters['user/loggedInUser']
       const userAdvancedPerm = rootGetters['user/loggedInUserAdvancedPrm']
       return userService.verifyPerm(requieredPerm, user, userAdvancedPerm)
-    }
+    },
   },
 
   mutations: {
@@ -60,11 +60,12 @@ export const auth = {
       commit('loginRequest')
       try {
         const user = await authService.login(userCred)
+        console.log('login in store - after service', 'user', user)
         commit('loginSuccess')
         await commit('user/setLoggedInUser', {user}, {root: true})
         // dispatch('activity/addActivity', activityMap.user({ type: 'login' }), { root: true })
-        console.log('login in store - after service');
-        
+        console.log('login in store - after service')
+
         router.push({name: 'ApplicantOverview'})
       } catch (err) {
         loggerService.error("[authStore] [login] - Couldn't login user:", userCred.email, err)

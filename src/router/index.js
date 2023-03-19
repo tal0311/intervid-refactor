@@ -73,14 +73,14 @@ const routes = [
   {
     path: '/',
     component: () => import(/* webpackChunkName: "back-office" */ '@/views/MainApp.vue'),
-    beforeEnter: () => {
-      console.log('check login')
-      if (tokenService.getToken()) {
-        console.log('found token -> set loadLoggedUser')
-        store.dispatch('user/loadLoggedUser')
-      }
-      return true
-    },
+    // beforeEnter: () => {
+    //   console.log('check login')
+    //   if (tokenService.getToken()) {
+    //     console.log('found token -> set loadLoggedUser')
+    //     store.dispatch('user/loadLoggedUser')
+    //   }
+    //   return true
+    // },
     children: [
       {
         name: 'Login',
@@ -253,6 +253,7 @@ router.beforeEach(async (to, from, next) => {
 
   // If no route match found
   if (!to.matched.length && to.path !== '/home') {
+    console.log('no route match found')
     if (!loggedInUser && !loggedInPrm) {
       return next({
         name: 'Login',
@@ -264,13 +265,18 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // Happens on landing when user is already signed in
-  if (!_isInInterview(to, from) && !loggedInUser && loggedInPrm && tokenService.getToken()) {
+  console.log(
+    '🚀 ~ file: index.js:269 ~ router.beforeEach ~ !_isInInterview(to, from) && !loggedInUser && loggedInPrm && tokenService.getToken():',
+    !_isInInterview(to, from) && !loggedInUser && !!tokenService.getToken(),
+  )
+  if (!_isInInterview(to, from) && !loggedInUser && tokenService.getToken()) {
     await store.dispatch('user/loadLoggedUser')
     loggedInUser = store.getters['user/loggedInUser']
   }
 
   // If user not logged in trying to get private route: redirect to login page
   if (!isPublic && !loggedInUser && to.path !== '/home') {
+    console.log('not logged in')
     return next({
       name: 'Login',
       query: {redirect: to.fullPath}, // Store the full path to redirect the user to after login
@@ -335,9 +341,9 @@ export default router
 
 function _isInInterview(to, from) {
   return (
-    !to.path.includes('interview') &&
-    !to.fullPath.includes('interview') &&
-    !from.path.includes('interview') &&
-    !from.fullPath.includes('interview')
+    to.path.includes('interview') &&
+    to.fullPath.includes('interview') &&
+    from.path.includes('interview') &&
+    from.fullPath.includes('interview')
   )
 }

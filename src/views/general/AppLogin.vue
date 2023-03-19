@@ -57,7 +57,6 @@
 import {validate} from '@/services/errorService.js'
 import {mapActions, mapGetters} from 'vuex'
 
-
 import GoogleBtn from './GoogleBtn.vue'
 
 export default {
@@ -98,6 +97,7 @@ export default {
       const userCred = {
         token,
       }
+      console.log('🚀 ~ file: AppLogin.vue:101 ~ onGoogleLogin ~ userCred:', userCred)
       await this.login({userCred})
     },
 

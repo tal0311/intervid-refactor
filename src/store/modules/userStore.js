@@ -141,13 +141,13 @@ export const user = {
       return userService.sendVerifyEmail(getters.loggedInUser)
     },
 
-    loadLoggedUser({commit}) {
+    async loadLoggedUser({commit}) {
       const loggedInUserPrm = userService.getLoggedInUser()
       commit('setLoggedInUserPrm', loggedInUserPrm)
-      loggedInUserPrm.then((user) => {
-        commit('setLoggedInUser', {user})
-      })
+
       httpService.mount401Interceptor()
+      const user = await loggedInUserPrm
+      commit('setLoggedInUser', {user})
     },
   },
 }
