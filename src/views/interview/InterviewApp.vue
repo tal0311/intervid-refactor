@@ -61,7 +61,7 @@ export default {
   },
 
   mounted() {
-    console.log('mounted')
+    // console.log('mounted')
     if (this.$route.query.demo) this.$store.commit({type: 'applicant/setIsPreview', isPreview: true})
   },
 
