@@ -1,12 +1,16 @@
 <template>
   <div class="text-editor">
+    <quillEditor v-model.trim:value="content" :options="editorOption" @change="onEditorChange($event)" />
+  </div>
+
+  <!-- <div class="text-editor">
     <div class="toolbar-container">
       <div :id="'toolbar' + _uid">
         <span class="ql-formats">
           <select class="ql-header" @click.stop="">
-            <option value="2">{{ $getTrans('heading1') }}</option>
-            <option value="3">{{ $getTrans('heading2') }}</option>
-            <option value="">{{ $getTrans('normal') }}</option>
+            <option value="2">{{ $getTrans("heading1") }}</option>
+            <option value="3">{{ $getTrans("heading2") }}</option>
+            <option value="">{{ $getTrans("normal") }}</option>
           </select>
         </span>
 
@@ -17,18 +21,24 @@
         </span>
 
         <span v-if="tools.length" class="ql-formats">
-          <button v-for="(tool, idx) in tools" :key="idx" :class="toolClassMap[tool]"></button>
+          <button
+            v-for="(tool, idx) in tools"
+            :key="idx"
+            :class="toolClassMap[tool]"
+          ></button>
         </span>
       </div>
 
-      <span v-if="charLimit" class="char-limit">{{ textLength }}/{{ charLimit }}</span>
+      <span v-if="charLimit" class="char-limit"
+        >{{ textLength }}/{{ charLimit }}</span
+      >
     </div>
     <div ref="editor"></div>
-  </div>
+  </div> -->
 </template>
 
 <script>
-import Quill from 'quill'
+import {quillEditor, Quill} from 'vue3-quill'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 
@@ -52,11 +62,32 @@ export default {
         image: 'ql-image',
         link: 'ql-link',
       },
+
+      content: '',
+      htmlContent: '',
+      disabled: false,
+      editorOption: {
+        placeholder: '',
+        modules: {
+          toolbar: [
+            [{header: [1, 2, false]}],
+            ['bold', 'italic', 'underline'],
+            // ["code", "link"], // this.props
+          ],
+        },
+        // more options
+      },
     }
   },
 
+  created() {
+    const {editorOption} = this
+    editorOption.placeholder = this.placeholder
+    editorOption.modules.toolbar.push(...this.tools)
+  },
+
   mounted() {
-    this.initEditor()
+    this.setup()
     const scrollHeight = this.editor.scroll.domNode.scrollHeight
     this.editor.scroll.domNode.style.maxHeight = scrollHeight + 'px'
   },
@@ -77,7 +108,15 @@ export default {
   },
 
   methods: {
-    initEditor() {
+    onEditorChange({html}) {
+      // {quill, html, text}
+      this.htmlContent = html
+      // console.log('text', text)
+      // console.log('htmlContent', html)
+      // this.$emit("input", text)
+    },
+
+    setup() {
       this.editor = new Quill(this.$refs.editor, {
         modules: {
           toolbar: '#toolbar' + this._uid,
@@ -108,8 +147,12 @@ export default {
 
   watch: {
     currQuestIdx() {
-      this.initEditor()
+      this.setup()
     },
+  },
+
+  components: {
+    quillEditor,
   },
 }
 </script>
