@@ -26,12 +26,7 @@ export default {
   data() {
     return {
       currStep: 0,
-      cmps: {
-        0: EnterEmailForm,
-        1: ResetPasswordForm,
-        2: ChangePasswordForm,
-        3: EnterCodeForm,
-      },
+
       setOption: '',
       email: '',
       userToEdit: null,
@@ -49,7 +44,9 @@ export default {
 
   computed: {
     componentToShow() {
-      return this.cmps[this.currStep]
+      const steps = ['EnterEmailForm', 'ResetPasswordForm', 'ChangePasswordForm', 'EnterCodeForm']
+
+      return steps[this.currStep]
     },
 
     authError() {

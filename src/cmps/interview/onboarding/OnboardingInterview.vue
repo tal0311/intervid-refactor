@@ -18,11 +18,11 @@ export default {
   data() {
     return {
       currStep: 0,
-      cmps: {
-        0: ApplicantForm,
-        1: MediaCheck,
-        2: InterviewCountdown,
-      },
+      // cmps: {
+      //   0: ApplicantForm,
+      //   1: MediaCheck,
+      //   2: InterviewCountdown,
+      // },
     }
   },
 
@@ -36,7 +36,9 @@ export default {
     },
 
     componentToShow() {
-      return this.cmps[this.currStep]
+      const steps = ['ApplicantForm', 'MediaCheck', 'InterviewCountdown']
+
+      return steps[this.currStep]
     },
 
     job() {
