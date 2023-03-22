@@ -12,17 +12,17 @@
             <main-input
               v-if="!onlyEmail"
               type="text"
-              inputName="firstName"
+              input-name="firstName"
               :placeholder="$getTrans('first-name')"
               validate="required"
               v-model.trim="user.fName"
-              :onBlur="validateField"
+              :on-blur="validateField"
               :errors="errors"
               styled="basic"
             />
             <main-input
               v-if="!onlyEmail"
-              inputName="lastName"
+              input-name="lastName"
               :placeholder="$getTrans('last-name')"
               type="text"
               v-model.trim="user.lName"
@@ -30,23 +30,23 @@
             />
             <main-input
               v-if="!onlyName"
-              inputName="email"
+              input-name="email"
               :placeholder="$getTrans('email')"
               type="email"
               validate="required|email"
               v-model.trim="user.email"
-              :onBlur="validateField"
+              :on-blur="validateField"
               :errors="errors"
               styled="basic"
             />
           </div>
           <div v-if="!onlyEmail && !onlyName" class="img-upload-container">
             <div class="logo">
-              <img-upload :initialImg="user.logoUrl" @upload="onSetImg('logo', $event)" />
+              <img-upload :initial-img="user.logoUrl" @upload="onSetImg('logo', $event)" />
               <p>{{ $getTrans('logo-image') }}</p>
             </div>
             <div class="profile">
-              <img-upload :initialImg="user.imgUrl" @upload="onSetImg('img', $event)" />
+              <img-upload :initial-img="user.imgUrl" @upload="onSetImg('img', $event)" />
               <p>{{ $getTrans('profile-image') }}</p>
             </div>
           </div>

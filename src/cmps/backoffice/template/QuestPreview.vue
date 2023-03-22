@@ -4,11 +4,15 @@
     <div class="desc" v-html="quest.desc"></div>
     <div class="rule">
       <div class="answer-type">
-        <p v-if="quest.ansRule.isTextAns"><i class="material-icons-outlined">text_snippet</i>{{ $getTrans('text-answer') }}</p>
+        <p v-if="quest.ansRule.isTextAns">
+          <i class="material-icons-outlined">text_snippet</i>{{ $getTrans('text-answer') }}
+        </p>
         <p v-else-if="quest.ansRule.isScreenAns">
           <i class="material-icons">desktop_windows</i>{{ $getTrans('screen-answer') }}
         </p>
-        <p v-else-if="quest.ansRule.isVidAns"><i class="material-icons-outlined">videocam</i>{{ $getTrans('video-answer') }}</p>
+        <p v-else-if="quest.ansRule.isVidAns">
+          <i class="material-icons-outlined">videocam</i>{{ $getTrans('video-answer') }}
+        </p>
       </div>
       <div class="timeLimit">
         <i class="material-icons">access_time</i>

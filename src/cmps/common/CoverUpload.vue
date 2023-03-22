@@ -18,7 +18,7 @@
             <div class="search-input">
               <main-input
                 @input="onGetImgs"
-                inputName="search"
+                input-name="search"
                 :placeholder="$getTrans('search')"
                 v-model.trim="value"
                 styled="basic"
@@ -110,7 +110,6 @@
 
 <script>
 import AppSpinner from './AppSpinner.vue'
-
 
 import {mediaService} from '@/services/mediaService'
 import {coverImgs} from '@/services/constData'

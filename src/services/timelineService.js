@@ -32,9 +32,8 @@ export const timelineService = {
       activity: 'created',
     }
   },
-    
 
-  getTimeEventToShow(timeEvent, applicantName, jobTitle, getTrans = (str)=>str.replace('-',' ')) {
+  getTimeEventToShow(timeEvent, applicantName, jobTitle, getTrans = (str) => str.replace('-', ' ')) {
     let timeEventToShow = {}
     let status = null
     switch (timeEvent.type) {

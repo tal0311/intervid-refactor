@@ -3,7 +3,9 @@ require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
   root: true,
-  extends: ['plugin:vue/vue3-essential', 'eslint:recommended', '@vue/eslint-config-prettier'],
+  // TOOD: Examine option of using the recommended vue plugin instead of just the strongly recommded,
+  //  to be completly in line with vue's style guide
+  extends: ['plugin:vue/vue3-strongly-recommended', 'eslint:recommended', '@vue/eslint-config-prettier'],
   parserOptions: {
     ecmaVersion: 'latest',
   },

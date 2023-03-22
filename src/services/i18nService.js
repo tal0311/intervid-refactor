@@ -1,8 +1,6 @@
 // import store from '@/store'
-import { detect } from 'detect-browser'
-import { utilService } from './utilService'
-
-
+import {detect} from 'detect-browser'
+import {utilService} from './utilService'
 
 const browser = detect()
 
@@ -444,7 +442,7 @@ const gTrans = {
   },
 
   // PAGE-SIGNUP
-  // TODO: FIND BETTER TRANSLATION - unisex 
+  // TODO: FIND BETTER TRANSLATION - unisex
   //התחילו לקבל ראיונות מוקלטים בווידאו עוד היום  ?
   'signup-header': {
     en: 'Start receiving video recorded interviews today',
@@ -2015,9 +2013,8 @@ export function getTrans(str, currLng = gLang || DEFAULT_LANG) {
 }
 
 export function getPlural(word, count) {
-  return (count > 1 ? word + 's' : word)
+  return count > 1 ? word + 's' : word
 }
-
 
 /**
  * Formats MS to any desired duration.
@@ -2033,8 +2030,8 @@ export function formatDuration(ms, {noWords, singleLetter, fullWord} = {}, lang 
   const hours = parseInt(minutes / 60)
   minutes = Math.round(minutes % 60)
 
-  const pad2Digit = (num) => num.toString().padStart(2,0)
-  const timeStr = hours ? pad2Digit(hours) + ':' +  pad2Digit(minutes) :  pad2Digit(minutes) + ':' +  pad2Digit(seconds)
+  const pad2Digit = (num) => num.toString().padStart(2, 0)
+  const timeStr = hours ? pad2Digit(hours) + ':' + pad2Digit(minutes) : pad2Digit(minutes) + ':' + pad2Digit(seconds)
 
   if (noWords) return timeStr
 
@@ -2134,7 +2131,6 @@ export function getAlertTrans(key, item, itemCount) {
   return gMsgTrans[key][currLng]
 }
 
-
 export function formatNum(num, currLng = gLang) {
   return new Intl.NumberFormat(currLng).format(num)
 }
@@ -2151,7 +2147,6 @@ export function getDateTrans(date) {
   }
   return dateStr.split(' ').reverse().join(' ')
 }
-
 
 export function formatDate(date, options = {lang: DEFAULT_LANG}) {
   if (typeof date === 'string' || typeof date === 'number') date = new Date(date)

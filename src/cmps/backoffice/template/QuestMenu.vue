@@ -8,7 +8,7 @@
 
     <mobile-modal
       v-if="isOpen && isMobile"
-      cmpName="quest-menu"
+      cmp-name="quest-menu"
       :quest="quest"
       @on-close="toggleModal"
       @on-remove-quest="onRemoveQuest"

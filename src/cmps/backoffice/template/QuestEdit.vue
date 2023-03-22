@@ -7,18 +7,18 @@
 
     <div class="quest-content">
       <main-input
-        :inputName="`txt-${mutableQuest.id}`"
+        :input-name="`txt-${mutableQuest.id}`"
         :placeholder="$getTrans('question')"
         validate="required"
         v-model.trim="mutableQuest.txt"
-        :onBlur="validateField"
+        :on-blur="validateField"
         :errors="errors"
         styled="main"
       />
 
       <div v-if="isDesc" class="editor-container">
         <text-editor placeholder="Elaborate (optional)" v-model.trim="desc" :tools="['code', 'link']" />
-        <opt-quest-edit @edit-opts="onEditOpts" :optsToEdit="mutableQuest.opts" v-if="mutableQuest.opts" />
+        <opt-quest-edit @edit-opts="onEditOpts" :opts-to-edit="mutableQuest.opts" v-if="mutableQuest.opts" />
       </div>
 
       <p class="toggle-desc-btn" @click="isDesc = !isDesc">
@@ -28,16 +28,16 @@
     </div>
 
     <div class="answer-details">
-      <basic-select @input="onChangeAnsRule" :defaultValue="ansRuleValue" :options="options" />
+      <basic-select @input="onChangeAnsRule" :default-value="ansRuleValue" :options="options" />
 
       <div class="time-limit">
         <i class="material-icons">schedule</i>
         <main-input
-          inputName="timeLimit"
+          input-name="timeLimit"
           type="number"
           validate="required|range"
           v-model.trim="mutableQuest.timeLimit"
-          :onBlur="validateField"
+          :on-blur="validateField"
           :errors="errors"
           styled="basic"
           value="1"

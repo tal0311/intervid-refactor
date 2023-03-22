@@ -1,35 +1,35 @@
 <template>
   <div class="job-form">
-    <cover-upload @upload="onSetCover" :initialCover="mutableJob.info.coverUrl" :id="id" />
+    <cover-upload @upload="onSetCover" :initial-cover="mutableJob.info.coverUrl" :id="id" />
     <section class="job-info">
       <div class="form-title">
         <main-input
-          inputName="title"
+          input-name="title"
           :placeholder="$getTrans('job-title')"
           validate="required"
           v-model.trim="mutableJob.info.title"
-          :onBlur="validateField"
+          :on-blur="validateField"
           :errors="errors"
           styled="main"
         />
       </div>
 
       <div class="input-container">
-        <img-upload @upload="onSetImg" :initialImg="job.company.logoUrl" />
+        <img-upload @upload="onSetImg" :initial-img="job.company.logoUrl" />
         <main-input
-          inputName="company"
+          input-name="company"
           :label="$getTrans('company-name')"
           validate="required"
           v-model.trim="mutableJob.company.name"
-          :onBlur="validateField"
+          :on-blur="validateField"
           :errors="errors"
           styled="main"
         />
         <main-input
-          inputName="location"
+          input-name="location"
           :label="$getTrans('location')"
           v-model.trim="mutableJob.info.location"
-          :onBlur="validateField"
+          :on-blur="validateField"
           :errors="errors"
           styled="main"
         />
@@ -38,14 +38,14 @@
       <div class="textarea-container" v-if="isDesc">
         <i class="icon material-icons remove-btn" @click="onClearDesc">close</i>
         <main-input
-          inputName="description"
+          input-name="description"
           :placeholder="$getTrans('description')"
           validate="required"
           v-model.trim="mutableJob.info.desc"
           :errors="errors"
           styled="main"
-          :onBlur="validateField"
-          :isTextarea="true"
+          :on-blur="validateField"
+          :is-textarea="true"
         />
       </div>
 

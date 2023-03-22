@@ -38,21 +38,21 @@
           <div class="input-container">
             <main-input
               type="text"
-              inputName="fName"
+              input-name="fName"
               :placeholder="$getTrans('first-name')"
               validate="required"
               v-model.trim="userCred.fName"
-              :onBlur="validateField"
+              :on-blur="validateField"
               :errors="errors"
               styled="basic"
             />
             <main-input
               type="text"
-              inputName="lName"
+              input-name="lName"
               :placeholder="$getTrans('last-name')"
               validate="required"
               v-model.trim="userCred.lName"
-              :onBlur="validateField"
+              :on-blur="validateField"
               :errors="errors"
               styled="basic"
             />
@@ -60,33 +60,33 @@
 
           <main-input
             type="email"
-            inputName="email"
+            input-name="email"
             :placeholder="$getTrans('email')"
             validate="required|email"
             v-model.trim="userCred.email"
-            :onBlur="validateField"
+            :on-blur="validateField"
             :errors="errors"
             styled="basic"
           />
 
           <main-input
             type="password"
-            inputName="password"
+            input-name="password"
             :placeholder="$getTrans('password') + ' ' + $getTrans('at-least-6-char')"
             validate="required|password"
             v-model.trim="userCred.password"
-            :onBlur="validateField"
+            :on-blur="validateField"
             :errors="errors"
             styled="basic"
             autocomplete="new-password"
           />
           <main-input
             type="password"
-            inputName="confirmPassword"
+            input-name="confirmPassword"
             :placeholder="$getTrans('confirm-password')"
             validate="required"
             v-model.trim="confirmPassword"
-            :onBlur="validateField"
+            :on-blur="validateField"
             :errors="errors"
             styled="basic"
           />

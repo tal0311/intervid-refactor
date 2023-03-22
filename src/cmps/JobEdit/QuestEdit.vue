@@ -5,7 +5,7 @@
       <h4>{{ $getTrans('question') }} {{ idx + 1 }}</h4>
       <div class="quest-rules">
         <timelimit-menu :quest="mutableQuest" @change-timelimit="onUpdateQuest" />
-        <ans-rule-menu :quest="mutableQuest" :isOneTry="isOneTry" @change-ans="onUpdateQuest" />
+        <ans-rule-menu :quest="mutableQuest" :is-one-try="isOneTry" @change-ans="onUpdateQuest" />
       </div>
 
       <div class="quest-actions-modal" :class="{open: isActionsModalOpen}">
@@ -29,11 +29,11 @@
     <div class="quest-content">
       <div class="quest-title">
         <main-input
-          :inputName="`quest-title-${mutableQuest.id}`"
+          :input-name="`quest-title-${mutableQuest.id}`"
           :placeholder="$getTrans('question')"
           validate="required"
           v-model.trim="mutableQuest.txt"
-          :onBlur="validateField"
+          :on-blur="validateField"
           :errors="errors"
           styled="main"
         />
@@ -45,7 +45,7 @@
     <div class="quest-actions">
       <div class="quest-rules">
         <timelimit-menu :quest="mutableQuest" @change-timelimit="onUpdateQuest" />
-        <ans-rule-menu :quest="mutableQuest" :isOneTry="isOneTry" @change-ans="onUpdateQuest" />
+        <ans-rule-menu :quest="mutableQuest" :is-one-try="isOneTry" @change-ans="onUpdateQuest" />
       </div>
 
       <div class="actions">

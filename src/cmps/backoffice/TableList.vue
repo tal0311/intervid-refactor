@@ -1,12 +1,12 @@
 <template>
-  <app-loader v-if="isFetching && !shouldGather" isLocal="true" />
+  <app-loader v-if="isFetching && !shouldGather" is-local="true" />
   <section v-else-if="isItemsToShow" class="table-list" :class="{cards: viewType === 'cards' && itemName === 'job'}">
     <sortable-headers
       :sort="sort"
-      :filterBy="filterBy"
-      :selectedItemCount="selectedItemCount"
-      :itemCount="totalItemCount"
-      :itemsPerPage="itemsPerPage"
+      :filter-by="filterBy"
+      :selected-item-count="selectedItemCount"
+      :item-count="totalItemCount"
+      :items-per-page="itemsPerPage"
       @select-all="$emit('select-all', items)"
       @sort="$emit('sort', $event)"
     />
@@ -16,10 +16,10 @@
         v-for="item in items"
         :key="item._id"
         :is="itemName"
-        :filterBy="filterBy"
+        :filter-by="filterBy"
         ref="preview"
         v-bind="getNamedProp(item)"
-        :isSelected="isSelected(item)"
+        :is-selected="isSelected(item)"
         @select="$emit('select', item)"
         @load-items="$emit('load-items')"
         @remove="$emit('remove', $event)"
@@ -29,7 +29,7 @@
       </component>
     </div>
   </section>
-  <empty-list v-else :itemName="itemName" />
+  <empty-list v-else :item-name="itemName" />
 </template>
 
 <script>

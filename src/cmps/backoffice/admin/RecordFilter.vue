@@ -6,7 +6,7 @@
       <basic-select
         label="Source"
         @input="onSetFilterByKey('source', $event)"
-        :defaultValue="filterBy.source"
+        :default-value="filterBy.source"
         :options="[
           {txt: 'All', value: ''},
           {txt: 'Frontend', value: 'frontend'},
@@ -47,7 +47,7 @@
         </label>
 
         <basic-select
-          :defaultValue="filterBy.exclude === 'true'"
+          :default-value="filterBy.exclude === 'true'"
           name="exclude"
           @change="handleChange"
           :options="[

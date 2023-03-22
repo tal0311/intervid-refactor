@@ -32,7 +32,7 @@
 
     <mobile-modal
       v-if="isOpen && isMobile"
-      cmpName="update status"
+      cmp-name="update status"
       :applicant="applicant"
       @on-close="toggleModal"
       @set-status="onSetStatus"

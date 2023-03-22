@@ -115,17 +115,17 @@
 
     <mobile-modal
       v-if="isMobile && modal.type === 'MobileFilter'"
-      cmpName="filter"
-      :filterBy="filterBy"
+      cmp-name="filter"
+      :filter-by="filterBy"
       @edit-filter="(key, term) => (updatedFilterBy[key] = term)"
       @set-filter="onSetFilter"
       @reset-filter="onClearFilter"
       @select-status="onSelectStatus"
       @on-close="toggleModal('MobileFilter')"
-      :expectedEntityCount="expectedEntityCount"
-      :filteredJobCount="filteredJobCount"
+      :expected-entity-count="expectedEntityCount"
+      :filtered-job-count="filteredJobCount"
       :entity="entity"
-      :updatedFilterBy="updatedFilterBy"
+      :updated-filter-by="updatedFilterBy"
     />
   </section>
 </template>

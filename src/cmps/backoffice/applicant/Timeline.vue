@@ -6,9 +6,9 @@
         v-for="(timeEvent, idx) in timelineToShow"
         :key="idx"
         :idx="idx"
-        :timeEvent="timeEvent"
-        :applicantName="applicantName"
-        :jobTitle="jobTitle"
+        :time-event="timeEvent"
+        :applicant-name="applicantName"
+        :job-title="jobTitle"
         @remove-note-event="onRemoveNoteEvent"
       />
     </div>

@@ -24,7 +24,7 @@
 
     <mobile-modal
       v-if="isOpen && isMobile"
-      cmpName="job-actions"
+      cmp-name="job-actions"
       @on-close="toggleModal"
       :job="job"
       @on-clone-job="onCloneJob"

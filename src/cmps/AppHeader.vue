@@ -72,7 +72,7 @@ import UserMenu from './common/UserMenu.vue'
 import ShareBtns from './JobEdit/ShareBtns.vue'
 import LngMenu from './common/LngMenu.vue'
 import config from '@/config'
-import { useShareJob } from '../composables/job/useShareJob'
+import {useShareJob} from '../composables/job/useShareJob'
 
 export default {
   data() {
@@ -81,14 +81,13 @@ export default {
       isSmallContainer: false,
     }
   },
-  setup(){
+  setup() {
     return {
-      onShareJob: useShareJob()
+      onShareJob: useShareJob(),
     }
   },
 
   computed: {
-
     isMobile() {
       return this.$store.getters['app/isMobile']
     },

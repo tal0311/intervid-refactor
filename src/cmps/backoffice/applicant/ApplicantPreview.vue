@@ -30,7 +30,7 @@
     </div>
 
     <div @click.stop="" class="status">
-      <status-dropdown :applicant="applicant" @on-set-status="setStatus" :isShowArchived="filterBy.showArchived" />
+      <status-dropdown :applicant="applicant" @on-set-status="setStatus" :is-show-archived="filterBy.showArchived" />
     </div>
 
     <div class="date">

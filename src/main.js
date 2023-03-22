@@ -102,8 +102,8 @@ store.dispatch('app/setLang', {lang: userLang})
 
 const app = createApp(App)
 
-app.component('main-input', MainInput)
-app.component('basic-select', BasicSelect)
+app.component('MainInput', MainInput)
+app.component('BasicSelect', BasicSelect)
 app.component('CheckboxInput', CheckboxInput)
 
 app.directive('click-outside', clickOutside)

@@ -6,18 +6,18 @@
     <div class="overview-header">
       <div class="search-filter-container">
         <search-box :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-templates" />
-        <filter-box @set-filter="onSetFilterByKey" :filterBy="filterBy" />
+        <filter-box @set-filter="onSetFilterByKey" :filter-by="filterBy" />
         <button class="create-template-btn" :class="{empty: !templatesToShow.length}" @click="onCreateTemplate">
           <i class="material-icons">add</i>
         </button>
       </div>
 
       <list-actions
-        :selectedItemCount="selectedItems.length"
-        :filterBy="filterBy"
-        :itemCount="filteredTemplates.length"
-        :currPage="filterBy.currPage || 0"
-        :itemsPerPage="filterBy.itemsPerPage"
+        :selected-item-count="selectedItems.length"
+        :filter-by="filterBy"
+        :item-count="filteredTemplates.length"
+        :curr-page="filterBy.currPage || 0"
+        :items-per-page="filterBy.itemsPerPage"
         @archive="onArchiveSelected"
         @remove="onRemoveSelected"
         @change-page="onChangePage"
@@ -26,13 +26,13 @@
 
     <table-list
       :items="templatesToShow"
-      :selectedItemCount="selectedItems.length"
-      :totalItemCount="filteredTemplates.length"
-      :itemsPerPage="filterBy.itemsPerPage"
-      :filterBy="filterBy"
+      :selected-item-count="selectedItems.length"
+      :total-item-count="filteredTemplates.length"
+      :items-per-page="filterBy.itemsPerPage"
+      :filter-by="filterBy"
       :sort="sort"
-      :isFetching="isFetching"
-      :isSelected="isSelected"
+      :is-fetching="isFetching"
+      :is-selected="isSelected"
       @select-all="onSelectAll"
       @sort="onSort"
       @select="onSelectItem"

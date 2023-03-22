@@ -25,60 +25,60 @@
         <div class="inputs">
           <div class="input-group">
             <main-input
-              inputName="firstname"
+              input-name="firstname"
               :label="$getTrans('first-name')"
               validate="required"
               v-model.trim="applicantInfo.fName"
-              :onBlur="validateField"
+              :on-blur="validateField"
               :errors="errors"
               styled="main"
             />
 
             <main-input
-              inputName="lastname"
+              input-name="lastname"
               :label="$getTrans('last-name')"
               validate="required"
               v-model.trim="applicantInfo.lName"
-              :onBlur="validateField"
+              :on-blur="validateField"
               :errors="errors"
               styled="main"
             />
           </div>
 
           <main-input
-            inputName="email"
+            input-name="email"
             type="email"
             :label="$getTrans('email')"
             validate="required|email"
             v-model.trim="applicantInfo.email"
-            :onBlur="validateField"
+            :on-blur="validateField"
             :errors="errors"
             styled="main"
           />
 
           <main-input
-            inputName="hometown"
+            input-name="hometown"
             :label="$getTrans('hometown')"
             validate="required"
             v-model.trim="applicantInfo.hometown"
-            :onBlur="validateField"
+            :on-blur="validateField"
             :errors="errors"
             styled="main"
           />
 
           <main-input
-            inputName="phone"
+            input-name="phone"
             type="tel"
             :label="$getTrans('phone')"
             validate="required|phone"
             v-model.trim="applicantInfo.phone"
-            :onBlur="validateField"
+            :on-blur="validateField"
             :errors="errors"
             styled="main"
           />
 
           <div :class="{disabled: !applicantInfo.fName || !applicantInfo.lName}">
-            <cv-upload @uploaded="onCvUploaded" :errors="errors" :applicantCvName="applicantFullName" />
+            <cv-upload @uploaded="onCvUploaded" :errors="errors" :applicant-cv-name="applicantFullName" />
           </div>
         </div>
         <div class="btn-container">

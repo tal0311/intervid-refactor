@@ -6,7 +6,7 @@
       :key="key"
       :idx="idx"
       :quest="quests.find((quest) => quest.id === key)"
-      :selectedQuestIdx="selectedQuestIdx"
+      :selected-quest-idx="selectedQuestIdx"
       @go-to-quest="$emit('go-to-quest', idx)"
     />
   </section>

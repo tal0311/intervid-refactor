@@ -3,13 +3,13 @@
     <button class="menu-btn" :class="cvInfo.class" @click="cvInfo.method" ref="elDragDrop"></button>
 
     <div class="menu-modal" :class="{open: isOpen && !isMobile}">
-      <cv-upload @uploaded="$emit('on-cv-uploaded', $event)" :applicantCvName="applicantCvName" />
+      <cv-upload @uploaded="$emit('on-cv-uploaded', $event)" :applicant-cv-name="applicantCvName" />
     </div>
 
     <mobile-modal
       v-if="isOpen && isMobile"
-      cmpName="upload-cv"
-      :applicantCvName="applicantCvName"
+      cmp-name="upload-cv"
+      :applicant-cv-name="applicantCvName"
       @on-close="toggleModal('upload-cv')"
       @on-cv-upload="$emit('on-cv-uploaded', $event)"
     />

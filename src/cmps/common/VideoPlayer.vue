@@ -15,11 +15,11 @@
 
     <draggable-video
       class="face-container small"
-      :className="{
+      :class-name="{
         aspect: !playerState.isFullScreen,
         loading: playerState.isLoading,
       }"
-      :isShown="secVideoSrc && isDraggableShown"
+      :is-shown="secVideoSrc && isDraggableShown"
       v-show="secVideoSrc && isDraggableShown"
     >
       <button class="material-icons" @click="toggleIsDraggableShown">close</button>
@@ -31,12 +31,12 @@
     <video-loader v-if="playerState.isLoading || isBuffering" />
 
     <player-controls
-      :isBuffering="isBuffering"
-      :resTime="resTime"
+      :is-buffering="isBuffering"
+      :res-time="resTime"
       :notes="notes"
-      :isDraggableShown="isDraggableShown"
-      :isSecVideo="!!secVideoSrc"
-      :isPlaying="isPlaying"
+      :is-draggable-shown="isDraggableShown"
+      :is-sec-video="!!secVideoSrc"
+      :is-playing="isPlaying"
       @set-volume="setVolume"
       @toggle-play="togglePlay"
       @toggle-fullscreen="toggleFullScreen"

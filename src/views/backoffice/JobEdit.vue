@@ -4,16 +4,28 @@
       <job-form :job="job" :errors="jobEditErrors" @update-job="validateForm" @validate-field="validateField" />
 
       <div class="quest-list">
-        <draggable v-model="job.quests" @end="onDragEnd" v-bind="dragOptions"
-        handle=".drag-indicator"
-        ghost-class="ghost"
-        item-key="id"
+        <draggable
+          v-model="job.quests"
+          @end="onDragEnd"
+          v-bind="dragOptions"
+          handle=".drag-indicator"
+          ghost-class="ghost"
+          item-key="id"
         >
           <template #item>
-            <quest-edit v-for="(quest, idx) in job.quests" :key="quest.id" :idx="idx" :quest="quest"
-              :questsCount="job.quests.length" :errors="jobEditErrors" @remove-quest="onRemoveQuest"
-              @update-quest="onUpdateQuest" @duplicate-quest="onDuplicateQuest" @validate-field="validateField"
-              :isOneTry="job.rule.isOneTry" />
+            <quest-edit
+              v-for="(quest, idx) in job.quests"
+              :key="quest.id"
+              :idx="idx"
+              :quest="quest"
+              :quests-count="job.quests.length"
+              :errors="jobEditErrors"
+              @remove-quest="onRemoveQuest"
+              @update-quest="onUpdateQuest"
+              @duplicate-quest="onDuplicateQuest"
+              @validate-field="validateField"
+              :is-one-try="job.rule.isOneTry"
+            />
           </template>
           <!-- TODO: Delete isOneTry prop on V2 -->
         </draggable>
@@ -24,12 +36,16 @@
         {{ $getTrans('add-question') }}
       </div>
 
-      <button class="send-btn" :class="[
-        {
-          disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length),
-        },
-        { selected: onShare },
-      ]" @click.prevent="onShare">
+      <button
+        class="send-btn"
+        :class="[
+          {
+            disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length),
+          },
+          {selected: onShare},
+        ]"
+        @click.prevent="onShare"
+      >
         {{ $getTrans('send') }}
       </button>
     </form>
@@ -39,9 +55,9 @@
 </template>
 
 <script>
-import { msgService } from '@/services/msgService'
-import { validate } from '@/services/errorService.js'
-import { templateService } from '@/services/templateService'
+import {msgService} from '@/services/msgService'
+import {validate} from '@/services/errorService.js'
+import {templateService} from '@/services/templateService'
 
 import draggable from 'vuedraggable'
 
@@ -50,7 +66,7 @@ import JobForm from '@/cmps/JobEdit/JobForm.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
 import config from '@/config'
 import cloneDeep from 'lodash.clonedeep'
-import { useShareJob } from '@/composables/job/useShareJob'
+import {useShareJob} from '@/composables/job/useShareJob'
 
 export default {
   data() {
@@ -60,7 +76,7 @@ export default {
   },
   setup() {
     return {
-      onShareJob: useShareJob()
+      onShareJob: useShareJob(),
     }
   },
 
@@ -120,17 +136,17 @@ export default {
 
   methods: {
     async loadJob() {
-      const { jobId } = this.$route.params
-      await this.$store.dispatch('job/loadJobToEdit', { jobId })
+      const {jobId} = this.$route.params
+      await this.$store.dispatch('job/loadJobToEdit', {jobId})
     },
 
     async addJob() {
-      await this.$store.dispatch('job/addJob', { job: this.job })
+      await this.$store.dispatch('job/addJob', {job: this.job})
       this.$router.push(`/create/${this.job._id}`)
     },
 
     async updateJob() {
-      await this.$store.dispatch('job/updateJob', { job: this.job })
+      await this.$store.dispatch('job/updateJob', {job: this.job})
     },
 
     async saveJob() {
@@ -148,7 +164,7 @@ export default {
       await this.validateForm()
     },
 
-    async onDuplicateQuest({ txt, desc, ansRule, timeLimit }) {
+    async onDuplicateQuest({txt, desc, ansRule, timeLimit}) {
       const duplicatedQuest = templateService.createQuest(txt, desc, ansRule, timeLimit)
       this.job.quests.push(duplicatedQuest)
       await this.validateForm()
@@ -158,10 +174,10 @@ export default {
       this.job.quests = this.job.quests.filter((quest) => quest.id !== questId)
       this.$nextTick(this.validateForm)
       const msg = msgService.remove('question', 1, true)
-      this.$store.commit('app/setAlertData', { alertData: msg })
+      this.$store.commit('app/setAlertData', {alertData: msg})
     },
 
-    validateField({ target }) {
+    validateField({target}) {
       if (!target.value) {
         this.setDefaultValue(target.name)
       }
@@ -190,7 +206,7 @@ export default {
 
     onDragEnd(ev) {
       if (ev.oldIndex === ev.newIndex) return
-      this.handleChange({ target: ev.target })
+      this.handleChange({target: ev.target})
     },
 
     async loadTemplateQuests() {
@@ -243,6 +259,6 @@ export default {
     },
   },
 
-  components: { JobForm, QuestEdit, AppLoader, draggable },
+  components: {JobForm, QuestEdit, AppLoader, draggable},
 }
 </script>

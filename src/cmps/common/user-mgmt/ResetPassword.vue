@@ -4,33 +4,33 @@
     <form novalidate @submit.prevent="onChangePassword">
       <main-input
         v-if="isChange"
-        inputName="currPassword"
+        input-name="currPassword"
         label="Current Password"
         type="password"
         validate="required"
         v-model.trim="password.current"
-        :onBlur="validateField"
+        :on-blur="validateField"
         :errors="errors"
         styled="main"
       />
       <main-input
         v-if="isChange"
-        inputName="newPassword"
+        input-name="newPassword"
         label="New Password"
         type="password"
         validate="required|password"
         v-model.trim="password.updated"
-        :onBlur="validateField"
+        :on-blur="validateField"
         :errors="errors"
         styled="main"
       />
       <main-input
-        inputName="verifyPassword"
+        input-name="verifyPassword"
         label="Verify New Password"
         type="password"
         validate="required"
         v-model.trim="password.verifyUpdated"
-        :onBlur="validateField"
+        :on-blur="validateField"
         :errors="errors"
         styled="main"
       />

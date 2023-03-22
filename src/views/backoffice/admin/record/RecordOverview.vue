@@ -1,26 +1,26 @@
 <template>
   <section class="record-overview overview">
     <div class="overview-header">
-      <record-filter :filterBy="filterBy" @set-filter="onSetFilterByKey" />
+      <record-filter :filter-by="filterBy" @set-filter="onSetFilterByKey" />
 
       <list-actions
-        :selectedItemCount="selectedItems.length"
-        :filterBy="filterBy"
-        :itemCount="totalRecordCount"
-        :pageCount="pageCount"
-        :currPage="filterBy.currPage || 0"
-        :itemsPerPage="filterBy.itemsPerPage"
+        :selected-item-count="selectedItems.length"
+        :filter-by="filterBy"
+        :item-count="totalRecordCount"
+        :page-count="pageCount"
+        :curr-page="filterBy.currPage || 0"
+        :items-per-page="filterBy.itemsPerPage"
         @change-page="onChangePage"
       />
     </div>
 
     <table-list
       :items="records"
-      :itemsPerPage="filterBy.itemsPerPage"
-      :totalItemCount="totalRecordCount"
+      :items-per-page="filterBy.itemsPerPage"
+      :total-item-count="totalRecordCount"
       :sort="sort"
-      :isFetching="isFetching"
-      :isSelected="isSelected"
+      :is-fetching="isFetching"
+      :is-selected="isSelected"
       @sort="onSort"
     />
   </section>

@@ -12,7 +12,7 @@
 
     <mobile-modal
       v-if="isOpen && isMobile"
-      cmpName="time-event-menu"
+      cmp-name="time-event-menu"
       @on-close="toggleModal"
       @on-remove-note-event="$emit('on-remove-note-event')"
     />

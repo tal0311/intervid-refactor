@@ -4,7 +4,7 @@
       v-if="users.length"
       :label="$getTrans('account')"
       @input="onSetFilterByKey('userId', $event)"
-      :defaultValue="filterBy.userId"
+      :default-value="filterBy.userId"
       :options="userOpts"
     />
     <div class="date-container">

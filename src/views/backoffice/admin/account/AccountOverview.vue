@@ -4,23 +4,23 @@
       <i @click="onAddUser" class="material-icons add-btn">add</i>
 
       <list-actions
-        :selectedItemCount="selectedItems.length"
-        :filterBy="filterBy"
-        :itemCount="usersToShow.length"
-        :currPage="filterBy.currPage || 0"
-        :itemsPerPage="filterBy.itemsPerPage"
+        :selected-item-count="selectedItems.length"
+        :filter-by="filterBy"
+        :item-count="usersToShow.length"
+        :curr-page="filterBy.currPage || 0"
+        :items-per-page="filterBy.itemsPerPage"
         @change-page="onChangePage"
       />
     </div>
 
     <table-list
       :items="usersToShow"
-      :currPage="filterBy.currPage"
-      :itemsPerPage="filterBy.itemsPerPage"
-      :totalItemCount="usersToShow.length"
+      :curr-page="filterBy.currPage"
+      :items-per-page="filterBy.itemsPerPage"
+      :total-item-count="usersToShow.length"
       :sort="sort"
-      :isFetching="isFetching"
-      :isSelected="isSelected"
+      :is-fetching="isFetching"
+      :is-selected="isSelected"
       @change-page="onChangePage"
       @sort="onSort"
     />

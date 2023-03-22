@@ -20,7 +20,7 @@
       </div>
     </header>
 
-    <interview-error v-if="interviewErr" :interviewErr="interviewErr" />
+    <interview-error v-if="interviewErr" :interview-err="interviewErr" />
 
     <div v-else-if="!!job" class="interview-app-content">
       <RouterView @handle-quit="handleQuit" />

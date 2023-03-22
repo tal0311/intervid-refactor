@@ -1,24 +1,24 @@
 <template>
   <div class="activity-overview overview">
     <div class="overview-header">
-      <activity-filter :filterBy="filterBy" @set-filter="onSetFilterByKey" :users="users" />
+      <activity-filter :filter-by="filterBy" @set-filter="onSetFilterByKey" :users="users" />
 
       <list-actions
-        :filterBy="filterBy"
-        :itemCount="totalActivityCount"
-        :currPage="filterBy.currPage || 0"
-        :itemsPerPage="filterBy.itemsPerPage"
+        :filter-by="filterBy"
+        :item-count="totalActivityCount"
+        :curr-page="filterBy.currPage || 0"
+        :items-per-page="filterBy.itemsPerPage"
         @change-page="onChangePage"
       />
     </div>
 
     <table-list
       :items="activities"
-      :itemsPerPage="filterBy.itemsPerPage"
-      :totalItemCount="totalActivityCount"
+      :items-per-page="filterBy.itemsPerPage"
+      :total-item-count="totalActivityCount"
       :sort="sort"
-      :isFetching="isFetching"
-      :isSelected="isSelected"
+      :is-fetching="isFetching"
+      :is-selected="isSelected"
       @change-page="onChangePage"
       @sort="onSort"
     />

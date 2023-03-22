@@ -19,12 +19,11 @@
     </div>
     <RouterLink v-if="!loggedInUser" class="link" :to="authPath.to">{{ authPath.txt }}</RouterLink>
 
-    <mobile-modal v-if="isOpen && isMobile" cmpName="user-menu" @on-close="toggleModal" />
+    <mobile-modal v-if="isOpen && isMobile" cmp-name="user-menu" @on-close="toggleModal" />
   </div>
 </template>
 
 <script>
-
 import ApplicantAvatar from './ApplicantAvatar.vue'
 import MobileModal from './modals/MobileModal.vue'
 

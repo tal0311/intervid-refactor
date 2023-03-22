@@ -30,10 +30,10 @@
 
     <app-pagination
       v-if="pageCount > 1"
-      :itemCount="itemCount"
-      :pageCount="pageCount"
-      :currPage="currPage"
-      :itemsPerPage="itemsPerPage"
+      :item-count="itemCount"
+      :page-count="pageCount"
+      :curr-page="currPage"
+      :items-per-page="itemsPerPage"
       @change-page="$emit('change-page', $event)"
     />
   </section>

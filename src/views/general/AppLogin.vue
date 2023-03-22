@@ -5,12 +5,12 @@
 
       <form @submit.prevent="onLogin" novalidate>
         <main-input
-          inputName="email"
+          input-name="email"
           :placeholder="$getTrans('email')"
           type="email"
           validate="required|email"
           v-model.trim="email"
-          :onBlur="validateField"
+          :on-blur="validateField"
           :errors="errors"
           styled="basic"
           :disabled="isAuthing"
@@ -18,12 +18,12 @@
         />
 
         <main-input
-          inputName="password"
+          input-name="password"
           :placeholder="$getTrans('password')"
           type="password"
           validate="required"
           v-model.trim="password"
-          :onBlur="validateField"
+          :on-blur="validateField"
           :errors="errors"
           styled="basic"
           :disabled="isAuthing"

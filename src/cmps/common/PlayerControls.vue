@@ -77,7 +77,6 @@
 </template>
 
 <script>
-
 export default {
   props: ['isBuffering', 'resTime', 'isDraggableShown', 'isSecVideo', 'isPlaying'],
 

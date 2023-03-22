@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-add-cv-modal">
-    <cv-upload @uploaded="onUploadCv" :applicantFullName="applicantFullName" />
+    <cv-upload @uploaded="onUploadCv" :applicant-full-name="applicantFullName" />
   </div>
 </template>
 

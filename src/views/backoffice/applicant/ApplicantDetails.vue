@@ -24,7 +24,7 @@
               </p>
             </div>
             <div class="btn-container">
-              <cv-menu :applicant="applicant" :applicantCvName="applicantCvName" @on-cv-uploaded="onCvUploaded" />
+              <cv-menu :applicant="applicant" :applicant-cv-name="applicantCvName" @on-cv-uploaded="onCvUploaded" />
 
               <applicant-menu @on-archive-applicant="onArchiveApplicant" @on-edit-applicant="onEditApplicant" />
             </div>
@@ -34,7 +34,7 @@
 
       <div class="right">
         <div class="status-container">
-          <status-dropdown :applicant="applicant" @on-set-status="setStatus" isFullWidth="true" />
+          <status-dropdown :applicant="applicant" @on-set-status="setStatus" is-full-width="true" />
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@
             v-if="Object.keys(applicant.answerMap).length"
             :applicant="applicant"
             :quests="job.quests"
-            :selectedQuestIdx="selectedQuestIdx"
+            :selected-quest-idx="selectedQuestIdx"
             @go-to-quest="goToQuest"
           />
         </div>
@@ -79,8 +79,8 @@
           <note-app @save-notes="saveNotes" :notes="applicant.notes" />
           <time-line
             :timeline="applicant.timeline"
-            :applicantName="applicantFullName"
-            :jobTitle="jobTitle"
+            :applicant-name="applicantFullName"
+            :job-title="jobTitle"
             @remove-note-event="removeNoteEvent"
           />
         </div>

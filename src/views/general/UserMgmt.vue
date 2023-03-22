@@ -27,12 +27,12 @@
             </p>
             <main-input
               v-else
-              inputName="firstName"
+              input-name="firstName"
               :placeholder="$getTrans('first-name')"
               type="text"
               validate="required"
               v-model.trim="userToEdit.fName"
-              :onBlur="validateField"
+              :on-blur="validateField"
               :errors="errors"
               styled="basic"
             />
@@ -44,11 +44,11 @@
             </p>
             <main-input
               v-else
-              inputName="lName"
+              input-name="lName"
               :placeholder="$getTrans('last-name')"
               type="text"
               v-model.trim="userToEdit.lName"
-              :onBlur="validateField"
+              :on-blur="validateField"
               :errors="errors"
               styled="basic"
             />
@@ -62,7 +62,7 @@
               info_outlined
             </i>
           </div>
-          <img-upload @upload="onSetImg('img', $event)" :initialImg="userToEdit.imgUrl" />
+          <img-upload @upload="onSetImg('img', $event)" :initial-img="userToEdit.imgUrl" />
         </div>
 
         <div class="row">
@@ -70,12 +70,12 @@
           <p v-if="!isUserEdit">{{ userToEdit.email }}</p>
           <main-input
             v-else
-            inputName="email"
+            input-name="email"
             :placeholder="$getTrans('add-email')"
             type="email"
             validate="required|email"
             v-model.trim="userToEdit.email"
-            :onBlur="validateField"
+            :on-blur="validateField"
             :errors="errors"
             styled="basic"
             autocomplete="email"
@@ -89,11 +89,11 @@
           </p>
           <main-input
             v-else
-            inputName="phone"
+            input-name="phone"
             :placeholder="$getTrans('add-phone-number')"
             type="text"
             v-model.trim="userToEdit.phone"
-            :onBlur="validateField"
+            :on-blur="validateField"
             :errors="errors"
             styled="basic"
           />
@@ -106,11 +106,11 @@
           </p>
           <main-input
             v-else
-            inputName="address"
+            input-name="address"
             :placeholder="$getTrans('add-home-address')"
             type="text"
             v-model.trim="userToEdit.address"
-            :onBlur="validateField"
+            :on-blur="validateField"
             :errors="errors"
             styled="basic"
           />
@@ -132,12 +132,12 @@
           </p>
           <main-input
             v-else
-            inputName="company-name"
+            input-name="company-name"
             :placeholder="$getTrans('add-company-name')"
             type="text"
             validate="required"
             v-model.trim="userToEdit.companyName"
-            :onBlur="validateField"
+            :on-blur="validateField"
             :errors="errors"
             styled="basic"
           />
@@ -150,7 +150,7 @@
               info_outlined
             </i>
           </div>
-          <img-upload @upload="onSetImg('logo', $event)" :initialImg="userToEdit.logoUrl" />
+          <img-upload @upload="onSetImg('logo', $event)" :initial-img="userToEdit.logoUrl" />
         </div>
       </form>
     </div>

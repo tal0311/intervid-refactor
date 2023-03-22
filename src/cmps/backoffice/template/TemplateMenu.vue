@@ -17,7 +17,7 @@
     <mobile-modal
       v-if="isOpen && isMobile"
       :template="template"
-      cmpName="template-menu"
+      cmp-name="template-menu"
       @on-edit-template="onEditTemplate"
       @emit-action="emitAction"
       @on-close="toggleMenu"

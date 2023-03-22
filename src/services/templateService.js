@@ -1,6 +1,6 @@
 import httpService from './httpService'
 import {getTrans} from './i18nService'
-import { utilService} from './utilService'
+import {utilService} from './utilService'
 
 export const templateService = {
   query,
@@ -92,7 +92,8 @@ export function filterTemplates(templates, filterBy) {
   const {txt, showArchived} = filterBy
   const regexTxt = new RegExp(txt || '', 'i')
   return templates.filter((temp) => {
-    if (showArchived) return temp.archivedAt && (regexTxt.test(temp.name) || regexTxt.test(this.$getFullName(temp.owner)))
+    if (showArchived)
+      return temp.archivedAt && (regexTxt.test(temp.name) || regexTxt.test(this.$getFullName(temp.owner)))
     return !temp.archivedAt && (regexTxt.test(temp.title) || regexTxt.test(this.$getFullName(temp.owner)))
   })
 }

@@ -3,7 +3,7 @@
     <h1>{{ $getTrans('change-your-password') }}</h1>
     <form class="change-password-form" @submit.prevent="handleSubmit">
       <main-input
-        inputName="password"
+        input-name="password"
         :placeholder="$getTrans('new-password')"
         type="password"
         validate="required|password"
@@ -12,7 +12,7 @@
         styled="basic"
       />
       <main-input
-        inputName="confirmPassword"
+        input-name="confirmPassword"
         :placeholder="$getTrans('confirm-password')"
         type="password"
         validate="required"

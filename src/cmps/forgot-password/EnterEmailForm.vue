@@ -5,11 +5,11 @@
       <h2>{{ $getTrans('enter-email-address') }}</h2>
       <main-input
         type="email"
-        inputName="email"
+        input-name="email"
         :placeholder="$getTrans('email')"
         validate="required||email"
         v-model.trim="email"
-        :onBlur="validateField"
+        :on-blur="validateField"
         :errors="errors"
         styled="main"
       />

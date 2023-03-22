@@ -22,9 +22,9 @@
 
     <mobile-modal
       v-else-if="isOpen"
-      cmpName="timelimit-menu"
+      cmp-name="timelimit-menu"
       @on-close="toggleModal"
-      :selectedTimelimit="selectedTimelimit"
+      :selected-timelimit="selectedTimelimit"
       @set-timelimit="setTimelimit($event)"
     />
   </section>

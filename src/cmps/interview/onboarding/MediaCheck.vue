@@ -37,14 +37,14 @@
               v-if="!!mediaDevice.audio && !!selectedDevice.audio"
               :devices="mediaDevice.audio"
               type="microphone"
-              :selectedDeviceId="selectedDevice.audio"
+              :selected-device-id="selectedDevice.audio"
               @set-device="onSelectDevice"
             />
             <device-select
               v-if="!!mediaDevice.video && !!selectedDevice.video"
               :devices="mediaDevice.video"
               type="camera"
-              :selectedDeviceId="selectedDevice.video"
+              :selected-device-id="selectedDevice.video"
               @set-device="onSelectDevice"
             />
           </div>
@@ -226,7 +226,7 @@
             "
             :devices="mediaDevice.video"
             type="camera"
-            :selectedDeviceId="selectedDevice.video"
+            :selected-device-id="selectedDevice.video"
             @set-device="onSelectDevice"
           />
           <device-select
@@ -235,7 +235,7 @@
             "
             :devices="mediaDevice.audio"
             type="microphone"
-            :selectedDeviceId="selectedDevice.audio"
+            :selected-device-id="selectedDevice.audio"
             @set-device="onSelectDevice"
           />
         </div>

@@ -16,7 +16,7 @@
 
     <mobile-modal
       v-if="isOpen && isMobile"
-      cmpName="applicant-menu"
+      cmp-name="applicant-menu"
       @on-close="toggleModal"
       @on-archive-applicant="$emit('on-archive-applicant')"
       @on-edit-applicant="$emit('on-edit-applicant')"

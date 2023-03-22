@@ -37,10 +37,10 @@
 
       <mobile-modal
         v-else-if="isOpen"
-        cmpName="ans-rule-menu"
+        cmp-name="ans-rule-menu"
         @on-close="toggleAnswerModal"
-        :isOneTry="isOneTry"
-        :selectedAnsRule="selectedAnsRule"
+        :is-one-try="isOneTry"
+        :selected-ans-rule="selectedAnsRule"
         @set-ans-rule="setAnsRule($event)"
       />
     </div>

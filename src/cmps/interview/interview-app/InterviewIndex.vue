@@ -1,19 +1,19 @@
 <template>
   <section class="interview" ref="interview" v-if="currQuest">
     <div class="interview-content">
-      <quest-countdown v-if="isCountdown" @show-quest="showQuest" :currQuest="currQuest" />
+      <quest-countdown v-if="isCountdown" @show-quest="showQuest" :curr-quest="currQuest" />
 
       <video-recorder
         ref="vidRecorder"
         v-else-if="(isVidAns || isScreenAns) && !lastRecordedVideo"
-        :maxTryNum="1"
-        :showControl="false"
-        :currQuest="currQuest"
-        :isRecording="isRecording"
+        :max-try-num="1"
+        :show-control="false"
+        :curr-quest="currQuest"
+        :is-recording="isRecording"
         :stream="videoStream"
         :errors="errors"
-        :isScreenAns="isScreenAns"
-        :isAlmostDone="isAlmostDone"
+        :is-screen-ans="isScreenAns"
+        :is-almost-done="isAlmostDone"
         @reload="reload"
         @remove-error="removeError($event)"
       />
@@ -33,10 +33,10 @@
           <quest-status
             v-if="!lastRecordedVideo && isRecording"
             ref="questStatus"
-            :startTime="startTime"
-            :timeLimit="currQuest.timeLimit"
-            :isAlmostDone="isAlmostDone"
-            :isHalfwayDone="isHalfwayDone"
+            :start-time="startTime"
+            :time-limit="currQuest.timeLimit"
+            :is-almost-done="isAlmostDone"
+            :is-halfway-done="isHalfwayDone"
             @time-up="onTimeUp"
             @setTimeLeft="timeLeft = $event"
             @halfway-done="isHalfwayDone = true"

@@ -7,7 +7,7 @@
       </h2>
       <form @submit.prevent="onUpdateApplicant" novalidate>
         <main-input
-          inputName="fName"
+          input-name="fName"
           :label="$getTrans('f-name')"
           type="text"
           v-model.trim="applicantToEdit.info.fName"
@@ -16,7 +16,7 @@
           validate="required"
         />
         <main-input
-          inputName="lName"
+          input-name="lName"
           :label="$getTrans('l-name')"
           type="text"
           v-model.trim="applicantToEdit.info.lName"
@@ -24,7 +24,7 @@
           styled="main"
         />
         <main-input
-          inputName="email"
+          input-name="email"
           :label="$getTrans('email')"
           type="email"
           v-model.trim="applicantToEdit.info.email"
@@ -32,7 +32,7 @@
           styled="main"
         />
         <main-input
-          inputName="phone"
+          input-name="phone"
           :label="$getTrans('phone-number')"
           type="phone"
           v-model.trim="applicantToEdit.info.phone"
@@ -40,7 +40,7 @@
           styled="main"
         />
         <main-input
-          inputName="hometown"
+          input-name="hometown"
           :label="$getTrans('hometown')"
           type="text"
           v-model.trim="applicantToEdit.info.hometown"

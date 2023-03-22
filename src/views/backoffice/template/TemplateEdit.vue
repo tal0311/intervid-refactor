@@ -4,11 +4,11 @@
     <form novalidate @submit.prevent="onSaveTemplate" class="template-container">
       <main-input
         v-if="templateToEdit"
-        inputName="title"
+        input-name="title"
         placeholder="Enter title"
         validate="required"
         v-model.trim="templateToEdit.title"
-        :onBlur="validateField"
+        :on-blur="validateField"
         :errors="errors"
         styled="main"
       />
@@ -54,7 +54,6 @@
 <script>
 import {templateService} from '@/services/templateService'
 import {validate} from '@/services/errorService.js'
-
 
 import QuestEdit from '@/cmps/backoffice/template/QuestEdit.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
