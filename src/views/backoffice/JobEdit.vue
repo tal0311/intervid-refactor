@@ -12,10 +12,12 @@
           ghost-class="ghost"
           item-key="id"
         >
-          <template #item>
+          <!-- This is destructuring, just like doing someFunc({element:quest,index:idx}) ,
+          element is the name provided in the draggable component, and quest is the name of the variable
+          see: https://github.com/SortableJS/vue.draggable.next#migrate-from-vue-2-version
+        -->
+          <template #item="{element: quest, index: idx}">
             <quest-edit
-              v-for="(quest, idx) in job.quests"
-              :key="quest.id"
               :idx="idx"
               :quest="quest"
               :quests-count="job.quests.length"
@@ -101,6 +103,7 @@ export default {
 
   computed: {
     jobToEdit() {
+      console.log('jobToEdit', this.$store.getters['job/jobToEdit'])
       return this.$store.getters['job/jobToEdit']
     },
 
@@ -157,6 +160,7 @@ export default {
     async onAddQuest() {
       const quest = templateService.createQuest()
       this.job.quests.push(quest)
+      console.log('quest', this.job.quests)
       this.$nextTick(this.validateForm)
     },
 
