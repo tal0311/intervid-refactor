@@ -92,8 +92,17 @@ import CoverUpload from '@/cmps/common/CoverUpload.vue'
 import MainInput from '@/cmps/common/MainInput.vue'
 
 export default {
-  props: ['job', 'errors'],
-
+  props: {
+    job: {
+      type: Object,
+      required: true,
+    },
+    errors: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['update-job', 'validate-field'],
   data() {
     return {
       isDesc: this.job.info.desc,
@@ -102,7 +111,7 @@ export default {
   },
 
   created() {
-    this.id = this._uid
+    this.id = this.$utilService.makeCmpId()
   },
 
   computed: {

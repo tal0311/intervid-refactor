@@ -19,11 +19,15 @@
 
 <script>
 import {advancedPermsMap, ansRules} from '@/services/constData'
-import {userService} from '@/services/userService'
 
 export default {
-  props: ['isOneTry', 'selectedAnsRule'],
-
+  props: {
+    isOneTry: Boolean,
+    selectedAnsRule: {
+      type: String,
+      required: true,
+    },
+  },
   computed: {
     ansRules() {
       return ansRules

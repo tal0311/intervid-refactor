@@ -149,6 +149,7 @@ export const job = {
     setJobToEdit(state, {jobToEdit}) {
       state.prevJobToEdit = state.jobToEdit
       state.jobToEdit = jobToEdit
+      console.log('setJobToEdit', state.jobToEdit.quests)
     },
 
     addJob(state) {
@@ -252,13 +253,15 @@ export const job = {
         // #HANDLE CANCEL
         const key = 'job/query'
         const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
-        let data = await jobService.query(filterBy, sort, cancelToken)
-        // Now idea how this worked before
-        // TODO: check wtf went on here
-        if (!data) return
-        let {jobs = null, pageCount, filteredJobCount, totalJobCount} = data
+        let {jobs, pageCount, filteredJobCount, totalJobCount} = await jobService.query(filterBy, sort, cancelToken)
         if (!jobs) return
-
+        // let data = await jobService.query(filterBy, sort, cancelToken)
+        // // Now idea how this worked before
+        // // TODO: check wtf went on here
+        // if (!data) return
+        // let {jobs = null, pageCount, filteredJobCount, totalJobCount} = data
+        // if (!jobs) return
+        console.log('should gather', shouldGather)
         if (shouldGather) {
           // console.log('jobs', jobs)
           if (jobs.length === 0) return
@@ -359,6 +362,7 @@ export const job = {
     },
 
     async updateJob({commit, state}, {job, isUndo = false}) {
+      console.log('🚀 ~ file: jobStore.js:364 ~ updateJob ~ job:', job)
       // { dispatch }
       try {
         // commit('updateJob', { job })

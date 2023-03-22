@@ -28,7 +28,7 @@ export default {
   },
 
   created() {
-    this.id = this._uid
+    this.id = this.$utilService.makeCmpId()
   },
 
   computed: {

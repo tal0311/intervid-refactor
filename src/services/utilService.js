@@ -6,6 +6,7 @@ export const utilService = {
   verifyBeforeExit,
   secondsToTime,
   makeId,
+  makeCmpId,
   getUrlParamsFromObj,
   paginate,
   debounce,
@@ -56,6 +57,12 @@ function secondsToTime(seconds, {isMinutes} = {}) {
   return `${hrs ? hrs.padStart(2, '0') + ':' : ''}${mins.padStart(2, '0')}:${secs.padStart(2, '0')}`
 }
 
+function makeCmpId() {
+  // Why this func? Because this app used to use this._uid as id, but it was deprecated in vue 3.0,
+  // so i'm using this func to generate a random id for each component while keeping the old structure.
+  // Why 1000? Cause i'm paranoid, if this causes preformance issues, we can change it.
+  return makeId(1000)
+}
 function makeId(length = 6) {
   let str = ''
   const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'

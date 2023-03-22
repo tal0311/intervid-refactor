@@ -1,7 +1,7 @@
 <template>
   <div class="text-editor">
     <div class="toolbar-container">
-      <div :id="'toolbar' + _uid">
+      <div :id="'toolbar' + id">
         <span class="ql-formats">
           <select class="ql-header" @click.stop="">
             <option value="2">{{ $getTrans('heading1') }}</option>
@@ -54,7 +54,9 @@ export default {
       },
     }
   },
-
+  created() {
+    this.id = this.$utilService.makeCmpId()
+  },
   mounted() {
     this.initEditor()
     const scrollHeight = this.editor.scroll.domNode.scrollHeight
@@ -80,7 +82,7 @@ export default {
     initEditor() {
       this.editor = new Quill(this.$refs.editor, {
         modules: {
-          toolbar: '#toolbar' + this._uid,
+          toolbar: '#toolbar' + this.id,
         },
         placeholder: this.placeholder,
         theme: 'snow',

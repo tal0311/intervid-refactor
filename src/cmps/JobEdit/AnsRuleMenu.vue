@@ -52,14 +52,22 @@
 </template>
 
 <script>
-import {userService} from '@/services/userService'
 import {templateService} from '@/services/templateService'
 import {advancedPermsMap, getAnswerType, ansRules} from '@/services/constData'
 import MobileModal from '../common/modals/MobileModal.vue'
 
 export default {
-  props: ['quest', 'isOneTry'],
-
+  props: {
+    quest: {
+      type: Object,
+      required: true,
+    },
+    isOneTry: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  emits: ['change-ans'],
   data() {
     return {
       selectedAnsRule: this.quest.ansRule.isVidAns ? 'isVidAns' : 'isScreenAns',

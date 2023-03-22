@@ -81,6 +81,7 @@ export default {
   },
 
   created() {
+    this.id = this.$utilService.makeCmpId()
     const {editorOption} = this
     editorOption.placeholder = this.placeholder
     editorOption.modules.toolbar.push(...this.tools)
@@ -119,7 +120,7 @@ export default {
     setup() {
       this.editor = new Quill(this.$refs.editor, {
         modules: {
-          toolbar: '#toolbar' + this._uid,
+          toolbar: '#toolbar' + this.id,
         },
         placeholder: this.placeholder,
         theme: 'snow',
