@@ -99,6 +99,7 @@ import CvUpload from '../CvUpload.vue'
 import ApplicationIndex from './ApplicationIndex.vue'
 
 export default {
+  emits: ['on-next-step'],
   data() {
     return {
       applicantInfo: {

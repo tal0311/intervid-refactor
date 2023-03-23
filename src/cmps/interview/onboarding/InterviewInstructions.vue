@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  emits: ['on-next-step'],
   computed: {
     job() {
       return this.$store.getters['applicant/job']
@@ -34,7 +35,5 @@ export default {
       return this.job.quests.reduce((acc, quest) => (acc += quest.timeLimit), 0)
     },
   },
-
-  methods: {},
 }
 </script>

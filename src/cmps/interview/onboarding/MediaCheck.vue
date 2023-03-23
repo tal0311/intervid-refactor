@@ -261,6 +261,7 @@ import DeviceSelect from '@/cmps/interview/DeviceSelect.vue'
 import VideoLoader from '@/cmps/common/VideoLoader.vue'
 
 export default {
+  emits: ['on-next-step'],
   setup(props, {emit}) {
     const {screenStream, initScreen, screenErrors} = useScreen()
     const video = ref(null)
