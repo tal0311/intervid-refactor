@@ -59,6 +59,7 @@ import ApplicationIndex from '../onboarding/ApplicationIndex.vue'
 import ConfettiAnimation from '@/cmps/common/ConfettiAnimation.vue'
 
 export default {
+  emits: ['handle-quit'],
   setup(props, {emit}) {
     const {
       // SHARED WITH CMP

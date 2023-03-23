@@ -72,8 +72,12 @@
 import {browserErrorMap} from '@/services/errorService'
 
 export default {
-  props: ['err'],
-
+  props: {
+    err: {
+      type: Object,
+      required: true,
+    },
+  },
   computed: {
     isVersionErr() {
       return this.err.type === browserErrorMap.NO_VERSION_SUPPORT.type
