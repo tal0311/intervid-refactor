@@ -129,6 +129,7 @@ body – The data that will be signed.
 signal – An AbortSignal that may be used to abort an ongoing request
 */
 
+// eslint-disable-next-line no-unused-vars
 async function signPart(file, {uploadId, key, partNumber, body, signal}) {
   try {
     return httpService.get(`${ROUTE}/sign_multipart?fileKey=${key}&uploadId=${uploadId}&partNum=${partNumber}`)

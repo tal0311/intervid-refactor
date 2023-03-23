@@ -9,7 +9,7 @@ import {applicant} from './modules/applicantStore'
 import {player} from './modules/playerStore'
 import {activity} from './modules/activityStore'
 // import {mutationHistory} from './mutationHistory.js'
-import cloneDeep from 'lodash.clonedeep'
+// import cloneDeep from 'lodash.clonedeep'
 
 const initialStoreModules = {
   app,
@@ -45,11 +45,11 @@ const store = createStore({
     //   state = {}
     // },
     //used in logout (in mutation history)
-    resetState(state) {
-      // Object.keys(initialStoreModules).forEach((key) => {
-      //   state[key] = cloneDeep(initialStoreModules[key].state)
-      // })
-    },
+    // resetState(state) {
+    // Object.keys(initialStoreModules).forEach((key) => {
+    //   state[key] = cloneDeep(initialStoreModules[key].state)
+    // })
+    // },
   },
   // plugins: [undoRedoPlugin],
 })

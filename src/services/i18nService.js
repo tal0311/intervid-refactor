@@ -1,6 +1,6 @@
 // import store from '@/store'
 import {detect} from 'detect-browser'
-import {utilService} from './utilService'
+// import {utilService} from './utilService'
 
 const browser = detect()
 
@@ -2023,6 +2023,7 @@ export function getPlural(word, count) {
  * @param {{noWords:boolean,singleLetter:boolean,fullWord:boolean}} options
  * @returns string
  */
+// eslint-disable-next-line no-unused-vars
 export function formatDuration(ms, {noWords, singleLetter, fullWord} = {}, lang = DEFAULT_LANG) {
   let seconds = ms / 1000
   let minutes = parseInt(seconds / 60)
