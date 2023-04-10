@@ -1,13 +1,13 @@
-import {createStore} from 'vuex'
-import {app} from './modules/appStore.js'
-import {user} from './modules/userStore.js'
-import {record} from './modules/recordStore.js'
-import {auth} from './modules/authStore.js'
-import {template} from './modules/templateStore'
-import {job} from './modules/jobStore'
-import {applicant} from './modules/applicantStore'
-import {player} from './modules/playerStore'
-import {activity} from './modules/activityStore'
+import { createStore } from 'vuex'
+import { app } from './modules/appStore.js'
+import { user } from './modules/userStore.js'
+import { record } from './modules/recordStore.js'
+import { auth } from './modules/authStore.js'
+import { template } from './modules/templateStore'
+import { job } from './modules/jobStore'
+import { applicant } from './modules/applicantStore'
+import { player } from './modules/playerStore'
+import { activity } from './modules/activityStore'
 // import {mutationHistory} from './mutationHistory.js'
 import cloneDeep from 'lodash.clonedeep'
 
@@ -40,18 +40,9 @@ const store = createStore({
   strict: true,
   modules: initialStoreModules,
   mutations: {
-    //not in used
-    // emptyState(state) {
-    //   state = {}
-    // },
-    //used in logout (in mutation history)
-    resetState(state) {
-      // Object.keys(initialStoreModules).forEach((key) => {
-      //   state[key] = cloneDeep(initialStoreModules[key].state)
-      // })
-    },
+
   },
-  // plugins: [undoRedoPlugin],
+
 })
 
 export default store
