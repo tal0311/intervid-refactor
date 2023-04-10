@@ -202,11 +202,13 @@ export default {
       if (this.isFirstChange) this.$store.commit('job/setIsFirstChange', false)
       await this.saveJob()
     },
-
-    // handleChange: this.$utilService.debounce(async function ({target}) {
-    //   if (target.name && (target.name === 'search' || target.name.includes('upload'))) return
-    //   await this.validateForm()
-    // }, 1500),
+    // v model on components
+    
+    async handleChange(target) {
+      // what this condition means?
+      if (target.name && (target.name === 'search' || target.name.includes('upload'))) return
+      await this.validateForm()
+    },
 
     onDragEnd(ev) {
       if (ev.oldIndex === ev.newIndex) return
