@@ -39,19 +39,7 @@ const initialStoreModules = {
 const store = createStore({
   strict: true,
   modules: initialStoreModules,
-  mutations: {
-    //not in used
-    // emptyState(state) {
-    //   state = {}
-    // },
-    //used in logout (in mutation history)
-    // resetState(state) {
-    // Object.keys(initialStoreModules).forEach((key) => {
-    //   state[key] = cloneDeep(initialStoreModules[key].state)
-    // })
-    // },
-  },
-  // plugins: [undoRedoPlugin],
+  mutations: {},
 })
 
 export default store
