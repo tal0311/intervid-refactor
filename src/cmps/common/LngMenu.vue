@@ -11,7 +11,7 @@
       <p @click="setLang('he')">עברית</p>
     </div>
 
-    <mobile-modal v-if="isOpen && isMobile" cmp-name="lng" @on-close="toggleModal" />
+    <MobileModal v-if="isOpen && isMobile" cmp-name="lng" @on-close="toggleModal" />
   </div>
 </template>
 

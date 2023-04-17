@@ -28,7 +28,7 @@
       </i>
     </div>
 
-    <app-pagination
+    <AppPagination
       v-if="pageCount > 1"
       :item-count="itemCount"
       :page-count="pageCount"

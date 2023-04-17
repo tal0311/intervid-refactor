@@ -30,7 +30,7 @@
       </button>
     </div>
 
-    <mobile-modal
+    <MobileModal
       v-if="isOpen && isMobile"
       cmp-name="update status"
       :applicant="applicant"

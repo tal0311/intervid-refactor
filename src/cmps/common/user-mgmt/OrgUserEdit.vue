@@ -42,11 +42,11 @@
           </div>
           <div v-if="!onlyEmail && !onlyName" class="img-upload-container">
             <div class="logo">
-              <img-upload :initial-img="user.logoUrl" @upload="onSetImg('logo', $event)" />
+              <ImgUpload :initial-img="user.logoUrl" @upload="onSetImg('logo', $event)" />
               <p>{{ $getTrans('logo-image') }}</p>
             </div>
             <div class="profile">
-              <img-upload :initial-img="user.imgUrl" @upload="onSetImg('img', $event)" />
+              <ImgUpload :initial-img="user.imgUrl" @upload="onSetImg('img', $event)" />
               <p>{{ $getTrans('profile-image') }}</p>
             </div>
           </div>

@@ -35,7 +35,7 @@
         </button>
       </div>
 
-      <mobile-modal
+      <MobileModal
         v-else-if="isOpen"
         cmp-name="ans-rule-menu"
         @on-close="toggleAnswerModal"

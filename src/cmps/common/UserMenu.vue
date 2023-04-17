@@ -1,7 +1,7 @@
 <template>
   <div class="user-menu">
     <div class="user-avatar" @click="toggleModal" v-if="loggedInUser">
-      <applicant-avatar :size="35" :src="loggedInUser.imgUrl || loggedInUser.logoUrl" :username="userFullName" />
+      <ApplicantAvatar :size="35" :src="loggedInUser.imgUrl || loggedInUser.logoUrl" :username="userFullName" />
     </div>
     <div :class="{open: isOpen && !isMobile && loggedInUser}" class="user-modal">
       <button @click="onGoTo('ApplicantOverview')">
@@ -19,7 +19,7 @@
     </div>
     <RouterLink v-if="!loggedInUser" class="link" :to="authPath.to">{{ authPath.txt }}</RouterLink>
 
-    <mobile-modal v-if="isOpen && isMobile" cmp-name="user-menu" @on-close="toggleModal" />
+    <MobileModal v-if="isOpen && isMobile" cmp-name="user-menu" @on-close="toggleModal" />
   </div>
 </template>
 

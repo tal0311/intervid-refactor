@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <mobile-modal
+    <MobileModal
       v-if="isOpen && isMobile"
       :template="template"
       cmp-name="template-menu"

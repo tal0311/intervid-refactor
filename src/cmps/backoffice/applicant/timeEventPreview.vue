@@ -7,7 +7,7 @@
     <div class="info">
       <div class="top">
         <p>{{ timeEventToShow.txt }}</p>
-        <time-event-menu v-if="isNote" :idx="idx" @on-remove-note-event="onRemoveNoteEvent" />
+        <TimeEventMenu v-if="isNote" :idx="idx" @on-remove-note-event="onRemoveNoteEvent" />
       </div>
 
       <p>

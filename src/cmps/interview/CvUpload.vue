@@ -3,7 +3,7 @@
     <h4>{{ $getTrans('resume') }}</h4>
     <small>{{ $getTrans('be-sure-include-updated-resume') }}</small>
     <div ref="elDragDrop" class="drag-drop" v-if="cvUploadProgress === 0"></div>
-    <validation-msg v-if="error" :error="error" />
+    <ValidationMsg v-if="error" :error="error" />
     <small v-if="cvUploadProgress === 0">DOC, DOCX, PDF (4MB)</small>
     <div class="progress-container">
       <div class="success" v-if="cvUploadProgress !== 0">

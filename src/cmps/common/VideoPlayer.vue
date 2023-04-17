@@ -13,7 +13,7 @@
       </video>
     </div>
 
-    <draggable-video
+    <DraggableVideo
       class="face-container small"
       :class-name="{
         aspect: !playerState.isFullScreen,
@@ -26,11 +26,11 @@
       <video :src="secVideoSrc" :class="{cover: secVideoName === 'faceUrl'}" ref="secVideo" playsinline>
         Your browser does not support the video tag.
       </video>
-    </draggable-video>
+    </DraggableVideo>
 
-    <video-loader v-if="playerState.isLoading || isBuffering" />
+    <VideoLoader v-if="playerState.isLoading || isBuffering" />
 
-    <player-controls
+    <PlayerControls
       :is-buffering="isBuffering"
       :res-time="resTime"
       :notes="notes"

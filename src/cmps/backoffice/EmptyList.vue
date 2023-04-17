@@ -45,7 +45,7 @@
       <h3>{{ $getTrans('invite-candidates-to-apply') }}</h3>
       <p>{{ $getTrans('no-applicant-submitted-yet') }}</p>
     </div>
-    <share-btns :job="currJob" />
+    <ShareBtns :job="currJob" />
   </section>
 
   <section v-else-if="!applicantCount || !totalJobCount" class="empty-list create-job">

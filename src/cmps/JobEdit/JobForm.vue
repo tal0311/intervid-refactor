@@ -1,9 +1,9 @@
 <template>
   <div class="job-form">
-    <cover-upload @upload="onSetCover" :initial-cover="mutableJob.info.coverUrl" :id="id" />
+    <CoverUpload @upload="onSetCover" :initial-cover="mutableJob.info.coverUrl" :id="id" />
     <section class="job-info">
       <div class="form-title">
-        <main-input
+        <MainInput
           input-name="title"
           :placeholder="$getTrans('job-title')"
           validate="required"
@@ -15,8 +15,8 @@
       </div>
 
       <div class="input-container">
-        <img-upload @upload="onSetImg" :initial-img="job.company.logoUrl" />
-        <main-input
+        <ImgUpload @upload="onSetImg" :initial-img="job.company.logoUrl" />
+        <MainInput
           input-name="company"
           :label="$getTrans('company-name')"
           validate="required"
@@ -25,7 +25,7 @@
           :errors="errors"
           styled="main"
         />
-        <main-input
+        <MainInput
           input-name="location"
           :label="$getTrans('location')"
           v-model.trim="mutableJob.info.location"
@@ -37,7 +37,7 @@
 
       <div class="textarea-container" v-if="isDesc">
         <i class="icon material-icons remove-btn" @click="onClearDesc">close</i>
-        <main-input
+        <MainInput
           input-name="description"
           :placeholder="$getTrans('description')"
           validate="required"

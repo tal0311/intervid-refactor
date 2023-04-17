@@ -2,7 +2,7 @@
   <section class="interview-end">
     <template v-if="!isUploadDone">
       <div class="upload">
-        <uploading-animation />
+        <UploadingAnimation />
         <div class="content">
           <div class="progress-bar">
             <span>{{ donePercent + '%' }}</span>
@@ -40,9 +40,9 @@
         />
       </div>
 
-      <application-index />
+      <ApplicationIndex />
 
-      <confetti-animation />
+      <ConfettiAnimation />
     </template>
   </section>
 </template>

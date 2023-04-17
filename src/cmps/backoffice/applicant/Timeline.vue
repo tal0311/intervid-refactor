@@ -2,7 +2,7 @@
   <section class="timeline-app">
     <h4>{{ $getTrans('timeline') }}</h4>
     <div class="timeline-list">
-      <time-event-preview
+      <TimeEventPreview
         v-for="(timeEvent, idx) in timelineToShow"
         :key="idx"
         :idx="idx"

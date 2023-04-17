@@ -1,7 +1,7 @@
 <template>
-  <app-loader v-if="isFetching && !shouldGather" is-local="true" />
+  <AppLoader v-if="isFetching && !shouldGather" is-local="true" />
   <section v-else-if="isItemsToShow" class="table-list" :class="{cards: viewType === 'cards' && itemName === 'job'}">
-    <sortable-headers
+    <SortableHeaders
       :sort="sort"
       :filter-by="filterBy"
       :selected-item-count="selectedItemCount"
@@ -29,7 +29,7 @@
       </component>
     </div>
   </section>
-  <empty-list v-else :item-name="itemName" />
+  <EmptyList v-else :item-name="itemName" />
 </template>
 
 <script>

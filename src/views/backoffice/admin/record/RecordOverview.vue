@@ -1,9 +1,9 @@
 <template>
   <section class="record-overview overview">
     <div class="overview-header">
-      <record-filter :filter-by="filterBy" @set-filter="onSetFilterByKey" />
+      <RecordFilter :filter-by="filterBy" @set-filter="onSetFilterByKey" />
 
-      <list-actions
+      <ListActions
         :selected-item-count="selectedItems.length"
         :filter-by="filterBy"
         :item-count="totalRecordCount"
@@ -14,7 +14,7 @@
       />
     </div>
 
-    <table-list
+    <TableList
       :items="records"
       :items-per-page="filterBy.itemsPerPage"
       :total-item-count="totalRecordCount"

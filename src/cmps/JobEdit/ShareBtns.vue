@@ -16,7 +16,7 @@
       </div>
 
       <div class="media-wrapper">
-        <share-network
+        <ShareNetwork
           @open="closeModal"
           tag="button"
           network="whatsapp"
@@ -24,12 +24,12 @@
           :url="invitationUrl"
           :description="`${companyName} is seeking for ${jobTitle}. Click the link to start the interview via Intervid.`"
           v-html="svgs.whatsapp"
-        ></share-network>
+        ></ShareNetwork>
         <span>{{ $getTrans('whatsapp') }}</span>
       </div>
 
       <div class="media-wrapper">
-        <share-network
+        <ShareNetwork
           @open="closeModal"
           tag="button"
           network="facebook"
@@ -38,12 +38,12 @@
           quote="We're seeking for you! Click to start the interview."
           hashtags="hiring"
           v-html="svgs.facebook"
-        ></share-network>
+        ></ShareNetwork>
         <span>{{ $getTrans('facebook') }}</span>
       </div>
 
       <div class="media-wrapper">
-        <share-network
+        <ShareNetwork
           @open="closeModal"
           tag="button"
           network="email"
@@ -52,7 +52,7 @@
           :description="`${companyName} is seeking for ${jobTitle}. Click the link to start the interview via Intervid.`"
         >
           <i class="material-icons">mail_outline</i>
-        </share-network>
+        </ShareNetwork>
         <span>{{ $getTrans('email') }}</span>
       </div>
     </div>

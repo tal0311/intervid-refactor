@@ -1,6 +1,6 @@
 <template>
   <div class="cover-upload">
-    <app-spinner v-if="isUploading" />
+    <AppSpinner v-if="isUploading" />
 
     <div v-if="initialCover" class="cover-preview">
       <img :src="coverPreview || initialCover" referrerpolicy="no-referrer" />

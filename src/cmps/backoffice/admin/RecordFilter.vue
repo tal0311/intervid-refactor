@@ -1,7 +1,7 @@
 <template>
   <section class="record-filter">
     <div class="top">
-      <search-box :value="filterBy.txt" @input="onSetFilterByKey" debounce="true" placeholder="search-logs" />
+      <SearchBox :value="filterBy.txt" @input="onSetFilterByKey" debounce="true" placeholder="search-logs" />
 
       <basic-select
         label="Source"

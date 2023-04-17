@@ -20,7 +20,7 @@
       </button>
     </div>
 
-    <mobile-modal
+    <MobileModal
       v-else-if="isOpen"
       cmp-name="timelimit-menu"
       @on-close="toggleModal"

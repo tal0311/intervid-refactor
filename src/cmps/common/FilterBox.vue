@@ -113,7 +113,7 @@
       </div>
     </div>
 
-    <mobile-modal
+    <MobileModal
       v-if="isMobile && modal.type === 'MobileFilter'"
       cmp-name="filter"
       :filter-by="filterBy"
