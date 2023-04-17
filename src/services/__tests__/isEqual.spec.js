@@ -47,3 +47,46 @@ test('isEqual - mixed types', () => {
   expect(utilService.isEqual({a: 1}, null)).toBe(false)
   expect(utilService.isEqual(undefined, {a: 1})).toBe(false)
 })
+
+test('isEqual - deeply nested arrays', () => {
+  expect(
+    utilService.isEqual(
+      [
+        [1, 2],
+        [3, 4],
+      ],
+      [
+        [1, 2],
+        [3, 4],
+      ],
+    ),
+  ).toBe(true)
+  expect(
+    utilService.isEqual(
+      [
+        [1, 2],
+        [3, 4],
+      ],
+      [
+        [1, 2],
+        [3, 5],
+      ],
+    ),
+  ).toBe(false)
+  expect(utilService.isEqual([1, [2, [3, [4]]]], [1, [2, [3, [4]]]])).toBe(true)
+  expect(utilService.isEqual([1, [2, [3, [4]]]], [1, [2, [3, [5]]]])).toBe(false)
+})
+
+test('isEqual - deeply nested plain objects', () => {
+  expect(utilService.isEqual({a: {b: {c: 1}}}, {a: {b: {c: 1}}})).toBe(true)
+  expect(utilService.isEqual({a: {b: {c: 1}}}, {a: {b: {c: 2}}})).toBe(false)
+  expect(utilService.isEqual({a: {b: {c: {d: {e: 1}}}}}, {a: {b: {c: {d: {e: 1}}}}})).toBe(true)
+  expect(utilService.isEqual({a: {b: {c: {d: {e: 1}}}}}, {a: {b: {c: {d: {e: 2}}}}})).toBe(false)
+})
+
+test('isEqual - mixed nested structures', () => {
+  expect(utilService.isEqual({a: [{b: 1}, {c: 2}]}, {a: [{b: 1}, {c: 2}]})).toBe(true)
+  expect(utilService.isEqual({a: [{b: 1}, {c: 2}]}, {a: [{b: 1}, {c: 3}]})).toBe(false)
+  expect(utilService.isEqual([{a: {b: 1}}, {c: {d: 2}}], [{a: {b: 1}}, {c: {d: 2}}])).toBe(true)
+  expect(utilService.isEqual([{a: {b: 1}}, {c: {d: 2}}], [{a: {b: 1}}, {c: {d: 3}}])).toBe(false)
+})
