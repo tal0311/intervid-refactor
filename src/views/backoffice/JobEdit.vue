@@ -67,7 +67,6 @@ import QuestEdit from '@/cmps/JobEdit/QuestEdit.vue'
 import JobForm from '@/cmps/JobEdit/JobForm.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
 import config from '@/config'
-import cloneDeep from 'lodash.clonedeep'
 import {useShareJob} from '@/composables/job/useShareJob'
 
 export default {
@@ -84,7 +83,7 @@ export default {
 
   async created() {
     await this.loadJob()
-    this.job = cloneDeep(this.jobToEdit)
+    this.job = this.$utilService.deepClone(this.jobToEdit)
     if (this.$route.query.templateId) await this.loadTemplateQuests()
   },
 
@@ -203,7 +202,7 @@ export default {
       await this.saveJob()
     },
     // v model on components
-    
+
     async handleChange(target) {
       // what this condition means?
       if (target.name && (target.name === 'search' || target.name.includes('upload'))) return
@@ -261,7 +260,7 @@ export default {
 
   watch: {
     jobToEdit() {
-      this.job = cloneDeep(this.jobToEdit)
+      this.job = this.$utilService.deepClone(this.jobToEdit)
     },
   },
 

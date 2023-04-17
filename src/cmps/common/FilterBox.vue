@@ -133,9 +133,6 @@
 <script>
 import {statusMap, filterDates} from '@/services/constData'
 import MobileModal from '@/cmps/common/modals/MobileModal.vue'
-// convert to utilService.deepEqual
-import isEqual from 'lodash.isequal'
-import cloneDeep from 'lodash.clonedeep'
 
 export default {
   props: ['filterBy', 'isApplicantOverview', 'filteredJobCount'],
@@ -201,7 +198,7 @@ export default {
     },
 
     isFilterChanged() {
-      return !isEqual(this.updatedFilterBy, this.filterBy)
+      return !this.$utilService.isEqual(this.updatedFilterBy, this.filterBy)
     },
 
     entity() {
@@ -277,7 +274,7 @@ export default {
       this.resetFilter()
     },
     resetFilter() {
-      this.updatedFilterBy = cloneDeep(this.filterBy)
+      this.updatedFilterBy = this.$utilService.deepClone(this.filterBy)
     },
 
     async getExpectedEntityCount(filterBy) {

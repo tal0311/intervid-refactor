@@ -9,7 +9,6 @@ import {applicant} from './modules/applicantStore'
 import {player} from './modules/playerStore'
 import {activity} from './modules/activityStore'
 // import {mutationHistory} from './mutationHistory.js'
-// import cloneDeep from 'lodash.clonedeep'
 
 const initialStoreModules = {
   app,
