@@ -4,7 +4,7 @@
       <i class="material-icons">share</i>
       {{ $getTrans('share') }}
     </button>
-    <share-btns :job="job" :class="{open: modal.type === 'share'}" />
+    <ShareBtns :job="job" :class="{open: modal.type === 'share'}" />
   </div>
 </template>
 

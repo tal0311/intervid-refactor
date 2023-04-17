@@ -13,7 +13,7 @@
     </div>
 
     <div class="avatar">
-      <applicant-avatar :size="40" :src="applicant.info.imgUrl" :username="applicantFullName" />
+      <ApplicantAvatar :size="40" :src="applicant.info.imgUrl" :username="applicantFullName" />
     </div>
 
     <div class="applicant-name">
@@ -30,7 +30,7 @@
     </div>
 
     <div @click.stop="" class="status">
-      <status-dropdown :applicant="applicant" @on-set-status="setStatus" :is-show-archived="filterBy.showArchived" />
+      <StatusDropdown :applicant="applicant" @on-set-status="setStatus" :is-show-archived="filterBy.showArchived" />
     </div>
 
     <div class="date">

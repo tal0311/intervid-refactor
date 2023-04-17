@@ -1,9 +1,9 @@
 <template>
   <div class="activity-overview overview">
     <div class="overview-header">
-      <activity-filter :filter-by="filterBy" @set-filter="onSetFilterByKey" :users="users" />
+      <ActivityFilter :filter-by="filterBy" @set-filter="onSetFilterByKey" :users="users" />
 
-      <list-actions
+      <ListActions
         :filter-by="filterBy"
         :item-count="totalActivityCount"
         :curr-page="filterBy.currPage || 0"
@@ -12,7 +12,7 @@
       />
     </div>
 
-    <table-list
+    <TableList
       :items="activities"
       :items-per-page="filterBy.itemsPerPage"
       :total-item-count="totalActivityCount"

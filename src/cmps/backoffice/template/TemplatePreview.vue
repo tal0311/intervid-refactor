@@ -23,7 +23,7 @@
     </div>
 
     <div class="actions" @click.stop="">
-      <template-menu :template="template" @archive="onToggleArchive" @default="toggleIsDefault" />
+      <TemplateMenu :template="template" @archive="onToggleArchive" @default="toggleIsDefault" />
     </div>
   </section>
 </template>

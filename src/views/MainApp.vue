@@ -1,9 +1,9 @@
 <template>
   <main class="main-app">
-    <app-screen />
-    <app-header />
+    <AppScreen />
+    <AppHeader />
     <RouterView />
-    <app-modal />
+    <AppModal />
   </main>
 </template>
 

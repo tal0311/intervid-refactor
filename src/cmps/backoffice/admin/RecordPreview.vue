@@ -22,7 +22,7 @@
     <div class="preview-item">
       {{ record.meta.traceID || '-' }}
     </div>
-    <record-details v-if="selectedRecordId === record._id" :record="record" />
+    <RecordDetails v-if="selectedRecordId === record._id" :record="record" />
   </section>
 </template>
 

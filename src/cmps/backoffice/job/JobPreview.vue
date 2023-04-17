@@ -20,7 +20,7 @@
 
     <div class="avatars">
       <template v-if="job.applicantSummary">
-        <avatar
+        <Avatar
           v-for="(applicant, index) in job.applicantSummary.avatars"
           :key="index"
           :size="32"
@@ -41,7 +41,7 @@
     </div>
 
     <div class="actions" @click.stop="">
-      <job-menu
+      <JobMenu
         :job="job"
         :mouse-pos="mousePos"
         @modal-closed="onCloseMenu"
@@ -70,7 +70,7 @@
           <div class="location">{{ job.info.location || 'N/A' }}</div>
         </div>
         <div class="actions" @click.stop="">
-          <job-menu
+          <JobMenu
             :job="job"
             @archive="onToggleArchive"
             :mouse-pos="mousePos"

@@ -2,7 +2,7 @@
   <section class="quest-edit" v-if="mutableQuest">
     <div class="quest-header">
       <h4>{{ $getTrans('question') }} #{{ idx + 1 }}</h4>
-      <quest-menu @on-remove-quest="onRemoveQuest" :quest="mutableQuest" />
+      <QuestMenu @on-remove-quest="onRemoveQuest" :quest="mutableQuest" />
     </div>
 
     <div class="quest-content">
@@ -17,8 +17,8 @@
       />
 
       <div v-if="isDesc" class="editor-container">
-        <text-editor placeholder="Elaborate (optional)" v-model.trim="desc" :tools="['code', 'link']" />
-        <opt-quest-edit @edit-opts="onEditOpts" :opts-to-edit="mutableQuest.opts" v-if="mutableQuest.opts" />
+        <TextEditor placeholder="Elaborate (optional)" v-model.trim="desc" :tools="['code', 'link']" />
+        <OptQuestEdit @edit-opts="onEditOpts" :opts-to-edit="mutableQuest.opts" v-if="mutableQuest.opts" />
       </div>
 
       <p class="toggle-desc-btn" @click="isDesc = !isDesc">

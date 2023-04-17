@@ -1,9 +1,9 @@
 <template>
   <section class="interview" ref="interview" v-if="currQuest">
     <div class="interview-content">
-      <quest-countdown v-if="isCountdown" @show-quest="showQuest" :curr-quest="currQuest" />
+      <QuestCountdown v-if="isCountdown" @show-quest="showQuest" :curr-quest="currQuest" />
 
-      <video-recorder
+      <VideoRecorder
         ref="vidRecorder"
         v-else-if="(isVidAns || isScreenAns) && !lastRecordedVideo"
         :max-try-num="1"
@@ -30,7 +30,7 @@
         }"
       >
         <div class="top">
-          <quest-status
+          <QuestStatus
             v-if="!lastRecordedVideo && isRecording"
             ref="questStatus"
             :start-time="startTime"

@@ -106,7 +106,7 @@
         <div class="seperator">{{ $getTrans('or') }}</div>
 
         <div class="auth-providers">
-          <google-btn ref="google-btn" @google-success="onGoogleSignup"></google-btn>
+          <GoogleBtn ref="google-btn" @google-success="onGoogleSignup"></GoogleBtn>
         </div>
       </div>
     </div>
