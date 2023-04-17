@@ -27,6 +27,7 @@ export const utilService = {
   isObject,
   isPlainObject,
   isArray,
+  extractStateFromModules,
 }
 
 // added this back here temporarly to prevent error until migration of useSort is done
@@ -277,6 +278,18 @@ function isArray(obj) {
   return Array.isArray(obj)
 }
 
+function extractStateFromModules(modules, state = {}) {
+  Object.keys(modules).forEach((moduleName) => {
+    const module = modules[moduleName]
+    if (module.state) {
+      state[moduleName] = module.state
+    }
+    if (module.modules) {
+      extractStateFromModules(module.modules, state)
+    }
+  })
+  return state
+}
 // THIS CHANGE WAS DONE ALREADY, LEAVING THIS HERE FOR REFERENCE
 // This function is by no means a utility function, it should be moved to a different file, probably the store file,
 // it is also named as a private function, but it is exported, this is a bad practice, and should be changed.
