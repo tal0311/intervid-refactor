@@ -31,7 +31,10 @@ import CodeDigitInput from './CodeDigitInput.vue'
 
 export default {
   props: {
-    email: String,
+    email: {
+      type: String,
+      required: true,
+    },
   },
 
   data() {

@@ -12,8 +12,13 @@
 import {createAudioMeter} from '@/services/audioMeterService'
 
 export default {
-  props: ['stream'],
-
+  props: {
+    stream: {
+      type: Object,
+      default: null,
+    },
+  },
+  emits: ['audio-ready'],
   data() {
     return {
       intervalId: null,

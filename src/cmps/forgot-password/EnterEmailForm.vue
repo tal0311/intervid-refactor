@@ -34,6 +34,7 @@
 import {validate} from '@/services/errorService'
 
 export default {
+  emits: ['on-next-step'],
   data() {
     return {
       email: '',
