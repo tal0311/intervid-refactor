@@ -8,6 +8,7 @@ import {job} from './modules/jobStore'
 import {applicant} from './modules/applicantStore'
 import {player} from './modules/playerStore'
 import {activity} from './modules/activityStore'
+import {initialState} from '@/services/constData.js'
 // import {mutationHistory} from './mutationHistory.js'
 
 const initialStoreModules = {
@@ -38,7 +39,12 @@ const initialStoreModules = {
 const store = createStore({
   strict: true,
   modules: initialStoreModules,
-  mutations: {},
+  mutations: {
+    /* eslint-disable no-unused-vars */
+    resetState(state) {
+      state = initialState
+    },
+  },
 })
 
 export default store
