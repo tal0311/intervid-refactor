@@ -253,7 +253,12 @@ export const job = {
         // #HANDLE CANCEL
         const key = 'job/query'
         const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
-        let {jobs, pageCount, filteredJobCount, totalJobCount} = await jobService.query(filterBy, sort, cancelToken)
+        let {
+          jobs = null,
+          pageCount,
+          filteredJobCount,
+          totalJobCount,
+        } = await jobService.query(filterBy, sort, cancelToken)
         if (!jobs) return
         // let data = await jobService.query(filterBy, sort, cancelToken)
         // // Now idea how this worked before
