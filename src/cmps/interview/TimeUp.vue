@@ -13,8 +13,13 @@
 
 <script>
 export default {
-  props: ['data'],
-
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['close'],
   timeInterval: null,
 
   data() {

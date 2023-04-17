@@ -30,11 +30,11 @@
         }"
       >
         <div class="top">
+          <!-- :time-limit="currQuest.timeLimit" -->
           <QuestStatus
             v-if="!lastRecordedVideo && isRecording"
             ref="questStatus"
             :start-time="startTime"
-            :time-limit="currQuest.timeLimit"
             :is-almost-done="isAlmostDone"
             :is-halfway-done="isHalfwayDone"
             @time-up="onTimeUp"

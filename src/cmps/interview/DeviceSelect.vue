@@ -25,13 +25,27 @@
 
 <script>
 export default {
+  // props: ['selectedDeviceId', 'devices', 'type'],
+  props: {
+    selectedDeviceId: {
+      type: String,
+      required: true,
+    },
+    devices: {
+      type: Array,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['set-device'],
   data() {
     return {
       modalHight: 290,
     }
   },
-
-  props: ['selectedDeviceId', 'devices', 'type'],
 
   unmounted() {
     if (this.isAnswerModalOpen) this.toggleAnswerModal()

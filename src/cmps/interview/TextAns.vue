@@ -13,9 +13,12 @@
 <script>
 export default {
   props: {
-    txt: String,
+    txt: {
+      type: String,
+      required: true,
+    },
   },
-
+  emits: ['save-ans'],
   methods: {
     onChangeTxt(ev) {
       this.$emit('save-ans', {key: 'txt', value: ev.target.value})

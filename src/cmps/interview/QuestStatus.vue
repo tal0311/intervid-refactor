@@ -22,7 +22,20 @@
 import {formatDuration} from '@/services/i18nService'
 
 export default {
-  props: ['timeLimit', 'startTime', 'isAlmostDone', 'isHalfwayDone'],
+  props: {
+    timeLimit: {
+      type: Number,
+      required: true,
+    },
+    startTime: {
+      type: Number,
+      required: true,
+    },
+    isAlmostDone: Boolean,
+    isHalfwayDone: Boolean,
+  },
+  emits: ['time-up', 'halfway-done', 'almost-done'],
+  // props: ['timeLimit', 'startTime', 'isAlmostDone', 'isHalfwayDone'],
 
   timeInterval: null,
 

@@ -14,7 +14,12 @@ import NoMobileScreenShare from '@/views/general/NoMobileScreenShare.vue'
 import NotFound from '@/views/general/NotFound.vue'
 
 export default {
-  props: ['interviewErr'],
+  props: {
+    interviewErr: {
+      type: Object,
+      required: true,
+    },
+  },
 
   computed: {
     isBrowserErr() {

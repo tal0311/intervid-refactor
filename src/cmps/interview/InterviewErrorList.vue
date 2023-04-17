@@ -27,8 +27,13 @@
 import {screenErrorMap, videoErrorMap} from '@/services/errorService'
 
 export default {
-  props: ['errors'],
-
+  props: {
+    errors: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ['reload', 'remove-error'],
   data() {
     return {
       openDescIdx: null,

@@ -38,8 +38,17 @@ import DragDrop from '@uppy/drag-drop'
 import ValidationMsg from '@/cmps/common/ValidationMsg.vue'
 
 export default {
-  props: ['errors', 'applicantCvName'],
-
+  props: {
+    errors: {
+      type: Array,
+      required: true,
+    },
+    applicantCvName: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['uploaded'],
   data() {
     return {
       cvUploadProgress: 0,

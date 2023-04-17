@@ -13,7 +13,17 @@
 
 <script>
 export default {
-  props: ['opts', 'optIdxs'],
+  props: {
+    opts: {
+      type: Array,
+      required: true,
+    },
+    optIdxs: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ['set-opt'],
 
   methods: {
     onChoseOpt(optIdx) {

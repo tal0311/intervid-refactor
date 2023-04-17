@@ -8,7 +8,17 @@
 import {VAceEditor} from 'vue3-ace-editor'
 
 export default {
-  props: ['ans', 'questId'],
+  props: {
+    ans: {
+      type: Object,
+      required: true,
+    },
+    questId: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['save-ans'],
 
   data() {
     return {
