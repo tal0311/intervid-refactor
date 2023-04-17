@@ -113,7 +113,6 @@ import AppSpinner from './AppSpinner.vue'
 
 import {mediaService} from '@/services/mediaService'
 import {coverImgs} from '@/services/constData'
-import cloneDeep from 'lodash.clonedeep'
 
 export default {
   props: ['initialCover', 'id'],
@@ -130,7 +129,7 @@ export default {
   },
 
   created() {
-    this.user = cloneDeep(this.loggedInUser)
+    this.user = this.$utilService.deepClone(this.loggedInUser)
   },
 
   computed: {

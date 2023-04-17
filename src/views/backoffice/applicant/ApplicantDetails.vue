@@ -97,7 +97,7 @@ import {utilService} from '@/services/utilService'
 import {advancedPermsMap} from '@/services/constData'
 import {timelineService} from '@/services/timelineService'
 import {jobService} from '@/services/jobService'
-// import { activityMap } from '@/services/activityService'
+
 import {msgService} from '@/services/msgService'
 import {socketService, SOCKET_ON_SAVE_APPLICANT} from '@/services/socketService'
 
@@ -114,7 +114,6 @@ import ApplicantEdit from '@/cmps/backoffice/applicant/ApplicantEdit.vue'
 import ApplicantMenu from '@/cmps/backoffice/applicant/ApplicantMenu.vue'
 import CvMenu from '@/cmps/backoffice/applicant/CvMenu.vue'
 // import {userService} from '@/services/userService'
-import cloneDeep from 'lodash.clonedeep'
 
 export default {
   data() {
@@ -197,7 +196,7 @@ export default {
         return
       }
       this.applicant = {
-        ...cloneDeep(this.job.applicant),
+        ...this.$utilService.deepClone(this.job.applicant),
         jobInfo: {
           title: this.job.info.title,
           jobId: this.job._id,
@@ -251,7 +250,7 @@ export default {
 
     async saveApplicant() {
       return await this.$store.dispatch('job/updateApplicants', {
-        applicants: [cloneDeep(this.applicant)],
+        applicants: [this.$utilService.deepClone(this.applicant)],
       })
     },
 
@@ -310,7 +309,7 @@ export default {
     },
 
     async removeNoteEvent(noteId) {
-      const timelineToSave = cloneDeep(
+      const timelineToSave = this.$utilService.deepClone(
         this.applicant.timeline.filter((timeEvent) => timeEvent.type !== 'note' || timeEvent.noteId !== noteId),
       )
       const notesToSave = structuredClone(this.applicant.notes.filter((note) => note.id !== noteId))

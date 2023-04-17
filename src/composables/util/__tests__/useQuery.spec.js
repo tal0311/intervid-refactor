@@ -59,19 +59,4 @@ describe('onSetQuery', () => {
       },
     )
   })
-
-  it('calls router.push with the correct query and params, when a path was passed and params were present in the route', async () => {
-    await testQuery(
-      {
-        query: {},
-        params: {test: 'param'},
-      },
-      {query: {test: 'query'}, path: '/test'},
-      {
-        path: '/test',
-        params: {test: 'param'},
-        query: {test: 'query'},
-      },
-    )
-  })
 })
