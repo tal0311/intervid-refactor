@@ -190,7 +190,7 @@ export default {
   },
 
   mounted() {
-    this.userToEdit = structuredClone(this.loggedInUser)
+    this.userToEdit = this.$utilService.deepClone(this.loggedInUser)
   },
 
   computed: {

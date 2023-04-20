@@ -311,7 +311,7 @@ export default {
       const timelineToSave = this.$utilService.deepClone(
         this.applicant.timeline.filter((timeEvent) => timeEvent.type !== 'note' || timeEvent.noteId !== noteId),
       )
-      const notesToSave = structuredClone(this.applicant.notes.filter((note) => note.id !== noteId))
+      const notesToSave = this.$utilService.deepClone(this.applicant.notes.filter((note) => note.id !== noteId))
       this.applicant = {
         ...this.applicant,
         timeline: timelineToSave,

@@ -108,7 +108,7 @@ export default {
   },
 
   created() {
-    if (this.data?.userToEdit) this.user = structuredClone(this.data.userToEdit)
+    if (this.data?.userToEdit) this.user = this.$utilService.deepClone(this.data.userToEdit)
     if (!this.user.advancedPrm) this.user.advancedPrm = {}
   },
 
@@ -179,7 +179,7 @@ export default {
   watch: {
     userToEdit() {
       if (this.userToEdit) {
-        this.user = structuredClone(this.userToEdit)
+        this.user = this.$utilService.deepClone(this.userToEdit)
       }
     },
   },

@@ -222,7 +222,7 @@ export default {
 
   watch: {
     loggedInUser() {
-      this.user = structuredClone(this.loggedInUser)
+      this.user = this.$utilService.deepClone(this.loggedInUser)
     },
   },
 
