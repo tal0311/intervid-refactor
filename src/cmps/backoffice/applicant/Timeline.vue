@@ -17,14 +17,13 @@
 
 <script>
 import TimeEventPreview from './timeEventPreview.vue'
-import cloneDeep from 'lodash.clonedeep'
 
 export default {
   props: ['timeline', 'applicantName', 'jobTitle'],
 
   computed: {
     timelineToShow() {
-      const timelineToShow = cloneDeep(this.timeline)
+      const timelineToShow = this.$utilService.deepClone(this.timeline)
       return timelineToShow.reverse()
     },
   },

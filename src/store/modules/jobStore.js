@@ -4,6 +4,7 @@ import {mutationHistory} from '../mutationHistory'
 import {msgService} from '@/services/msgService'
 // import { activityMap } from '@/services/activityService'
 import {getTrans} from '../../services/i18nService'
+import {utilService} from '@/services/utilService'
 
 export const job = {
   namespaced: true,
@@ -253,7 +254,12 @@ export const job = {
         // #HANDLE CANCEL
         const key = 'job/query'
         const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
-        let {jobs, pageCount, filteredJobCount, totalJobCount} = await jobService.query(filterBy, sort, cancelToken)
+        let {
+          jobs = null,
+          pageCount,
+          filteredJobCount,
+          totalJobCount,
+        } = (await jobService.query(filterBy, sort, cancelToken)) || {}
         if (!jobs) return
         // let data = await jobService.query(filterBy, sort, cancelToken)
         // // Now idea how this worked before
@@ -384,7 +390,7 @@ export const job = {
     async toggleArchiveJob({commit, state}, {jobs}) {
       // { dispatch }
       const cachedJobs = state.jobs
-      const jobsCopy = structuredClone(jobs)
+      const jobsCopy = utilService.deepClone(jobs)
       const updatedJobs = jobsCopy.map((job) => {
         job.archivedAt = job.archivedAt ? null : Date.now()
         return job
@@ -468,7 +474,7 @@ export const job = {
     async toggleArchiveApplicant({commit, state}, {applicants, isAllSelected}) {
       // { dispatch }
       const cachedApplicants = state.applicants
-      const applicantsCopy = structuredClone(applicants)
+      const applicantsCopy = utilService.deepClone(applicants)
       const updatedApplicants = applicantsCopy.map((applicant) => {
         applicant.archivedAt = applicant.archivedAt ? null : Date.now()
         return applicant

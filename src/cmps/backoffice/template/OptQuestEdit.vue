@@ -28,7 +28,7 @@ export default {
   }),
 
   created() {
-    this.opts = structuredClone(this.optsToEdit)
+    this.opts = this.$utilService.deepClone(this.optsToEdit)
   },
 
   methods: {
@@ -74,7 +74,7 @@ export default {
   watch: {
     optsToEdit() {
       if (this.optsToEdit) {
-        this.opts = structuredClone(this.optsToEdit)
+        this.opts = this.$utilService.deepClone(this.optsToEdit)
       }
     },
   },
