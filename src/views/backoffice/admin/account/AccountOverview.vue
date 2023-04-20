@@ -3,7 +3,7 @@
     <div class="overview-header">
       <i @click="onAddUser" class="material-icons add-btn">add</i>
 
-      <list-actions
+      <ListActions
         :selected-item-count="selectedItems.length"
         :filter-by="filterBy"
         :item-count="usersToShow.length"
@@ -13,7 +13,7 @@
       />
     </div>
 
-    <table-list
+    <TableList
       :items="usersToShow"
       :curr-page="filterBy.currPage"
       :items-per-page="filterBy.itemsPerPage"

@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <mobile-modal
+    <MobileModal
       v-if="isOpen && isMobile"
       cmp-name="job-actions"
       @on-close="toggleModal"

@@ -42,7 +42,7 @@
       <div class="seperator">{{ $getTrans('or') }}</div>
 
       <div class="auth-providers">
-        <google-btn @google-success="onGoogleLogin" />
+        <GoogleBtn @google-success="onGoogleLogin" />
       </div>
 
       <div class="sign-up-container">

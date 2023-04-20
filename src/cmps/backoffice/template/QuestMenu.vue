@@ -6,7 +6,7 @@
       <button @click="onRemoveQuest">{{ $getTrans('delete') }}</button>
     </div>
 
-    <mobile-modal
+    <MobileModal
       v-if="isOpen && isMobile"
       cmp-name="quest-menu"
       :quest="quest"

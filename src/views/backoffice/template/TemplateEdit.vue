@@ -15,7 +15,7 @@
 
       <div class="template-content">
         <div class="quest-list">
-          <quest-edit
+          <QuestEdit
             v-for="(quest, idx) in quests"
             :key="quest.id"
             :idx="idx"
@@ -48,7 +48,7 @@
       </div>
     </div>
   </section>
-  <app-loader v-else />
+  <AppLoader v-else />
 </template>
 
 <script>

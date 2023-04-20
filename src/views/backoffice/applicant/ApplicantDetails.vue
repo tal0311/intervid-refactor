@@ -2,7 +2,7 @@
   <main class="applicant-details" v-if="applicant && !isFetching">
     <div class="header">
       <div class="left">
-        <avatar :size="70" :src="applicant.info.imgUrl" :username="applicantFullName" />
+        <Avatar :size="70" :src="applicant.info.imgUrl" :username="applicantFullName" />
         <div class="info-wrapper">
           <div class="main-info">
             <h3>{{ applicantFullName }}</h3>
@@ -24,9 +24,9 @@
               </p>
             </div>
             <div class="btn-container">
-              <cv-menu :applicant="applicant" :applicant-cv-name="applicantCvName" @on-cv-uploaded="onCvUploaded" />
+              <CvMenu :applicant="applicant" :applicant-cv-name="applicantCvName" @on-cv-uploaded="onCvUploaded" />
 
-              <applicant-menu @on-archive-applicant="onArchiveApplicant" @on-edit-applicant="onEditApplicant" />
+              <ApplicantMenu @on-archive-applicant="onArchiveApplicant" @on-edit-applicant="onEditApplicant" />
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
 
       <div class="right">
         <div class="status-container">
-          <status-dropdown :applicant="applicant" @on-set-status="setStatus" is-full-width="true" />
+          <StatusDropdown :applicant="applicant" @on-set-status="setStatus" is-full-width="true" />
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@
           <h4>{{ $getTrans('interview') }}</h4>
           <div class="video-container" :class="{empty: !Object.keys(applicant.answerMap).length}">
             <div class="ans-player-container">
-              <video-player
+              <VideoPlayer
                 v-if="!!Object.keys(applicant.answerMap).length"
                 :ans="selectedAns"
                 :notes="[]"
@@ -64,7 +64,7 @@
                   <p class="quest-desc" v-html="selectedQuest.desc || $getTrans('no-description')"></p>
                 </div> -->
 
-          <video-list
+          <VideoList
             v-if="Object.keys(applicant.answerMap).length"
             :applicant="applicant"
             :quests="job.quests"
@@ -76,8 +76,8 @@
 
       <div class="recruiter-container">
         <div class="app-container">
-          <note-app @save-notes="saveNotes" :notes="applicant.notes" />
-          <time-line
+          <NoteApp @save-notes="saveNotes" :notes="applicant.notes" />
+          <TimeLine
             :timeline="applicant.timeline"
             :applicant-name="applicantFullName"
             :job-title="jobTitle"
@@ -87,9 +87,9 @@
       </div>
     </div>
 
-    <applicant-edit v-if="isEditOpen" :applicant="applicant" @update-applicant="onUpdateApplicant" />
+    <ApplicantEdit v-if="isEditOpen" :applicant="applicant" @update-applicant="onUpdateApplicant" />
   </main>
-  <app-loader v-else />
+  <AppLoader v-else />
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <div class="code-ans grow">
-    <v-ace-editor :value="ans.txt" @init="editorInit" @change="recordKeystroke" lang="js" />
+    <VAceEditor :value="ans.txt" @init="editorInit" @change="recordKeystroke" lang="js" />
   </div>
 </template>
 

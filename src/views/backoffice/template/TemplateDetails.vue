@@ -8,15 +8,15 @@
       <h3>{{ template.title }}</h3>
       <div class="btn-container">
         <button class="use-template-btn">{{ $getTrans('use-template') }}</button>
-        <template-menu :template="template" @archive="onToggleArchive" @default="onToggleIsDefault" />
+        <TemplateMenu :template="template" @archive="onToggleArchive" @default="onToggleIsDefault" />
       </div>
     </div>
 
     <div class="quest-list">
-      <quest-preview v-for="(quest, idx) in template.quests" :key="quest.id" :quest="quest" :idx="idx" />
+      <QuestPreview v-for="(quest, idx) in template.quests" :key="quest.id" :quest="quest" :idx="idx" />
     </div>
   </section>
-  <app-loader v-else />
+  <AppLoader v-else />
 </template>
 
 <script>

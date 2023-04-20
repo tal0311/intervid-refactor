@@ -5,7 +5,7 @@
         <RouterLink class="logo" :to="loggedInUser ? '/backoffice/applicant' : '/'">
           <img @click.stop="" loading="lazy" :src="logoURL" alt="logo" />
         </RouterLink>
-        <lng-menu v-if="!isJobEdit" />
+        <LngMenu v-if="!isJobEdit" />
       </div>
 
       <div class="btn-container">
@@ -17,50 +17,61 @@
             {{ $getTrans('required-fields-missing') }}
           </p>
           <i v-if="jobToEdit._id" class="material-icons-outlined" @click="openPreview">visibility</i>
-          <button class="send-btn" :class="[
-            {
-              disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length),
-            },
-            { selected: this.modal.isDarkScreen },
-          ]" @click="onShare">
+          <button
+            class="send-btn"
+            :class="[
+              {
+                disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length),
+              },
+              {selected: this.modal.isDarkScreen},
+            ]"
+            @click="onShare"
+          >
             {{ $getTrans('send') }}
           </button>
-          <share-btns :job="jobToEdit" v-if="modal.type === 'share'" />
+          <ShareBtns :job="jobToEdit" v-if="modal.type === 'share'" />
         </div>
 
         <div class="backoffice-nav-container" v-if="!!loggedInUser">
-          <RouterLink to="/backoffice/applicant" class="backoffice-nav"
-            :class="{ selected: currRouteName === 'ApplicantOverview' }">
+          <RouterLink
+            to="/backoffice/applicant"
+            class="backoffice-nav"
+            :class="{selected: currRouteName === 'ApplicantOverview'}"
+          >
             <i class="material-icons-outlined">group</i>
             <span>{{ $getTrans('applications') }}</span>
           </RouterLink>
 
-          <RouterLink to="/backoffice/job" class="backoffice-nav" :class="{ selected: currRouteName === 'JobOverview' }">
+          <RouterLink to="/backoffice/job" class="backoffice-nav" :class="{selected: currRouteName === 'JobOverview'}">
             <i class="material-icons-round">work_outline</i>
             <span>{{ $getTrans('jobs') }}</span>
           </RouterLink>
 
-          <RouterLink v-if="verifyPerm(advancedPermsMap.TEMPLATES)" to="/backoffice/template" class="backoffice-nav"
-            :class="{ selected: currRouteName === 'TemplateOverview' }">
+          <RouterLink
+            v-if="verifyPerm(advancedPermsMap.TEMPLATES)"
+            to="/backoffice/template"
+            class="backoffice-nav"
+            :class="{selected: currRouteName === 'TemplateOverview'}"
+          >
             <i class="material-icons">assignment</i>
             <span>{{ $getTrans('templates') }}</span>
           </RouterLink>
         </div>
 
-        <user-menu />
+        <UserMenu />
       </div>
     </div>
   </header>
 </template>
 
 <script>
-import { advancedPermsMap } from '@/services/constData'
+import {advancedPermsMap} from '@/services/constData'
 
 import UserMenu from './common/UserMenu.vue'
 import ShareBtns from './JobEdit/ShareBtns.vue'
 import LngMenu from './common/LngMenu.vue'
 import config from '@/config'
-import { useShareJob } from '../composables/job/useShareJob'
+import {useShareJob} from '../composables/job/useShareJob'
 
 export default {
   data() {
@@ -146,7 +157,7 @@ export default {
     },
   },
 
-  components: { UserMenu, ShareBtns, LngMenu },
+  components: {UserMenu, ShareBtns, LngMenu},
 }
 </script>
 ,

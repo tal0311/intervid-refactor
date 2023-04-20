@@ -43,7 +43,7 @@
       {{ isPasswordShown ? 'visibility_off' : 'visibility' }}
     </span>
 
-    <validation-msg :error="error" />
+    <ValidationMsg :error="error" />
   </div>
 </template>
 

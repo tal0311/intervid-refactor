@@ -1,7 +1,7 @@
 <template>
   <section class="job-edit" v-if="job">
     <form @input="handleChange" ref="jobForm" novalidate class="form" v-if="!isFetching" @submit.prevent="">
-      <job-form :job="job" :errors="jobEditErrors" @update-job="validateForm" @validate-field="validateField" />
+      <JobForm :job="job" :errors="jobEditErrors" @update-job="validateForm" @validate-field="validateField" />
 
       <div class="quest-list">
         <draggable
@@ -17,7 +17,7 @@
           see: https://github.com/SortableJS/vue.draggable.next#migrate-from-vue-2-version
         -->
           <template #item="{element: quest, index: idx}">
-            <quest-edit
+            <QuestEdit
               :idx="idx"
               :quest="quest"
               :quests-count="job.quests.length"
@@ -52,7 +52,7 @@
       </button>
     </form>
 
-    <app-loader v-else />
+    <AppLoader v-else />
   </section>
 </template>
 

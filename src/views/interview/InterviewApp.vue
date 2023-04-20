@@ -8,7 +8,7 @@
             src="https://res.cloudinary.com/intervid/image/upload/v1661181884/Frontend/logo-color_kftsor.png"
             alt="logo"
           />
-          <lng-menu />
+          <LngMenu />
         </div>
         <div class="btn-container">
           <div class="job-info">
@@ -20,12 +20,12 @@
       </div>
     </header>
 
-    <interview-error v-if="interviewErr" :interview-err="interviewErr" />
+    <InterviewError v-if="interviewErr" :interview-err="interviewErr" />
 
     <div v-else-if="!!job" class="interview-app-content">
       <RouterView @handle-quit="handleQuit" />
     </div>
-    <app-modal />
+    <AppModal />
   </main>
 </template>
 

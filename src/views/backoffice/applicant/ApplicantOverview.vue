@@ -13,8 +13,8 @@
           get: () => filterBy.value.txt,
           set:  onSetFilterByKey,
         }) -->
-        <search-box :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-applicants" />
-        <filter-box
+        <SearchBox :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-applicants" />
+        <FilterBox
           @set-filter="onSetFilter"
           @reset-filters="resetFilters"
           :filter-by="filterBy"
@@ -23,7 +23,7 @@
         />
       </div>
       <div class="overview-actions">
-        <list-actions
+        <ListActions
           :selected-item-count="selectedItems && selectedItems.length"
           :is-locked-item-selected="isLockedItemSelected"
           :filter-by="filterBy"
@@ -37,7 +37,7 @@
           @change-page="onChangePage"
           @toggle-read="toggleIsRead"
         />
-        <share-job v-if="job && job.applicantSummary.applicantCount" :job="job" />
+        <ShareJob v-if="job && job.applicantSummary.applicantCount" :job="job" />
       </div>
     </div>
 
@@ -51,7 +51,7 @@
       </div>
     </div>
 
-    <table-list
+    <TableList
       :items="applicants"
       :selected-item-count="selectedItems && selectedItems.length"
       :total-item-count="applicants && applicants.length"
