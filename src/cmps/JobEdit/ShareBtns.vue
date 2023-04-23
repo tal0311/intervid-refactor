@@ -23,6 +23,7 @@
           title="We're seeking for you!"
           :url="invitationUrl"
           :description="`${companyName} is seeking for ${jobTitle}. Click the link to start the interview via Intervid.`"
+          :image="jobImg"
           v-html="svgs.whatsapp"
         ></ShareNetwork>
         <span>{{ $getTrans('whatsapp') }}</span>
@@ -63,6 +64,7 @@
 import {msgService} from '@/services/msgService'
 
 import {ShareNetwork} from 'vue-social-sharing'
+import {useMeta} from 'vue-meta'
 import config from '@/config'
 
 export default {
@@ -81,6 +83,14 @@ export default {
   created() {
     this.svgs.whatsapp = this.$getSvg('whatsappIcon')
     this.svgs.facebook = this.$getSvg('facebookIcon')
+    useMeta({
+      title: `${this.companyName} - ${this.jobTitle}`,
+      description: `${this.companyName} is seeking for ${this.jobTitle}`,
+    })
+  },
+
+  unmounted() {
+    useMeta({title: ''})
   },
 
   computed: {
@@ -103,6 +113,10 @@ export default {
 
     lang() {
       return this.$store.getters['app/lang']
+    },
+
+    jobImg() {
+      return this.jobToshow.info.coverUrl
     },
   },
 
