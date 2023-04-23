@@ -29,10 +29,9 @@
       padding: 40px;
       height: 605px;
     }
-    
-    @include from-normal-layout{
+
+    @include from-normal-layout {
       gap: 40px;
-      
     }
 
     .quest-countdown {
@@ -175,7 +174,7 @@
           overflow-y: auto;
           word-break: break-word;
 
-          >*{
+          > * {
             unicode-bidi: plaintext;
           }
 
@@ -193,23 +192,23 @@
         margin-bottom: 65px;
       }
 
-      .btn-container{
+      .btn-container {
         // margin-top: 0.5em;
         display: flex;
         align-items: center;
         gap: 1em;
-        
-        >button{
+
+        > button {
           padding: 0;
           height: 50px;
         }
 
-        .secondary-btn{
+        .secondary-btn {
           width: 0;
           flex-grow: 1;
         }
 
-        .main-btn{
+        .main-btn {
           width: 0;
           flex-grow: 1;
         }

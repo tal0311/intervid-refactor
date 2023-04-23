@@ -6,7 +6,7 @@
   background-image: url('https://res.cloudinary.com/intervid/image/upload/v1661183521/Frontend/login-background_xypzsg.png');
   background-size: 100% 100%;
   margin: 0.5rem 0 0;
-  
+
   @include from-mobile-layout {
     margin: 1rem 0 0;
     align-items: center;
@@ -67,17 +67,16 @@
         &::placeholder {
           color: $btn-disable-color;
         }
-
       }
 
-      >span {
+      > span {
         font-size: 14px;
         color: $medium-gray;
         padding: 10px 0;
         cursor: pointer;
         align-self: flex-end;
 
-        &:hover{
+        &:hover {
           text-decoration: underline;
         }
       }
@@ -89,7 +88,7 @@
         font-size: 15px;
       }
 
-      >button {
+      > button {
         background: $cta;
         padding: 12px;
         border-radius: 4px;
@@ -98,7 +97,6 @@
         font-weight: 700;
         // margin-block-start: 20px;
       }
-
     }
 
     .seperator {
@@ -131,9 +129,7 @@
         align-items: center;
         justify-content: center;
         color: $btn-disable-color;
-
       }
-
     }
 
     .sign-up-container {

@@ -1,35 +1,35 @@
-.timeline-app{
-    position: relative;
-    flex-grow: 1;
-    background: #fff;
-    // border-radius: 8px;
+.timeline-app {
+  position: relative;
+  flex-grow: 1;
+  background: #fff;
+  // border-radius: 8px;
 
-    @include from-mini-layout{
-        border-radius: 8px;
+  @include from-mini-layout {
+    border-radius: 8px;
+  }
+
+  > h4 {
+    border-bottom: 1px solid $lightest-gray;
+    font-size: 14px;
+
+    padding-block: 10px;
+    padding-inline: 0.5rem;
+
+    @include from-mini-layout {
+      padding-inline: 20px;
     }
+  }
 
-    > h4{
-        border-bottom: 1px solid $lightest-gray;
-        font-size: 14px;
-        
-        padding-block: 10px;
-        padding-inline: 0.5rem;
+  .timeline-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-inline: 0.5rem;
+    margin-block: 20px;
 
-        @include from-mini-layout{
-            padding-inline: 20px;
-        }
+    @include from-mini-layout {
+      margin: 20px 10px 20px 0;
+      padding: 0px 10px 0px 20px;
     }
-    
-    .timeline-list{
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        padding-inline: 0.5rem;
-        margin-block: 20px;
-        
-        @include from-mini-layout{
-            margin: 20px 10px 20px 0;
-            padding: 0px 10px 0px 20px;
-        }
-    }    
+  }
 }

@@ -10,12 +10,12 @@
     height: 60px;
     cursor: pointer;
 
-    >i {
+    > i {
       font-size: 25px;
       color: #aaadb5;
     }
 
-    >select {
+    > select {
       border: none;
     }
 
@@ -64,7 +64,7 @@
         }
       }
 
-      >div {
+      > div {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -102,7 +102,7 @@
       transition: transform 0.15s;
       z-index: 205;
 
-      >p {
+      > p {
         width: 100%;
         padding-inline-start: 10px;
         padding-inline-end: 10px;

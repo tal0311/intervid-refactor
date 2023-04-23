@@ -11,7 +11,8 @@
     justify-content: center;
     border-radius: 50%;
 
-    &:hover, &.selected {
+    &:hover,
+    &.selected {
       background-color: #0001;
     }
     i {
@@ -22,7 +23,6 @@
       background: $dark-gray;
       color: #fff;
     }
-    
   }
 
   &.open {

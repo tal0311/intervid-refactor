@@ -43,7 +43,7 @@
       gap: 40px;
     }
 
-    >.left {
+    > .left {
       display: flex;
       align-items: center;
       gap: 20px;
@@ -107,7 +107,7 @@
             font-size: 1em;
           }
 
-          >p {
+          > p {
             font-size: 0.75em;
           }
 
@@ -191,7 +191,7 @@
       }
     }
 
-    >.right {
+    > .right {
       width: 100%;
       display: flex;
       justify-content: flex-end;
@@ -243,7 +243,6 @@
     gap: 15px;
     flex-grow: 1;
     overflow-y: auto;
-    
 
     @include from-mini-layout {
       gap: 20px;
@@ -381,7 +380,7 @@
               }
             }
 
-            >button {
+            > button {
               position: absolute;
               display: flex;
               align-items: center;
@@ -429,7 +428,7 @@
               transition: top 0.3s, height 0.3s, background-color 0.3s, opacity 0.3s;
               pointer-events: none;
 
-              &>div {
+              & > div {
                 display: flex;
                 padding: 0px 18px;
                 align-items: flex-start;
@@ -473,7 +472,7 @@
                 }
               }
 
-              >button {
+              > button {
                 background: unset;
                 color: rgba(#fff, 0.8);
                 pointer-events: all;

@@ -16,13 +16,13 @@
   &.not-read {
     font-weight: 700;
 
-    &:first-child{
+    &:first-child {
       &::before {
         border-start-start-radius: 8px;
       }
     }
 
-    &:last-child{
+    &:last-child {
       &::before {
         border-end-start-radius: 8px;
       }
@@ -36,22 +36,21 @@
       height: 100%;
       width: 5px;
       background: $cta;
-
     }
   }
 
-  >*:empty {
+  > *:empty {
     background-color: $light-gray;
     border-radius: 2px;
     animation: skeleton 1.2s infinite alternate ease-in-out;
   }
 
-  >.checkbox {
+  > .checkbox {
     display: none;
     pointer-events: auto;
   }
 
-  >.avatar {
+  > .avatar {
     grid-row: 1/-1;
 
     &:empty {
@@ -61,21 +60,20 @@
     }
   }
 
-  >.hometown {
+  > .hometown {
     display: none;
     text-transform: capitalize;
   }
 
-  >.status {
+  > .status {
     height: 100%;
     grid-row: 2/-1;
     grid-column: 3/-1;
     align-self: flex-end;
-    
-    @include from-mobile-layout{
+
+    @include from-mobile-layout {
       align-self: center;
     }
-
 
     &:empty {
       height: 26px;
@@ -95,10 +93,10 @@
     }
   }
 
-  >.date {
+  > .date {
     align-self: flex-start;
 
-    @include from-mobile-layout{
+    @include from-mobile-layout {
       align-self: center;
     }
 
@@ -115,13 +113,13 @@
     text-align: end;
   }
 
-  >.job-title {
+  > .job-title {
     color: $light-gray;
     grid-column: 2/3;
     grid-row: 2/-1;
     align-self: flex-end;
 
-    @include from-mobile-layout{
+    @include from-mobile-layout {
       align-self: center;
     }
 
@@ -131,11 +129,11 @@
     }
   }
 
-  >.applicant-name {
+  > .applicant-name {
     font-size: 1.15em;
     align-self: flex-start;
 
-    @include from-mobile-layout{
+    @include from-mobile-layout {
       align-self: center;
     }
 
@@ -145,8 +143,6 @@
     }
   }
 
-
-
   //Desktop view:
   @include from-normal-layout {
     // grid-template-columns: 19px 40px 1fr 1fr 1fr 250px 100px;
@@ -154,41 +150,40 @@
     grid-template-rows: 1fr;
     gap: 20px;
 
-    >.submission-status-wrapper {
+    > .submission-status-wrapper {
       display: flex;
       align-items: center;
     }
 
-    >.applicant-name {
+    > .applicant-name {
       font-size: 1em;
       // align-self: center;
     }
 
-    >.date {
+    > .date {
       text-align: end;
     }
 
-    >.checkbox {
+    > .checkbox {
       display: initial;
     }
 
-    >.avatar {
+    > .avatar {
       grid-row: unset;
     }
 
-    >.submission-status-wrapper {
+    > .submission-status-wrapper {
       grid-row: unset;
     }
 
-    >.hometown {
+    > .hometown {
       display: flex;
     }
 
-    >.status {
+    > .status {
       grid-row: unset;
       grid-column: unset;
       // align-self: center;
-
 
       .status-dropdown {
         .status-btn {
@@ -198,7 +193,7 @@
       }
     }
 
-    >.date {
+    > .date {
       grid-column: unset;
       grid-row: unset;
       // align-self: center;
@@ -206,7 +201,7 @@
       // font-weight: initial;
     }
 
-    >.job-title {
+    > .job-title {
       // align-self: center;
       grid-column: unset;
       grid-row: unset;
@@ -214,7 +209,6 @@
     }
   }
 }
-
 
 @keyframes skeleton {
   from {

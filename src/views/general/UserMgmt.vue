@@ -174,6 +174,10 @@ import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
 import ImgUpload from '@/cmps/common/ImgUpload.vue'
 
 export default {
+  components: {
+    ApplicantAvatar,
+    ImgUpload,
+  },
   data() {
     return {
       headers: [
@@ -188,11 +192,6 @@ export default {
       errors: null,
     }
   },
-
-  mounted() {
-    this.userToEdit = this.$utilService.deepClone(this.loggedInUser)
-  },
-
   computed: {
     ...mapGetters('user', ['loggedInUser']),
 
@@ -204,6 +203,10 @@ export default {
       return this.$utilService.getFullName(this.loggedInUser)
     },
   },
+  mounted() {
+    this.userToEdit = this.$utilService.deepClone(this.loggedInUser)
+  },
+
   methods: {
     ...mapActions('user', ['updateUser', 'sendVerifyEmail']),
 
@@ -254,11 +257,6 @@ export default {
       if (!this.errors) return
       this.errors = validate(ev.target.form)
     },
-  },
-
-  components: {
-    ApplicantAvatar,
-    ImgUpload,
   },
 }
 </script>

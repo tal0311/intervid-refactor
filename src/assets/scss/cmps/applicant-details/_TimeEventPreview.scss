@@ -1,70 +1,64 @@
 .time-event-preview {
-    display: flex;
+  display: flex;
+  position: relative;
+  gap: 15px;
+  font-size: 0.875rem;
+
+  .time-event-icon {
+    font-size: 20px;
+    padding-block-start: 10px;
+  }
+
+  .info {
     position: relative;
-    gap: 15px;
-    font-size: 0.875rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    border-radius: 4px;
+    padding: 10px 10px;
+    color: $light-gray;
+    font-size: 14px;
+    flex-grow: 1;
+    border: 1px solid $lightest-gray;
+    min-height: 70px;
 
-    .time-event-icon {
-        font-size: 20px;
-        padding-block-start: 10px;
-    }
+    .top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
 
+      p {
+        color: $dark-gray;
 
-    .info {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 10px;
-        border-radius: 4px;
-        padding: 10px 10px;
-        color: $light-gray;
-        font-size: 14px;
-        flex-grow: 1;
-        border: 1px solid $lightest-gray;
-        min-height: 70px;
-
-
-        .top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-
-            p {
-                color: $dark-gray;
-
-                &:first-letter {
-                    text-transform: capitalize;
-                }
-
-
-            }
-
-
+        &:first-letter {
+          text-transform: capitalize;
         }
-
-        >p {
-            color: $light-gray;
-            font-size: 0.9em;
-
-            a {
-                color: $blue;
-            }
-
-            a:hover {
-                cursor: pointer;
-                text-decoration: underline;
-            }
-        }
+      }
     }
 
-    &:not(:last-child)>div::before {
-        content: "";
-        position: absolute;
-        height: calc(100% - 10px);
-        top: 40px;
-        inset-inline-start: -27px;
-        width: 1.5px;
-        border-inline-start: 2px dashed $lightest-gray;
+    > p {
+      color: $light-gray;
+      font-size: 0.9em;
+
+      a {
+        color: $blue;
+      }
+
+      a:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
     }
+  }
+
+  &:not(:last-child) > div::before {
+    content: '';
+    position: absolute;
+    height: calc(100% - 10px);
+    top: 40px;
+    inset-inline-start: -27px;
+    width: 1.5px;
+    border-inline-start: 2px dashed $lightest-gray;
+  }
 }

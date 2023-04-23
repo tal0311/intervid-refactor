@@ -1,84 +1,84 @@
 .application {
-    .content {
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-bottom: 20px;
+
+    .application-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      img {
+        width: 80px;
+        height: 80px;
+        border-radius: 4px;
+        border: 1px solid $lightest-gray;
+        object-fit: cover;
+      }
+
+      .job-info {
         display: flex;
         flex-direction: column;
-        gap: 30px;
-        padding-bottom: 20px;
+        overflow-x: hidden;
+        gap: 0.5em;
 
-        .application-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-
-            img {
-                width: 80px;
-                height: 80px;
-                border-radius: 4px;
-                border: 1px solid $lightest-gray;
-                object-fit: cover;
-            }
-
-            .job-info {
-                display: flex;
-                flex-direction: column;
-                overflow-x: hidden;
-                gap: 0.5em;
-
-                @include from-mini-layout {
-                    gap: unset;
-                }
-
-                p {
-                    text-transform: capitalize;
-                    color: $dark-gray;
-                    white-space: nowrap;
-                    overflow-x: hidden;
-                    text-overflow: ellipsis;
-
-                    &:first-child {
-                        font-size: 24px;
-
-                        @include from-mini-layout {
-                            font-size: 32px;
-                        }
-                    }
-
-                    &:last-child {
-                        font-size: 18px;
-
-                        @include from-mini-layout {
-                            font-size: 22px;
-                        }
-                    }
-                }
-            }
+        @include from-mini-layout {
+          gap: unset;
         }
 
-        .application-info {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            color: #6b6c70;
+        p {
+          text-transform: capitalize;
+          color: $dark-gray;
+          white-space: nowrap;
+          overflow-x: hidden;
+          text-overflow: ellipsis;
 
-            @include from-mobile-layout {
-                gap: 30px;
-            }
+          &:first-child {
+            font-size: 24px;
 
-            >* {
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
+            @include from-mini-layout {
+              font-size: 32px;
             }
+          }
 
-            p {
-                font-size: 16px;
-                line-height: 1.5em;
-            }
+          &:last-child {
+            font-size: 18px;
 
-            p:first-child {
-                font-size: 18px;
-                font-weight: 700;
+            @include from-mini-layout {
+              font-size: 22px;
             }
+          }
         }
+      }
     }
+
+    .application-info {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      color: #6b6c70;
+
+      @include from-mobile-layout {
+        gap: 30px;
+      }
+
+      > * {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.5em;
+      }
+
+      p:first-child {
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
+  }
 }

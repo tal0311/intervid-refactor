@@ -2,12 +2,12 @@
   grid-template-columns: 2fr 1fr 1fr 45px 30px;
   gap: 10px;
 
-  >.checkbox {
+  > .checkbox {
     display: none;
   }
 
-  >.use-template {
-    >button {
+  > .use-template {
+    > button {
       background: $dark-gray;
       padding: 0.5em 0.75em;
       color: #fff;
@@ -27,7 +27,7 @@
   @include from-narrow-layout {
     grid-template-columns: 19px 2fr 1fr 1fr 70px 30px;
 
-    >.checkbox {
+    > .checkbox {
       display: initial;
     }
   }
