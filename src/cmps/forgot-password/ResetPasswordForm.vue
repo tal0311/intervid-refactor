@@ -37,7 +37,7 @@ export default {
       required: true,
     },
   },
-
+  emits: ['on-next-step'],
   data() {
     return {
       input: [],

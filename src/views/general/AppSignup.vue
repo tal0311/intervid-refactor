@@ -122,6 +122,9 @@ import {mapActions, mapGetters} from 'vuex'
 import GoogleBtn from './GoogleBtn.vue'
 
 export default {
+  components: {
+    GoogleBtn,
+  },
   data() {
     return {
       userCred: userService.getEmptyUser(),
@@ -129,13 +132,11 @@ export default {
       errors: null,
     }
   },
-
-  unmounted() {
-    this.clearAuthErr()
-  },
-
   computed: {
     ...mapGetters('auth', ['isAuthing', 'authError']),
+  },
+  unmounted() {
+    this.clearAuthErr()
   },
 
   methods: {
@@ -162,10 +163,6 @@ export default {
       if (!this.errors) return
       this.errors = validate(ev.target.form)
     },
-  },
-
-  components: {
-    GoogleBtn,
   },
 }
 </script>
