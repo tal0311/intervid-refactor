@@ -106,14 +106,13 @@ import {historyRoutes} from '@/router'
 import NoteApp from '@/cmps/backoffice/applicant/NoteApp.vue'
 import StatusDropdown from '@/cmps/common/StatusDropdown.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
-import TimeLine from '@/cmps/backoffice/applicant/TimeLine.vue'
+import TimeLine from '../../../cmps/backoffice/applicant/TimelineList.vue'
 import VideoPlayer from '@/cmps/common/VideoPlayer.vue'
 import Avatar from '@/cmps/common/ApplicantAvatar.vue'
 import VideoList from '@/cmps/backoffice/applicant/VideoList.vue'
 import ApplicantEdit from '@/cmps/backoffice/applicant/ApplicantEdit.vue'
 import ApplicantMenu from '@/cmps/backoffice/applicant/ApplicantMenu.vue'
 import CvMenu from '@/cmps/backoffice/applicant/CvMenu.vue'
-// import {userService} from '@/services/userService'
 
 export default {
   components: {
@@ -341,7 +340,7 @@ export default {
       const timelineToSave = this.$utilService.deepClone(
         this.applicant.timeline.filter((timeEvent) => timeEvent.type !== 'note' || timeEvent.noteId !== noteId),
       )
-      const notesToSave = structuredClone(this.applicant.notes.filter((note) => note.id !== noteId))
+      const notesToSave = this.$utilService.deepClone(this.applicant.notes.filter((note) => note.id !== noteId))
       this.applicant = {
         ...this.applicant,
         timeline: timelineToSave,

@@ -36,7 +36,7 @@ export default {
   },
 
   created() {
-    this.opts = structuredClone(this.optsToEdit)
+    this.opts = this.$utilService.deepClone(this.optsToEdit)
   },
 
   methods: {

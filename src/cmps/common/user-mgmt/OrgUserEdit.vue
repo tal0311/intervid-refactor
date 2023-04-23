@@ -179,7 +179,7 @@ export default {
   watch: {
     userToEdit() {
       if (this.userToEdit) {
-        this.user = structuredClone(this.userToEdit)
+        this.user = this.$utilService.deepClone(this.userToEdit)
       }
     },
   },

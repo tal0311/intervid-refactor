@@ -55,7 +55,7 @@ export default {
 
   methods: {
     onToggleArchive() {
-      const template = structuredClone(this.template)
+      const template = this.$utilService.deepClone(this.template)
       this.$store.dispatch('template/toggleArchivedTemplate', {template})
     },
 

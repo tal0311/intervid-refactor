@@ -104,7 +104,7 @@ export default {
     async loadTemplate(templateId) {
       if (templateId) {
         await this.$store.dispatch('template/loadTemplate', {templateId})
-        this.templateToEdit = structuredClone(this.template)
+        this.templateToEdit = this.$utilService.deepClone(this.template)
       } else {
         this.templateToEdit = templateService.getDefaultTemplate()
       }
