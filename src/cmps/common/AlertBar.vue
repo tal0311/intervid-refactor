@@ -34,6 +34,13 @@ export default {
     },
   },
 
+  watch: {
+    async alertData(data) {
+      if (!data) return
+      setTimeout(this.setAlertTime, 200)
+    },
+  },
+
   methods: {
     setAlertTime() {
       if (this.timerOut) clearTimeout(this.timerOut)
@@ -58,13 +65,6 @@ export default {
     onUndo() {
       this.$store.dispatch('job/updateJob', {job: null, isUndo: true})
       this.hideAlert()
-    },
-  },
-
-  watch: {
-    async alertData(data) {
-      if (!data) return
-      setTimeout(this.setAlertTime, 200)
     },
   },
 }

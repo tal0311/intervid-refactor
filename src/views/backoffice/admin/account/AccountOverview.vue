@@ -1,7 +1,7 @@
 <template>
   <section class="account-overview overview">
     <div class="overview-header">
-      <i @click="onAddUser" class="material-icons add-btn">add</i>
+      <i class="material-icons add-btn" @click="onAddUser">add</i>
 
       <ListActions
         :selected-item-count="selectedItems.length"
@@ -38,6 +38,7 @@ import {useSelection} from '@/composables/overview/useSelection'
 import {usePagination} from '@/composables/overview/usePagination'
 
 export default {
+  components: {TableList, ListActions},
   setup() {
     const {filterBy, onSetFilterByKey} = useFilter()
     const {sort, onSort, sortFunc} = useSort()
@@ -45,9 +46,6 @@ export default {
     const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
 
     return {filterBy, onChangePage, sort, onSort, sortFunc, selectedItems, isSelected}
-  },
-  async created() {
-    await this.loadUsers()
   },
 
   computed: {
@@ -63,6 +61,9 @@ export default {
       return this.$store.getters['user/isFetching']
     },
   },
+  async created() {
+    await this.loadUsers()
+  },
 
   methods: {
     async loadUsers() {
@@ -76,6 +77,5 @@ export default {
       })
     },
   },
-  components: {TableList, ListActions},
 }
 </script>

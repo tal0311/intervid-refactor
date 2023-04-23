@@ -9,32 +9,32 @@
   >
     <input
       v-if="!isTextarea"
-      :type="$attrs.type || 'text'"
       :id="inputName"
+      :type="$attrs.type || 'text'"
       :name="inputName"
+      ref="password"
       :placeholder="placeholder || ' '"
-      @input="onChange"
       :validate="validate"
       :value="$attrs.modelValue"
       :min="$attrs.min"
       :max="$attrs.max"
-      @blur="onInputBlur"
-      ref="password"
       spellcheck="false"
+      @input="onChange"
+      @blur="onInputBlur"
     />
 
     <textarea
       v-else
-      :type="$attrs.type || 'text'"
       :id="inputName"
+      :type="$attrs.type || 'text'"
       :name="inputName"
       :placeholder="placeholder || ' '"
-      @input="onChange"
       :validate="validate"
       :value="$attrs.modelValue || ''"
       :rows="$attrs.rows"
-      @blur="onInputBlur"
       spellcheck="false"
+      @input="onChange"
+      @blur="onInputBlur"
     />
 
     <label v-if="label" :for="inputName">{{ label }}</label>
@@ -51,8 +51,9 @@
 import ValidationMsg from '@/cmps/common/ValidationMsg.vue'
 
 export default {
-  props: ['inputName', 'validate', 'label', 'errors', 'isTextarea', 'styled', 'placeholder', 'onBlur'],
+  components: {ValidationMsg},
   inheritAttrs: false,
+  props: ['inputName', 'validate', 'label', 'errors', 'isTextarea', 'styled', 'placeholder', 'onBlur'],
   data() {
     return {
       isPasswordShown: false,
@@ -81,7 +82,5 @@ export default {
       this.isPasswordShown = !this.isPasswordShown
     },
   },
-
-  components: {ValidationMsg},
 }
 </script>

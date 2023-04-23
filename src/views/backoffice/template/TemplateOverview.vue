@@ -5,8 +5,8 @@
     </h2>
     <div class="overview-header">
       <div class="search-filter-container">
-        <SearchBox :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-templates" />
-        <FilterBox @set-filter="onSetFilterByKey" :filter-by="filterBy" />
+        <SearchBox :value="filterBy.txt" placeholder="search-templates" @input="onSetFilterByKey" />
+        <FilterBox :filter-by="filterBy" @set-filter="onSetFilterByKey" />
         <button class="create-template-btn" :class="{empty: !templatesToShow.length}" @click="onCreateTemplate">
           <i class="material-icons">add</i>
         </button>
@@ -57,6 +57,12 @@ import {filterTemplates} from '@/services/templateService'
 import {msgService} from '@/services/msgService'
 
 export default {
+  components: {
+    TableList,
+    SearchBox,
+    ListActions,
+    FilterBox,
+  },
   setup() {
     // TODO: No idea if this works, the route is blocked
     const {filterBy, onSetFilterByKey} = useFilter()
@@ -75,9 +81,6 @@ export default {
       isSelected,
       onChangePage,
     }
-  },
-  async created() {
-    await this.loadTemplates()
   },
 
   computed: {
@@ -103,6 +106,15 @@ export default {
         ? `${this.$getTrans('templates')} (${this.$getTrans('archive-lowercase')})`
         : this.$getTrans('templates')
     },
+  },
+
+  watch: {
+    $route() {
+      this.clearSelectedItems()
+    },
+  },
+  async created() {
+    await this.loadTemplates()
   },
 
   methods: {
@@ -139,19 +151,6 @@ export default {
       this.sendAlert(msgService.remove('template', this.selectedItems.length))
       this.clearSelectedItems()
     },
-  },
-
-  watch: {
-    $route() {
-      this.clearSelectedItems()
-    },
-  },
-
-  components: {
-    TableList,
-    SearchBox,
-    ListActions,
-    FilterBox,
   },
 }
 </script>

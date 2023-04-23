@@ -14,6 +14,10 @@ import NotePreview from '@/cmps/backoffice/applicant/NotePreview.vue'
 import AddNote from '@/cmps/backoffice/applicant/AddNote.vue'
 
 export default {
+  components: {
+    AddNote,
+    NotePreview,
+  },
   props: ['notes'],
 
   computed: {
@@ -43,11 +47,6 @@ export default {
     //   const activity = activityMap.note({ type, desc })
     //   this.$emit('activity', activity)
     // },
-  },
-
-  components: {
-    AddNote,
-    NotePreview,
   },
 }
 </script>

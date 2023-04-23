@@ -20,6 +20,7 @@
 import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
+  components: {MobileModal},
   props: ['quest'],
 
   computed: {
@@ -49,7 +50,5 @@ export default {
       this.$emit('on-remove-quest')
     },
   },
-
-  components: {MobileModal},
 }
 </script>

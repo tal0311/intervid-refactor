@@ -18,18 +18,18 @@
             <i class="material-icons-outlined">group</i>
             <span>{{ $getTrans('applications') }}</span>
           </div>
-          <span class="nav-item-count" v-if="applicantCount">
+          <span v-if="applicantCount" class="nav-item-count">
             {{ applicantCount }}
           </span>
         </div>
 
         <div class="expand-list" :class="{open: applicantCount > 0 && isApplicantOpen}">
           <RouterLink
+            v-for="(applicant, idx) in applicants"
+            :key="idx"
             :to="`/backoffice/details/${applicant.jobId}/${applicant.id}`"
             class="expand-item"
             :class="{active: isApplicantActive(applicant.id)}"
-            v-for="(applicant, idx) in applicants"
-            :key="idx"
           >
             {{ applicant.fName + ' ' + applicant.lName }}
           </RouterLink>
@@ -53,18 +53,18 @@
             <i class="material-icons-round">work_outline</i> <span>{{ $getTrans('jobs') }}</span>
           </div>
 
-          <span class="nav-item-count" v-if="totalJobCount">
+          <span v-if="totalJobCount" class="nav-item-count">
             {{ totalJobCount }}
           </span>
         </div>
 
         <div class="expand-list" :class="{open: jobs.length > 0 && isJobOpen}">
           <RouterLink
+            v-for="(job, idx) in jobs"
+            :key="idx"
             :to="`/backoffice/applicant/${job._id}`"
             class="expand-item"
             :class="{active: isJobActive(job._id)}"
-            v-for="(job, idx) in jobs"
-            :key="idx"
           >
             {{ job.info.title }}
           </RouterLink>

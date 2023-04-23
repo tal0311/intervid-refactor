@@ -28,7 +28,7 @@
       <div class="error-info-item"><span>Source:</span> {{ src }}</div>
       <div class="error-info-item pre">
         <span>Stack:</span>
-        <LongText :text="stack" v-if="stack" />
+        <LongText v-if="stack" :text="stack" />
       </div>
     </article>
   </section>
@@ -38,6 +38,7 @@
 import LongText from '@/cmps/common/LongText.vue'
 
 export default {
+  components: {LongText},
   props: ['record'],
 
   computed: {
@@ -101,7 +102,5 @@ export default {
       return this.record?.meta?.stack
     },
   },
-
-  components: {LongText},
 }
 </script>

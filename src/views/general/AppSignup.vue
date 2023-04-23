@@ -34,24 +34,24 @@
           <p>{{ $getTrans('get-10-video-for-free') }}</p>
           <p>{{ $getTrans('no-credit-card-required') }}</p>
         </div>
-        <form @submit.prevent="onSignup" novalidate>
+        <form novalidate @submit.prevent="onSignup">
           <div class="input-container">
             <main-input
+              v-model.trim="userCred.fName"
               type="text"
               input-name="fName"
               :placeholder="$getTrans('first-name')"
               validate="required"
-              v-model.trim="userCred.fName"
               :on-blur="validateField"
               :errors="errors"
               styled="basic"
             />
             <main-input
+              v-model.trim="userCred.lName"
               type="text"
               input-name="lName"
               :placeholder="$getTrans('last-name')"
               validate="required"
-              v-model.trim="userCred.lName"
               :on-blur="validateField"
               :errors="errors"
               styled="basic"
@@ -59,33 +59,33 @@
           </div>
 
           <main-input
+            v-model.trim="userCred.email"
             type="email"
             input-name="email"
             :placeholder="$getTrans('email')"
             validate="required|email"
-            v-model.trim="userCred.email"
             :on-blur="validateField"
             :errors="errors"
             styled="basic"
           />
 
           <main-input
+            v-model.trim="userCred.password"
             type="password"
             input-name="password"
             :placeholder="$getTrans('password') + ' ' + $getTrans('at-least-6-char')"
             validate="required|password"
-            v-model.trim="userCred.password"
             :on-blur="validateField"
             :errors="errors"
             styled="basic"
             autocomplete="new-password"
           />
           <main-input
+            v-model.trim="confirmPassword"
             type="password"
             input-name="confirmPassword"
             :placeholder="$getTrans('confirm-password')"
             validate="required"
-            v-model.trim="confirmPassword"
             :on-blur="validateField"
             :errors="errors"
             styled="basic"

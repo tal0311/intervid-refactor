@@ -1,20 +1,20 @@
 <template>
-  <section class="timelimit-container" v-if="selectedTimelimit" @click="toggleModal" :class="{open: isOpen}">
+  <section v-if="selectedTimelimit" class="timelimit-container" :class="{open: isOpen}" @click="toggleModal">
     <i class="material-icons">schedule</i>
     <button type="button">
       {{ selectedTimelimit.txt }}
       <i class="expand material-icons">expand_more</i>
     </button>
 
-    <div class="timelimit-modal" v-if="!isMobile">
+    <div v-if="!isMobile" class="timelimit-modal">
       <button
-        type="button"
         v-for="timelimit in timelimits"
         :key="timelimit.value"
-        @click.stop="setTimelimit(timelimit)"
+        type="button"
         :class="{
           selected: selectedTimelimit.value === timelimit.value,
         }"
+        @click.stop="setTimelimit(timelimit)"
       >
         {{ timelimit.txt }}
       </button>
@@ -23,8 +23,8 @@
     <MobileModal
       v-else-if="isOpen"
       cmp-name="timelimit-menu"
-      @on-close="toggleModal"
       :selected-timelimit="selectedTimelimit"
+      @on-close="toggleModal"
       @set-timelimit="setTimelimit($event)"
     />
   </section>
@@ -35,6 +35,7 @@ import {getTimeLimits} from '@/services/constData'
 import MobileModal from '../common/modals/MobileModal.vue'
 
 export default {
+  components: {MobileModal},
   props: ['quest'],
 
   data() {
@@ -42,10 +43,6 @@ export default {
       selectedTimelimit: null,
       mutableQuest: this.quest,
     }
-  },
-
-  mounted() {
-    this.selectedTimelimit = this.timelimits.find((timelimit) => +timelimit.value === this.mutableQuest.timeLimit)
   },
 
   computed: {
@@ -64,6 +61,10 @@ export default {
     timelimits() {
       return getTimeLimits(this.$getTrans('mini-minutes'))
     },
+  },
+
+  mounted() {
+    this.selectedTimelimit = this.timelimits.find((timelimit) => +timelimit.value === this.mutableQuest.timeLimit)
   },
 
   methods: {
@@ -86,7 +87,5 @@ export default {
       this.onChangeTimelimit()
     },
   },
-
-  components: {MobileModal},
 }
 </script>

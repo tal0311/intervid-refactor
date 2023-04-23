@@ -47,18 +47,6 @@ export default {
     }
   },
 
-  mounted() {
-    document.title = this.defaultTitle
-    clearInterval(this.timeInterval)
-    this.isSoundPlayed = false
-    this.startInterval()
-  },
-
-  beforeUnmount() {
-    document.title = this.defaultTitle
-    clearInterval(this.timeInterval)
-  },
-
   computed: {
     targetTime() {
       return this.startTime + this.timeLimit * 1000 * 60
@@ -82,6 +70,35 @@ export default {
     },
   },
 
+  watch: {
+    startTime() {
+      document.title = this.defaultTitle
+      clearInterval(this.timeInterval)
+      this.isSoundPlayed = false
+      this.startInterval()
+    },
+    timeLeftPercent() {
+      if (this.timeLeftPercent === 50) {
+        this.$emit('halfway-done')
+      }
+      if (this.timeLeftPercent === 20) {
+        this.$emit('almost-done')
+      }
+    },
+  },
+
+  mounted() {
+    document.title = this.defaultTitle
+    clearInterval(this.timeInterval)
+    this.isSoundPlayed = false
+    this.startInterval()
+  },
+
+  beforeUnmount() {
+    document.title = this.defaultTitle
+    clearInterval(this.timeInterval)
+  },
+
   methods: {
     startInterval() {
       this.timeInterval = setInterval(() => {
@@ -100,23 +117,6 @@ export default {
           this.isSoundPlayed = true
         }
       }, 500)
-    },
-  },
-
-  watch: {
-    startTime() {
-      document.title = this.defaultTitle
-      clearInterval(this.timeInterval)
-      this.isSoundPlayed = false
-      this.startInterval()
-    },
-    timeLeftPercent() {
-      if (this.timeLeftPercent === 50) {
-        this.$emit('halfway-done')
-      }
-      if (this.timeLeftPercent === 20) {
-        this.$emit('almost-done')
-      }
     },
   },
 }

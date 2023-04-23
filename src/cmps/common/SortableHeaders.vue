@@ -1,14 +1,14 @@
 <template>
   <div class="list-header">
-    <div class="list-item checkbox" v-if="itemCount >= 0">
-      <CheckboxInput :checked="allChecked" :partial="partialChecked" @input="$emit('select-all')" class="checkbox" />
+    <div v-if="itemCount >= 0" class="list-item checkbox">
+      <CheckboxInput :checked="allChecked" :partial="partialChecked" class="checkbox" @input="$emit('select-all')" />
     </div>
     <div
       v-for="(header, idx) in headers"
       :key="idx"
-      @click="!isFreeUser && $emit('sort', header.key)"
       class="header-item"
       :class="{[header.class]: header.class}"
+      @click="!isFreeUser && $emit('sort', header.key)"
     >
       <div :class="getSortableClass(header)">
         <span v-if="header.txt"> {{ $getTrans(header.txt) }}</span>
@@ -31,10 +31,6 @@ export default {
     }
   },
 
-  mounted() {
-    this.headers = getSortableHeaders(this.$route.path)
-  },
-
   computed: {
     isFreeUser() {
       return !this.$store.getters['auth/verifyPerm'](advancedPermsMap.UNLIMITED_INTERVIEWS)
@@ -48,6 +44,10 @@ export default {
     partialChecked() {
       return !!this.selectedItemCount && this.selectedItemCount !== this.itemCount
     },
+  },
+
+  mounted() {
+    this.headers = getSortableHeaders(this.$route.path)
   },
 
   methods: {

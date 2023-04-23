@@ -2,7 +2,7 @@
   <div class="org-user-edit">
     <h2>
       {{ userToEdit ? $getTrans('edit-user') : $getTrans('add-user-to-organization') }}
-      <button @click="closeModal" ref="close-btn" class="material-icons">close</button>
+      <button ref="close-btn" class="material-icons" @click="closeModal">close</button>
     </h2>
 
     <form novalidate @submit.prevent="onSaveUser">
@@ -11,30 +11,30 @@
           <div class="input-container">
             <main-input
               v-if="!onlyEmail"
+              v-model.trim="user.fName"
               type="text"
               input-name="firstName"
               :placeholder="$getTrans('first-name')"
               validate="required"
-              v-model.trim="user.fName"
               :on-blur="validateField"
               :errors="errors"
               styled="basic"
             />
             <main-input
               v-if="!onlyEmail"
+              v-model.trim="user.lName"
               input-name="lastName"
               :placeholder="$getTrans('last-name')"
               type="text"
-              v-model.trim="user.lName"
               styled="basic"
             />
             <main-input
               v-if="!onlyName"
+              v-model.trim="user.email"
               input-name="email"
               :placeholder="$getTrans('email')"
               type="email"
               validate="required|email"
-              v-model.trim="user.email"
               :on-blur="validateField"
               :errors="errors"
               styled="basic"
@@ -51,12 +51,12 @@
             </div>
           </div>
         </div>
-        <div class="user-permissions" v-if="isAdmin">
+        <div v-if="isAdmin" class="user-permissions">
           <div>
             <p class="title">{{ $getTrans('plans') }}</p>
             <div class="permission-types">
               <label v-for="(perm, key, index) in permissions" :key="index">
-                <input type="radio" v-model="user.perm" :value="perm.id" />
+                <input v-model="user.perm" type="radio" :value="perm.id" />
                 <span>{{ $getTrans(perm.id) }}</span>
               </label>
             </div>
@@ -66,14 +66,14 @@
             <div class="advanced-perms">
               <div
                 v-for="(advancedPerm, key, index) in advancedPermsMap"
-                :class="{blocked: advancedPerm.isBlocked}"
                 :key="index"
+                :class="{blocked: advancedPerm.isBlocked}"
               >
                 <CheckboxInput
                   inline
                   :value="isAdvancedSelected(advancedPerm)"
-                  @input="onToggleAdvancedPerm(advancedPerm.name)"
                   :disabled="isDefaultSelect(advancedPerm) || advancedPerm.isBlocked"
+                  @input="onToggleAdvancedPerm(advancedPerm.name)"
                 />
                 <span>{{ $getTrans(advancedPerm.name) }}</span>
               </div>
@@ -107,11 +107,6 @@ export default {
     }
   },
 
-  created() {
-    if (this.data?.userToEdit) this.user = structuredClone(this.data.userToEdit)
-    if (!this.user.advancedPrm) this.user.advancedPrm = {}
-  },
-
   computed: {
     advancedPermsMap() {
       return advancedPermsMap
@@ -125,6 +120,11 @@ export default {
       const loggedInUser = this.$store.getters['user/loggedInUser']
       return loggedInUser.role === 'admin'
     },
+  },
+
+  created() {
+    if (this.data?.userToEdit) this.user = structuredClone(this.data.userToEdit)
+    if (!this.user.advancedPrm) this.user.advancedPrm = {}
   },
 
   methods: {

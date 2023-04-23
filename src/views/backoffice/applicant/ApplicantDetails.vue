@@ -1,5 +1,5 @@
 <template>
-  <main class="applicant-details" v-if="applicant && !isFetching">
+  <main v-if="applicant && !isFetching" class="applicant-details">
     <div class="header">
       <div class="left">
         <Avatar :size="70" :src="applicant.info.imgUrl" :username="applicantFullName" />
@@ -10,15 +10,15 @@
           </div>
           <div class="contact">
             <div class="applicant-contact">
-              <p @click="onCopyField('email')" :class="{muted: !applicant.info.email}">
+              <p :class="{muted: !applicant.info.email}" @click="onCopyField('email')">
                 <i class="material-icons-outlined">email</i>
                 <span>{{ applicant.info.email || 'N/A' }}</span>
               </p>
-              <p @click="onCopyField('phone')" :class="{muted: !applicant.info.phone}">
+              <p :class="{muted: !applicant.info.phone}" @click="onCopyField('phone')">
                 <i class="material-icons-outlined">phone</i>
                 <span>{{ applicant.info.phone || 'N/A' }}</span>
               </p>
-              <p @click="onCopyField('hometown')" :class="{muted: !applicant.info.hometown}">
+              <p :class="{muted: !applicant.info.hometown}" @click="onCopyField('hometown')">
                 <i class="material-icons-outlined">home</i>
                 <span>{{ applicant.info.hometown || 'N/A' }}</span>
               </p>
@@ -34,7 +34,7 @@
 
       <div class="right">
         <div class="status-container">
-          <StatusDropdown :applicant="applicant" @on-set-status="setStatus" is-full-width="true" />
+          <StatusDropdown :applicant="applicant" is-full-width="true" @on-set-status="setStatus" />
         </div>
       </div>
     </div>
@@ -47,9 +47,9 @@
             <div class="ans-player-container">
               <VideoPlayer
                 v-if="!!Object.keys(applicant.answerMap).length"
+                ref="videoPlayer"
                 :ans="selectedAns"
                 :notes="[]"
-                ref="videoPlayer"
               />
             </div>
           </div>
@@ -76,7 +76,7 @@
 
       <div class="recruiter-container">
         <div class="app-container">
-          <NoteApp @save-notes="saveNotes" :notes="applicant.notes" />
+          <NoteApp :notes="applicant.notes" @save-notes="saveNotes" />
           <TimeLine
             :timeline="applicant.timeline"
             :applicant-name="applicantFullName"
@@ -116,24 +116,24 @@ import CvMenu from '@/cmps/backoffice/applicant/CvMenu.vue'
 // import {userService} from '@/services/userService'
 
 export default {
+  components: {
+    NoteApp,
+    StatusDropdown,
+    AppLoader,
+    TimeLine,
+    VideoPlayer,
+    Avatar,
+    VideoList,
+    ApplicantEdit,
+    ApplicantMenu,
+    CvMenu,
+  },
   data() {
     return {
       selectedQuestIdx: 0,
       applicant: null,
       // isShowDesc: false,
     }
-  },
-
-  async created() {
-    await this.loadApplicant()
-    this.loadApplicantVideos()
-    if (!this.applicant.isRead) this.setIsRead()
-    socketService.on(SOCKET_ON_SAVE_APPLICANT, this.saveApplicantLocal)
-  },
-
-  unmounted() {
-    socketService.off(SOCKET_ON_SAVE_APPLICANT, this.saveApplicantLocal)
-    this.$store.dispatch('app/toggleModal', {type: null})
   },
 
   computed: {
@@ -182,6 +182,35 @@ export default {
     isFreeUser() {
       return !this.$store.getters['auth/verifyPerm'](advancedPermsMap.UNLIMITED_INTERVIEWS)
     },
+  },
+
+  watch: {
+    async $route() {
+      if (this.$refs.videoPlayer) {
+        this.$refs.videoPlayer.setPlayerState('isPlaying', false)
+        this.$refs.videoPlayer.setPlayerState('isLoading', true)
+        this.$refs.videoPlayer.resetPlayer()
+      }
+      await this.loadApplicant()
+      this.selectedQuestIdx = 0
+      this.loadApplicantVideos()
+    },
+    applicantFullName() {
+      if (!this.applicantFullName) return
+      document.title = `Intervid | ${this.applicantFullName}`
+    },
+  },
+
+  async created() {
+    await this.loadApplicant()
+    this.loadApplicantVideos()
+    if (!this.applicant.isRead) this.setIsRead()
+    socketService.on(SOCKET_ON_SAVE_APPLICANT, this.saveApplicantLocal)
+  },
+
+  unmounted() {
+    socketService.off(SOCKET_ON_SAVE_APPLICANT, this.saveApplicantLocal)
+    this.$store.dispatch('app/toggleModal', {type: null})
   },
 
   methods: {
@@ -354,36 +383,6 @@ export default {
       await this.saveApplicant()
       this.$store.dispatch('app/toggleModal', {type: 'applicant-edit'})
     },
-  },
-
-  watch: {
-    async $route() {
-      if (this.$refs.videoPlayer) {
-        this.$refs.videoPlayer.setPlayerState('isPlaying', false)
-        this.$refs.videoPlayer.setPlayerState('isLoading', true)
-        this.$refs.videoPlayer.resetPlayer()
-      }
-      await this.loadApplicant()
-      this.selectedQuestIdx = 0
-      this.loadApplicantVideos()
-    },
-    applicantFullName() {
-      if (!this.applicantFullName) return
-      document.title = `Intervid | ${this.applicantFullName}`
-    },
-  },
-
-  components: {
-    NoteApp,
-    StatusDropdown,
-    AppLoader,
-    TimeLine,
-    VideoPlayer,
-    Avatar,
-    VideoList,
-    ApplicantEdit,
-    ApplicantMenu,
-    CvMenu,
   },
 }
 </script>

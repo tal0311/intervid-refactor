@@ -1,11 +1,11 @@
 <template>
-  <section class="interview" ref="interview" v-if="currQuest">
+  <section v-if="currQuest" ref="interview" class="interview">
     <div class="interview-content">
-      <QuestCountdown v-if="isCountdown" @show-quest="showQuest" :curr-quest="currQuest" />
+      <QuestCountdown v-if="isCountdown" :curr-quest="currQuest" @show-quest="showQuest" />
 
       <VideoRecorder
-        ref="vidRecorder"
         v-else-if="(isVidAns || isScreenAns) && !lastRecordedVideo"
+        ref="vidRecorder"
         :max-try-num="1"
         :show-control="false"
         :curr-quest="currQuest"
@@ -18,8 +18,8 @@
         @remove-error="removeError($event)"
       />
 
-      <div class="video-wrapper" v-if="lastRecordedVideo">
-        <video controls ref="vidPlayer" class="retake-video" playsinline></video>
+      <div v-if="lastRecordedVideo" class="video-wrapper">
+        <video ref="vidPlayer" controls class="retake-video" playsinline></video>
       </div>
 
       <section
@@ -44,13 +44,13 @@
           />
 
           <div class="quest-num">
-            {{ $getTrans('question') }} {{ currQuestIdx + 1 }} {{ $getTrans('of') }} {{ this.job.quests.length }}
+            {{ $getTrans('question') }} {{ currQuestIdx + 1 }} {{ $getTrans('of') }} {{ job.quests.length }}
           </div>
         </div>
 
-        <div class="bottom" v-if="currQuest.txt">
+        <div v-if="currQuest.txt" class="bottom">
           <h4>{{ currQuest.txt }}</h4>
-          <p class="quest-desc html-container" ref="questDesc" v-html="currQuest.desc"></p>
+          <p ref="questDesc" class="quest-desc html-container" v-html="currQuest.desc"></p>
         </div>
 
         <!-- <text-ans v-if="currQuest.ansRule.isTxtAns" :txt="currAns.txt" @save-ans="setAns" /> -->
@@ -81,7 +81,7 @@
       </section>
     </div>
 
-    <div class="screen" v-if="isConfirmationShown">
+    <div v-if="isConfirmationShown" class="screen">
       <div class="confirmation-modal">
         <div class="confirmation-dialogue">
           <i class="material-icons">warning_amber</i>
@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="btns">
-          <button @click="toggleConfirmation()" data-ans="no">
+          <button data-ans="no" @click="toggleConfirmation()">
             {{ $getTrans('stay-on-current-question') }}
           </button>
           <button @click="onFinishQuest(true)">
@@ -123,6 +123,12 @@ import QuestCountdown from '@/cmps/interview/interview-app/QuestCountdown.vue'
 // import TextAns from '@/cmps/interview/TextAns.vue'
 
 export default {
+  components: {
+    VideoRecorder,
+    QuestStatus,
+    QuestCountdown,
+    // TextAns,
+  },
   emits: ['handle-quit'],
   setup(props, {emit}) {
     const vidRecorder = ref(null)
@@ -214,48 +220,6 @@ export default {
     }
   },
 
-  async mounted() {
-    this.isCountdown = !this.isAllowRetake
-    if (this.isAllowRetake) await this.startInterview()
-    this.addApplicant()
-    window.onbeforeunload = (ev) => {
-      loggerService.info('[Interview] [onBeforeUnload] Applicant try to leave the interview - open confirmation modal')
-      this.$utilService.verifyBeforeExit(ev)
-    } // Open confirmation modal
-    document.body.onunload = () => {
-      loggerService.info('[Interview] [onunload] Applicant try to leave the interview - send quit timeEvent')
-      this.$emit('handle-quit')
-    } // Send quit timeEvent when navigated out (all case exept interview inner routes navigation)
-
-    this.initPreconditions()
-    this.addNetworkListener()
-    loggerService.info(`[Interview] [mounted] - Applicant has started the Interview proccess`)
-
-    uploaderService.addEventListener('progress', (progress) => {
-      if (progress === 100) {
-        loggerService.info(`[Interview] [progress] - upload progress = 100`)
-        this.$store.commit({
-          type: 'applicant/setIsUploadDone',
-          isUploadDone: true,
-        })
-      }
-    })
-  },
-
-  beforeUnmount() {
-    if (!this.isInterviewDone) {
-      this.$emit('handle-quit')
-    } // Send quit timeEvent when navigated out (only interview inner routes navigation)
-    window.onbeforeunload = null
-    document.body.onunload = null
-  },
-
-  unmounted() {
-    if (this._cameraPermission) this._cameraPermission.onchange = null
-    if (this._micPermission) this._micPermission.onchange = null
-    this.stopVideoStream()
-  },
-
   computed: {
     job() {
       return this.$store.getters['applicant/job']
@@ -318,6 +282,84 @@ export default {
     isAllowRetake() {
       return !this.job.rule.isOneTry
     },
+  },
+
+  watch: {
+    lastRecordedVideo: {
+      handler() {
+        this.$nextTick(() => {
+          if (this.lastRecordedVideo) {
+            const elVidPlayer = this.$refs.vidPlayer
+            elVidPlayer.srcObject = null
+            elVidPlayer.src = URL.createObjectURL(this.lastRecordedVideo)
+            elVidPlayer.load()
+          }
+        })
+      },
+    },
+    currQuestIdx: {
+      handler() {
+        this.$nextTick(() => {
+          if (this.$refs.questDesc) this.$refs.questDesc.scroll(0, 0)
+        })
+      },
+    },
+
+    blockingErrors: {
+      async handler(currErrors, prevErrors) {
+        // If there is at least 1 error, stop the recordings
+        if (currErrors.length) {
+          this.stopMediaRecorder()
+          this.stopScreenRecorder()
+        } else if (prevErrors.length) {
+          // If the error was this specific type, reload() happens so we don't need to initRecorders() again
+          if (prevErrors.some((err) => err.type === screenErrorMap.DENIED_SCREEN_ACCESS.type)) return
+          await this.initRecorders()
+        }
+      },
+    },
+  },
+
+  async mounted() {
+    this.isCountdown = !this.isAllowRetake
+    if (this.isAllowRetake) await this.startInterview()
+    this.addApplicant()
+    window.onbeforeunload = (ev) => {
+      loggerService.info('[Interview] [onBeforeUnload] Applicant try to leave the interview - open confirmation modal')
+      this.$utilService.verifyBeforeExit(ev)
+    } // Open confirmation modal
+    document.body.onunload = () => {
+      loggerService.info('[Interview] [onunload] Applicant try to leave the interview - send quit timeEvent')
+      this.$emit('handle-quit')
+    } // Send quit timeEvent when navigated out (all case exept interview inner routes navigation)
+
+    this.initPreconditions()
+    this.addNetworkListener()
+    loggerService.info(`[Interview] [mounted] - Applicant has started the Interview proccess`)
+
+    uploaderService.addEventListener('progress', (progress) => {
+      if (progress === 100) {
+        loggerService.info(`[Interview] [progress] - upload progress = 100`)
+        this.$store.commit({
+          type: 'applicant/setIsUploadDone',
+          isUploadDone: true,
+        })
+      }
+    })
+  },
+
+  beforeUnmount() {
+    if (!this.isInterviewDone) {
+      this.$emit('handle-quit')
+    } // Send quit timeEvent when navigated out (only interview inner routes navigation)
+    window.onbeforeunload = null
+    document.body.onunload = null
+  },
+
+  unmounted() {
+    if (this._cameraPermission) this._cameraPermission.onchange = null
+    if (this._micPermission) this._micPermission.onchange = null
+    this.stopVideoStream()
   },
 
   methods: {
@@ -517,49 +559,6 @@ export default {
       this.screenErrors = []
       await this.initRecorders()
     },
-  },
-
-  watch: {
-    lastRecordedVideo: {
-      handler() {
-        this.$nextTick(() => {
-          if (this.lastRecordedVideo) {
-            const elVidPlayer = this.$refs.vidPlayer
-            elVidPlayer.srcObject = null
-            elVidPlayer.src = URL.createObjectURL(this.lastRecordedVideo)
-            elVidPlayer.load()
-          }
-        })
-      },
-    },
-    currQuestIdx: {
-      handler() {
-        this.$nextTick(() => {
-          if (this.$refs.questDesc) this.$refs.questDesc.scroll(0, 0)
-        })
-      },
-    },
-
-    blockingErrors: {
-      async handler(currErrors, prevErrors) {
-        // If there is at least 1 error, stop the recordings
-        if (currErrors.length) {
-          this.stopMediaRecorder()
-          this.stopScreenRecorder()
-        } else if (prevErrors.length) {
-          // If the error was this specific type, reload() happens so we don't need to initRecorders() again
-          if (prevErrors.some((err) => err.type === screenErrorMap.DENIED_SCREEN_ACCESS.type)) return
-          await this.initRecorders()
-        }
-      },
-    },
-  },
-
-  components: {
-    VideoRecorder,
-    QuestStatus,
-    QuestCountdown,
-    // TextAns,
   },
 }
 </script>

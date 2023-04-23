@@ -1,7 +1,7 @@
 <template>
   <div class="avatar" :style="[style, customStyle]" aria-hidden="true">
     <!-- this img is not displayed; it is used to detect failure-to-load of div background image -->
-    <img loading="lazy" v-if="isImage" style="display: none" :src="srcToShow" @error="onImgError" alt="avatar" />
+    <img v-if="isImage" loading="lazy" style="display: none" :src="srcToShow" alt="avatar" @error="onImgError" />
     <span v-show="!isImage">{{ userInitial }}</span>
   </div>
 </template>

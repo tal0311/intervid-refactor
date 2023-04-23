@@ -1,12 +1,12 @@
 <template>
   <textarea
     :value="txt"
-    @input="onChangeTxt"
     class="text-ans grow"
     cols="55"
     rows="20"
     spellcheck="false"
     placeholder="Write answer here"
+    @input="onChangeTxt"
   />
 </template>
 

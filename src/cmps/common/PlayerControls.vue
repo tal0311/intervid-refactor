@@ -39,9 +39,9 @@
           <div class="speed-modal" :class="{open: isSpeedOpen}">
             <p
               v-for="(speedStr, idx) in speedStrs"
+              :key="idx"
               class="speed-item"
               :class="{selected: isSelectedSpeed(speedStr)}"
-              :key="idx"
               @click="onSetSpeed(speedStr)"
             >
               {{ speedStr }}

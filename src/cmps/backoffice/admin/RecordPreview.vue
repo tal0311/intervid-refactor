@@ -30,6 +30,7 @@
 import RecordDetails from '@/cmps/backoffice/admin/RecordDetails.vue'
 
 export default {
+  components: {RecordDetails},
   props: ['record'],
 
   computed: {
@@ -59,7 +60,5 @@ export default {
       this.$store.commit('record/setSelectedRecordId', {recordId})
     },
   },
-
-  components: {RecordDetails},
 }
 </script>

@@ -1,17 +1,17 @@
 <template>
   <section class="record-filter">
     <div class="top">
-      <SearchBox :value="filterBy.txt" @input="onSetFilterByKey" debounce="true" placeholder="search-logs" />
+      <SearchBox :value="filterBy.txt" debounce="true" placeholder="search-logs" @input="onSetFilterByKey" />
 
       <basic-select
         label="Source"
-        @input="onSetFilterByKey('source', $event)"
         :default-value="filterBy.source"
         :options="[
           {txt: 'All', value: ''},
           {txt: 'Frontend', value: 'frontend'},
           {txt: 'Backend', value: 'backend'},
         ]"
+        @input="onSetFilterByKey('source', $event)"
       />
     </div>
 
@@ -19,41 +19,41 @@
       <div class="searches">
         <label for="traceID" class="trace-id">
           Trace ID
-          <input type="text" name="traceID" @change="handleChange" :value="filterBy.traceID" id="traceID" />
+          <input id="traceID" type="text" name="traceID" :value="filterBy.traceID" @change="handleChange" />
         </label>
 
         <div class="date-container">
           <label for="fromDate">
             <p>From Date</p>
-            <input type="date" id="fromDate" name="fromDate" :value="filterBy.fromDate" @change="handleChange" />
+            <input id="fromDate" type="date" name="fromDate" :value="filterBy.fromDate" @change="handleChange" />
           </label>
 
           <label for="toDate">
             <p>To Date</p>
-            <input type="date" id="toDate" name="toDate" :value="filterBy.toDate" @change="handleChange" />
+            <input id="toDate" type="date" name="toDate" :value="filterBy.toDate" @change="handleChange" />
           </label>
         </div>
       </div>
 
       <label class="user-txt">
         Applicant/User
-        <input type="text" name="userTxt" @change="handleChange" :value="filterBy.userTxt" placeholder="Id" />
+        <input type="text" name="userTxt" :value="filterBy.userTxt" placeholder="Id" @change="handleChange" />
       </label>
 
       <div class="status-code">
         <label for="statusCode">
           Status Code
-          <input type="text" :value="filterBy.statusCode" name="statusCode" @change="handleChange" id="statusCode" />
+          <input id="statusCode" type="text" :value="filterBy.statusCode" name="statusCode" @change="handleChange" />
         </label>
 
         <basic-select
           :default-value="filterBy.exclude === 'true'"
           name="exclude"
-          @change="handleChange"
           :options="[
             {txt: 'Include', value: false},
             {txt: 'Exclude', value: true},
           ]"
+          @change="handleChange"
         />
       </div>
 
@@ -79,6 +79,7 @@
 import SearchBox from '@/cmps/common/SearchBox.vue'
 
 export default {
+  components: {SearchBox},
   props: ['filterBy'],
 
   data() {
@@ -103,7 +104,5 @@ export default {
     //   this.onSetFilterByKey(ev.target.name, ev.target.value)
     // }, 0),
   },
-
-  components: {SearchBox},
 }
 </script>

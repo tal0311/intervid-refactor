@@ -2,28 +2,28 @@
   <section ref="playerContainer" class="video-player" :class="{'full-screen': playerState.isFullScreen}">
     <div class="screen-container" :class="{loading: playerState.isLoading}">
       <video
-        :src="mainVideoSrc"
         ref="mainVideo"
-        @click="togglePlay"
-        @dblclick="toggleFullScreen"
+        :src="mainVideoSrc"
         :class="{cover: mainVideoName === 'faceUrl'}"
         playsinline
+        @click="togglePlay"
+        @dblclick="toggleFullScreen"
       >
         Your browser does not support the video tag.
       </video>
     </div>
 
     <DraggableVideo
+      v-show="secVideoSrc && isDraggableShown"
       class="face-container small"
       :class-name="{
         aspect: !playerState.isFullScreen,
         loading: playerState.isLoading,
       }"
       :is-shown="secVideoSrc && isDraggableShown"
-      v-show="secVideoSrc && isDraggableShown"
     >
       <button class="material-icons" @click="toggleIsDraggableShown">close</button>
-      <video :src="secVideoSrc" :class="{cover: secVideoName === 'faceUrl'}" ref="secVideo" playsinline>
+      <video ref="secVideo" :src="secVideoSrc" :class="{cover: secVideoName === 'faceUrl'}" playsinline>
         Your browser does not support the video tag.
       </video>
     </DraggableVideo>
@@ -47,9 +47,9 @@
     />
 
     <button
-      v-html="svgs.playPauseAnimation"
       class="play-animation"
       :class="{playing: isPlaying, pausing: !isPlaying}"
+      v-html="svgs.playPauseAnimation"
     ></button>
   </section>
 </template>
@@ -60,6 +60,7 @@ import PlayerControls from '@/cmps/common/PlayerControls.vue'
 import VideoLoader from './VideoLoader.vue'
 
 export default {
+  components: {PlayerControls, DraggableVideo, VideoLoader},
   props: ['ans', 'notes'],
 
   data() {
@@ -74,33 +75,6 @@ export default {
       bufferInterval: null,
       svgs: {playPauseAnimation: ''},
     }
-  },
-
-  created() {
-    this.svgs.playPauseAnimation = this.$getSvg('playPauseAnimationIcons')
-  },
-
-  async mounted() {
-    await this.initVideos()
-    this.setPlayerState('isLoading', false)
-    document.onfullscreenchange = () => {
-      if (!document.fullscreenElement) this.setPlayerState('isFullScreen', false)
-    }
-  },
-
-  beforeUnmount() {
-    document.onfullscreenchange = null
-    const elVideos = this.getElVideos()
-    elVideos.forEach((elVideo) => {
-      elVideo.pause()
-      elVideo.removeAttribute('src')
-      elVideo.load()
-    })
-    this.resetPlayer()
-    this.elMainVideo.removeEventListener('timeupdate', this.progressLoop)
-    this.elMainVideo.removeEventListener('ended', this.onEnd)
-    clearInterval(this.bufferInterval)
-    this.bufferInterval = null
   },
 
   computed: {
@@ -149,6 +123,82 @@ export default {
       if (!this.ans) return ''
       return this.ans.resTime
     },
+  },
+
+  watch: {
+    ans(to, from) {
+      if (!this.ans || (!to?.faceUrl && !to?.screenUrl)) {
+        return
+      }
+      if (to?.faceUrl && to?.screenUrl) {
+        this.mainVideoName = 'screenUrl'
+      } else if (!to?.screenUrl) {
+        this.mainVideoName = 'faceUrl'
+      } else if (!to?.faceUrl) {
+        this.mainVideoName = 'screenUrl'
+      }
+      if (from?.screenUrl && !from?.faceUrl) {
+        this.elSecVideo.removeEventListener('timeupdate', this.progressLoop)
+        this.elSecVideo.removeEventListener('ended', this.onEnd)
+      }
+      if (from?.faceUrl !== to?.faceUrl) {
+        this.resetPlayer()
+      }
+      this.$nextTick(async () => {
+        await this.initVideos()
+        this.setPlayerState('isLoading', false)
+        this.handleSpeedChange()
+        this.togglePlay()
+      })
+    },
+
+    isBuffering() {
+      const {isPlaying} = this.playerState
+      if (this.isBuffering && isPlaying) {
+        this.togglePlay()
+      } else if (!this.isBuffering && !isPlaying) {
+        this.togglePlay()
+      }
+    },
+
+    jumpToPoint: {
+      handler(timePoint) {
+        if (timePoint) {
+          this.seekTo(timePoint)
+          this.$store.commit({
+            type: 'player/setJumpToPoint',
+            jumpToPoint: null,
+          })
+        }
+      },
+    },
+  },
+
+  created() {
+    this.svgs.playPauseAnimation = this.$getSvg('playPauseAnimationIcons')
+  },
+
+  async mounted() {
+    await this.initVideos()
+    this.setPlayerState('isLoading', false)
+    document.onfullscreenchange = () => {
+      if (!document.fullscreenElement) this.setPlayerState('isFullScreen', false)
+    }
+  },
+
+  beforeUnmount() {
+    document.onfullscreenchange = null
+    const elVideos = this.getElVideos()
+    elVideos.forEach((elVideo) => {
+      elVideo.pause()
+      elVideo.removeAttribute('src')
+      elVideo.load()
+    })
+    this.resetPlayer()
+    this.elMainVideo.removeEventListener('timeupdate', this.progressLoop)
+    this.elMainVideo.removeEventListener('ended', this.onEnd)
+    clearInterval(this.bufferInterval)
+    this.bufferInterval = null
   },
   methods: {
     initVideos() {
@@ -352,56 +402,5 @@ export default {
       this.isDraggableShown = !this.isDraggableShown
     },
   },
-
-  watch: {
-    ans(to, from) {
-      if (!this.ans || (!to?.faceUrl && !to?.screenUrl)) {
-        return
-      }
-      if (to?.faceUrl && to?.screenUrl) {
-        this.mainVideoName = 'screenUrl'
-      } else if (!to?.screenUrl) {
-        this.mainVideoName = 'faceUrl'
-      } else if (!to?.faceUrl) {
-        this.mainVideoName = 'screenUrl'
-      }
-      if (from?.screenUrl && !from?.faceUrl) {
-        this.elSecVideo.removeEventListener('timeupdate', this.progressLoop)
-        this.elSecVideo.removeEventListener('ended', this.onEnd)
-      }
-      if (from?.faceUrl !== to?.faceUrl) {
-        this.resetPlayer()
-      }
-      this.$nextTick(async () => {
-        await this.initVideos()
-        this.setPlayerState('isLoading', false)
-        this.handleSpeedChange()
-        this.togglePlay()
-      })
-    },
-
-    isBuffering() {
-      const {isPlaying} = this.playerState
-      if (this.isBuffering && isPlaying) {
-        this.togglePlay()
-      } else if (!this.isBuffering && !isPlaying) {
-        this.togglePlay()
-      }
-    },
-
-    jumpToPoint: {
-      handler(timePoint) {
-        if (timePoint) {
-          this.seekTo(timePoint)
-          this.$store.commit({
-            type: 'player/setJumpToPoint',
-            jumpToPoint: null,
-          })
-        }
-      },
-    },
-  },
-
-  components: {PlayerControls, DraggableVideo, VideoLoader},
 }
 </script>

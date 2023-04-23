@@ -3,16 +3,16 @@
     <basic-select
       v-if="users.length"
       :label="$getTrans('account')"
-      @input="onSetFilterByKey('userId', $event)"
       :default-value="filterBy.userId"
       :options="userOpts"
+      @input="onSetFilterByKey('userId', $event)"
     />
     <div class="date-container">
       <label for="fromDate">
         <p>{{ $getTrans('from-date') }}</p>
         <input
-          type="date"
           id="fromDate"
+          type="date"
           name="fromDate"
           :value="filterBy.fromDate"
           @change="onSetFilterByKey('fromDate', $event.target.value)"
@@ -21,8 +21,8 @@
       <label for="toDate">
         <p>{{ $getTrans('to-date') }}</p>
         <input
-          type="date"
           id="toDate"
+          type="date"
           name="toDate"
           :value="filterBy.toDate"
           @change="onSetFilterByKey('toDate', $event.target.value)"

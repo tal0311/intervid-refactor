@@ -54,17 +54,6 @@ export default {
     }
   },
 
-  async created() {
-    this.checkPrerequisites()
-    this.initInterview()
-    socketService.setup()
-  },
-
-  mounted() {
-    // console.log('mounted')
-    if (this.$route.query.demo) this.$store.commit({type: 'applicant/setIsPreview', isPreview: true})
-  },
-
   computed: {
     job() {
       return this.$store.getters['applicant/job']
@@ -151,6 +140,17 @@ export default {
       const supportedBrowserVersion = supportedBrowsersMap[name]
       return userBrowserVersion >= supportedBrowserVersion
     },
+  },
+
+  async created() {
+    this.checkPrerequisites()
+    this.initInterview()
+    socketService.setup()
+  },
+
+  mounted() {
+    // console.log('mounted')
+    if (this.$route.query.demo) this.$store.commit({type: 'applicant/setIsPreview', isPreview: true})
   },
 
   methods: {

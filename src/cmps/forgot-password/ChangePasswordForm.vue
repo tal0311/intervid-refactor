@@ -3,20 +3,20 @@
     <h1>{{ $getTrans('change-your-password') }}</h1>
     <form class="change-password-form" @submit.prevent="handleSubmit">
       <main-input
+        v-model.trim="updated"
         input-name="password"
         :placeholder="$getTrans('new-password')"
         type="password"
         validate="required|password"
-        v-model.trim="updated"
         :errors="errors"
         styled="basic"
       />
       <main-input
+        v-model.trim="verifyUpdated"
         input-name="confirmPassword"
         :placeholder="$getTrans('confirm-password')"
         type="password"
         validate="required"
-        v-model.trim="verifyUpdated"
         :errors="errors"
         styled="basic"
       />

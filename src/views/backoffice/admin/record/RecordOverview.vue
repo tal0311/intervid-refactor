@@ -38,6 +38,11 @@ import {useSelection} from '@/composables/overview/useSelection'
 import {usePagination} from '@/composables/overview/usePagination'
 
 export default {
+  components: {
+    RecordFilter,
+    TableList,
+    ListActions,
+  },
   setup() {
     const {filterBy, onSetFilterByKey, setFilterFromRoute} = useFilter()
     const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
@@ -54,9 +59,6 @@ export default {
       onChangePage,
       onSort,
     }
-  },
-  async created() {
-    await this.loadRecords()
   },
 
   computed: {
@@ -83,15 +85,6 @@ export default {
     },
   },
 
-  methods: {
-    loadRecords() {
-      return this.$store.dispatch('record/loadRecords', {
-        filterBy: {...this.filterBy},
-        sort: this.sort,
-      })
-    },
-  },
-
   watch: {
     $route() {
       this.setFilterFromRoute()
@@ -104,11 +97,17 @@ export default {
       deep: true,
     },
   },
+  async created() {
+    await this.loadRecords()
+  },
 
-  components: {
-    RecordFilter,
-    TableList,
-    ListActions,
+  methods: {
+    loadRecords() {
+      return this.$store.dispatch('record/loadRecords', {
+        filterBy: {...this.filterBy},
+        sort: this.sort,
+      })
+    },
   },
 }
 </script>

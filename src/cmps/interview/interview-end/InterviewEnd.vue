@@ -14,7 +14,7 @@
           </div>
         </div>
 
-        <div class="modal-wrapper" v-if="waitForNetwork">
+        <div v-if="waitForNetwork" class="modal-wrapper">
           <div class="no-network-modal">
             <div class="head-container">
               <i class="material-icons"> wifi_off </i>
@@ -59,6 +59,7 @@ import ApplicationIndex from '../onboarding/ApplicationIndex.vue'
 import ConfettiAnimation from '@/cmps/common/ConfettiAnimation.vue'
 
 export default {
+  components: {UploadingAnimation, ApplicationIndex, ConfettiAnimation},
   emits: ['handle-quit'],
   setup(props, {emit}) {
     const {
@@ -128,6 +129,20 @@ export default {
     }
   },
 
+  computed: {
+    job() {
+      return this.$store.getters['applicant/job']
+    },
+
+    waitForNetwork() {
+      return this.$store.getters['applicant/waitForNetwork']
+    },
+
+    isUploadDone() {
+      return this.$store.getters['applicant/isUploadDone']
+    },
+  },
+
   mounted() {
     window.onbeforeunload = (ev) => {
       loggerService.info(
@@ -165,22 +180,6 @@ export default {
     this.removeNetworkListener()
   },
 
-  computed: {
-    job() {
-      return this.$store.getters['applicant/job']
-    },
-
-    waitForNetwork() {
-      return this.$store.getters['applicant/waitForNetwork']
-    },
-
-    isUploadDone() {
-      return this.$store.getters['applicant/isUploadDone']
-    },
-  },
-
   methods: {},
-
-  components: {UploadingAnimation, ApplicationIndex, ConfettiAnimation},
 }
 </script>

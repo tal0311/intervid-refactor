@@ -1,7 +1,7 @@
 <template>
   <section class="reset-password">
     <h1>{{ $getTrans('reset-your-password') }}</h1>
-    <form class="reset-password-form" @submit.prevent="handleSubmit" autocomplete="off">
+    <form class="reset-password-form" autocomplete="off" @submit.prevent="handleSubmit">
       <h2>
         {{ $getTrans('enter-the-code-we-sent-to') }}
         <p>{{ email }}</p>
@@ -10,14 +10,14 @@
       <section class="password-inputs">
         <CodeDigitInput
           v-for="(item, idx) in 6"
+          :ref="`digitInput${idx}`"
+          :key="item"
           v-model="input[idx]"
+          :idx="idx"
+          :disabled="input.length < idx"
           @go-to="goto($event)"
           @paste="paste($event)"
           @remove="remove($event)"
-          :idx="idx"
-          :disabled="input.length < idx"
-          :ref="`digitInput${idx}`"
-          :key="item"
         />
       </section>
       <slot></slot>
@@ -30,6 +30,7 @@
 import CodeDigitInput from './CodeDigitInput.vue'
 
 export default {
+  components: {CodeDigitInput},
   props: {
     email: {
       type: String,
@@ -80,7 +81,5 @@ export default {
       this.$forceUpdate()
     },
   },
-
-  components: {CodeDigitInput},
 }
 </script>

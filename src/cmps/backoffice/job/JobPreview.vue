@@ -1,9 +1,9 @@
 <template>
   <section
     v-if="viewType === 'list'"
-    @contextmenu.prevent="onOpenMenu"
     class="job-preview list"
     :class="{selected: isSelected}"
+    @contextmenu.prevent="onOpenMenu"
     @click="goToApplicants"
   >
     <div class="checkbox" @click.stop="">
@@ -42,21 +42,21 @@
 
     <div class="actions" @click.stop="">
       <JobMenu
+        ref="job-menu"
         :job="job"
         :mouse-pos="mousePos"
         @modal-closed="onCloseMenu"
         @archive="onToggleArchive"
         @load-jobs="$emit('load-items')"
-        ref="job-menu"
       />
     </div>
   </section>
 
   <section
     v-else
-    @contextmenu.prevent="onOpenMenu"
     class="job-preview card"
     :class="{selected: isSelected}"
+    @contextmenu.prevent="onOpenMenu"
     @click="goToApplicants"
   >
     <img v-if="coverUrl" loading="lazy" :src="coverUrl" alt="job-cover" class="job-cover" />
@@ -72,8 +72,8 @@
         <div class="actions" @click.stop="">
           <JobMenu
             :job="job"
-            @archive="onToggleArchive"
             :mouse-pos="mousePos"
+            @archive="onToggleArchive"
             @modal-closed="onCloseMenu"
             @load-jobs="$emit('load-items')"
             @remove="$emit('remove', $event)"
@@ -100,6 +100,10 @@ import Avatar from '@/cmps/common/ApplicantAvatar.vue'
 import config from '@/config'
 
 export default {
+  components: {
+    JobMenu,
+    Avatar,
+  },
   props: ['job', 'isSelected', 'filterBy'],
 
   setup() {
@@ -170,11 +174,6 @@ export default {
     // onOpenMenu(ev) {
     //   this.mousePos = { x: ev.pageX, y: ev.pageY }
     // },
-  },
-
-  components: {
-    JobMenu,
-    Avatar,
   },
 }
 </script>

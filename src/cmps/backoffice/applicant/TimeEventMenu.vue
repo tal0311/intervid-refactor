@@ -23,6 +23,7 @@
 import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
+  components: {MobileModal},
   props: ['idx'],
 
   computed: {
@@ -47,7 +48,5 @@ export default {
       })
     },
   },
-
-  components: {MobileModal},
 }
 </script>

@@ -19,6 +19,9 @@
 import TimeEventPreview from './timeEventPreview.vue'
 
 export default {
+  components: {
+    TimeEventPreview,
+  },
   props: ['timeline', 'applicantName', 'jobTitle'],
 
   computed: {
@@ -32,10 +35,6 @@ export default {
     onRemoveNoteEvent(noteEvent) {
       this.$emit('remove-note-event', noteEvent.noteId)
     },
-  },
-
-  components: {
-    TimeEventPreview,
   },
 }
 </script>

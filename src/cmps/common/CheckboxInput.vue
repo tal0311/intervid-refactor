@@ -1,10 +1,10 @@
 <template>
-  <div @click="onChange" @input="onChange" class="md-checkbox" :class="{'md-checkbox-inline': inline}">
+  <div class="md-checkbox" :class="{'md-checkbox-inline': inline}" @click="onChange" @input="onChange">
     <input
+      :id="id"
       type="checkbox"
       :class="{partial: partial, [color]: color}"
       :checked="value || checked"
-      :id="id"
       :disabled="disabled"
     />
     <label class="check-label" :for="id">
@@ -15,7 +15,6 @@
 
 <script>
 export default {
-  emits: ['input'],
   props: {
     value: Boolean,
     label: String,
@@ -26,6 +25,7 @@ export default {
     disabled: Boolean,
     txt: String,
   },
+  emits: ['input'],
 
   created() {
     this.id = this.$utilService.makeId(20)

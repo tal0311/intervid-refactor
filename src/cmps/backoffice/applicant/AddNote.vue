@@ -10,15 +10,15 @@
       :placeholder="$getTrans('add-note-on-candidate')"
     />
     <div class="btn-container">
-      <button type="button" @mousedown="addNote" class="save-btn">
+      <button type="button" class="save-btn" @mousedown="addNote">
         {{ $getTrans('save') }}
       </button>
 
       <div v-if="verifyPerm(advancedPermsMap.BOOKMARKS)" class="bookmark-container">
         <div v-show="isTsOpen" class="ts-input-container">
-          <input ref="input-mins" type="number" name="tsMins" placeholder="Min" @blur="checkLimit" :value="tsMins" />
+          <input ref="input-mins" type="number" name="tsMins" placeholder="Min" :value="tsMins" @blur="checkLimit" />
           <span class="input-seperator"> : </span>
-          <input type="number" ref="input-secs" name="tsSecs" placeholder="Sec" :value="tsSecs" @blur="checkLimit" />
+          <input ref="input-secs" type="number" name="tsSecs" placeholder="Sec" :value="tsSecs" @blur="checkLimit" />
         </div>
         <button type="button" class="ts-btn material-icons" :class="getActiveClass" @click="openTimeStamp">
           bookmark
@@ -45,6 +45,22 @@ export default {
       isTsOpen: false,
       isWarning: false,
     }
+  },
+  computed: {
+    advancedPermsMap() {
+      return advancedPermsMap
+    },
+    getActiveClass() {
+      return this.isTsOpen ? 'active' : ''
+    },
+    currVideoTime() {
+      const totalSecs = this.$store.getters['player/playerState'].currTime
+      return this.getTimeObject(totalSecs)
+    },
+    totalVideoTime() {
+      const totalSecs = this.$store.getters['player/playerState'].totalDuration
+      return this.getTimeObject(totalSecs)
+    },
   },
 
   methods: {
@@ -98,22 +114,6 @@ export default {
         tsMins: mins,
         tsSecs: secs,
       }
-    },
-  },
-  computed: {
-    advancedPermsMap() {
-      return advancedPermsMap
-    },
-    getActiveClass() {
-      return this.isTsOpen ? 'active' : ''
-    },
-    currVideoTime() {
-      const totalSecs = this.$store.getters['player/playerState'].currTime
-      return this.getTimeObject(totalSecs)
-    },
-    totalVideoTime() {
-      const totalSecs = this.$store.getters['player/playerState'].totalDuration
-      return this.getTimeObject(totalSecs)
     },
   },
 }

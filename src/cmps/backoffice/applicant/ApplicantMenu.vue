@@ -28,6 +28,7 @@
 import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
+  components: {MobileModal},
   computed: {
     isMobile() {
       return this.$store.getters['app/isMobile']
@@ -47,7 +48,5 @@ export default {
       this.$store.dispatch('app/toggleModal', {type: 'applicant-menu'})
     },
   },
-
-  components: {MobileModal},
 }
 </script>

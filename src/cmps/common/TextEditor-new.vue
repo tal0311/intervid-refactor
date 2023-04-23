@@ -43,6 +43,9 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 
 export default {
+  components: {
+    quillEditor,
+  },
   props: {
     value: String,
     currQuestIdx: Number,
@@ -80,6 +83,23 @@ export default {
     }
   },
 
+  computed: {
+    remainingCharCount() {
+      return this.charLimit - this.textLength
+    },
+
+    textLength() {
+      if (!this.editor) return this.value && this.value.length
+      return this.getLengthNoTags(this.editor.getText()) - 1
+    },
+  },
+
+  watch: {
+    currQuestIdx() {
+      this.setup()
+    },
+  },
+
   created() {
     this.id = this.$utilService.makeCmpId()
     const {editorOption} = this
@@ -95,17 +115,6 @@ export default {
 
   beforeUnmount() {
     this.editor.off('text-change', this.update)
-  },
-
-  computed: {
-    remainingCharCount() {
-      return this.charLimit - this.textLength
-    },
-
-    textLength() {
-      if (!this.editor) return this.value && this.value.length
-      return this.getLengthNoTags(this.editor.getText()) - 1
-    },
   },
 
   methods: {
@@ -144,16 +153,6 @@ export default {
       div.innerHTML = richText
       return div.innerText.length
     },
-  },
-
-  watch: {
-    currQuestIdx() {
-      this.setup()
-    },
-  },
-
-  components: {
-    quillEditor,
   },
 }
 </script>

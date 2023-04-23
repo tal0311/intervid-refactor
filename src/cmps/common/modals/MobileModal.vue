@@ -1,11 +1,11 @@
 <template>
   <section
-    v-touch:moving="onDrag"
     ref="modal"
+    v-touch:moving="onDrag"
     class="mobile-modal"
     :style="{transform: `translateY(${dragPercent + '%'}`}"
   >
-    <div class="modal-header" v-touch:start="onDown" v-touch:end="onUp">
+    <div v-touch:start="onDown" v-touch:end="onUp" class="modal-header">
       <h4>{{ $getTrans(cmpName) }}</h4>
     </div>
 
@@ -65,6 +65,19 @@ import MobileAnsRuleMenu from '@/cmps/JobEdit/MobileAnsRuleMenu.vue'
 import MobileTimelimitMenu from '@/cmps/JobEdit/MobileTimelimitMenu.vue'
 
 export default {
+  components: {
+    MobileFilterModal,
+    MobileJobMenuModal,
+    MobileUserModal,
+    MobileStatusModal,
+    MobileLngModal,
+    MobileApplicantMenuModal,
+    MobileAddCvModal,
+    MobileInterviewFormMenuModal,
+    MobileQuestEditMenu,
+    MobileTimeEventMenu,
+    MobileAnsRuleMenu,
+  },
   props: [
     'cmpName',
     'filterBy',
@@ -110,17 +123,6 @@ export default {
     }
   },
 
-  mounted() {
-    const {top, height} = this.$refs.modal.getBoundingClientRect()
-    this.modalOptions.modalTop = top
-    this.modalOptions.modalHeight = height
-    document.body.style.overflow = 'hidden'
-  },
-
-  unmounted() {
-    document.body.style.overflow = 'initial'
-  },
-
   computed: {
     cmpToShow() {
       return this.cmps[this.cmpName]
@@ -132,6 +134,23 @@ export default {
       if (this.isDragging) return percent > 0 ? percent : 0
       return percent >= 50 ? 110 : 0
     },
+  },
+
+  watch: {
+    dragPercent(value) {
+      if (value > 100) this.closeModal()
+    },
+  },
+
+  mounted() {
+    const {top, height} = this.$refs.modal.getBoundingClientRect()
+    this.modalOptions.modalTop = top
+    this.modalOptions.modalHeight = height
+    document.body.style.overflow = 'hidden'
+  },
+
+  unmounted() {
+    document.body.style.overflow = 'initial'
   },
 
   methods: {
@@ -163,26 +182,6 @@ export default {
     getClientY(ev) {
       return ev.type.includes('touch') ? ev.targetTouches[0].clientY : ev.clientY
     },
-  },
-
-  watch: {
-    dragPercent(value) {
-      if (value > 100) this.closeModal()
-    },
-  },
-
-  components: {
-    MobileFilterModal,
-    MobileJobMenuModal,
-    MobileUserModal,
-    MobileStatusModal,
-    MobileLngModal,
-    MobileApplicantMenuModal,
-    MobileAddCvModal,
-    MobileInterviewFormMenuModal,
-    MobileQuestEditMenu,
-    MobileTimeEventMenu,
-    MobileAnsRuleMenu,
   },
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="audio-meter">
-    <div class="inner" :style="{height: displayVolume + '%'}" ref="meter">
+    <div ref="meter" class="inner" :style="{height: displayVolume + '%'}">
       <div class="yellow"></div>
       <div class="green"></div>
       <div class="red"></div>
@@ -27,6 +27,13 @@ export default {
       MIN_VOLUME: 0.15,
       displayVolume: 0,
     }
+  },
+
+  watch: {
+    stream() {
+      this.cleanMeter()
+      this.getAudioLevel()
+    },
   },
 
   mounted() {
@@ -70,13 +77,6 @@ export default {
       this.meter = createAudioMeter(audioContext, 0.85)
       microphone.connect(this.meter)
       this.drawAudioLoop()
-    },
-  },
-
-  watch: {
-    stream() {
-      this.cleanMeter()
-      this.getAudioLevel()
     },
   },
 }

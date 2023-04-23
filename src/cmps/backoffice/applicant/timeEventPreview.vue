@@ -1,5 +1,5 @@
 <template>
-  <section class="time-event-preview" v-if="timeEvent">
+  <section v-if="timeEvent" class="time-event-preview">
     <i :style="{color: timeEventToShow.color}" class="time-event-icon material-icons" :class="timeEventToShow.icon">
       {{ timeEventToShow.icon }}
     </i>
@@ -25,6 +25,7 @@ import {timelineService} from '@/services/timelineService'
 import TimeEventMenu from './TimeEventMenu.vue'
 
 export default {
+  components: {TimeEventMenu},
   props: ['timeEvent', 'idx', 'jobTitle', 'applicantName'],
   computed: {
     timeEventToShow() {
@@ -69,7 +70,5 @@ export default {
       })
     },
   },
-
-  components: {TimeEventMenu},
 }
 </script>

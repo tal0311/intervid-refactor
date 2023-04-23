@@ -1,7 +1,7 @@
 <template>
   <div class="activity-overview overview">
     <div class="overview-header">
-      <ActivityFilter :filter-by="filterBy" @set-filter="onSetFilterByKey" :users="users" />
+      <ActivityFilter :filter-by="filterBy" :users="users" @set-filter="onSetFilterByKey" />
 
       <ListActions
         :filter-by="filterBy"
@@ -38,6 +38,7 @@ import {usePagination} from '@/composables/overview/usePagination'
 // services
 
 export default {
+  components: {ActivityFilter, TableList, ListActions},
   setup() {
     const {filterBy, onSetFilterByKey, setFilterFromRoute} = useFilter()
     const {sort, onSort} = useSort()
@@ -54,11 +55,6 @@ export default {
       selectedItems,
       isSelected,
     }
-  },
-
-  created() {
-    this.loadActivities()
-    this.loadUsers()
   },
 
   computed: {
@@ -81,6 +77,18 @@ export default {
     },
   },
 
+  watch: {
+    $route() {
+      this.setFilterFromRoute()
+      this.loadActivities()
+    },
+  },
+
+  created() {
+    this.loadActivities()
+    this.loadUsers()
+  },
+
   methods: {
     loadActivities() {
       this.$store.dispatch('activity/loadActivities', {
@@ -92,14 +100,5 @@ export default {
       this.$store.dispatch('user/loadUsers')
     },
   },
-
-  watch: {
-    $route() {
-      this.setFilterFromRoute()
-      this.loadActivities()
-    },
-  },
-
-  components: {ActivityFilter, TableList, ListActions},
 }
 </script>

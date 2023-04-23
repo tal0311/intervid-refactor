@@ -6,22 +6,22 @@
       <img :src="coverPreview || initialCover" referrerpolicy="no-referrer" />
     </div>
 
-    <button v-if="initialCover" type="button" @click="toggleModal('change-cover')" class="open-modal">
+    <button v-if="initialCover" type="button" class="open-modal" @click="toggleModal('change-cover')">
       {{ $getTrans('change-cover') }}
     </button>
 
-    <div v-if="isOpen" @click="toggleModal('change-cover')" class="modal-wrapper">
+    <div v-if="isOpen" class="modal-wrapper" @click="toggleModal('change-cover')">
       <div class="modal-content" @click.stop="">
         <div class="modal-header">
           <div class="modal-header-content">
             <h1>{{ $getTrans('select-cover-image') }}</h1>
             <div class="search-input">
               <main-input
-                @input="onGetImgs"
+                v-model.trim="value"
                 input-name="search"
                 :placeholder="$getTrans('search')"
-                v-model.trim="value"
                 styled="basic"
+                @input="onGetImgs"
               />
               <i class="material-icons">search</i>
             </div>
@@ -36,9 +36,9 @@
               :key="img.regular"
               :src="img.small ? img.small : img.regular"
               alt=""
+              :class="{selected: checkIsSelectedImg(img)}"
               @click="onSelectImg(img)"
               @dblclick="onSelectImgAndAddCover(img)"
-              :class="{selected: checkIsSelectedImg(img)}"
             />
           </div>
 
@@ -59,12 +59,12 @@
               </label>
 
               <input
-                @input="onUploadImg"
+                :id="`upload-${id}`"
                 class="upload-input"
                 type="file"
                 :name="`upload-${id}`"
-                :id="`upload-${id}`"
                 accept="image/*"
+                @input="onUploadImg"
               />
 
               <div class="remove-cover" @click="onRemoveCover">
@@ -77,14 +77,14 @@
                 :key="cover.small || cover.regular"
                 :src="cover.small || cover.regular"
                 alt=""
+                :class="{selected: checkIsSelectedImg(cover)}"
                 @click="onSelectImg(cover)"
                 @dblclick="onSelectImgAndAddCover(cover)"
-                :class="{selected: checkIsSelectedImg(cover)}"
               />
             </div>
           </section>
 
-          <section class="site-files" v-if="user.coverUrls && !imgs">
+          <section v-if="user.coverUrls && !imgs" class="site-files">
             <p>{{ $getTrans('site-files') }}</p>
             <div class="img-container">
               <img
@@ -92,15 +92,15 @@
                 :key="img.small || img.regular"
                 :src="img.small || img.regular"
                 alt=""
+                :class="{selected: checkIsSelectedImg(img)}"
                 @click="onSelectImg(img)"
                 @dblclick="onSelectImgAndAddCover(img)"
-                :class="{selected: checkIsSelectedImg(img)}"
               />
             </div>
           </section>
         </div>
 
-        <button type="button" @click="onAddCover" class="select-btn">
+        <button type="button" class="select-btn" @click="onAddCover">
           {{ $getTrans('select') }}
         </button>
       </div>
@@ -115,6 +115,7 @@ import {mediaService} from '@/services/mediaService'
 import {coverImgs} from '@/services/constData'
 
 export default {
+  components: {AppSpinner},
   props: ['initialCover', 'id'],
 
   data() {
@@ -126,10 +127,6 @@ export default {
       selectedImg: null,
       user: null,
     }
-  },
-
-  created() {
-    this.user = this.$utilService.deepClone(this.loggedInUser)
   },
 
   computed: {
@@ -148,6 +145,16 @@ export default {
     coverImgs() {
       return coverImgs
     },
+  },
+
+  watch: {
+    loggedInUser() {
+      this.user = structuredClone(this.loggedInUser)
+    },
+  },
+
+  created() {
+    this.user = this.$utilService.deepClone(this.loggedInUser)
   },
 
   methods: {
@@ -219,13 +226,5 @@ export default {
       this.toggleModal()
     },
   },
-
-  watch: {
-    loggedInUser() {
-      this.user = structuredClone(this.loggedInUser)
-    },
-  },
-
-  components: {AppSpinner},
 }
 </script>

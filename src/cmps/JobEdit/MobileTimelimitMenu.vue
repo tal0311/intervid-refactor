@@ -1,13 +1,13 @@
 <template>
   <div class="mobile-timelimit-modal mobile-modal-content">
     <button
-      type="button"
       v-for="timelimit in timelimits"
       :key="timelimit.value"
-      @click.stop="$emit('set-timelimit', timelimit)"
+      type="button"
       :class="{
         selected: selectedTimelimit.value === timelimit.value,
       }"
+      @click.stop="$emit('set-timelimit', timelimit)"
     >
       {{ timelimit.txt }}
     </button>

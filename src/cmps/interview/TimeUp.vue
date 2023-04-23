@@ -29,6 +29,16 @@ export default {
     }
   },
 
+  computed: {
+    secondsLeft() {
+      return Math.ceil(this.timeLeft / 1000)
+    },
+
+    targetTime() {
+      return this.data.secondsToWait * 1000 + this.startTime
+    },
+  },
+
   mounted() {
     if (document.visibilityState !== 'visible') {
       document.addEventListener('visibilitychange', this.handleBackToTab)
@@ -39,16 +49,6 @@ export default {
 
   unmounted() {
     document.removeEventListener('visibilitychange', this.handleBackToTab)
-  },
-
-  computed: {
-    secondsLeft() {
-      return Math.ceil(this.timeLeft / 1000)
-    },
-
-    targetTime() {
-      return this.data.secondsToWait * 1000 + this.startTime
-    },
   },
 
   methods: {

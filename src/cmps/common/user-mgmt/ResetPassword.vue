@@ -4,32 +4,32 @@
     <form novalidate @submit.prevent="onChangePassword">
       <main-input
         v-if="isChange"
+        v-model.trim="password.current"
         input-name="currPassword"
         label="Current Password"
         type="password"
         validate="required"
-        v-model.trim="password.current"
         :on-blur="validateField"
         :errors="errors"
         styled="main"
       />
       <main-input
         v-if="isChange"
+        v-model.trim="password.updated"
         input-name="newPassword"
         label="New Password"
         type="password"
         validate="required|password"
-        v-model.trim="password.updated"
         :on-blur="validateField"
         :errors="errors"
         styled="main"
       />
       <main-input
+        v-model.trim="password.verifyUpdated"
         input-name="verifyPassword"
         label="Verify New Password"
         type="password"
         validate="required"
-        v-model.trim="password.verifyUpdated"
         :on-blur="validateField"
         :errors="errors"
         styled="main"

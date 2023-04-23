@@ -1,8 +1,8 @@
 <template>
   <section class="forgot-password">
     <div class="content">
-      <component :is="componentToShow" @on-next-step="onNextStep" :email="email">
-        <div class="error" v-if="authError">
+      <component :is="componentToShow" :email="email" @on-next-step="onNextStep">
+        <div v-if="authError" class="error">
           {{ $getTrans(authError) }}
         </div>
       </component>
@@ -37,11 +37,6 @@ export default {
     }
   },
 
-  created() {
-    this.userToEdit = this.$store.getters['user/loggedInUser']
-    this.currStep = this.isChangePass ? 2 : 0
-  },
-
   computed: {
     componentToShow() {
       const steps = ['EnterEmailForm', 'ResetPasswordForm', 'ChangePasswordForm', 'EnterCodeForm']
@@ -56,6 +51,11 @@ export default {
     loggedInUser() {
       return this.$store.getters['user/loggedInUser']
     },
+  },
+
+  created() {
+    this.userToEdit = this.$store.getters['user/loggedInUser']
+    this.currStep = this.isChangePass ? 2 : 0
   },
 
   methods: {

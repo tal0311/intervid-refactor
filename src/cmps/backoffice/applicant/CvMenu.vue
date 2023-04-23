@@ -1,9 +1,9 @@
 <template>
   <div :class="['cv-menu', {selected: isOpen && !isMobile}]">
-    <button class="menu-btn" :class="cvInfo.class" @click="cvInfo.method" ref="elDragDrop"></button>
+    <button ref="elDragDrop" class="menu-btn" :class="cvInfo.class" @click="cvInfo.method"></button>
 
     <div class="menu-modal" :class="{open: isOpen && !isMobile}">
-      <CvUpload @uploaded="$emit('on-cv-uploaded', $event)" :applicant-cv-name="applicantCvName" />
+      <CvUpload :applicant-cv-name="applicantCvName" @uploaded="$emit('on-cv-uploaded', $event)" />
     </div>
 
     <MobileModal
@@ -21,6 +21,7 @@ import CvUpload from '@/cmps/interview/CvUpload.vue'
 import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
+  components: {CvUpload, MobileModal},
   props: ['applicantCvName', 'applicant'],
 
   computed: {
@@ -55,7 +56,5 @@ export default {
       link.click()
     },
   },
-
-  components: {CvUpload, MobileModal},
 }
 </script>

@@ -15,7 +15,7 @@
         {{ $getTrans('filter-btn') }}
       </button>
 
-      <div class="filter-modal" :class="{open: isFilterModalOpen}" v-click-outside="onResetFilter">
+      <div v-click-outside="onResetFilter" class="filter-modal" :class="{open: isFilterModalOpen}">
         <div v-if="isApplicantOverview" class="filter-container status-filter">
           <h3 class="filter-title">{{ $getTrans('by-status') }}</h3>
           <div class="filter-list">
@@ -30,53 +30,53 @@
           <h3 class="filter-title">{{ $getTrans('by-date') }}</h3>
           <div class="filter-list">
             <label :class="{selected: !updatedFilterBy.daysAgo}">
-              <input type="radio" value="" :checked="!updatedFilterBy.daysAgo" v-model="updatedFilterBy.daysAgo" />
+              <input v-model="updatedFilterBy.daysAgo" type="radio" value="" :checked="!updatedFilterBy.daysAgo" />
               {{ $getTrans('all') }}
             </label>
             <label
               v-for="date in filterDates"
-              :class="{selected: updatedFilterBy.daysAgo == date.daysAgo}"
               :key="date.id"
+              :class="{selected: updatedFilterBy.daysAgo == date.daysAgo}"
             >
               <input
+                v-model="updatedFilterBy.daysAgo"
                 type="radio"
                 :value="date.daysAgo"
                 :checked="updatedFilterBy.daysAgo == date.daysAgo"
-                v-model="updatedFilterBy.daysAgo"
               />
               {{ $getTrans(date.label) }}
             </label>
           </div>
         </div>
 
-        <div class="filter-container view-filter" v-if="isApplicantOverview">
+        <div v-if="isApplicantOverview" class="filter-container view-filter">
           <h3 class="filter-title">{{ $getTrans('view-only') }}</h3>
           <div class="filter-list">
             <label :class="{selected: updatedFilterBy.incomplete === undefined}">
               <input
+                v-model="updatedFilterBy.incomplete"
                 type="radio"
                 :checked="updatedFilterBy.incomplete === undefined"
                 :value="undefined"
-                v-model="updatedFilterBy.incomplete"
               />
               {{ `${$getTrans('show-all')}` }}
             </label>
 
             <label :class="{selected: updatedFilterBy.incomplete}">
               <input
+                v-model="updatedFilterBy.incomplete"
                 type="radio"
                 :value="true"
                 :checked="updatedFilterBy.incomplete === false"
-                v-model="updatedFilterBy.incomplete"
               />
               {{ $getTrans('show-incomplete') }}
             </label>
             <label :class="{selected: updatedFilterBy.incomplete === false}">
               <input
+                v-model="updatedFilterBy.incomplete"
                 type="radio"
                 :value="false"
                 :checked="updatedFilterBy.incomplete"
-                v-model="updatedFilterBy.incomplete"
               />
               {{ $getTrans('show-complete') }}
             </label>
@@ -88,11 +88,11 @@
             <div class="main-toggle">
               <label for="show-archived">
                 <input
-                  type="checkbox"
                   id="show-archived"
+                  v-model="updatedFilterBy.showArchived"
+                  type="checkbox"
                   name="show-archived"
                   :checked="updatedFilterBy.showArchived"
-                  v-model="updatedFilterBy.showArchived"
                 />
                 <div class="outer">
                   <div class="inner"></div>
@@ -117,15 +117,15 @@
       v-if="isMobile && modal.type === 'MobileFilter'"
       cmp-name="filter"
       :filter-by="filterBy"
+      :expected-entity-count="expectedEntityCount"
+      :filtered-job-count="filteredJobCount"
+      :entity="entity"
+      :updated-filter-by="updatedFilterBy"
       @edit-filter="(key, term) => (updatedFilterBy[key] = term)"
       @set-filter="onSetFilter"
       @reset-filter="onClearFilter"
       @select-status="onSelectStatus"
       @on-close="toggleModal('MobileFilter')"
-      :expected-entity-count="expectedEntityCount"
-      :filtered-job-count="filteredJobCount"
-      :entity="entity"
-      :updated-filter-by="updatedFilterBy"
     />
   </section>
 </template>
@@ -135,6 +135,9 @@ import {statusMap, filterDates} from '@/services/constData'
 import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
+  components: {
+    MobileModal,
+  },
   props: ['filterBy', 'isApplicantOverview', 'filteredJobCount'],
 
   data() {
@@ -143,11 +146,6 @@ export default {
       isFilterEdited: false,
       svgs: {filter: ''},
     }
-  },
-
-  created() {
-    // this.resetFilter()
-    // this.svgs.filter = this.$getSvg('filter')
   },
 
   computed: {
@@ -243,6 +241,21 @@ export default {
     },
   },
 
+  watch: {
+    updatedFilterBy: {
+      handler(newFilter) {
+        this.getExpectedEntityCount(newFilter)
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
+
+  created() {
+    // this.resetFilter()
+    // this.svgs.filter = this.$getSvg('filter')
+  },
+
   methods: {
     toggleModal(type) {
       this.$store.dispatch('app/toggleModal', {type})
@@ -286,20 +299,6 @@ export default {
         this.resetFilter()
       })
     },
-  },
-
-  watch: {
-    updatedFilterBy: {
-      handler(newFilter) {
-        this.getExpectedEntityCount(newFilter)
-      },
-      deep: true,
-      immediate: true,
-    },
-  },
-
-  components: {
-    MobileModal,
   },
 }
 </script>

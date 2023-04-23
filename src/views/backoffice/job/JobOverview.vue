@@ -34,12 +34,12 @@
     </h2>
     <div class="overview-header">
       <div class="search-filter-container">
-        <SearchBox :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-jobs" />
+        <SearchBox :value="filterBy.txt" placeholder="search-jobs" @input="onSetFilterByKey" />
         <FilterBox
-          @set-filter="onSetFilter"
-          @reset-filters="resetFilters"
           :filter-by="filterBy"
           :filtered-job-count="filteredJobCount"
+          @set-filter="onSetFilter"
+          @reset-filters="resetFilters"
         />
       </div>
 
@@ -60,7 +60,7 @@
       <span>{{ tagList.length || filterBy.txt ? filterCount : '' }}</span>
 
       <div class="tag-list">
-        <div class="tag-preview" v-for="tag in tagList" :key="tag.name">
+        <div v-for="tag in tagList" :key="tag.name" class="tag-preview">
           <span>{{ tag.name }}</span>
           <i class="material-icons" @click="onRemoveTag(tag)"> close </i>
         </div>
@@ -113,6 +113,13 @@ import {useLoadItems} from '@/composables/overview/useLoadItems'
 import {msgService} from '@/services/msgService'
 
 export default {
+  components: {
+    TableList,
+    SearchBox,
+    ListActions,
+    TemplatePicker,
+    FilterBox,
+  },
   setup() {
     const route = useRoute()
     const {filterBy, onSetFilter, onSetFilterByKey, resetFilters, setFilterFromRoute} = useFilter('job/loadJobs')
@@ -161,11 +168,6 @@ export default {
       // setSelectedItems,
     }
   },
-  async created() {
-    this.setPreferredView()
-    await this.loadJobs()
-    await this.$store.dispatch('template/loadDefaultTemplates')
-  },
 
   computed: {
     jobs() {
@@ -206,6 +208,25 @@ export default {
           : `${$getTrans('showing')} ${$getTrans('job').toLowerCase()} ${this.filteredJobCount}`
       } else return ''
     },
+  },
+
+  watch: {
+    $route() {
+      this.clearSelectedItems()
+      this.setFilterFromRoute()
+      this.loadJobs()
+    },
+    sort: {
+      handler() {
+        this.loadJobs()
+      },
+      deep: true,
+    },
+  },
+  async created() {
+    this.setPreferredView()
+    await this.loadJobs()
+    await this.$store.dispatch('template/loadDefaultTemplates')
   },
 
   methods: {
@@ -251,28 +272,6 @@ export default {
       if (!preferredViewType) return
       this.$store.commit('job/setViewType', {viewType: preferredViewType})
     },
-  },
-
-  watch: {
-    $route() {
-      this.clearSelectedItems()
-      this.setFilterFromRoute()
-      this.loadJobs()
-    },
-    sort: {
-      handler() {
-        this.loadJobs()
-      },
-      deep: true,
-    },
-  },
-
-  components: {
-    TableList,
-    SearchBox,
-    ListActions,
-    TemplatePicker,
-    FilterBox,
   },
 }
 </script>

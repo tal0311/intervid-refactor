@@ -21,15 +21,15 @@
     </div>
 
     <div class="actions">
-      <i @click.stop="onEditAccount" class="material-icons md-dark" title="Edit Account">create</i>
-      <i @click.stop="onRemoveAccount" class="material-icons md-dark" title="Remove Account">delete</i>
+      <i class="material-icons md-dark" title="Edit Account" @click.stop="onEditAccount">create</i>
+      <i class="material-icons md-dark" title="Remove Account" @click.stop="onRemoveAccount">delete</i>
       <i
-        @click.stop="setViewAs"
         title="View as Account"
         class="material-icons-outlined"
         :class="{
           'md-dark': viewAsUser ? viewAsUser._id !== account._id : true,
         }"
+        @click.stop="setViewAs"
         >visibility</i
       >
     </div>

@@ -17,12 +17,12 @@
 
       <div class="media-wrapper">
         <ShareNetwork
-          @open="closeModal"
           tag="button"
           network="whatsapp"
           title="We're seeking for you!"
           :url="invitationUrl"
           :description="`${companyName} is seeking for ${jobTitle}. Click the link to start the interview via Intervid.`"
+          @open="closeModal"
           v-html="svgs.whatsapp"
         ></ShareNetwork>
         <span>{{ $getTrans('whatsapp') }}</span>
@@ -30,13 +30,13 @@
 
       <div class="media-wrapper">
         <ShareNetwork
-          @open="closeModal"
           tag="button"
           network="facebook"
           :url="invitationUrl"
           title="We're seeking for you!"
           quote="We're seeking for you! Click to start the interview."
           hashtags="hiring"
+          @open="closeModal"
           v-html="svgs.facebook"
         ></ShareNetwork>
         <span>{{ $getTrans('facebook') }}</span>
@@ -44,12 +44,12 @@
 
       <div class="media-wrapper">
         <ShareNetwork
-          @open="closeModal"
           tag="button"
           network="email"
           :title="`Intervid invition- ${jobTitle} at ${companyName} `"
           :url="invitationUrl"
           :description="`${companyName} is seeking for ${jobTitle}. Click the link to start the interview via Intervid.`"
+          @open="closeModal"
         >
           <i class="material-icons">mail_outline</i>
         </ShareNetwork>
@@ -66,6 +66,7 @@ import {ShareNetwork} from 'vue-social-sharing'
 import config from '@/config'
 
 export default {
+  components: {ShareNetwork},
   props: ['job', 'data'],
 
   // TODO: REMOVE DATA FROM HERE
@@ -76,11 +77,6 @@ export default {
         facebook: '',
       },
     }
-  },
-
-  created() {
-    this.svgs.whatsapp = this.$getSvg('whatsappIcon')
-    this.svgs.facebook = this.$getSvg('facebookIcon')
   },
 
   computed: {
@@ -104,6 +100,11 @@ export default {
     lang() {
       return this.$store.getters['app/lang']
     },
+  },
+
+  created() {
+    this.svgs.whatsapp = this.$getSvg('whatsappIcon')
+    this.svgs.facebook = this.$getSvg('facebookIcon')
   },
 
   methods: {
@@ -138,7 +139,5 @@ export default {
       this.closeModal()
     },
   },
-
-  components: {ShareNetwork},
 }
 </script>

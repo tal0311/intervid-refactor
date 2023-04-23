@@ -1,10 +1,10 @@
 <template>
   <section class="list-actions">
-    <div class="actions" v-if="selectedItemCount">
+    <div v-if="selectedItemCount" class="actions">
       <i
         class="material-icons bottom-tooltip"
-        @click="$emit('archive')"
         :data-tooltip="filterBy.showArchived ? $getTrans('restore') : $getTrans('archive')"
+        @click="$emit('archive')"
       >
         {{ filterBy.showArchived ? 'unarchive' : 'archive' }}
       </i>
@@ -43,6 +43,7 @@
 import AppPagination from '@/cmps/common/AppPagination.vue'
 
 export default {
+  components: {AppPagination},
   props: [
     'selectedItemCount',
     'isLockedItemSelected',
@@ -53,7 +54,5 @@ export default {
     'isRead',
     'pageCount',
   ],
-
-  components: {AppPagination},
 }
 </script>

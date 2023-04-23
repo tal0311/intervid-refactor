@@ -1,6 +1,6 @@
 <template>
   <div class="lng-menu" :class="{open: isOpen && !isMobile}">
-    <button type="button" @click="toggleModal" :class="{selected: isOpen && !isMobile}">
+    <button type="button" :class="{selected: isOpen && !isMobile}" @click="toggleModal">
       <!-- {{ selectedLng }} -->
       <!-- <i class="expand material-icons">expand_more</i> -->
       <i class="material-icons">language</i>
@@ -19,6 +19,7 @@
 import MobileModal from './modals/MobileModal.vue'
 
 export default {
+  components: {MobileModal},
   computed: {
     isMobile() {
       return this.$store.getters['app/isMobile']
@@ -51,7 +52,5 @@ export default {
       this.$store.dispatch('app/setLang', {lang})
     },
   },
-
-  components: {MobileModal},
 }
 </script>

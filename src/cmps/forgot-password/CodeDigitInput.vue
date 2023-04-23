@@ -3,10 +3,10 @@
     type="number"
     :value="$attrs.value"
     :disabled="$attrs.disabled"
-    @keydown="type"
-    @paste.prevent="paste"
     name="code-digit"
     autocomplete="nope"
+    @keydown="type"
+    @paste.prevent="paste"
     @keydown.left.right="moveInput"
     @keydown.delete="$emit('remove', idx)"
   />

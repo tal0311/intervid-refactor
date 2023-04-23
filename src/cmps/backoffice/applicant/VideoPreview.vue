@@ -18,9 +18,9 @@
           {{ secondsToTime(answerDuration) }} /
           {{ secondsToTime(quest.timeLimit * 60) }}
         </p>
-        <p v-if="quest.desc" class="desc" ref="desc" v-mounted :class="{expand: isExpand}" v-html="description"></p>
+        <p v-if="quest.desc" ref="desc" v-mounted class="desc" :class="{expand: isExpand}" v-html="description"></p>
       </div>
-      <button class="show-more-btn" v-if="quest.desc && idx === selectedQuestIdx && isOverflowing">
+      <button v-if="quest.desc && idx === selectedQuestIdx && isOverflowing" class="show-more-btn">
         <span @click="toggleExpand">{{ isExpand ? $getTrans('read-less') : $getTrans('read-more') }}</span>
         <i class="material-icons">{{ isExpand ? 'expand_less' : 'expand_more' }}</i>
       </button>
@@ -30,6 +30,15 @@
 
 <script>
 export default {
+  directives: {
+    // attention!! the name of this directive is "mounted" - and it used on the the "<p>" tag in line 21.
+    mounted(el, _, vnode) {
+      const {ctx: cmp} = vnode.ctx // to get something from the "this" of the component, we need to get "vnode.ctx.ctx"
+      if (cmp.selectedQuestIdx === cmp.idx && el.scrollHeight && el.clientHeight && cmp.isOverflowing === null) {
+        cmp.isOverflowing = el.scrollHeight > el.clientHeight
+      }
+    },
+  },
   props: ['answer', 'idx', 'quest', 'selectedQuestIdx'],
 
   data() {
@@ -52,6 +61,12 @@ export default {
     },
   },
 
+  watch: {
+    async 'answer.faceUrl'() {
+      this.answerDuration = await this.$utilService.getVideoLength(this.answer.faceUrl)
+    },
+  },
+
   methods: {
     secondsToTime(answerTime) {
       return this.$utilService.secondsToTime(answerTime)
@@ -59,22 +74,6 @@ export default {
 
     toggleExpand() {
       this.isExpand = !this.isExpand
-    },
-  },
-
-  watch: {
-    async 'answer.faceUrl'() {
-      this.answerDuration = await this.$utilService.getVideoLength(this.answer.faceUrl)
-    },
-  },
-
-  directives: {
-    // attention!! the name of this directive is "mounted" - and it used on the the "<p>" tag in line 21.
-    mounted(el, _, vnode) {
-      const {ctx: cmp} = vnode.ctx // to get something from the "this" of the component, we need to get "vnode.ctx.ctx"
-      if (cmp.selectedQuestIdx === cmp.idx && el.scrollHeight && el.clientHeight && cmp.isOverflowing === null) {
-        cmp.isOverflowing = el.scrollHeight > el.clientHeight
-      }
     },
   },
 }

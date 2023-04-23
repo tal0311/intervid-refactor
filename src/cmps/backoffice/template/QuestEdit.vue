@@ -1,24 +1,24 @@
 <template>
-  <section class="quest-edit" v-if="mutableQuest">
+  <section v-if="mutableQuest" class="quest-edit">
     <div class="quest-header">
       <h4>{{ $getTrans('question') }} #{{ idx + 1 }}</h4>
-      <QuestMenu @on-remove-quest="onRemoveQuest" :quest="mutableQuest" />
+      <QuestMenu :quest="mutableQuest" @on-remove-quest="onRemoveQuest" />
     </div>
 
     <div class="quest-content">
       <main-input
+        v-model.trim="mutableQuest.txt"
         :input-name="`txt-${mutableQuest.id}`"
         :placeholder="$getTrans('question')"
         validate="required"
-        v-model.trim="mutableQuest.txt"
         :on-blur="validateField"
         :errors="errors"
         styled="main"
       />
 
       <div v-if="isDesc" class="editor-container">
-        <TextEditor placeholder="Elaborate (optional)" v-model.trim="desc" :tools="['code', 'link']" />
-        <OptQuestEdit @edit-opts="onEditOpts" :opts-to-edit="mutableQuest.opts" v-if="mutableQuest.opts" />
+        <TextEditor v-model.trim="desc" placeholder="Elaborate (optional)" :tools="['code', 'link']" />
+        <OptQuestEdit v-if="mutableQuest.opts" :opts-to-edit="mutableQuest.opts" @edit-opts="onEditOpts" />
       </div>
 
       <p class="toggle-desc-btn" @click="isDesc = !isDesc">
@@ -28,15 +28,15 @@
     </div>
 
     <div class="answer-details">
-      <basic-select @input="onChangeAnsRule" :default-value="ansRuleValue" :options="options" />
+      <basic-select :default-value="ansRuleValue" :options="options" @input="onChangeAnsRule" />
 
       <div class="time-limit">
         <i class="material-icons">schedule</i>
         <main-input
+          v-model.trim="mutableQuest.timeLimit"
           input-name="timeLimit"
           type="number"
           validate="required|range"
-          v-model.trim="mutableQuest.timeLimit"
           :on-blur="validateField"
           :errors="errors"
           styled="basic"
@@ -56,6 +56,11 @@ import OptQuestEdit from './OptQuestEdit.vue'
 import QuestMenu from './QuestMenu.vue'
 
 export default {
+  components: {
+    TextEditor,
+    OptQuestEdit,
+    QuestMenu,
+  },
   props: ['quest', 'errors', 'idx'],
 
   data() {
@@ -93,6 +98,17 @@ export default {
     },
   },
 
+  watch: {
+    quest() {
+      this.desc = this.mutableQuest.desc
+    },
+
+    desc() {
+      const newQuest = {...this.mutableQuest, desc: this.desc}
+      this.$emit('update-quest', newQuest)
+    },
+  },
+
   methods: {
     onChangeAnsRule(field) {
       const fields = field.split(',')
@@ -123,23 +139,6 @@ export default {
     validateField(ev) {
       this.$emit('validate-field', ev)
     },
-  },
-
-  watch: {
-    quest() {
-      this.desc = this.mutableQuest.desc
-    },
-
-    desc() {
-      const newQuest = {...this.mutableQuest, desc: this.desc}
-      this.$emit('update-quest', newQuest)
-    },
-  },
-
-  components: {
-    TextEditor,
-    OptQuestEdit,
-    QuestMenu,
   },
 }
 </script>

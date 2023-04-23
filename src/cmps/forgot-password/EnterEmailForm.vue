@@ -1,14 +1,14 @@
 <template>
   <section>
     <h1>{{ $getTrans('forgot-password') }}</h1>
-    <form @submit.prevent="handleSubmit" class="enter-email-form">
+    <form class="enter-email-form" @submit.prevent="handleSubmit">
       <h2>{{ $getTrans('enter-email-address') }}</h2>
       <main-input
+        v-model.trim="email"
         type="email"
         input-name="email"
         :placeholder="$getTrans('email')"
         validate="required||email"
-        v-model.trim="email"
         :on-blur="validateField"
         :errors="errors"
         styled="main"
@@ -16,11 +16,11 @@
 
       <div class="set-option-container">
         <label>
-          <input type="radio" value="RMP" name="set_option" v-model="setOption" required />
+          <input v-model="setOption" type="radio" value="RMP" name="set_option" required />
           <span>{{ $getTrans('reset-my-password') }}</span>
         </label>
         <label>
-          <input type="radio" value="OTP" name="set_option" v-model="setOption" required />
+          <input v-model="setOption" type="radio" value="OTP" name="set_option" required />
           <span>{{ $getTrans('send-otp') }}</span>
         </label>
       </div>

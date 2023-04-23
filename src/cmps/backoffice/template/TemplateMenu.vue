@@ -1,10 +1,10 @@
 <template>
-  <section class="action-menu" ref="modal-wrapper">
+  <section ref="modal-wrapper" class="action-menu">
     <button class="menu-btn" @click="toggleMenu">
       <span class="material-icons"> more_horiz </span>
     </button>
 
-    <div class="menu-modal" :ref="template._id">
+    <div :ref="template._id" class="menu-modal">
       <div @click.stop="onEditTemplate">{{ $getTrans('edit') }}</div>
       <div v-if="!isDefault" @click="emitAction('default')">
         {{ $getTrans('make-default') }}
@@ -36,6 +36,7 @@ import {useModal} from '@/composables/useModal.js'
 import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
+  components: {MobileModal},
   props: ['template'],
 
   setup(props) {
@@ -103,7 +104,5 @@ export default {
       this.$router.push(`/backoffice/template/edit/${this.template._id}`)
     },
   },
-
-  components: {MobileModal},
 }
 </script>

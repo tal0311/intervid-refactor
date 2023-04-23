@@ -1,5 +1,5 @@
 <template>
-  <span class="validation" v-if="error"> {{ $getTrans(error) }} </span>
+  <span v-if="error" class="validation"> {{ $getTrans(error) }} </span>
 </template>
 
 <script>
