@@ -10,9 +10,9 @@
     <input
       v-if="!isTextarea"
       :id="inputName"
+      ref="password"
       :type="$attrs.type || 'text'"
       :name="inputName"
-      ref="password"
       :placeholder="placeholder || ' '"
       :validate="validate"
       :value="$attrs.modelValue"
