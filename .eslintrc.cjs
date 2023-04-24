@@ -8,6 +8,7 @@ module.exports = {
   extends: ['plugin:vue/vue3-recommended', 'eslint:recommended', '@vue/eslint-config-prettier'],
   rules: {
     'vue/component-name-in-template-casing': ['error', 'PascalCase'],
+    'vue/no-v-html': 'off',
   },
   parserOptions: {
     ecmaVersion: 'latest',
