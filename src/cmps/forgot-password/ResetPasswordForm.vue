@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import {nextTick, forceUpdate} from 'vue'
 import CodeDigitInput from './CodeDigitInput.vue'
 
 export default {
@@ -65,7 +66,6 @@ export default {
     },
 
     paste(pastedVal) {
-      console.log('pastedVal', pastedVal)
       this.input = pastedVal
     },
 
@@ -75,11 +75,11 @@ export default {
       } else {
         if (idx === 0) return
         this.input[idx - 1] = undefined
-        this.$nextTick(() => {
+        nextTick(() => {
           this.goto(idx - 1)
         })
       }
-      this.$forceUpdate()
+      forceUpdate()
     },
   },
 }

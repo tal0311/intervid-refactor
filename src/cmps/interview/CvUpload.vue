@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import {nextTick} from 'vue'
 import {uploaderService} from '@/services/uploaderService'
 
 import DragDrop from '@uppy/drag-drop'
@@ -117,7 +118,7 @@ export default {
       this.uploadedAt = null
       if (this.$refs.elDragDrop) this.$refs.elDragDrop.innerHTML = ''
       this.$emit('uploaded', {})
-      this.$nextTick(this.initUploadBtn)
+      nextTick(this.initUploadBtn)
     },
   },
 }

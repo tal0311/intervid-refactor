@@ -16,7 +16,7 @@
           :idx="idx"
           :disabled="input.length < idx"
           @go-to="goto($event)"
-          @paste-new-val="onPaste($event)"
+          @paste-input="onPaste($event)"
           @remove="remove($event)"
         />
       </section>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import {nextTick, forceUpdate} from 'vue'
 import CodeDigitInput from './CodeDigitInput.vue'
 
 export default {
@@ -75,11 +76,11 @@ export default {
       } else {
         if (idx === 0) return
         this.input[idx - 1] = undefined
-        this.$nextTick(() => {
+        nextTick(() => {
           this.goto(idx - 1)
         })
       }
-      this.$forceUpdate()
+      forceUpdate()
     },
   },
 }

@@ -23,7 +23,6 @@ export default {
       if (key) {
         event.preventDefault()
         this.$emit('update:modelValue', key)
-        console.log(key)
         nextTick(() => {
           this.$emit('go-to', this.idx + 1)
         })
