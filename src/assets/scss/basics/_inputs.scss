@@ -351,6 +351,7 @@ $md-checkbox-label-padding: 0.75em;
     &:checked:not(.star) {
       + label:after {
         content: '';
+        // TODO: change to svg
         background-image: url(https://res.cloudinary.com/intervid/image/upload/v1672752260/Frontend/check-v2_t6dbse.svg);
         width: 100%;
         height: 100%;

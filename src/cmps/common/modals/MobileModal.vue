@@ -97,6 +97,7 @@ export default {
 
   data() {
     return {
+      // TODO: Remove this from the reactive data and use a better approach (strings is the best)
       cmps: {
         filter: MobileFilterModal,
         'job-actions': MobileJobMenuModal,

@@ -33,6 +33,9 @@
     // }
 
     video {
+      &.rotated {
+        transform: rotatez(90deg);
+      }
       &.cover {
         // transform: rotatey(180deg);
       }
