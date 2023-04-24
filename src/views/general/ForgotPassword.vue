@@ -19,6 +19,12 @@ import EnterEmailForm from '@/cmps/forgot-password/EnterEmailForm.vue'
 import EnterCodeForm from '@/cmps/forgot-password/EnterCodeForm.vue'
 
 export default {
+  components: {
+    EnterEmailForm,
+    ResetPasswordForm,
+    ChangePasswordForm,
+    EnterCodeForm,
+  },
   props: {
     isChangePass: Boolean,
   },
@@ -131,13 +137,6 @@ export default {
         // TODO: LOGGER SERVICE HERE
       }
     },
-  },
-
-  component: {
-    EnterEmailForm,
-    ResetPasswordForm,
-    ChangePasswordForm,
-    EnterCodeForm,
   },
 }
 </script>

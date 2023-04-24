@@ -65,6 +65,7 @@ export default {
     },
 
     paste(pastedVal) {
+      console.log('pastedVal', pastedVal)
       this.input = pastedVal
     },
 

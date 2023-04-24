@@ -16,7 +16,7 @@
           :idx="idx"
           :disabled="input.length < idx"
           @go-to="goto($event)"
-          @paste="paste($event)"
+          @paste-new-val="onPaste($event)"
           @remove="remove($event)"
         />
       </section>
@@ -65,7 +65,7 @@ export default {
       el.focus()
     },
 
-    paste(pastedVal) {
+    onPaste(pastedVal) {
       this.input = pastedVal
     },
 

@@ -1,7 +1,7 @@
 <template>
   <input
     type="number"
-    :value="$attrs.value"
+    :value="modelValue"
     :disabled="$attrs.disabled"
     name="code-digit"
     autocomplete="nope"
@@ -13,16 +13,18 @@
 </template>
 
 <script>
+import {nextTick} from 'vue'
 export default {
-  props: ['idx'],
+  props: ['idx', 'modelValue'],
 
   methods: {
     type(event) {
       const key = event.key.replace(/\D/g, '')
       if (key) {
         event.preventDefault()
-        this.$emit('input', key)
-        this.$nextTick(() => {
+        this.$emit('update:modelValue', key)
+        console.log(key)
+        nextTick(() => {
           this.$emit('go-to', this.idx + 1)
         })
       } else if (!event.ctrlKey) {
@@ -32,11 +34,10 @@ export default {
 
     paste(event) {
       let pastedVal = event.clipboardData.getData('text')
-      pastedVal = pastedVal.replace(/\D/g, '')
-      pastedVal = pastedVal.substring(0, this.length)
-      pastedVal = pastedVal.split('')
+      pastedVal = pastedVal.replace(/\D/g, '').substring(0, this.length).split('')
       if (pastedVal) {
-        this.$emit('paste', pastedVal)
+        console.log('pastedVal', pastedVal)
+        this.$emit('paste-new-val', pastedVal)
       }
     },
 
