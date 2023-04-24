@@ -1140,6 +1140,7 @@ const gTrans = {
     en: 'Screen',
     he: 'מסך',
   },
+
   connection: {
     en: 'Connection',
     he: 'חיבור לרשת',
@@ -1579,7 +1580,18 @@ const gTrans = {
     en: 'Full screen',
     he: 'מסך מלא',
   },
-
+  'rotate-screen': {
+    en: 'Rotate screen',
+    he: 'הפוך מסך',
+  },
+  'pause-video': {
+    en: 'Pause video',
+    he: 'השהה וידאו',
+  },
+  volume: {
+    en: 'Volume',
+    he: 'עוצמת קול',
+  },
   // MOBILE MODALS:
   'update status': {
     en: 'Update status',

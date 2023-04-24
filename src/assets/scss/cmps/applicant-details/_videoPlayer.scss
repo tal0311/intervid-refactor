@@ -33,6 +33,9 @@
     // }
 
     video {
+      &.rotated {
+        transform: rotatez(90deg);
+      }
       &.cover {
         // transform: rotatey(180deg);
       }
@@ -46,7 +49,7 @@
     // transform: rotatey(180deg);
 
     &:hover {
-      >button {
+      > button {
         opacity: 1;
       }
     }
@@ -61,7 +64,7 @@
       height: unset;
     }
 
-    >button {
+    > button {
       position: absolute;
       top: 5px;
       inset-inline-end: 5px;

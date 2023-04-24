@@ -6,7 +6,7 @@
         ref="mainVideo"
         @click="togglePlay"
         @dblclick="toggleFullScreen"
-        :class="{cover: mainVideoName === 'faceUrl'}"
+        :class="mainVideoClass"
         playsinline
       >
         Your browser does not support the video tag.
@@ -44,6 +44,7 @@
       @set-speed="onSetSpeed"
       @toggle-is-draggable-shown="toggleIsDraggableShown"
       @toggle-main-video="toggleMainVideo"
+      @rotate-main-video="toggleIsMainVideoRotated"
     />
 
     <button
@@ -70,6 +71,7 @@ export default {
       timespans: null,
       currTimespanIdx: 0,
       isDraggableShown: true,
+      isMainVideoRotated: false,
       mainVideoName: this.ans?.faceUrl ? 'faceUrl' : 'screenUrl',
       bufferInterval: null,
       svgs: {playPauseAnimation: ''},
@@ -136,7 +138,12 @@ export default {
       if (!this.ans) return ''
       return this.ans[this.mainVideoName]
     },
-
+    mainVideoClass() {
+      return {
+        cover: this.mainVideoName === 'faceUrl',
+        rotated: this.isMainVideoRotated,
+      }
+    },
     secVideoSrc() {
       if (!this.ans) return ''
       return this.ans[this.secVideoName]
@@ -347,7 +354,9 @@ export default {
         this.togglePlay()
       })
     },
-
+    toggleIsMainVideoRotated() {
+      this.isMainVideoRotated = !this.isMainVideoRotated
+    },
     toggleIsDraggableShown() {
       this.isDraggableShown = !this.isDraggableShown
     },
