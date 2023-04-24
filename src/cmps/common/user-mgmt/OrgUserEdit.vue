@@ -97,8 +97,21 @@ import {mapActions} from 'vuex'
 import ImgUpload from '@/cmps/common/ImgUpload.vue'
 
 export default {
-  props: ['userToEdit', 'onlyName', 'onlyEmail', 'data'],
+  components: {ImgUpload},
 
+  props: {
+    userToEdit: {
+      type: Object,
+      default: null,
+    },
+    onlyName: Boolean,
+    onlyEmail: Boolean,
+    data: {
+      type: Object,
+      default: null,
+    },
+  },
+  emits: ['close'],
   data() {
     return {
       user: userService.getEmptyUser(),
@@ -119,6 +132,14 @@ export default {
     isAdmin() {
       const loggedInUser = this.$store.getters['user/loggedInUser']
       return loggedInUser.role === 'admin'
+    },
+  },
+
+  watch: {
+    userToEdit() {
+      if (this.userToEdit) {
+        this.user = this.$utilService.deepClone(this.userToEdit)
+      }
     },
   },
 
@@ -175,15 +196,5 @@ export default {
       this.$store.dispatch('app/toggleModal', {type: null})
     },
   },
-
-  watch: {
-    userToEdit() {
-      if (this.userToEdit) {
-        this.user = this.$utilService.deepClone(this.userToEdit)
-      }
-    },
-  },
-
-  components: {ImgUpload},
 }
 </script>

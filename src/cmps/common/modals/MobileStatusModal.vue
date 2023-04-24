@@ -16,6 +16,7 @@
 import {statusMap} from '@/services/constData'
 
 export default {
+  emits: ['set-status'],
   computed: {
     statusMap() {
       return statusMap

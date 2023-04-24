@@ -131,8 +131,29 @@
 import {statusMap, filterDates} from '@/services/constData'
 
 export default {
-  props: ['filterBy', 'expectedEntityCount', 'filteredJobCount', 'entity', 'updatedFilterBy'],
-
+  props: {
+    filterBy: {
+      type: Object,
+      default: null,
+    },
+    expectedEntityCount: {
+      type: Number,
+      default: 0,
+    },
+    filteredJobCount: {
+      type: Number,
+      default: 0,
+    },
+    entity: {
+      type: String,
+      default: '',
+    },
+    updatedFilterBy: {
+      type: Object,
+      default: null,
+    },
+  },
+  emits: ['edit-filter', 'clear-filter', 'set-filter'],
   data() {
     return {
       // selectedDaysAgo: this.filterBy?.daysAgo || '',
@@ -173,7 +194,7 @@ export default {
     showCount() {
       const {$getTrans} = this
       if (this.expectedEntityCount > 1)
-        return `${$getTrans('show')} ${this.expectedEntityCount} 
+        return `${$getTrans('show')} ${this.expectedEntityCount}
           ${$getTrans(`${this.entity}s`.toLowerCase()).toLowerCase()}`
       else if (this.expectedEntityCount === 1) {
         return this.lng === 'en'

@@ -9,7 +9,13 @@ import CvUpload from '@/cmps/interview/CvUpload.vue'
 
 export default {
   components: {CvUpload},
-  props: ['applicantFullName'],
+  props: {
+    applicantFullName: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['on-cv-upload', 'on-close'],
 
   methods: {
     onUploadCv(cv) {

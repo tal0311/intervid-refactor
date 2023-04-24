@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import {nextTick, getCurrentInstance} from 'vue'
+import {nextTick} from 'vue'
 import CodeDigitInput from './CodeDigitInput.vue'
 
 export default {

@@ -57,7 +57,21 @@ export default {
   components: {
     MobileModal,
   },
-  props: ['applicant', 'isShowArchived', 'isFullWidth'],
+  props: {
+    applicant: {
+      type: Object,
+      default: null,
+    },
+    isShowArchived: {
+      type: Boolean,
+      default: false,
+    },
+    isFullWidth: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ['on-set-status'],
   setup(props, {emit}) {
     const store = useStore()
     const modalHeight = computed(() => 342)
