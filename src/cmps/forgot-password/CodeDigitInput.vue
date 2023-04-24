@@ -33,11 +33,9 @@ export default {
     },
 
     paste(event) {
-      let pastedVal = event.clipboardData.getData('text')
-      pastedVal = pastedVal.replace(/\D/g, '').substring(0, this.length).split('')
+      const pastedVal = event.clipboardData.getData('text')
       if (pastedVal) {
-        console.log('pastedVal', pastedVal)
-        this.$emit('paste-new-val', pastedVal)
+        this.$emit('paste-input', pastedVal.replace(/\D/g, '').substring(0, this.length).split(''))
       }
     },
 

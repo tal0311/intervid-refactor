@@ -16,7 +16,7 @@
           :idx="idx"
           :disabled="input.length < idx"
           @go-to="goto($event)"
-          @paste="paste($event)"
+          @paste-input="paste($event)"
           @remove="remove($event)"
         />
       </section>
