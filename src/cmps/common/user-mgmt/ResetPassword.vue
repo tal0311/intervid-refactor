@@ -45,16 +45,27 @@ import {validate, getValidateMsg} from '@/services/errorService'
 import {loggerService} from '@/services/loggerService'
 
 export default {
-  props: ['userToEdit', 'isChange'],
-
-  data: () => ({
-    password: {
-      current: '',
-      updated: '',
-      verifyUpdated: '',
+  props: {
+    userToEdit: {
+      type: Object,
+      default: null,
     },
-    errors: null,
-  }),
+    isChange: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ['close'],
+  data() {
+    return {
+      password: {
+        current: '',
+        updated: '',
+        verifyUpdated: '',
+      },
+      errors: null,
+    }
+  },
 
   methods: {
     async onChangePassword({target}) {

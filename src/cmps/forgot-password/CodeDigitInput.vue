@@ -25,6 +25,7 @@ export default {
       required: true,
     },
   },
+  emits: ['update:modelValue', 'go-to', 'remove', 'paste-input'],
 
   methods: {
     type(event) {
@@ -43,6 +44,7 @@ export default {
     paste(event) {
       const pastedVal = event.clipboardData.getData('text')
       if (pastedVal) {
+        // WTF is this.length supposed to be?
         this.$emit('paste-input', pastedVal.replace(/\D/g, '').substring(0, this.length).split(''))
       }
     },
