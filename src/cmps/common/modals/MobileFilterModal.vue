@@ -153,7 +153,7 @@ export default {
       default: null,
     },
   },
-  emits: ['edit-filter', 'clear-filter', 'set-filter'],
+  emits: ['edit-filter', 'clear-filter', 'set-filter', 'select-status', 'reset-filter'],
   data() {
     return {
       // selectedDaysAgo: this.filterBy?.daysAgo || '',
