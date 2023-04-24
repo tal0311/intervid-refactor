@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import {nextTick, forceUpdate} from 'vue'
+import {nextTick, getCurrentInstance} from 'vue'
 import CodeDigitInput from './CodeDigitInput.vue'
 
 export default {
@@ -79,7 +79,8 @@ export default {
           this.goto(idx - 1)
         })
       }
-      forceUpdate()
+      // See https://stackoverflow.com/questions/67469326/this-forceupdate-equivalent-in-vue-3-composition-api
+      getCurrentInstance().proxy.$forceUpdate()
     },
   },
 }
