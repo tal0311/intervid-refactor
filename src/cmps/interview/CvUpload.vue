@@ -42,7 +42,7 @@ export default {
   props: {
     errors: {
       type: Array,
-      required: true,
+      default: null,
     },
     applicantCvName: {
       type: String,
