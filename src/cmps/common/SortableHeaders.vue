@@ -20,11 +20,32 @@
 
 <script>
 import {advancedPermsMap, getSortableHeaders} from '@/services/constData.js'
-import {userService} from '@/services/userService'
+// import {userService} from '@/services/userService'
 
 export default {
-  props: ['sort', 'filterBy', 'selectedItemCount', 'itemCount', 'itemsPerPage'],
-
+  props: {
+    sort: {
+      type: Object,
+      required: true,
+    },
+    filterBy: {
+      type: Object,
+      required: true,
+    },
+    selectedItemCount: {
+      type: Number,
+      required: true,
+    },
+    itemCount: {
+      type: Number,
+      required: true,
+    },
+    itemsPerPage: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['sort', 'select-all'],
   data() {
     return {
       headers: [],

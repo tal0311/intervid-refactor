@@ -13,7 +13,12 @@ import ShareBtns from '../JobEdit/ShareBtns.vue'
 
 export default {
   components: {ShareBtns},
-  props: ['job'],
+  props: {
+    job: {
+      type: Object,
+      required: true,
+    },
+  },
 
   computed: {
     modal() {

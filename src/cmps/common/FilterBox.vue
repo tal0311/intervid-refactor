@@ -138,7 +138,18 @@ export default {
   components: {
     MobileModal,
   },
-  props: ['filterBy', 'isApplicantOverview', 'filteredJobCount'],
+  props: {
+    filterBy: {
+      type: Object,
+      default: () => ({}),
+    },
+    isApplicantOverview: Boolean,
+    filteredJobCount: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['set-filter', 'reset-filter', 'reset-filters'],
 
   data() {
     return {

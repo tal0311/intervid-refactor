@@ -98,7 +98,38 @@
 
 <script>
 export default {
-  props: ['isBuffering', 'resTime', 'isDraggableShown', 'isSecVideo', 'isPlaying'],
+  props: {
+    isBuffering: {
+      type: Boolean,
+      required: true,
+    },
+    resTime: {
+      type: Number,
+      required: true,
+    },
+    isDraggableShown: {
+      type: Boolean,
+      required: true,
+    },
+    isSecVideo: {
+      type: Boolean,
+      required: true,
+    },
+    isPlaying: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  emits: [
+    'toggle-play',
+    'toggle-is-draggable-shown',
+    'toggle-main-video',
+    'rotate-main-video',
+    'toggle-fullscreen',
+    'set-speed',
+    'seek',
+    'set-volume',
+  ],
 
   data() {
     return {

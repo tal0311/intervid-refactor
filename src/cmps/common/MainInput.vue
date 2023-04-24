@@ -53,7 +53,41 @@ import ValidationMsg from '@/cmps/common/ValidationMsg.vue'
 export default {
   components: {ValidationMsg},
   inheritAttrs: false,
-  props: ['inputName', 'validate', 'label', 'errors', 'isTextarea', 'styled', 'placeholder', 'onBlur'],
+  props: {
+    inputName: {
+      type: String,
+      required: true,
+    },
+    validate: {
+      type: String,
+      default: '',
+    },
+    label: {
+      type: String,
+      default: '',
+    },
+    errors: {
+      type: Array,
+      default: () => [],
+    },
+    isTextarea: {
+      type: Boolean,
+      default: false,
+    },
+    styled: {
+      type: String,
+      default: 'main',
+    },
+    placeholder: {
+      type: String,
+      default: '',
+    },
+    onBlur: {
+      type: Function,
+      default: null,
+    },
+  },
+  emits: ['update:modelValue', 'change'],
   data() {
     return {
       isPasswordShown: false,

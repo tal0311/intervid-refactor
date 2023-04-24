@@ -18,7 +18,13 @@ import AppSpinner from './AppSpinner.vue'
 
 export default {
   components: {AppSpinner},
-  props: ['initialImg'],
+  props: {
+    initialImg: {
+      type: String,
+      default: '',
+    },
+  },
+  emits: ['upload'],
 
   data() {
     return {

@@ -43,7 +43,21 @@
 
 <script>
 export default {
-  props: ['itemCount', 'currPage', 'itemsPerPage'],
+  props: {
+    itemCount: {
+      type: Number,
+      required: true,
+    },
+    currPage: {
+      type: Number,
+      required: true,
+    },
+    itemsPerPage: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['change-page'],
 
   data() {
     return {

@@ -55,7 +55,16 @@ import VideoLoader from './VideoLoader.vue'
 
 export default {
   components: {PlayerControls, DraggableVideo, VideoLoader},
-  props: ['ans', 'notes'],
+  props: {
+    ans: {
+      type: Object,
+      default: null,
+    },
+    notes: {
+      type: Array,
+      default: null,
+    },
+  },
 
   data() {
     return {

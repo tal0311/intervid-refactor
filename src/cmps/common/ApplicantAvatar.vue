@@ -11,18 +11,23 @@ export default {
   props: {
     username: {
       type: String,
+      default: '',
     },
     initials: {
       type: String,
+      default: '',
     },
     backgroundColor: {
       type: String,
+      default: '#000',
     },
     color: {
       type: String,
+      default: '#fff',
     },
     customStyle: {
       type: Object,
+      default: () => ({}),
     },
     inline: {
       type: Boolean,
@@ -33,9 +38,11 @@ export default {
     },
     src: {
       type: String,
+      default: '',
     },
     fallbackSrc: {
       type: String,
+      default: '',
     },
     rounded: {
       type: Boolean,

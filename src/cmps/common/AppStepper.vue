@@ -8,6 +8,15 @@
 
 <script>
 export default {
-  props: ['stepCount', 'currStep'],
+  props: {
+    stepCount: {
+      type: Number,
+      required: true,
+    },
+    currStep: {
+      type: Number,
+      required: true,
+    },
+  },
 }
 </script>

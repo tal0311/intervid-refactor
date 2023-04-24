@@ -17,7 +17,20 @@
 
 <script>
 export default {
-  props: ['steps', 'currStepIdx', 'column'],
+  props: {
+    steps: {
+      type: Array,
+      required: true,
+    },
+    currStepIdx: {
+      type: Number,
+      required: true,
+    },
+    column: {
+      type: Boolean,
+      default: false,
+    },
+  },
 
   watch: {
     '$route.path'() {

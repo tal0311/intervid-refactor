@@ -116,7 +116,17 @@ import {coverImgs} from '@/services/constData'
 
 export default {
   components: {AppSpinner},
-  props: ['initialCover', 'id'],
+  props: {
+    initialCover: {
+      type: String,
+      default: null,
+    },
+    id: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['add-cover', 'remove-cover', 'upload'],
 
   data() {
     return {

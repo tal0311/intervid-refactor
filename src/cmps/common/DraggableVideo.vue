@@ -14,8 +14,16 @@
 <script>
 export default {
   name: 'DraggableVideo',
-
-  props: ['className', 'isShown'],
+  props: {
+    className: {
+      type: String,
+      default: '',
+    },
+    isShown: {
+      type: Boolean,
+      default: false,
+    },
+  },
 
   data() {
     return {

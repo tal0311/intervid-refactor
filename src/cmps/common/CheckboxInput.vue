@@ -17,13 +17,25 @@
 export default {
   props: {
     value: Boolean,
-    label: String,
-    checked: {},
+    label: {
+      type: String,
+      default: '',
+    },
+    checked: {
+      type: Number,
+      default: 0,
+    },
     partial: Boolean,
-    color: String,
+    color: {
+      type: String,
+      default: 'primary',
+    },
     inline: Boolean,
     disabled: Boolean,
-    txt: String,
+    txt: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['input'],
 

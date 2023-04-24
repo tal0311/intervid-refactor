@@ -4,8 +4,11 @@
 
 <script>
 export default {
-  props: ['error'],
-
-  methods: {},
+  props: {
+    error: {
+      type: String,
+      default: null,
+    },
+  },
 }
 </script>

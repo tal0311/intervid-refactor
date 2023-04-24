@@ -34,15 +34,28 @@ import 'quill/dist/quill.snow.css'
 
 export default {
   props: {
-    value: String,
-    currQuestIdx: Number,
-    placeholder: String,
-    charLimit: Number,
+    value: {
+      type: String,
+      default: '',
+    },
+    currQuestIdx: {
+      type: Number,
+      required: true,
+    },
+    placeholder: {
+      type: String,
+      required: true,
+    },
+    charLimit: {
+      type: Number,
+      default: null,
+    },
     tools: {
       type: Array,
-      default: () => [],
+      default: null,
     },
   },
+  emits: ['input'],
 
   data() {
     return {

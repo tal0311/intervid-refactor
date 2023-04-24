@@ -39,8 +39,24 @@ import AudioMeter from '../interview/AudioMeter.vue'
 
 export default {
   components: {InterviewErrorList, AudioMeter},
-  props: ['currQuest', 'stream', 'errors', 'isScreenAns', 'isRecording', 'isAlmostDone'],
-
+  props: {
+    currQuest: {
+      type: Object,
+      default: () => ({}),
+    },
+    stream: {
+      type: Object,
+      default: null,
+    },
+    errors: {
+      type: Array,
+      default: null,
+    },
+    isScreenAns: Boolean,
+    isRecording: Boolean,
+    isAlmostDone: Boolean,
+  },
+  emits: ['reload', 'remove-error'],
   data() {
     return {
       isScreenPreviewOpen: true,
