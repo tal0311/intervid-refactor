@@ -67,7 +67,11 @@
           <span>{{ $getTrans('switch-screen') }}</span>
         </button>
 
-        <button @click="$emit('rotate-main-video')">rotate</button>
+        <button class="setting-btn rotate-btn" @click="$emit('rotate-main-video')">
+          <i class="material-icons">rotate_right</i>
+          <span>{{ $getTrans('rotate-screen') }}</span>
+        </button>
+
         <button class="setting-btn fullscreen-btn" @click="$emit('toggle-fullscreen')">
           <i class="material-icons">{{ playerState.isFullScreen ? 'fullscreen' : 'fullscreen_exit' }}</i>
           <span>{{ $getTrans('full-screen') }}</span>

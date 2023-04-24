@@ -1579,6 +1579,10 @@ const gTrans = {
     en: 'Full screen',
     he: 'מסך מלא',
   },
+  'rotate-screen': {
+    en: 'Rotate screen',
+    he: 'הפוך מסך',
+  },
 
   // MOBILE MODALS:
   'update status': {
