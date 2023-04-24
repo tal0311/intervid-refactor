@@ -15,7 +15,16 @@
 <script>
 import {nextTick} from 'vue'
 export default {
-  props: ['idx', 'modelValue'],
+  props: {
+    modelValue: {
+      type: String,
+      default: '',
+    },
+    idx: {
+      type: Number,
+      required: true,
+    },
+  },
 
   methods: {
     type(event) {

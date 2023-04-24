@@ -1,7 +1,7 @@
 <template>
   <section ref="playerContainer" class="video-player" :class="{'full-screen': playerState.isFullScreen}">
     <div class="screen-container" :class="{loading: playerState.isLoading}">
-      <video ref="mainVideo" @click="togglePlay" @dblclick="toggleFullScreen" :class="mainVideoClass" playsinline>
+      <video ref="mainVideo" :class="mainVideoClass" playsinline @click="togglePlay" @dblclick="toggleFullScreen">
         Your browser does not support the video tag.
       </video>
     </div>

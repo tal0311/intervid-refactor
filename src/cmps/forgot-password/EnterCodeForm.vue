@@ -81,7 +81,7 @@ export default {
         })
       }
       // See https://stackoverflow.com/questions/67469326/this-forceupdate-equivalent-in-vue-3-composition-api
-      getCurrentInstance().proxy.$forceUpdate()
+      this.$forceUpdate()
     },
   },
 }

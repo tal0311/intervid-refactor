@@ -13,8 +13,8 @@
         <button
           class="play"
           :disabled="!isPlayerReady"
-          @click="$emit('toggle-play')"
           :data-tooltip="$getTrans('pause-video')"
+          @click="$emit('toggle-play')"
         >
           <i class="material-icons">{{ playerState.isPlaying ? 'pause' : 'play_arrow' }}</i>
         </button>
@@ -36,7 +36,7 @@
 
       <div class="settings-container">
         <div class="speed-container">
-          <button class="setting-btn speed-btn" @click="toggleSpeedModal" :data-tooltip="$getTrans('speed')">
+          <button class="setting-btn speed-btn" :data-tooltip="$getTrans('speed')" @click="toggleSpeedModal">
             <i class="material-icons">speed</i>
             <span>{{ $getTrans('speed') }}</span>
           </button>
@@ -57,8 +57,8 @@
         <button
           v-if="!isDraggableShown && isSecVideo"
           class="setting-btn draggable-btn"
-          @click="$emit('toggle-is-draggable-shown')"
           :data-tooltip="$getTrans('add-screen')"
+          @click="$emit('toggle-is-draggable-shown')"
         >
           <i class="material-icons">desktop_windows</i>
           <span>{{ $getTrans('add-screen') }}</span>
@@ -67,8 +67,8 @@
         <button
           v-if="isDraggableShown && isSecVideo"
           class="setting-btn switch-btn"
-          @click="$emit('toggle-main-video')"
           :data-tooltip="$getTrans('switch-screen')"
+          @click="$emit('toggle-main-video')"
         >
           <i class="material-icons">cameraswitch</i>
           <span>{{ $getTrans('switch-screen') }}</span>
@@ -76,8 +76,8 @@
 
         <button
           class="setting-btn rotate-btn"
-          @click="$emit('rotate-main-video')"
           :data-tooltip="$getTrans('rotate-screen')"
+          @click="$emit('rotate-main-video')"
         >
           <i class="material-icons">rotate_right</i>
           <span>{{ $getTrans('rotate-screen') }}</span>
@@ -85,8 +85,8 @@
 
         <button
           class="setting-btn fullscreen-btn"
-          @click="$emit('toggle-fullscreen')"
           :data-tooltip="$getTrans('full-screen')"
+          @click="$emit('toggle-fullscreen')"
         >
           <i class="material-icons">{{ playerState.isFullScreen ? 'fullscreen' : 'fullscreen_exit' }}</i>
           <span>{{ $getTrans('full-screen') }}</span>
