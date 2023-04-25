@@ -34,7 +34,7 @@
 
       <div class="right">
         <div class="status-container">
-          <StatusDropdown :applicant="applicant" is-full-width="true" @on-set-status="setStatus" />
+          <StatusDropdown :applicant="applicant" :is-full-width="true" @on-set-status="setStatus" />
         </div>
       </div>
     </div>
@@ -237,7 +237,9 @@ export default {
       // #HANDLE CANCEL
       const key = 'job/getApplicantVideos'
       const cancelToken = await this.$store.dispatch('app/handleCancelRequest', key)
-      const {answerMap} = await jobService.getApplicantVideos(applicantId, this.job._id, cancelToken)
+      const data = await jobService.getApplicantVideos(applicantId, this.job._id, cancelToken)
+      console.log('data', data)
+      const {answerMap} = data
       if (applicantId !== this.applicant.id) return
       this.applicant.answerMap = answerMap
       // this.setPlayerState('isLoading', false)
