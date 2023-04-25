@@ -22,7 +22,17 @@ import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
   components: {CvUpload, MobileModal},
-  props: ['applicantCvName', 'applicant'],
+  props: {
+    applicantCvName: {
+      type: String,
+      required: true,
+    },
+    applicant: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['on-cv-uploaded'],
 
   computed: {
     isMobile() {

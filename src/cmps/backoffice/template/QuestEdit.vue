@@ -61,8 +61,21 @@ export default {
     OptQuestEdit,
     QuestMenu,
   },
-  props: ['quest', 'errors', 'idx'],
-
+  props: {
+    quest: {
+      type: Object,
+      required: true,
+    },
+    errors: {
+      type: Object,
+      required: true,
+    },
+    idx: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['update-quest', 'remove-quest', 'validate-field'],
   data() {
     return {
       desc: this.quest.desc,

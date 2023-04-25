@@ -18,7 +18,13 @@ export default {
     AddNote,
     NotePreview,
   },
-  props: ['notes'],
+  props: {
+    notes: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ['save-notes'],
 
   computed: {
     loggedInUser() {

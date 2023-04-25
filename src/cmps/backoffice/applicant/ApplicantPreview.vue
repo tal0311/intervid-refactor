@@ -43,7 +43,7 @@
 import {timelineService} from '@/services/timelineService'
 // import { activityMap } from '@/services/activityService'
 import {advancedPermsMap} from '@/services/constData'
-import StatusDropdown from '@/cmps/common/StatusDropdown.vue'
+import StatusDropdown from '@/cmps/common/tatusDropdown.vue'
 import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
 
 export default {
@@ -51,8 +51,21 @@ export default {
     StatusDropdown,
     ApplicantAvatar,
   },
-  props: ['applicant', 'isSelected', 'filterBy'],
-
+  props: {
+    applicant: {
+      type: Object,
+      required: true,
+    },
+    isSelected: {
+      type: Boolean,
+      required: true,
+    },
+    filterBy: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['select'],
   data() {
     return {
       isMenuOpen: false,

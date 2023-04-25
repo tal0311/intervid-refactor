@@ -104,7 +104,21 @@ export default {
     JobMenu,
     Avatar,
   },
-  props: ['job', 'isSelected', 'filterBy'],
+  props: {
+    job: {
+      type: Object,
+      required: true,
+    },
+    isSelected: {
+      type: Boolean,
+      required: true,
+    },
+    filterBy: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['select', 'load-items', 'remove'],
 
   setup() {
     const mousePos = ref(null)

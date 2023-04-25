@@ -26,7 +26,26 @@ import TimeEventMenu from './TimeEventMenu.vue'
 
 export default {
   components: {TimeEventMenu},
-  props: ['timeEvent', 'idx', 'jobTitle', 'applicantName'],
+  props: {
+    timeEvent: {
+      type: Object,
+      required: true,
+    },
+    idx: {
+      type: Number,
+      required: true,
+    },
+    jobTitle: {
+      type: String,
+      required: true,
+    },
+    applicantName: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['remove-note-event'],
+
   computed: {
     timeEventToShow() {
       return timelineService.getTimeEventToShow(this.timeEvent, this.applicantName, this.jobTitle, this.$getTrans)

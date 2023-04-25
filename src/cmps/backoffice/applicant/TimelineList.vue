@@ -22,8 +22,21 @@ export default {
   components: {
     TimeEventPreview,
   },
-  props: ['timeline', 'applicantName', 'jobTitle'],
-
+  props: {
+    timeline: {
+      type: Array,
+      required: true,
+    },
+    applicantName: {
+      type: String,
+      required: true,
+    },
+    jobTitle: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['remove-note-event'],
   computed: {
     timelineToShow() {
       const timelineToShow = this.$utilService.deepClone(this.timeline)

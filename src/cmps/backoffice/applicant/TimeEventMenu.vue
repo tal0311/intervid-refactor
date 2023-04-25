@@ -24,7 +24,13 @@ import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
   components: {MobileModal},
-  props: ['idx'],
+  props: {
+    idx: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['on-remove-note-event'],
 
   computed: {
     isMobile() {

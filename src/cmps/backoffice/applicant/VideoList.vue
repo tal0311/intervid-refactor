@@ -17,6 +17,20 @@ import VideoPreview from './VideoPreview.vue'
 
 export default {
   components: {VideoPreview},
-  props: ['applicant', 'quests', 'selectedQuestIdx'],
+  props: {
+    applicant: {
+      type: Object,
+      required: true,
+    },
+    quests: {
+      type: Array,
+      required: true,
+    },
+    selectedQuestIdx: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['go-to-quest'],
 }
 </script>

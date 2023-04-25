@@ -21,7 +21,13 @@
 
 <script>
 export default {
-  props: ['optsToEdit'],
+  props: {
+    optsToEdit: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ['edit-opts'],
 
   data: () => ({
     opts: [],

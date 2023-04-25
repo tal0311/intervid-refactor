@@ -21,7 +21,13 @@ import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
   components: {MobileModal},
-  props: ['quest'],
+  props: {
+    quest: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['on-remove-quest'],
 
   computed: {
     isMobile() {

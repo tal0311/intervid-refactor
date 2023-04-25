@@ -39,7 +39,7 @@
 
 <script>
 // core
-import {ref, computed, toRefs, watch} from 'vue'
+import {ref, computed, toRefs} from 'vue'
 // lib
 import {useStore} from 'vuex'
 // import { useStore } from 'vuex'
@@ -56,7 +56,17 @@ export default {
   components: {
     MobileModal,
   },
-  props: ['job', 'mousePos'],
+  props: {
+    jobb: {
+      type: Object,
+      required: true,
+    },
+    mousePos: {
+      type: Object,
+      default: null,
+    },
+  },
+  emits: ['archive', 'modal-closed', 'load-jobs', 'remove'],
 
   setup(props, {emit}) {
     const {mousePos} = toRefs(props)

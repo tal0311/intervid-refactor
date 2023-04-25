@@ -39,7 +39,25 @@ export default {
       }
     },
   },
-  props: ['answer', 'idx', 'quest', 'selectedQuestIdx'],
+  props: {
+    answer: {
+      type: Object,
+      required: true,
+    },
+    idx: {
+      type: Number,
+      required: true,
+    },
+    quest: {
+      type: Object,
+      required: true,
+    },
+    selectedQuestIdx: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['go-to-quest'],
 
   data() {
     return {
