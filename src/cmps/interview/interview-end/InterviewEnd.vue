@@ -60,7 +60,7 @@ import ConfettiAnimation from '@/cmps/common/ConfettiAnimation.vue'
 
 export default {
   components: {UploadingAnimation, ApplicationIndex, ConfettiAnimation},
-  emits: ['handle-quit'],
+  emits: ['handle-quit', 'start'],
   setup(props, {emit}) {
     const {
       // SHARED WITH CMP

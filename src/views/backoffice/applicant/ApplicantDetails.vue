@@ -93,6 +93,7 @@
 </template>
 
 <script>
+import {nextTick} from 'vue'
 import {utilService} from '@/services/utilService'
 import {advancedPermsMap} from '@/services/constData'
 import {timelineService} from '@/services/timelineService'
@@ -237,14 +238,14 @@ export default {
       // #HANDLE CANCEL
       const key = 'job/getApplicantVideos'
       const cancelToken = await this.$store.dispatch('app/handleCancelRequest', key)
-      const data = await jobService.getApplicantVideos(applicantId, this.job._id, cancelToken)
-      console.log('data', data)
-      const {answerMap} = data
+
+      const {answerMap} = await jobService.getApplicantVideos(applicantId, this.job._id, cancelToken)
+
       if (applicantId !== this.applicant.id) return
       this.applicant.answerMap = answerMap
       // this.setPlayerState('isLoading', false)
       if (this.$utilService.isEmpty(answerMap)) return
-      this.$nextTick(() => {
+      nextTick(() => {
         // next tick so the ref of the video player is not undefined
         if (this.$refs.videoPlayer) {
           this.$refs.videoPlayer.setPlayerState('isLoading', false)

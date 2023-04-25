@@ -266,7 +266,7 @@ export default {
     DeviceSelect,
     VideoLoader,
   },
-  emits: ['on-next-step'],
+  emits: ['on-next-step','start'],
   setup(props, {emit}) {
     const {screenStream, initScreen, screenErrors} = useScreen()
     const video = ref(null)
