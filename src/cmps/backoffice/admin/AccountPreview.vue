@@ -38,7 +38,12 @@
 
 <script>
 export default {
-  props: ['account'],
+  props: {
+    account: {
+      type: Object,
+      required: true,
+    },
+  },
 
   computed: {
     fullName() {

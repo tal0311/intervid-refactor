@@ -16,6 +16,8 @@
       </div>
 
       <div class="media-wrapper">
+        <!-- TODO: find out WTF v-html is doing on these components and why? -->
+        <!-- eslint-disable vue/no-v-text-v-html-on-component -->
         <ShareNetwork
           tag="button"
           network="whatsapp"
@@ -53,6 +55,7 @@
         >
           <i class="material-icons">mail_outline</i>
         </ShareNetwork>
+        <!-- es-lint-enable vue/no-v-text-v-html-on-component -->
         <span>{{ $getTrans('email') }}</span>
       </div>
     </div>
@@ -67,7 +70,16 @@ import config from '@/config'
 
 export default {
   components: {ShareNetwork},
-  props: ['job', 'data'],
+  props: {
+    job: {
+      type: Object,
+      required: true,
+    },
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
 
   // TODO: REMOVE DATA FROM HERE
   data() {

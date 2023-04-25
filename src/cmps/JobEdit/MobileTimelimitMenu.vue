@@ -18,7 +18,13 @@
 import {getTimeLimits} from '@/services/constData'
 
 export default {
-  props: ['selectedTimelimit'],
+  props: {
+    selectedTimelimit: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['set-timelimit'],
 
   computed: {
     timelimits() {

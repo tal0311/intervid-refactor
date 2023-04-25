@@ -36,7 +36,13 @@ import MobileModal from '../common/modals/MobileModal.vue'
 
 export default {
   components: {MobileModal},
-  props: ['quest'],
+  props: {
+    quest: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['change-timelimit'],
 
   data() {
     return {

@@ -106,7 +106,12 @@ import ShareBtns from '../JobEdit/ShareBtns.vue'
 
 export default {
   components: {ShareBtns},
-  props: ['itemName'],
+  props: {
+    itemName: {
+      type: String,
+      default: '',
+    },
+  },
 
   computed: {
     isArchive() {

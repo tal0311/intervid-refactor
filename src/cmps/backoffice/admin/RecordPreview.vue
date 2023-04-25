@@ -31,7 +31,12 @@ import RecordDetails from '@/cmps/backoffice/admin/RecordDetails.vue'
 
 export default {
   components: {RecordDetails},
-  props: ['record'],
+  props: {
+    record: {
+      type: Object,
+      required: true,
+    },
+  },
 
   computed: {
     clippedMessage() {

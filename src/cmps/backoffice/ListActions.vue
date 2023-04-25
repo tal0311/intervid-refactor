@@ -44,6 +44,8 @@ import AppPagination from '@/cmps/common/AppPagination.vue'
 
 export default {
   components: {AppPagination},
+  // TODO: I disabled the lint rule here because the props are very complex, so I wanted to leave it for when we look the at this cmp more thoroughly.
+  /* eslint-disable vue/require-prop-types */
   props: [
     'selectedItemCount',
     'isLockedItemSelected',
@@ -54,5 +56,7 @@ export default {
     'isRead',
     'pageCount',
   ],
+  /* eslint-enable vue/require-prop-types */
+  emits: ['archive', 'remove', 'toggle-read', 'change-page'],
 }
 </script>

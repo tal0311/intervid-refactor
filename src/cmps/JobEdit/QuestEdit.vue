@@ -73,7 +73,29 @@ import TimelimitMenu from './TimelimitMenu.vue'
 
 export default {
   components: {TextEditor, AnsRuleMenu, TimelimitMenu},
-  props: ['quest', 'errors', 'idx', 'isOneTry', 'questsCount'],
+  props: {
+    quest: {
+      type: Object,
+      required: true,
+    },
+    errors: {
+      type: Object,
+      required: true,
+    },
+    idx: {
+      type: Number,
+      required: true,
+    },
+    isOneTry: {
+      type: Boolean,
+      required: true,
+    },
+    questsCount: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['remove-quest', 'update-quest', 'duplicate-quest', 'validate-field'],
 
   data() {
     return {

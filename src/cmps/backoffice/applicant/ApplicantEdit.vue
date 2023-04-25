@@ -60,7 +60,13 @@ import MainInput from '@/cmps/common/MainInput.vue'
 
 export default {
   components: {MainInput},
-  props: ['applicant'],
+  props: {
+    applicant: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['update-applicant'],
 
   data() {
     return {

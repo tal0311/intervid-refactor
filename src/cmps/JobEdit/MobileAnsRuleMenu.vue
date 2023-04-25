@@ -28,6 +28,7 @@ export default {
       required: true,
     },
   },
+  emits: ['set-ans-rule'],
   computed: {
     ansRules() {
       return ansRules

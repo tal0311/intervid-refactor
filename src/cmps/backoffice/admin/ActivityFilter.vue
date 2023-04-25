@@ -34,7 +34,17 @@
 
 <script>
 export default {
-  props: ['filterBy', 'users'],
+  props: {
+    filterBy: {
+      type: Object,
+      required: true,
+    },
+    users: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ['set-filter'],
 
   computed: {
     userOpts() {

@@ -39,7 +39,13 @@ import LongText from '@/cmps/common/LongText.vue'
 
 export default {
   components: {LongText},
-  props: ['record'],
+  props: {
+    record: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['close'],
 
   computed: {
     userId() {

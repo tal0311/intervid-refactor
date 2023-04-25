@@ -80,7 +80,13 @@ import SearchBox from '@/cmps/common/SearchBox.vue'
 
 export default {
   components: {SearchBox},
-  props: ['filterBy'],
+  props: {
+    filterBy: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['set-filter'],
 
   data() {
     return {

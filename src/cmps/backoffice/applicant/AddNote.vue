@@ -32,10 +32,16 @@
 <script>
 import {getNote} from '@/services/applicantService'
 import {advancedPermsMap} from '@/services/constData'
-import {userService} from '@/services/userService'
+// import {userService} from '@/services/userService'
 
 export default {
-  props: ['loggedInUser'],
+  props: {
+    loggedInUser: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['add-note'],
 
   data() {
     return {

@@ -70,6 +70,8 @@ export default {
     jobSkeleton: JobSkeleton,
     applicantSkeleton: ApplicantSkeleton,
   },
+  // TODO: I disabled the lint rule here because the props are very complex, so I wanted to leave it for when we look the at this cmp more thoroughly.
+  /* eslint-disable vue/require-prop-types */
   props: [
     'items',
     'selectedItemCount',
@@ -83,6 +85,8 @@ export default {
     'isFetching',
     'isSelected',
   ],
+  /* eslint-enable vue/require-prop-types */
+  emits: ['select', 'select-all', 'remove', 'sort', 'load-items', 'load-next-items'],
 
   data() {
     return {
