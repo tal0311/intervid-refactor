@@ -37,8 +37,10 @@ import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 
 export default {
   components: {MobileModal},
-  props: ['template'],
-
+  props: {
+    template: {type: Object, required: true},
+  },
+  emits: ['archive', 'default'],
   setup(props) {
     const modalWidth = 200
     const modalHeight = computed(() => 150)
