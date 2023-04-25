@@ -140,8 +140,8 @@ export default {
   },
   props: {
     filterBy: {
-      type: Object,
-      default: () => ({}),
+      type: [Object, String],
+      required: true,
     },
     isApplicantOverview: Boolean,
     filteredJobCount: {

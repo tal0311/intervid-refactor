@@ -1,5 +1,5 @@
 <template>
-  <AppLoader v-if="isFetching && !shouldGather" is-local="true" />
+  <AppLoader v-if="isFetching && !shouldGather" :is-local="true" />
   <section v-else-if="isItemsToShow" class="table-list" :class="{cards: viewType === 'cards' && itemName === 'job'}">
     <SortableHeaders
       :sort="sort"

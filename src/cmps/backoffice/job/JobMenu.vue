@@ -57,7 +57,7 @@ export default {
     MobileModal,
   },
   props: {
-    jobb: {
+    job: {
       type: Object,
       required: true,
     },
