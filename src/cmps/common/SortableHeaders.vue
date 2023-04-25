@@ -41,7 +41,7 @@ export default {
       required: true,
     },
     itemsPerPage: {
-      type: Number,
+      type: String,
       required: true,
     },
   },

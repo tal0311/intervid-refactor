@@ -146,7 +146,7 @@ export default {
     isApplicantOverview: Boolean,
     filteredJobCount: {
       type: Number,
-      required: true,
+      default: null,
     },
   },
   emits: ['set-filter', 'reset-filter', 'reset-filters'],
