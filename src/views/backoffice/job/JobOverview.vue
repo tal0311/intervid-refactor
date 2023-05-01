@@ -42,18 +42,30 @@
           :filtered-job-count="filteredJobCount"
         />
       </div>
-
-      <list-actions
-        :selected-item-count="selectedItems.length"
-        :filter-by="filterBy"
+      <AppPagination
         :item-count="filteredJobCount || 0"
-        :curr-page="filterBy.currPage || 0"
         :page-count="pageCount || 0"
+        :curr-page="filterBy.currPage || 0"
         :items-per-page="filterBy.itemsPerPage"
-        @archive="onArchiveSelected"
-        @remove="onRemoveSelected"
         @change-page="onChangePage"
       />
+    </div>
+    <div v-if="selectedItems.length" class="actions-container grid">
+      <div class="flex-center iteams-count">{{ selectedItems.length }}</div>
+      <section class="inner-actions-container grid">
+        <div class="flex justify-content-center">
+          <h4>Iteams Selected</h4>
+          <ItemsIndicator :selectedItems="selectedItems" />
+        </div>
+        <ActionsList
+          :selected-item-count="selectedItems.length"
+          :filter-by="filterBy"
+          @archive="onArchiveSelected"
+          @remove="onRemoveSelected"
+          @change-page="onChangePage"
+        />
+      </section>
+      <div @click="clearSelectedItems" class="pointer flex-center close-btn" v-html="$getSvg('close')"></div>
     </div>
 
     <div class="filter-count" :class="{shown: tagList.length || filterBy.txt}">
@@ -97,9 +109,12 @@ import {useRoute} from 'vue-router'
 // cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
 import SearchBox from '@/cmps/common/SearchBox.vue'
-import ListActions from '@/cmps/backoffice/ListActions.vue'
+import ActionsList from '@/cmps/common/ActionsList.vue'
 import TemplatePicker from '@/cmps/backoffice/job/TemplatePicker.vue'
 import FilterBox from '@/cmps/common/FilterBox.vue'
+import ItemsIndicator from '@/cmps/backoffice/ItemsIndicator.vue'
+import AppPagination from '@/cmps/common/AppPagination.vue'
+
 // composables
 import {useFilter} from '@/composables/overview/useFilter'
 import {useSort} from '@/composables/overview/useSort'
@@ -173,6 +188,7 @@ export default {
     },
 
     pageCount() {
+      console.log(this.$store.getters['job/pageCount'])
       return this.$store.getters['job/pageCount']
     },
 
@@ -270,9 +286,11 @@ export default {
   components: {
     TableList,
     SearchBox,
-    ListActions,
+    ActionsList,
     TemplatePicker,
     FilterBox,
+    ItemsIndicator,
+    AppPagination,
   },
 }
 </script>

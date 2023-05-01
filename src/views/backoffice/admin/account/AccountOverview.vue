@@ -2,15 +2,21 @@
   <section class="account-overview overview">
     <div class="overview-header">
       <i @click="onAddUser" class="material-icons add-btn">add</i>
-
-      <list-actions
+      <AppPagination
+        :item-count="usersToShow.length"
+        :curr-page="filterBy.currPage || 0"
+        :items-per-page="filterBy.itemsPerPage || 10"
+        @change-page="onChangePage"
+      />
+    
+      <!-- <list-actions
         :selected-item-count="selectedItems.length"
         :filter-by="filterBy"
         :item-count="usersToShow.length"
         :curr-page="filterBy.currPage || 0"
         :items-per-page="filterBy.itemsPerPage"
         @change-page="onChangePage"
-      />
+      /> -->
     </div>
 
     <table-list
@@ -30,7 +36,7 @@
 <script>
 // cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
-import ListActions from '@/cmps/backoffice/ListActions.vue'
+import AppPagination from '@/cmps/common/AppPagination.vue'
 // composables
 import {useFilter} from '@/composables/overview/useFilter'
 import {useSort} from '@/composables/overview/useSort'
@@ -76,6 +82,6 @@ export default {
       })
     },
   },
-  components: {TableList, ListActions},
+  components: {TableList, AppPagination},
 }
 </script>

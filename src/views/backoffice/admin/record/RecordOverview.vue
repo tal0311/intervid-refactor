@@ -2,8 +2,16 @@
   <section class="record-overview overview">
     <div class="overview-header">
       <record-filter :filter-by="filterBy" @set-filter="onSetFilterByKey" />
-
-      <list-actions
+      <AppPagination
+        v-if="pageCount > 1"
+        :item-count="totalRecordCount"
+        :page-count="pageCount"
+        :curr-page="filterBy.currPage || 0"
+        :items-per-page="filterBy.itemsPerPage"
+        @change-page="onChangePage"
+      />
+      <!-- //there is no use in list action beside pagination?  -->
+      <!-- <list-actions
         :selected-item-count="selectedItems.length"
         :filter-by="filterBy"
         :item-count="totalRecordCount"
@@ -11,7 +19,7 @@
         :curr-page="filterBy.currPage || 0"
         :items-per-page="filterBy.itemsPerPage"
         @change-page="onChangePage"
-      />
+      /> -->
     </div>
 
     <table-list
@@ -31,6 +39,8 @@
 import RecordFilter from '@/cmps/backoffice/admin/RecordFilter.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
+import AppPagination from '@/cmps/common/AppPagination.vue'
+
 // composables
 import {useFilter} from '@/composables/overview/useFilter'
 import {useSort} from '@/composables/overview/useSort'
@@ -109,6 +119,7 @@ export default {
     RecordFilter,
     TableList,
     ListActions,
+    AppPagination,
   },
 }
 </script>

@@ -23,7 +23,15 @@
         />
       </div>
       <div class="overview-actions">
-        <list-actions
+        <AppPagination
+          v-if="pageCount > 1"
+          :item-count="filteredApplicantCount"
+          :page-count="pageCount || 0"
+          :curr-page="filterBy.currPage || 0"
+          :items-per-page="filterBy.itemsPerPage"
+          @change-page="onChangePage"
+        />
+        <!-- <list-actions
           :selected-item-count="selectedItems && selectedItems.length"
           :is-locked-item-selected="isLockedItemSelected"
           :filter-by="filterBy"
@@ -36,7 +44,7 @@
           @remove="onRemoveSelected"
           @change-page="onChangePage"
           @toggle-read="toggleIsRead"
-        />
+        /> -->
         <share-job v-if="job && job.applicantSummary.applicantCount" :job="job" />
       </div>
     </div>
@@ -68,6 +76,28 @@
       @select="onSelectItem"
       @load-next-items="onLoadNextApplicants"
     />
+
+    <div v-if="selectedItems.length" class="actions-container grid">
+      <div class="flex-center iteams-count">{{ selectedItems.length }}</div>
+      <section class="inner-actions-container grid">
+        <div class="flex justify-content-center">
+          <h4>Iteams Selected</h4>
+          <ItemsIndicator :selectedItems="selectedItems" />
+        </div>
+        <ActionsList
+          :items="applicants"
+          :selected-item-count="selectedItems && selectedItems.length"
+          :filter-by="filterBy"
+          :is-locked-item-selected="isLockedItemSelected"
+          @select-all="onSelectAll"
+          @archive="onArchiveSelected"
+          @toggle-read="toggleIsRead"
+          @remove="onRemoveSelected"
+          @select="onSelectItem"
+        />
+      </section>
+      <div @click="clearSelectedItems" class="pointer flex-center close-btn" v-html="$getSvg('close')"></div>
+    </div>
   </section>
 </template>
 
@@ -78,10 +108,13 @@ import {watch} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
 // cmps
+import AppPagination from '@/cmps/common/AppPagination.vue'
+import ActionsList from '@/cmps/common/ActionsList.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
 import SearchBox from '@/cmps/common/SearchBox.vue'
 import FilterBox from '@/cmps/common/FilterBox.vue'
-import ListActions from '@/cmps/backoffice/ListActions.vue'
+// import ListActions from '@/cmps/backoffice/ListActions.vue'
+import ItemsIndicator from '@/cmps/backoffice/ItemsIndicator.vue'
 import ShareJob from '@/cmps/common/ShareJob.vue'
 // composables
 import {useFilter} from '@/composables/overview/useFilter'
@@ -155,6 +188,7 @@ export default {
     }
   },
   async created() {
+    console.log('tagList',this.tagList)
     this.loadApplicants()
     this.loadJob()
     if (this.job) {
@@ -319,8 +353,10 @@ export default {
     TableList,
     SearchBox,
     FilterBox,
-    ListActions,
     ShareJob,
+    AppPagination,
+    ActionsList,
+    ItemsIndicator,
   },
 }
 </script>

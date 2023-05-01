@@ -1,7 +1,7 @@
 import axios from 'axios'
-import {utilService} from '@/services/utilService'
-import {setLang} from '@/services/i18nService'
-import {detect} from 'detect-browser'
+import { utilService } from '@/services/utilService'
+import { setLang } from '@/services/i18nService'
+import { detect } from 'detect-browser'
 // console.log(import.meta.env.MODE)
 export const app = {
   namespaced: true,
@@ -13,6 +13,7 @@ export const app = {
       isDarkScreen: false,
     },
     alertData: null,
+    actionsData: null,
     isMobile: utilService.isMobile(),
     isMobileDevice: utilService.isMobileDevice(),
     browser: detect(),
@@ -36,6 +37,9 @@ export const app = {
 
     alertData(state) {
       return state.alertData
+    },
+    actionsData(state) {
+      return state.actionsData
     },
 
     progressBar(state) {
@@ -64,49 +68,53 @@ export const app = {
       state.modal = modal
     },
 
-    setCancelRequest(state, {cancel, key}) {
+    setCancelRequest(state, { cancel, key }) {
       state.cancelRequestMap[key] = cancel
     },
 
-    setAlertData(state, {alertData}) {
+    setAlertData(state, { alertData }) {
       state.alertData = alertData
+    },
+    setActionsData(state, { actionsData }) {
+      console.log('actionsData', actionsData)
+      state.actionsData = actionsData
     },
 
     setProgressBar(state, progressBar) {
       state.progressBar = progressBar
     },
 
-    setIsMobile(state, {isMobile}) {
+    setIsMobile(state, { isMobile }) {
       state.isMobile = isMobile
     },
 
-    setLang(state, {lang}) {
+    setLang(state, { lang }) {
       state.lang = lang
       setLang(lang)
     },
   },
 
   actions: {
-    handleCancelRequest({commit, dispatch}, key) {
+    handleCancelRequest({ commit, dispatch }, key) {
       const source = axios.CancelToken.source()
       dispatch('cancelRequest', key)
-      commit('setCancelRequest', {cancel: source.cancel, key})
+      commit('setCancelRequest', { cancel: source.cancel, key })
       return source.token
     },
-    cancelRequest({state}, key) {
+    cancelRequest({ state }, key) {
       if (!state.cancelRequestMap[key]) return
       state.cancelRequestMap[key](`Request ${key} Cancelled`)
     },
 
-    toggleModal({commit, state}, modal) {
+    toggleModal({ commit, state }, modal) {
       const modalType = state.modal.type ? '' : modal?.type
       const modalData = state.modal.type ? null : modal?.data
       const isDarkScreen = state.modal.isDarkScreen ? false : modal?.isDarkScreen
-      commit('setModal', {type: modalType, data: modalData, isDarkScreen})
+      commit('setModal', { type: modalType, data: modalData, isDarkScreen })
     },
 
-    setLang({commit}, {lang}) {
-      commit('setLang', {lang})
+    setLang({ commit }, { lang }) {
+      commit('setLang', { lang })
       const elBody = document.querySelector('body')
       elBody.classList.remove('he')
       if (lang === 'he') elBody.classList.add('he')

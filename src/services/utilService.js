@@ -61,7 +61,7 @@ function makeCmpId() {
   // Why this func? Because this app used to use this._uid as id, but it was deprecated in vue 3.0,
   // so i'm using this func to generate a random id for each component while keeping the old structure.
   // Why 1000? Cause i'm paranoid, if this causes preformance issues, we can change it.
-  return makeId(1000)
+  return makeId(12)
 }
 function makeId(length = 6) {
   let str = ''
