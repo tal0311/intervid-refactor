@@ -40,7 +40,7 @@ export default {
   props: {
     template: {type: Object, required: true},
   },
-  emits: ['archive', 'default'],
+  emits: ['archive', 'default', 'modal-closed'],
   setup(props) {
     const modalWidth = 200
     const modalHeight = computed(() => 150)
