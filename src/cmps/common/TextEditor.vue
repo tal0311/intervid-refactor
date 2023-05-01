@@ -40,7 +40,8 @@ export default {
     },
     currQuestIdx: {
       type: Number,
-      required: true,
+      default: null,
+      // required: true,
     },
     placeholder: {
       type: String,

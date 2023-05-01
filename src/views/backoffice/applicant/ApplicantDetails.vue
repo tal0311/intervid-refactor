@@ -239,8 +239,9 @@ export default {
       const key = 'job/getApplicantVideos'
       const cancelToken = await this.$store.dispatch('app/handleCancelRequest', key)
 
-      const {answerMap = null} = await jobService.getApplicantVideos(applicantId, this.job._id, cancelToken)
-      if (!answerMap) return
+      const data = await jobService.getApplicantVideos(applicantId, this.job._id, cancelToken)
+      if (!data) return
+      const {answerMap} = data
       if (applicantId !== this.applicant.id) return
       this.applicant.answerMap = answerMap
       // this.setPlayerState('isLoading', false)
