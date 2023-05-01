@@ -1,9 +1,9 @@
 <template>
   <section class="interview" ref="interview" v-if="currQuest">
     <div class="interview-content">
-      <quest-countdown v-if="isCountdown" @show-quest="showQuest" :curr-quest="currQuest" />
+      <QuestCountdown v-if="isCountdown" @show-quest="showQuest" :curr-quest="currQuest" />
 
-      <video-recorder
+      <VideoRecorder
         ref="vidRecorder"
         v-else-if="(isVidAns || isScreenAns) && !lastRecordedVideo"
         :max-try-num="1"
@@ -30,7 +30,7 @@
         }"
       >
         <div class="top">
-          <quest-status
+          <QuestStatus
             v-if="!lastRecordedVideo && isRecording"
             ref="questStatus"
             :start-time="startTime"
@@ -38,7 +38,7 @@
             :is-almost-done="isAlmostDone"
             :is-halfway-done="isHalfwayDone"
             @time-up="onTimeUp"
-            @setTimeLeft="timeLeft = $event"
+            @set-time-left="timeLeft = $event"
             @halfway-done="isHalfwayDone = true"
             @almost-done="isAlmostDone = true"
           />
@@ -123,6 +123,7 @@ import QuestCountdown from '@/cmps/interview/interview-app/QuestCountdown.vue'
 // import TextAns from '@/cmps/interview/TextAns.vue'
 
 export default {
+  emits: ['handle-quit'],
   setup(props, {emit}) {
     const vidRecorder = ref(null)
     const {

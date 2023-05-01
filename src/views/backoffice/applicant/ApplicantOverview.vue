@@ -13,8 +13,8 @@
           get: () => filterBy.value.txt,
           set:  onSetFilterByKey,
         }) -->
-        <search-box :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-applicants" />
-        <filter-box
+        <SearchBox :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-applicants" />
+        <FilterBox
           @set-filter="onSetFilter"
           @reset-filters="resetFilters"
           :filter-by="filterBy"
@@ -31,20 +31,7 @@
           :items-per-page="filterBy.itemsPerPage"
           @change-page="onChangePage"
         />
-        <!-- <list-actions
-          :selected-item-count="selectedItems && selectedItems.length"
-          :is-locked-item-selected="isLockedItemSelected"
-          :filter-by="filterBy"
-          :item-count="filteredApplicantCount"
-          :curr-page="filterBy.currPage || 0"
-          :items-per-page="filterBy.itemsPerPage"
-          :page-count="pageCount || 0"
-          :is-read="isAllSelectedRead"
-          @archive="onArchiveSelected"
-          @remove="onRemoveSelected"
-          @change-page="onChangePage"
-          @toggle-read="toggleIsRead"
-        /> -->
+     
         <share-job v-if="job && job.applicantSummary.applicantCount" :job="job" />
       </div>
     </div>
@@ -59,7 +46,7 @@
       </div>
     </div>
 
-    <table-list
+    <TableList
       :items="applicants"
       :selected-item-count="selectedItems && selectedItems.length"
       :total-item-count="applicants && applicants.length"
@@ -127,7 +114,7 @@ import {usePagination} from '@/composables/overview/usePagination'
 // import {userService} from '@/services/userService'
 // misc
 import {advancedPermsMap} from '@/services/constData'
-import {useLoadItems} from '@/composables/overview/useLoadItems'
+// import {useLoadItems} from '@/composables/overview/useLoadItems'
 
 export default {
   name: 'ApplicantOverview',
@@ -141,30 +128,30 @@ export default {
     const {shouldGather, setShouldGather} = useShouldGather()
     const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
     const {tagList, onRemoveTag} = useTags({onSetFilterByKey})
-    const {loadItems: loadApplicants} = useLoadItems({
-      dispatchName: 'job/loadApplicants',
-      filterBy,
-      sort,
-      shouldGather,
-      setShouldGather,
-    })
+    // const {loadItems: loadApplicants} = useLoadItems({
+    //   dispatchName: 'job/loadApplicants',
+    //   filterBy,
+    //   sort,
+    //   shouldGather,
+    //   setShouldGather,
+    // })
 
     watch(route, () => {
       clearSelectedItems()
       // this.setFilterFromRoute()
       loadApplicants()
     })
-    // async function loadApplicants() {
-    //   const {jobId} = route.params
-    //   if (jobId) onSetFilterByKey('jobId', jobId)
-    //   else onDeleteFilterByKey('jobId')
-    //   await store.dispatch('job/loadApplicants', {
-    //     filterBy: filterBy.value,
-    //     sort: sort.value,
-    //     shouldGather: shouldGather.value,
-    //   })
-    //   if (shouldGather.value) setShouldGather(false)
-    // }
+    async function loadApplicants() {
+      const {jobId} = route.params
+      if (jobId) onSetFilterByKey('jobId', jobId)
+      else onDeleteFilterByKey('jobId')
+      await store.dispatch('job/loadApplicants', {
+        filterBy: filterBy.value,
+        sort: sort.value,
+        shouldGather: shouldGather.value,
+      })
+      if (shouldGather.value) setShouldGather(false)
+    }
     return {
       filterBy,
       onSetFilterByKey,

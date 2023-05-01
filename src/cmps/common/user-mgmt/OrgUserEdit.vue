@@ -42,11 +42,11 @@
           </div>
           <div v-if="!onlyEmail && !onlyName" class="img-upload-container">
             <div class="logo">
-              <img-upload :initial-img="user.logoUrl" @upload="onSetImg('logo', $event)" />
+              <ImgUpload :initial-img="user.logoUrl" @upload="onSetImg('logo', $event)" />
               <p>{{ $getTrans('logo-image') }}</p>
             </div>
             <div class="profile">
-              <img-upload :initial-img="user.imgUrl" @upload="onSetImg('img', $event)" />
+              <ImgUpload :initial-img="user.imgUrl" @upload="onSetImg('img', $event)" />
               <p>{{ $getTrans('profile-image') }}</p>
             </div>
           </div>
@@ -108,7 +108,7 @@ export default {
   },
 
   created() {
-    if (this.data?.userToEdit) this.user = structuredClone(this.data.userToEdit)
+    if (this.data?.userToEdit) this.user = this.$utilService.deepClone(this.data.userToEdit)
     if (!this.user.advancedPrm) this.user.advancedPrm = {}
   },
 
@@ -179,7 +179,7 @@ export default {
   watch: {
     userToEdit() {
       if (this.userToEdit) {
-        this.user = structuredClone(this.userToEdit)
+        this.user = this.$utilService.deepClone(this.userToEdit)
       }
     },
   },

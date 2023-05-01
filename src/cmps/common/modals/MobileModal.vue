@@ -65,6 +65,19 @@ import MobileAnsRuleMenu from '@/cmps/JobEdit/MobileAnsRuleMenu.vue'
 import MobileTimelimitMenu from '@/cmps/JobEdit/MobileTimelimitMenu.vue'
 
 export default {
+  components: {
+    MobileFilterModal,
+    MobileJobMenuModal,
+    MobileUserModal,
+    MobileStatusModal,
+    MobileLngModal,
+    MobileApplicantMenuModal,
+    MobileAddCvModal,
+    MobileInterviewFormMenuModal,
+    MobileQuestEditMenu,
+    MobileTimeEventMenu,
+    MobileAnsRuleMenu,
+  },
   props: [
     'cmpName',
     'filterBy',
@@ -84,6 +97,7 @@ export default {
 
   data() {
     return {
+      // TODO: Remove this from the reactive data and use a better approach (strings is the best)
       cmps: {
         filter: MobileFilterModal,
         'job-actions': MobileJobMenuModal,
@@ -169,20 +183,6 @@ export default {
     dragPercent(value) {
       if (value > 100) this.closeModal()
     },
-  },
-
-  components: {
-    MobileFilterModal,
-    MobileJobMenuModal,
-    MobileUserModal,
-    MobileStatusModal,
-    MobileLngModal,
-    MobileApplicantMenuModal,
-    MobileAddCvModal,
-    MobileInterviewFormMenuModal,
-    MobileQuestEditMenu,
-    MobileTimeEventMenu,
-    MobileAnsRuleMenu,
   },
 }
 </script>

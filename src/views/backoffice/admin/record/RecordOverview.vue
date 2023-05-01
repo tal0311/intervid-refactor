@@ -22,7 +22,7 @@
       /> -->
     </div>
 
-    <table-list
+    <TableList
       :items="records"
       :items-per-page="filterBy.itemsPerPage"
       :total-item-count="totalRecordCount"
@@ -38,7 +38,6 @@
 // cmps
 import RecordFilter from '@/cmps/backoffice/admin/RecordFilter.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
-import ListActions from '@/cmps/backoffice/ListActions.vue'
 import AppPagination from '@/cmps/common/AppPagination.vue'
 
 // composables
@@ -118,7 +117,6 @@ export default {
   components: {
     RecordFilter,
     TableList,
-    ListActions,
     AppPagination,
   },
 }

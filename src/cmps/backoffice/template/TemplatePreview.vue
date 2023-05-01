@@ -23,7 +23,7 @@
     </div>
 
     <div class="actions" @click.stop="">
-      <template-menu :template="template" @archive="onToggleArchive" @default="toggleIsDefault" />
+      <TemplateMenu :template="template" @archive="onToggleArchive" @default="toggleIsDefault" />
     </div>
   </section>
 </template>
@@ -55,7 +55,7 @@ export default {
 
   methods: {
     onToggleArchive() {
-      const template = structuredClone(this.template)
+      const template = this.$utilService.deepClone(this.template)
       this.$store.dispatch('template/toggleArchivedTemplate', {template})
     },
 

@@ -27,15 +27,15 @@
       </button>
     </div>
 
-    <template-picker v-if="viewType === 'cards'" />
+    <TemplatePicker v-if="viewType === 'cards'" />
 
     <h2 v-if="viewType === 'cards'" class="overview-subtitle">
       {{ $getTrans('my-jobs') }}
     </h2>
     <div class="overview-header">
       <div class="search-filter-container">
-        <search-box :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-jobs" />
-        <filter-box
+        <SearchBox :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-jobs" />
+        <FilterBox
           @set-filter="onSetFilter"
           @reset-filters="resetFilters"
           :filter-by="filterBy"
@@ -79,7 +79,7 @@
       </div>
     </div>
 
-    <table-list
+    <TableList
       :items="jobs"
       :selected-item-count="selectedItems.length"
       :total-item-count="totalJobCount"

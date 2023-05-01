@@ -1,7 +1,7 @@
 <template>
   <section v-if="userToEdit" class="user-mgmt container">
     <div class="header">
-      <applicant-avatar :size="100" :src="userToEdit.imgUrl" :username="userFullName" />
+      <ApplicantAvatar :size="100" :src="userToEdit.imgUrl" :username="userFullName" />
       <div class="header-txt">
         <h2>{{ userToEdit.fName }} {{ userToEdit.lName }}</h2>
         <p>
@@ -62,7 +62,7 @@
               info_outlined
             </i>
           </div>
-          <img-upload @upload="onSetImg('img', $event)" :initial-img="userToEdit.imgUrl" />
+          <ImgUpload @upload="onSetImg('img', $event)" :initial-img="userToEdit.imgUrl" />
         </div>
 
         <div class="row">
@@ -150,7 +150,7 @@
               info_outlined
             </i>
           </div>
-          <img-upload @upload="onSetImg('logo', $event)" :initial-img="userToEdit.logoUrl" />
+          <ImgUpload @upload="onSetImg('logo', $event)" :initial-img="userToEdit.logoUrl" />
         </div>
       </form>
     </div>
@@ -190,7 +190,7 @@ export default {
   },
 
   mounted() {
-    this.userToEdit = structuredClone(this.loggedInUser)
+    this.userToEdit = this.$utilService.deepClone(this.loggedInUser)
   },
 
   computed: {

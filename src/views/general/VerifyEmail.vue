@@ -1,6 +1,6 @@
 <template>
   <section class="verify-email">
-    <app-loader v-if="isAuthing" />
+    <AppLoader v-if="isAuthing" />
 
     <div v-else-if="!token && user" class="confirm-email">
       <h1>{{ $getTrans('confirm-your-email') }}</h1>

@@ -11,8 +11,13 @@
 
 <script>
 export default {
-  props: ['currQuest'],
-
+  props: {
+    currQuest: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['show-quest'],
   data() {
     return {
       counter: 10,

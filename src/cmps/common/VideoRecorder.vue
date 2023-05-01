@@ -26,9 +26,9 @@
         <video ref="screenVideo" playsinline></video>
       </div>
 
-      <audio-meter :stream="stream" />
+      <AudioMeter :stream="stream" />
 
-      <interview-error-list :errors="errors" @reload="$emit('reload')" @remove-error="$emit('remove-error', $event)" />
+      <InterviewErrorList :errors="errors" @reload="$emit('reload')" @remove-error="$emit('remove-error', $event)" />
     </div>
   </div>
 </template>

@@ -1,8 +1,7 @@
 <template>
   <div>
-    <regular-modal />
-    <alert-bar />
-    <actions-modal />
+    <RegularModal />
+    <AlertBar />
   </div>
 </template>
 

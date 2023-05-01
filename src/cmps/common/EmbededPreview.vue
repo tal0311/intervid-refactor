@@ -1,9 +1,9 @@
 <template>
-  <application-index class="embeded-preview" v-if="job">
+  <ApplicationIndex class="embeded-preview" v-if="job">
     <button class="main-btn" @click="onApply">
       {{ $getTrans('apply-for-this-job') }}
     </button>
-  </application-index>
+  </ApplicationIndex>
 </template>
 
 <script>

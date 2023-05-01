@@ -22,8 +22,17 @@
 import {validate} from '@/services/errorService'
 
 export default {
-  props: ['btnMsgs, currStep'],
-
+  props: {
+    btnMsgs: {
+      type: Array,
+      required: true,
+    },
+    currStep: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['login'],
   data() {
     return {
       isVerifying: false,

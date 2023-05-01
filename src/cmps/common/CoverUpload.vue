@@ -1,6 +1,6 @@
 <template>
   <div class="cover-upload">
-    <app-spinner v-if="isUploading" />
+    <AppSpinner v-if="isUploading" />
 
     <div v-if="initialCover" class="cover-preview">
       <img :src="coverPreview || initialCover" referrerpolicy="no-referrer" />
@@ -113,7 +113,6 @@ import AppSpinner from './AppSpinner.vue'
 
 import {mediaService} from '@/services/mediaService'
 import {coverImgs} from '@/services/constData'
-import cloneDeep from 'lodash.clonedeep'
 
 export default {
   props: ['initialCover', 'id'],
@@ -130,7 +129,7 @@ export default {
   },
 
   created() {
-    this.user = cloneDeep(this.loggedInUser)
+    this.user = this.$utilService.deepClone(this.loggedInUser)
   },
 
   computed: {
@@ -223,7 +222,7 @@ export default {
 
   watch: {
     loggedInUser() {
-      this.user = structuredClone(this.loggedInUser)
+      this.user = this.$utilService.deepClone(this.loggedInUser)
     },
   },
 

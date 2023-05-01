@@ -122,6 +122,7 @@ export function useScreen({vidRecorder} = {vidRecorder: null}) {
   }
 
   // #unused
+  // Left this as an es-lint error so we can remember to use /remove it later
   const _addStreamStopListener = () => {
     // Adds stop stream events -> In order to get the event everytime the stream stops.
     loggerService.info('[ScreenMixin] [addStreamStopListener]')

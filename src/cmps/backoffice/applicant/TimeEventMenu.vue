@@ -10,7 +10,7 @@
       </button>
     </div>
 
-    <mobile-modal
+    <MobileModal
       v-if="isOpen && isMobile"
       cmp-name="time-event-menu"
       @on-close="toggleModal"

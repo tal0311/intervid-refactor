@@ -19,7 +19,7 @@
       /> -->
     </div>
 
-    <table-list
+    <TableList
       :items="usersToShow"
       :curr-page="filterBy.currPage"
       :items-per-page="filterBy.itemsPerPage"

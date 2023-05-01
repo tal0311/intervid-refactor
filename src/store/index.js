@@ -1,15 +1,15 @@
-import { createStore } from 'vuex'
-import { app } from './modules/appStore.js'
-import { user } from './modules/userStore.js'
-import { record } from './modules/recordStore.js'
-import { auth } from './modules/authStore.js'
-import { template } from './modules/templateStore'
-import { job } from './modules/jobStore'
-import { applicant } from './modules/applicantStore'
-import { player } from './modules/playerStore'
-import { activity } from './modules/activityStore'
+import {createStore} from 'vuex'
+import {app} from './modules/appStore.js'
+import {user} from './modules/userStore.js'
+import {record} from './modules/recordStore.js'
+import {auth} from './modules/authStore.js'
+import {template} from './modules/templateStore'
+import {job} from './modules/jobStore'
+import {applicant} from './modules/applicantStore'
+import {player} from './modules/playerStore'
+import {activity} from './modules/activityStore'
+import {initialState} from '@/services/constData.js'
 // import {mutationHistory} from './mutationHistory.js'
-import cloneDeep from 'lodash.clonedeep'
 
 const initialStoreModules = {
   app,
@@ -40,9 +40,11 @@ const store = createStore({
   strict: true,
   modules: initialStoreModules,
   mutations: {
-
+    /* eslint-disable no-unused-vars */
+    resetState(state) {
+      state = initialState
+    },
   },
-
 })
 
 export default store

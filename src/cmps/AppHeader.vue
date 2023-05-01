@@ -3,9 +3,9 @@
     <div class="header-content" :class="isSmallContainer ? 'narrow-container' : 'container'">
       <div class="logo-container">
         <RouterLink class="logo" :to="loggedInUser ? '/backoffice/applicant' : '/'">
-          <img loading="lazy" :src="logoURL" alt="logo" />
+          <img @click.stop="" loading="lazy" :src="logoURL" alt="logo" />
         </RouterLink>
-        <lng-menu v-if="!isJobEdit" />
+        <LngMenu v-if="!isJobEdit" />
       </div>
 
       <div class="btn-container">
@@ -29,7 +29,7 @@
           >
             {{ $getTrans('send') }}
           </button>
-          <share-btns :job="jobToEdit" v-if="modal.type === 'share'" />
+          <ShareBtns :job="jobToEdit" v-if="modal.type === 'share'" />
         </div>
 
         <div class="backoffice-nav-container" v-if="!!loggedInUser">
@@ -58,7 +58,7 @@
           </RouterLink>
         </div>
 
-        <user-menu />
+        <UserMenu />
       </div>
     </div>
   </header>

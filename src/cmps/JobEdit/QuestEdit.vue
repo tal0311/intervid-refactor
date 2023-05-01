@@ -4,8 +4,8 @@
     <div class="quest-header">
       <h4>{{ $getTrans('question') }} {{ idx + 1 }}</h4>
       <div class="quest-rules">
-        <timelimit-menu :quest="mutableQuest" @change-timelimit="onUpdateQuest" />
-        <ans-rule-menu :quest="mutableQuest" :is-one-try="isOneTry" @change-ans="onUpdateQuest" />
+        <TimelimitMenu :quest="mutableQuest" @change-timelimit="onUpdateQuest" />
+        <AnsRuleMenu :quest="mutableQuest" :is-one-try="isOneTry" @change-ans="onUpdateQuest" />
       </div>
 
       <div class="quest-actions-modal" :class="{open: isActionsModalOpen}">
@@ -39,13 +39,13 @@
         />
       </div>
 
-      <text-editor placeholder="Elaborate (optional)" v-model.trim="mutableQuest.desc" :tools="['code', 'link']" />
+      <TextEditor placeholder="Elaborate (optional)" v-model.trim="mutableQuest.desc" :tools="['code', 'link']" />
     </div>
 
     <div class="quest-actions">
       <div class="quest-rules">
-        <timelimit-menu :quest="mutableQuest" @change-timelimit="onUpdateQuest" />
-        <ans-rule-menu :quest="mutableQuest" :is-one-try="isOneTry" @change-ans="onUpdateQuest" />
+        <TimelimitMenu :quest="mutableQuest" @change-timelimit="onUpdateQuest" />
+        <AnsRuleMenu :quest="mutableQuest" :is-one-try="isOneTry" @change-ans="onUpdateQuest" />
       </div>
 
       <div class="actions">

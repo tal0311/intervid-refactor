@@ -6,7 +6,7 @@
         <button @click="closeModal" ref="close-btn" class="material-icons">close</button>
       </h2>
       <form @submit.prevent="onUpdateApplicant" novalidate>
-        <main-input
+        <MainInput
           input-name="fName"
           :label="$getTrans('f-name')"
           type="text"
@@ -15,7 +15,7 @@
           styled="main"
           validate="required"
         />
-        <main-input
+        <MainInput
           input-name="lName"
           :label="$getTrans('l-name')"
           type="text"
@@ -23,7 +23,7 @@
           :errors="errors"
           styled="main"
         />
-        <main-input
+        <MainInput
           input-name="email"
           :label="$getTrans('email')"
           type="email"
@@ -31,7 +31,7 @@
           :errors="errors"
           styled="main"
         />
-        <main-input
+        <MainInput
           input-name="phone"
           :label="$getTrans('phone-number')"
           type="phone"
@@ -39,7 +39,7 @@
           :errors="errors"
           styled="main"
         />
-        <main-input
+        <MainInput
           input-name="hometown"
           :label="$getTrans('hometown')"
           type="text"
@@ -57,7 +57,6 @@
 <script>
 import {validate} from '@/services/errorService.js'
 import MainInput from '@/cmps/common/MainInput.vue'
-import cloneDeep from 'lodash.clonedeep'
 
 export default {
   props: ['applicant'],
@@ -70,7 +69,7 @@ export default {
   },
 
   mounted() {
-    this.applicantToEdit = cloneDeep(this.applicant)
+    this.applicantToEdit = this.$utilService.deepClone(this.applicant)
   },
 
   methods: {

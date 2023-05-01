@@ -5,7 +5,7 @@
       <button class="material-icons">photo_camera</button>
     </div>
 
-    <app-spinner v-if="isUploading" />
+    <AppSpinner v-if="isUploading" />
 
     <label class="upload-label" :for="`upload-${id}`"> </label>
     <input @input="onUploadImg" type="file" name="" :id="`upload-${id}`" accept="image/*" />

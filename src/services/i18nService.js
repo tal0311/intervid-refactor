@@ -1,6 +1,6 @@
 // import store from '@/store'
 import {detect} from 'detect-browser'
-import {utilService} from './utilService'
+// import {utilService} from './utilService'
 
 const browser = detect()
 
@@ -1140,6 +1140,7 @@ const gTrans = {
     en: 'Screen',
     he: 'מסך',
   },
+
   connection: {
     en: 'Connection',
     he: 'חיבור לרשת',
@@ -1579,7 +1580,18 @@ const gTrans = {
     en: 'Full screen',
     he: 'מסך מלא',
   },
-
+  'rotate-screen': {
+    en: 'Rotate screen',
+    he: 'הפוך מסך',
+  },
+  'pause-video': {
+    en: 'Pause video',
+    he: 'השהה וידאו',
+  },
+  volume: {
+    en: 'Volume',
+    he: 'עוצמת קול',
+  },
   // MOBILE MODALS:
   'update status': {
     en: 'Update status',
@@ -2023,6 +2035,7 @@ export function getPlural(word, count) {
  * @param {{noWords:boolean,singleLetter:boolean,fullWord:boolean}} options
  * @returns string
  */
+// eslint-disable-next-line no-unused-vars
 export function formatDuration(ms, {noWords, singleLetter, fullWord} = {}, lang = DEFAULT_LANG) {
   let seconds = ms / 1000
   let minutes = parseInt(seconds / 60)

@@ -1,8 +1,8 @@
 <template>
   <section class="interview-error">
-    <not-supported v-if="isBrowserErr" :err="interviewErr" />
-    <no-mobile-screen-share v-else-if="interviewErr.type === 'NO_MOBILE_SCREEN_SHARE'" />
-    <not-found v-else-if="interviewErr.type === 'INTERVIEW_NOT_FOUND'" :msg="$getTrans('interview-not-available')" />
+    <NotSupported v-if="isBrowserErr" :err="interviewErr" />
+    <NoMobileScreenShare v-else-if="interviewErr.type === 'NO_MOBILE_SCREEN_SHARE'" />
+    <NotFound v-else-if="interviewErr.type === 'INTERVIEW_NOT_FOUND'" :msg="$getTrans('interview-not-available')" />
   </section>
 </template>
 

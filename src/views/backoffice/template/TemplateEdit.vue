@@ -15,7 +15,7 @@
 
       <div class="template-content">
         <div class="quest-list">
-          <quest-edit
+          <QuestEdit
             v-for="(quest, idx) in quests"
             :key="quest.id"
             :idx="idx"
@@ -48,7 +48,7 @@
       </div>
     </div>
   </section>
-  <app-loader v-else />
+  <AppLoader v-else />
 </template>
 
 <script>
@@ -100,7 +100,7 @@ export default {
     async loadTemplate(templateId) {
       if (templateId) {
         await this.$store.dispatch('template/loadTemplate', {templateId})
-        this.templateToEdit = structuredClone(this.template)
+        this.templateToEdit = this.$utilService.deepClone(this.template)
       } else {
         this.templateToEdit = templateService.getDefaultTemplate()
       }

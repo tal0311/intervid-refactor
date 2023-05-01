@@ -3,8 +3,8 @@ import { loggerService } from '@/services/loggerService'
 import { mutationHistory } from '../mutationHistory'
 import { msgService } from '@/services/msgService'
 // import { activityMap } from '@/services/activityService'
-import { getTrans } from '../../services/i18nService'
-import cloneDeep from 'lodash.clonedeep'
+import {getTrans} from '../../services/i18nService'
+import {utilService} from '@/services/utilService'
 
 export const job = {
   namespaced: true,
@@ -253,8 +253,13 @@ export const job = {
         // loggerService.debug('[JobStore] [loadJobs] Loading jobs', filterBy, sort, shouldGather)
         // #HANDLE CANCEL
         const key = 'job/query'
-        const cancelToken = await dispatch('app/handleCancelRequest', key, { root: true })
-        let { jobs, pageCount, filteredJobCount, totalJobCount } = await jobService.query(filterBy, sort, cancelToken)
+        const cancelToken = await dispatch('app/handleCancelRequest', key, {root: true})
+        let {
+          jobs = null,
+          pageCount,
+          filteredJobCount,
+          totalJobCount,
+        } = (await jobService.query(filterBy, sort, cancelToken)) || {}
         if (!jobs) return
         // let data = await jobService.query(filterBy, sort, cancelToken)
         // // Now idea how this worked before
@@ -386,7 +391,7 @@ export const job = {
       // { dispatch }
       console.log('jobs', jobs)
       const cachedJobs = state.jobs
-      const jobsCopy = cloneDeep(jobs)
+      const jobsCopy = utilService.deepClone(jobs)
       const updatedJobs = jobsCopy.map((job) => {
         job.archivedAt = job.archivedAt ? null : Date.now()
         return job
@@ -471,7 +476,7 @@ export const job = {
       // { dispatch }
       console.log('applicants', applicants)
       const cachedApplicants = state.applicants
-      const applicantsCopy = cloneDeep(applicants)
+      const applicantsCopy = utilService.deepClone(applicants)
       const updatedApplicants = applicantsCopy.map((applicant) => {
         applicant.archivedAt = applicant.archivedAt ? null : Date.now()
         return applicant

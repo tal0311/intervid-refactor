@@ -17,7 +17,7 @@
         </div>
       </div>
       <h3>{{ $getTrans('before-the-interview-we-need-to-know-you') }}</h3>
-      <application-index />
+      <ApplicationIndex />
       <form ref="form" novalidate @submit.prevent="validateForm">
         <p class="form-title">
           {{ $getTrans('fill-in-your-personal-details') }}
@@ -78,7 +78,7 @@
           />
 
           <div :class="{disabled: !applicantInfo.fName || !applicantInfo.lName}">
-            <cv-upload @uploaded="onCvUploaded" :errors="errors" :applicant-cv-name="applicantFullName" />
+            <CvUpload @uploaded="onCvUploaded" :errors="errors" :applicant-cv-name="applicantFullName" />
           </div>
         </div>
         <div class="btn-container">
@@ -99,6 +99,7 @@ import CvUpload from '../CvUpload.vue'
 import ApplicationIndex from './ApplicationIndex.vue'
 
 export default {
+  emits: ['on-next-step'],
   data() {
     return {
       applicantInfo: {

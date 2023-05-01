@@ -15,7 +15,7 @@
           </div>
         </div>
 
-        <audio-meter
+        <AudioMeter
           :class="{ready: isAudioReady}"
           v-if="!lastRecordedVideo"
           :stream="videoStream"
@@ -33,14 +33,14 @@
           </button>
           <h2>{{ $getTrans('settings') }}</h2>
           <div class="device-select-container">
-            <device-select
+            <DeviceSelect
               v-if="!!mediaDevice.audio && !!selectedDevice.audio"
               :devices="mediaDevice.audio"
               type="microphone"
               :selected-device-id="selectedDevice.audio"
               @set-device="onSelectDevice"
             />
-            <device-select
+            <DeviceSelect
               v-if="!!mediaDevice.video && !!selectedDevice.video"
               :devices="mediaDevice.video"
               type="camera"
@@ -75,7 +75,7 @@
 
         <div class="check-info-content media-check-loader" v-else>
           <span>{{ $getTrans('getting-ready-media-check') }}</span>
-          <video-loader />
+          <VideoLoader />
         </div>
 
         <div
@@ -220,7 +220,7 @@
           <button v-if="selectedError && selectedError.device === 'screen'" class="share-screen" @click="shareScreen">
             {{ $getTrans('share-screen') }}
           </button>
-          <device-select
+          <DeviceSelect
             v-else-if="
               !!mediaDevice.video && !!selectedDevice.video && !!selectedError && selectedError.device === 'camera'
             "
@@ -229,7 +229,7 @@
             :selected-device-id="selectedDevice.video"
             @set-device="onSelectDevice"
           />
-          <device-select
+          <DeviceSelect
             v-else-if="
               !!mediaDevice.audio && !!selectedDevice.audio && !!selectedError && selectedError.device === 'microphone'
             "
@@ -261,6 +261,7 @@ import DeviceSelect from '@/cmps/interview/DeviceSelect.vue'
 import VideoLoader from '@/cmps/common/VideoLoader.vue'
 
 export default {
+  emits: ['on-next-step'],
   setup(props, {emit}) {
     const {screenStream, initScreen, screenErrors} = useScreen()
     const video = ref(null)

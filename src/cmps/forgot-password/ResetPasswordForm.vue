@@ -8,7 +8,7 @@
       </h2>
       <small>{{ $getTrans('small-msg-about-otp') }}</small>
       <section class="password-inputs">
-        <code-digit-input
+        <CodeDigitInput
           v-for="(item, idx) in 6"
           v-model="input[idx]"
           @go-to="goto($event)"

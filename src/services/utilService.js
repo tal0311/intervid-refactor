@@ -1,3 +1,4 @@
+import {markRaw} from 'vue'
 import {breakpoint} from './constData'
 
 export const utilService = {
@@ -21,6 +22,12 @@ export const utilService = {
   isEmpty,
   getVideoLength,
   isMobile,
+  deepClone,
+  isEqual,
+  isObject,
+  isPlainObject,
+  isArray,
+  extractStateFromModules,
 }
 
 // added this back here temporarly to prevent error until migration of useSort is done
@@ -214,6 +221,75 @@ function getVideoLength(videoUrl) {
   })
 }
 
+function deepClone(val) {
+  if (typeof val !== 'object' || val === null) {
+    // console.log('val1', val)
+    return val
+  }
+
+  if (Array.isArray(val)) {
+    // console.log('val2', val)
+    return val.map((item) => deepClone(item))
+  }
+
+  const clonedObj = markRaw({})
+  for (const key in val) {
+    if (Object.prototype.hasOwnProperty.call(val, key)) {
+      clonedObj[key] = deepClone(val[key])
+    }
+  }
+  // console.log('val3', clonedObj)
+  return clonedObj
+}
+
+// NOTE: This function can't handle complex objects, like maps, sets, promises etc.
+function isEqual(a, b) {
+  if (a === b) return true
+
+  if (!isObject(a) || !isObject(b)) return false
+
+  if (isArray(a) && isArray(b)) {
+    if (a.length !== b.length) return false
+
+    return a.every((item, index) => isEqual(item, b[index]))
+  }
+
+  if (isPlainObject(a) && isPlainObject(b)) {
+    const keysA = Object.keys(a)
+    const keysB = Object.keys(b)
+
+    if (keysA.length !== keysB.length) return false
+
+    return keysA.every((key) => isEqual(a[key], b[key]))
+  }
+
+  return false
+}
+
+function isObject(obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPlainObject(obj) {
+  return Object.prototype.toString.call(obj) === '[object Object]'
+}
+
+function isArray(obj) {
+  return Array.isArray(obj)
+}
+
+function extractStateFromModules(modules, state = {}) {
+  Object.keys(modules).forEach((moduleName) => {
+    const module = modules[moduleName]
+    if (module.state) {
+      state[moduleName] = module.state
+    }
+    if (module.modules) {
+      extractStateFromModules(module.modules, state)
+    }
+  })
+  return state
+}
 // THIS CHANGE WAS DONE ALREADY, LEAVING THIS HERE FOR REFERENCE
 // This function is by no means a utility function, it should be moved to a different file, probably the store file,
 // it is also named as a private function, but it is exported, this is a bad practice, and should be changed.
