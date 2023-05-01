@@ -129,7 +129,7 @@ export default {
     QuestCountdown,
     // TextAns,
   },
-  emits: ['handle-quit','start'],
+  emits: ['handle-quit', 'start'],
   setup(props, {emit}) {
     const vidRecorder = ref(null)
     const {
