@@ -14,11 +14,11 @@
           <p>{{ $getTrans('job-title') }}</p>
           <p>{{ job.info.title }}</p>
         </div>
-        <div class="job-location" v-if="job.info.location">
+        <div v-if="job.info.location" class="job-location">
           <p>{{ $getTrans('location') }}</p>
           <p>{{ job.info.location }}</p>
         </div>
-        <div class="job-decription" v-if="job.info.desc">
+        <div v-if="job.info.desc" class="job-decription">
           <p>{{ $getTrans('job-description') }}</p>
           <p>{{ job.info.desc }}</p>
         </div>
@@ -32,15 +32,6 @@
 import {loggerService} from '@/services/loggerService'
 
 export default {
-  mounted() {
-    this.$store.commit('applicant/setIsInvitationPage', {
-      isInvitationPage: true,
-    })
-    loggerService.info('[onBoarding] [Application] Mounted')
-  },
-
-  methods: {},
-
   computed: {
     job() {
       return this.$store.getters['applicant/job']
@@ -53,5 +44,13 @@ export default {
       )
     },
   },
+  mounted() {
+    this.$store.commit('applicant/setIsInvitationPage', {
+      isInvitationPage: true,
+    })
+    loggerService.info('[onBoarding] [Application] Mounted')
+  },
+
+  methods: {},
 }
 </script>

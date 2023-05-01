@@ -25,20 +25,20 @@
         <div class="inputs">
           <div class="input-group">
             <main-input
+              v-model.trim="applicantInfo.fName"
               input-name="firstname"
               :label="$getTrans('first-name')"
               validate="required"
-              v-model.trim="applicantInfo.fName"
               :on-blur="validateField"
               :errors="errors"
               styled="main"
             />
 
             <main-input
+              v-model.trim="applicantInfo.lName"
               input-name="lastname"
               :label="$getTrans('last-name')"
               validate="required"
-              v-model.trim="applicantInfo.lName"
               :on-blur="validateField"
               :errors="errors"
               styled="main"
@@ -46,39 +46,39 @@
           </div>
 
           <main-input
+            v-model.trim="applicantInfo.email"
             input-name="email"
             type="email"
             :label="$getTrans('email')"
             validate="required|email"
-            v-model.trim="applicantInfo.email"
             :on-blur="validateField"
             :errors="errors"
             styled="main"
           />
 
           <main-input
+            v-model.trim="applicantInfo.hometown"
             input-name="hometown"
             :label="$getTrans('hometown')"
             validate="required"
-            v-model.trim="applicantInfo.hometown"
             :on-blur="validateField"
             :errors="errors"
             styled="main"
           />
 
           <main-input
+            v-model.trim="applicantInfo.phone"
             input-name="phone"
             type="tel"
             :label="$getTrans('phone')"
             validate="required|phone"
-            v-model.trim="applicantInfo.phone"
             :on-blur="validateField"
             :errors="errors"
             styled="main"
           />
 
           <div :class="{disabled: !applicantInfo.fName || !applicantInfo.lName}">
-            <CvUpload @uploaded="onCvUploaded" :errors="errors" :applicant-cv-name="applicantFullName" />
+            <CvUpload :errors="errors" :applicant-cv-name="applicantFullName" @uploaded="onCvUploaded" />
           </div>
         </div>
         <div class="btn-container">
@@ -99,6 +99,7 @@ import CvUpload from '../CvUpload.vue'
 import ApplicationIndex from './ApplicationIndex.vue'
 
 export default {
+  components: {CvUpload, ApplicationIndex},
   emits: ['on-next-step'],
   data() {
     return {
@@ -112,13 +113,6 @@ export default {
       },
       errors: null,
     }
-  },
-
-  mounted() {
-    this.$store.commit('applicant/setIsInvitationPage', {
-      isInvitationPage: false,
-    })
-    loggerService.info('[onBoarding] [ApplicantForm] Mounted')
   },
 
   computed: {
@@ -152,6 +146,13 @@ export default {
     },
   },
 
+  mounted() {
+    this.$store.commit('applicant/setIsInvitationPage', {
+      isInvitationPage: false,
+    })
+    loggerService.info('[onBoarding] [ApplicantForm] Mounted')
+  },
+
   methods: {
     validateForm({target}) {
       this.errors = validate(target)
@@ -183,7 +184,5 @@ export default {
       this.errors = validate(ev.target.form)
     },
   },
-
-  components: {CvUpload, ApplicationIndex},
 }
 </script>

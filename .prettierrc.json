@@ -6,7 +6,6 @@
   "printWidth": 120,
   "tabWidth": 2,
   "semi": false,
-  "wrapAttributes": false,
   "bracketSpacing": false,
   "endOfLine": "lf"
 }

@@ -5,8 +5,8 @@
       <!-- TODO: This div should have a v-mounted, which is the directive defined locally in this cmp
       I turned it off for now since it throws errors, it should be added back when the directive is defined
       -->
-      <div class="template-card-list" ref="scrollable-list" @scroll="setArrows">
-        <button class="material-icons scroll-btn start" v-if="isStartBtnShowen" @click="scrollTo(-1)">
+      <div ref="scrollable-list" class="template-card-list" @scroll="setArrows">
+        <button v-if="isStartBtnShowen" class="material-icons scroll-btn start" @click="scrollTo(-1)">
           chevron_left
         </button>
         <div class="template-card-preview add" @click="$router.push({name: 'JobEdit'})">
@@ -22,7 +22,7 @@
           <img :src="template.coverUrl || defaultImgUrl.jobCover" alt="job cover" />
           <h2>{{ template.title }}</h2>
         </div>
-        <button class="material-icons scroll-btn end" v-if="isEndBtnShowen" @click="scrollTo(1)">chevron_right</button>
+        <button v-if="isEndBtnShowen" class="material-icons scroll-btn end" @click="scrollTo(1)">chevron_right</button>
       </div>
     </div>
   </div>
@@ -32,6 +32,22 @@
 import {defaultImgUrl} from '@/services/constData'
 
 export default {
+  directives: {
+    mounted(el, _, {context}) {
+      //in vue 3 there is no "context" inside vnode anymore. try "ctx.ctx".
+      // console.log(context)
+      context.nextTick(() => {
+        // maybe "$nextTick"
+        const {clientWidth, scrollWidth} = el
+        if (clientWidth === scrollWidth) {
+          context.isStartBtnShowen = false
+          context.isEndBtnShowen = false
+        } else if (el) {
+          context.setArrows({target: el})
+        }
+      })
+    },
+  },
   data() {
     return {
       isStartBtnShowen: false,
@@ -75,23 +91,6 @@ export default {
       const {scrollLeft, clientWidth, scrollWidth} = target
       this.isStartBtnShowen = scrollLeft > 0
       this.isEndBtnShowen = scrollLeft + clientWidth < scrollWidth - 10
-    },
-  },
-
-  directives: {
-    mounted(el, _, {context}) {
-      //in vue 3 there is no "context" inside vnode anymore. try "ctx.ctx".
-      // console.log(context)
-      context.nextTick(() => {
-        // maybe "$nextTick"
-        const {clientWidth, scrollWidth} = el
-        if (clientWidth === scrollWidth) {
-          context.isStartBtnShowen = false
-          context.isEndBtnShowen = false
-        } else if (el) {
-          context.setArrows({target: el})
-        }
-      })
     },
   },
 }

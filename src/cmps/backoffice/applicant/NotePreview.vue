@@ -14,7 +14,12 @@
 
 <script>
 export default {
-  props: ['note'],
+  props: {
+    note: {
+      type: Object,
+      required: true,
+    },
+  },
 
   computed: {
     formattedDate() {

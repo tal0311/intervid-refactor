@@ -1,28 +1,39 @@
 <template>
   <input
     type="number"
-    :value="$attrs.value"
+    :value="modelValue"
     :disabled="$attrs.disabled"
-    @keydown="type"
-    @paste.prevent="paste"
     name="code-digit"
     autocomplete="nope"
+    @keydown="type"
+    @paste.prevent="paste"
     @keydown.left.right="moveInput"
     @keydown.delete="$emit('remove', idx)"
   />
 </template>
 
 <script>
+import {nextTick} from 'vue'
 export default {
-  props: ['idx'],
+  props: {
+    modelValue: {
+      type: String,
+      default: '',
+    },
+    idx: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['update:modelValue', 'go-to', 'remove', 'paste-input'],
 
   methods: {
     type(event) {
       const key = event.key.replace(/\D/g, '')
       if (key) {
         event.preventDefault()
-        this.$emit('input', key)
-        this.$nextTick(() => {
+        this.$emit('update:modelValue', key)
+        nextTick(() => {
           this.$emit('go-to', this.idx + 1)
         })
       } else if (!event.ctrlKey) {
@@ -31,12 +42,10 @@ export default {
     },
 
     paste(event) {
-      let pastedVal = event.clipboardData.getData('text')
-      pastedVal = pastedVal.replace(/\D/g, '')
-      pastedVal = pastedVal.substring(0, this.length)
-      pastedVal = pastedVal.split('')
+      const pastedVal = event.clipboardData.getData('text')
       if (pastedVal) {
-        this.$emit('paste', pastedVal)
+        // WTF is this.length supposed to be?
+        this.$emit('paste-input', pastedVal.replace(/\D/g, '').substring(0, this.length).split(''))
       }
     },
 

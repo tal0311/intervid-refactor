@@ -1,10 +1,10 @@
 <template>
   <section v-if="isOpen" class="modal-wrapper" @mousedown="closeModal">
     <div class="modal-content" @mousedown.stop="" @click.stop="">
-      <button v-if="isCloseable" @click="closeModal" class="dismiss">
+      <button v-if="isCloseable" class="dismiss" @click="closeModal">
         <i class="material-icons md-dark">close</i>
       </button>
-      <component @close="closeModal" :is="cmp" :data="modal.data" />
+      <component :is="cmp" :data="modal.data" @close="closeModal" />
     </div>
   </section>
 </template>
@@ -18,6 +18,13 @@ import ShareBtns from '@/cmps/JobEdit/ShareBtns.vue'
 const modalTypes = ['TimeUp', 'AccountEdit', 'ResetPassword', 'ShareBtns', 'Application']
 
 export default {
+  components: {
+    TimeUp,
+    OrgUserEdit,
+    ResetPassword,
+    ShareBtns,
+    ApplicationIndex,
+  },
   computed: {
     modal() {
       return this.$store.getters['app/modal']
@@ -53,14 +60,6 @@ export default {
     closeModal() {
       this.$store.dispatch('app/toggleModal', null)
     },
-  },
-
-  components: {
-    TimeUp,
-    OrgUserEdit,
-    ResetPassword,
-    ShareBtns,
-    ApplicationIndex,
   },
 }
 </script>

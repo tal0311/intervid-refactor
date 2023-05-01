@@ -1,15 +1,15 @@
 <template>
   <div class="choice-quest-edit">
-    <div class="choice-container" ref="elOpts">
+    <div ref="elOpts" class="choice-container">
       <div v-for="(opt, idx) in opts" :key="idx" :class="{correct: opt.isCorrect}">
         <input
           title="Set as Correct Option"
           :checked="opt.isCorrect"
-          @input="onSetCorrectIdx(idx, $event.target.checked)"
           type="checkbox"
+          @input="onSetCorrectIdx(idx, $event.target.checked)"
         />
-        <input class="opt-input" type="text" @blur="onEditOpt(idx, $event.target.value)" :value="opt.txt" />
-        <i @click="onRemoveOpt(idx)" class="material-icons">clear</i>
+        <input class="opt-input" type="text" :value="opt.txt" @blur="onEditOpt(idx, $event.target.value)" />
+        <i class="material-icons" @click="onRemoveOpt(idx)">clear</i>
       </div>
     </div>
     <div class="add-opt">
@@ -21,11 +21,25 @@
 
 <script>
 export default {
-  props: ['optsToEdit'],
+  props: {
+    optsToEdit: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ['edit-opts'],
 
   data: () => ({
     opts: [],
   }),
+
+  watch: {
+    optsToEdit() {
+      if (this.optsToEdit) {
+        this.opts = this.$utilService.deepClone(this.optsToEdit)
+      }
+    },
+  },
 
   created() {
     this.opts = this.$utilService.deepClone(this.optsToEdit)
@@ -68,14 +82,6 @@ export default {
         elInput.focus()
         elInput.select()
       })
-    },
-  },
-
-  watch: {
-    optsToEdit() {
-      if (this.optsToEdit) {
-        this.opts = this.$utilService.deepClone(this.optsToEdit)
-      }
     },
   },
 }

@@ -7,7 +7,7 @@
       >keyboard_arrow_left</i
     >
     <div v-if="currPage > gap + 1" class="edge-num-container">
-      <span @click="currPage !== 0 && $emit('change-page', {to: 0, cmpName: $route.name})" class="circle">{{ 1 }}</span>
+      <span class="circle" @click="currPage !== 0 && $emit('change-page', {to: 0, cmpName: $route.name})">{{ 1 }}</span>
 
       ...
     </div>
@@ -15,10 +15,10 @@
     <div class="page-numbers-container">
       <span
         v-for="index in pageNumbersForDisplay"
-        @click="currPage !== index - 1 && $emit('change-page', {to: index - 1, cmpName: $route.name})"
         :key="index"
         :class="{on: index - 1 === currPage}"
         class="circle"
+        @click="currPage !== index - 1 && $emit('change-page', {to: index - 1, cmpName: $route.name})"
         >{{ formatNum(index) }}</span
       >
     </div>
@@ -26,8 +26,8 @@
     <div v-if="currPage < pageCount - gap - 2" class="edge-num-container">
       ...
       <span
-        @click="currPage !== pageCount - 1 && $emit('change-page', {to: pageCount - 1, cmpName: $route.name})"
         class="circle"
+        @click="currPage !== pageCount - 1 && $emit('change-page', {to: pageCount - 1, cmpName: $route.name})"
         >{{ formatNum(pageCount) }}</span
       >
     </div>
@@ -43,7 +43,21 @@
 
 <script>
 export default {
-  props: ['itemCount', 'currPage', 'itemsPerPage'],
+  props: {
+    itemCount: {
+      type: Number,
+      required: true,
+    },
+    currPage: {
+      type: Number,
+      required: true,
+    },
+    itemsPerPage: {
+      type: [String, Number],
+      required: true,
+    },
+  },
+  emits: ['change-page'],
 
   data() {
     return {

@@ -13,7 +13,7 @@
     display: flex;
   }
   &::after {
-    content: "";
+    content: '';
     width: 100%;
     flex-grow: 1;
   }
@@ -57,11 +57,11 @@
             color: $cta;
           }
         }
-        .expand-list{
+        .expand-list {
           &::-webkit-scrollbar-thumb {
             background: lighten($cta, 30%);
           }
-          .expand-item.active{
+          .expand-item.active {
             background: rgba($cta, 0.1);
             color: $cta;
           }
@@ -75,11 +75,11 @@
             color: $blue;
           }
         }
-        .expand-list{
+        .expand-list {
           &::-webkit-scrollbar-thumb {
             background: lighten($blue, 30%);
           }
-          .expand-item.active{
+          .expand-item.active {
             background: rgba($blue, 0.1);
             color: $blue;
           }

@@ -3,7 +3,7 @@
     <label v-if="label" :for="'select' + id">{{ label }}</label>
 
     <div class="select-container" :tabindex="tabindex" @blur="open = false">
-      <div :id="'select' + id" class="selected" :class="{open: open}" @click="open = !open" v-if="selected">
+      <div v-if="selected" :id="'select' + id" class="selected" :class="{open: open}" @click="open = !open">
         {{ selected.txt }}
 
         <!-- Note: We can't use $getTrans here! - rendering user emails on ActivityFilter -->
@@ -27,13 +27,16 @@
 <script>
 export default {
   props: {
-    name: String,
+    name: {
+      type: String,
+      required: true,
+    },
     options: {
       type: Array,
       required: true,
     },
     defaultValue: {
-      type: [String || Number, Boolean],
+      type: [String, Number, Boolean],
       required: false,
       default: null,
     },
@@ -42,8 +45,13 @@ export default {
       required: false,
       default: 0,
     },
-    label: String,
+    label: {
+      type: String,
+      required: false,
+      default: null,
+    },
   },
+  emits: ['change', 'input'],
 
   data() {
     return {

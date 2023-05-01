@@ -14,7 +14,16 @@
 
 <script>
 export default {
-  props: ['donePercent', 'labelTxt'],
+  props: {
+    donePercent: {
+      type: Number,
+      required: true,
+    },
+    labelTxt: {
+      type: String,
+      default: null,
+    },
+  },
 
   computed: {
     textToShow() {

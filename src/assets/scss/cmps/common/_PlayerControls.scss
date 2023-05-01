@@ -100,7 +100,6 @@
           border-radius: 50%;
           inset-inline-end: 0;
           transition: transform 0.1s;
-
         }
       }
 
@@ -136,9 +135,8 @@
         align-items: center;
         justify-content: center;
 
-
-
-        i {}
+        i {
+        }
 
         .volume-input {
           -webkit-appearance: none;
@@ -197,9 +195,7 @@
         }
 
         &:hover {
-
           .volume-input {
-
             width: 80px;
 
             //Chrome:
@@ -269,7 +265,7 @@
             height: 200px;
           }
 
-          >p {
+          > p {
             padding: 0.5em 1em;
 
             &.selected {

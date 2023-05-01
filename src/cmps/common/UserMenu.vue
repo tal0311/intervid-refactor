@@ -1,6 +1,6 @@
 <template>
   <div class="user-menu">
-    <div class="user-avatar" @click="toggleModal" v-if="loggedInUser">
+    <div v-if="loggedInUser" class="user-avatar" @click="toggleModal">
       <ApplicantAvatar :size="35" :src="loggedInUser.imgUrl || loggedInUser.logoUrl" :username="userFullName" />
     </div>
     <div :class="{open: isOpen && !isMobile && loggedInUser}" class="user-modal">
@@ -28,6 +28,7 @@ import ApplicantAvatar from './ApplicantAvatar.vue'
 import MobileModal from './modals/MobileModal.vue'
 
 export default {
+  components: {ApplicantAvatar, MobileModal},
   computed: {
     loggedInUser() {
       return this.$store.getters['user/loggedInUser']
@@ -77,7 +78,5 @@ export default {
       this.$router.push({name})
     },
   },
-
-  components: {ApplicantAvatar, MobileModal},
 }
 </script>

@@ -7,5 +7,7 @@
 </template>
 
 <script>
-export default {}
+export default {
+  emits: ['on-remove-note-event'],
+}
 </script>

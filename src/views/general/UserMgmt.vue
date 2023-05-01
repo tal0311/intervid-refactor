@@ -11,7 +11,7 @@
       <!-- <lng-menu /> -->
     </div>
     <div class="main-content">
-      <form class="user-profile" @submit.prevent="toggleEdit('user', $event)" novalidate>
+      <form class="user-profile" novalidate @submit.prevent="toggleEdit('user', $event)">
         <div class="row-header">
           <h2>{{ $getTrans('profile') }}</h2>
           <button>
@@ -27,11 +27,11 @@
             </p>
             <main-input
               v-else
+              v-model.trim="userToEdit.fName"
               input-name="firstName"
               :placeholder="$getTrans('first-name')"
               type="text"
               validate="required"
-              v-model.trim="userToEdit.fName"
               :on-blur="validateField"
               :errors="errors"
               styled="basic"
@@ -44,10 +44,10 @@
             </p>
             <main-input
               v-else
+              v-model.trim="userToEdit.lName"
               input-name="lName"
               :placeholder="$getTrans('last-name')"
               type="text"
-              v-model.trim="userToEdit.lName"
               :on-blur="validateField"
               :errors="errors"
               styled="basic"
@@ -62,7 +62,7 @@
               info_outlined
             </i>
           </div>
-          <ImgUpload @upload="onSetImg('img', $event)" :initial-img="userToEdit.imgUrl" />
+          <ImgUpload :initial-img="userToEdit.imgUrl" @upload="onSetImg('img', $event)" />
         </div>
 
         <div class="row">
@@ -70,11 +70,11 @@
           <p v-if="!isUserEdit">{{ userToEdit.email }}</p>
           <main-input
             v-else
+            v-model.trim="userToEdit.email"
             input-name="email"
             :placeholder="$getTrans('add-email')"
             type="email"
             validate="required|email"
-            v-model.trim="userToEdit.email"
             :on-blur="validateField"
             :errors="errors"
             styled="basic"
@@ -89,10 +89,10 @@
           </p>
           <main-input
             v-else
+            v-model.trim="userToEdit.phone"
             input-name="phone"
             :placeholder="$getTrans('add-phone-number')"
             type="text"
-            v-model.trim="userToEdit.phone"
             :on-blur="validateField"
             :errors="errors"
             styled="basic"
@@ -106,10 +106,10 @@
           </p>
           <main-input
             v-else
+            v-model.trim="userToEdit.address"
             input-name="address"
             :placeholder="$getTrans('add-home-address')"
             type="text"
-            v-model.trim="userToEdit.address"
             :on-blur="validateField"
             :errors="errors"
             styled="basic"
@@ -132,11 +132,11 @@
           </p>
           <main-input
             v-else
+            v-model.trim="userToEdit.companyName"
             input-name="company-name"
             :placeholder="$getTrans('add-company-name')"
             type="text"
             validate="required"
-            v-model.trim="userToEdit.companyName"
             :on-blur="validateField"
             :errors="errors"
             styled="basic"
@@ -150,7 +150,7 @@
               info_outlined
             </i>
           </div>
-          <ImgUpload @upload="onSetImg('logo', $event)" :initial-img="userToEdit.logoUrl" />
+          <ImgUpload :initial-img="userToEdit.logoUrl" @upload="onSetImg('logo', $event)" />
         </div>
       </form>
     </div>
@@ -174,6 +174,10 @@ import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
 import ImgUpload from '@/cmps/common/ImgUpload.vue'
 
 export default {
+  components: {
+    ApplicantAvatar,
+    ImgUpload,
+  },
   data() {
     return {
       headers: [
@@ -188,11 +192,6 @@ export default {
       errors: null,
     }
   },
-
-  mounted() {
-    this.userToEdit = this.$utilService.deepClone(this.loggedInUser)
-  },
-
   computed: {
     ...mapGetters('user', ['loggedInUser']),
 
@@ -204,6 +203,10 @@ export default {
       return this.$utilService.getFullName(this.loggedInUser)
     },
   },
+  mounted() {
+    this.userToEdit = this.$utilService.deepClone(this.loggedInUser)
+  },
+
   methods: {
     ...mapActions('user', ['updateUser', 'sendVerifyEmail']),
 
@@ -254,11 +257,6 @@ export default {
       if (!this.errors) return
       this.errors = validate(ev.target.form)
     },
-  },
-
-  components: {
-    ApplicantAvatar,
-    ImgUpload,
   },
 }
 </script>

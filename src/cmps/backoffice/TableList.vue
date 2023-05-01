@@ -1,5 +1,5 @@
 <template>
-  <AppLoader v-if="isFetching && !shouldGather" is-local="true" />
+  <AppLoader v-if="isFetching && !shouldGather" :is-local="true" />
   <section v-else-if="isItemsToShow" class="table-list" :class="{cards: viewType === 'cards' && itemName === 'job'}">
     <SortableHeaders
       :sort="sort"
@@ -13,11 +13,11 @@
 
     <div class="list-content">
       <component
+        :is="itemName"
         v-for="item in items"
         :key="item._id"
-        :is="itemName"
-        :filter-by="filterBy"
         ref="preview"
+        :filter-by="filterBy"
         v-bind="getNamedProp(item)"
         :is-selected="isSelected(item)"
         @select="$emit('select', item)"
@@ -25,7 +25,7 @@
         @remove="$emit('remove', $event)"
       />
 
-      <component v-if="isInfiniteScroll && !isAllItems" :is="skeletonToShow" v-observe-visibility="onScrollToBottom">
+      <component :is="skeletonToShow" v-if="isInfiniteScroll && !isAllItems" v-observe-visibility="onScrollToBottom">
       </component>
     </div>
   </section>
@@ -55,6 +55,23 @@ import ApplicantSkeleton from './applicant/ApplicantSkeleton.vue'
 //   activity: ActivityPreview,
 // }
 export default {
+  components: {
+    //   template: TemplatePreview,
+    job: JobPreview,
+    applicant: ApplicantPreview,
+    account: AccountPreview,
+    record: RecordPreview,
+    activity: ActivityPreview,
+    TemplatePreview,
+    ListActions,
+    AppLoader,
+    SortableHeaders,
+    EmptyList,
+    jobSkeleton: JobSkeleton,
+    applicantSkeleton: ApplicantSkeleton,
+  },
+  // TODO: I disabled the lint rule here because the props are very complex, so I wanted to leave it for when we look the at this cmp more thoroughly.
+  /* eslint-disable vue/require-prop-types */
   props: [
     'items',
     'selectedItemCount',
@@ -68,6 +85,8 @@ export default {
     'isFetching',
     'isSelected',
   ],
+  /* eslint-enable vue/require-prop-types */
+  emits: ['select', 'select-all', 'remove', 'sort', 'load-items', 'load-next-items'],
 
   data() {
     return {
@@ -120,22 +139,6 @@ export default {
       if (!isVisible || !this.isInfiniteScroll || this.isAllItems) return
       this.$emit('load-next-items')
     },
-  },
-
-  components: {
-    //   template: TemplatePreview,
-    job: JobPreview,
-    applicant: ApplicantPreview,
-    account: AccountPreview,
-    record: RecordPreview,
-    activity: ActivityPreview,
-    TemplatePreview,
-    ListActions,
-    AppLoader,
-    SortableHeaders,
-    EmptyList,
-    jobSkeleton: JobSkeleton,
-    applicantSkeleton: ApplicantSkeleton,
   },
 }
 </script>

@@ -16,7 +16,13 @@
 
 <script>
 export default {
-  props: ['activity'],
+  props: {
+    activity: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['close'],
 
   computed: {
     startTime() {

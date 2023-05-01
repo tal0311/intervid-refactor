@@ -42,7 +42,7 @@
       display: flex;
       align-items: center;
 
-      >img {
+      > img {
         height: 30px;
       }
     }
@@ -126,7 +126,7 @@
       }
 
       &::after {
-        content: "";
+        content: '';
         height: 100%;
         width: 1px;
         background: lighten($light-gray, 20%);

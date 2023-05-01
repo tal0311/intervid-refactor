@@ -18,7 +18,7 @@
             <i class="material-icons">content_copy</i>
             {{ $getTrans('duplicate') }}
           </button>
-          <button type="button" class="menu-btn remove" v-if="questsCount > 1" @click="onRemoveQuest">
+          <button v-if="questsCount > 1" type="button" class="menu-btn remove" @click="onRemoveQuest">
             <i class="material-icons"> delete_outline </i>
             {{ $getTrans('remove') }}
           </button>
@@ -29,17 +29,17 @@
     <div class="quest-content">
       <div class="quest-title">
         <main-input
+          v-model.trim="mutableQuest.txt"
           :input-name="`quest-title-${mutableQuest.id}`"
           :placeholder="$getTrans('question')"
           validate="required"
-          v-model.trim="mutableQuest.txt"
           :on-blur="validateField"
           :errors="errors"
           styled="main"
         />
       </div>
 
-      <TextEditor placeholder="Elaborate (optional)" v-model.trim="mutableQuest.desc" :tools="['code', 'link']" />
+      <TextEditor v-model.trim="mutableQuest.desc" placeholder="Elaborate (optional)" :tools="['code', 'link']" />
     </div>
 
     <div class="quest-actions">
@@ -49,14 +49,14 @@
       </div>
 
       <div class="actions">
-        <i class="icon material-icons duplicate-btn" @click="onDuplicateQuest" :title="$getTrans('duplicate')"
+        <i class="icon material-icons duplicate-btn" :title="$getTrans('duplicate')" @click="onDuplicateQuest"
           >content_copy</i
         >
         <i
           v-if="questsCount > 1"
           class="icon material-icons remove-btn"
-          @click="onRemoveQuest"
           :title="$getTrans('remove')"
+          @click="onRemoveQuest"
           >delete_outline</i
         >
       </div>
@@ -72,7 +72,30 @@ import AnsRuleMenu from './AnsRuleMenu.vue'
 import TimelimitMenu from './TimelimitMenu.vue'
 
 export default {
-  props: ['quest', 'errors', 'idx', 'isOneTry', 'questsCount'],
+  components: {TextEditor, AnsRuleMenu, TimelimitMenu},
+  props: {
+    quest: {
+      type: Object,
+      required: true,
+    },
+    errors: {
+      type: Object,
+      required: true,
+    },
+    idx: {
+      type: Number,
+      required: true,
+    },
+    isOneTry: {
+      type: Boolean,
+      required: true,
+    },
+    questsCount: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['remove-quest', 'update-quest', 'duplicate-quest', 'validate-field'],
 
   data() {
     return {
@@ -123,7 +146,5 @@ export default {
       })
     },
   },
-
-  components: {TextEditor, AnsRuleMenu, TimelimitMenu},
 }
 </script>

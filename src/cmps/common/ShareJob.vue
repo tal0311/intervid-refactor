@@ -12,7 +12,13 @@
 import ShareBtns from '../JobEdit/ShareBtns.vue'
 
 export default {
-  props: ['job'],
+  components: {ShareBtns},
+  props: {
+    job: {
+      type: Object,
+      required: true,
+    },
+  },
 
   computed: {
     modal() {
@@ -25,7 +31,5 @@ export default {
       this.$store.dispatch('app/toggleModal', {type: 'share'})
     },
   },
-
-  components: {ShareBtns},
 }
 </script>

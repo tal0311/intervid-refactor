@@ -32,21 +32,7 @@ import AppLoader from '@/cmps/common/AppLoader.vue'
 import {msgService} from '@/services/msgService'
 
 export default {
-  async created() {
-    try {
-      if (!this.token && !this.user) this.$router.push({name: 'Login'})
-      if (!this.token) return
-      await this.$store.dispatch('auth/verifyEmail', {token: this.token})
-      const routeName = this.user ? 'ApplicantOverview' : 'Login'
-      this.$router.push({name: routeName})
-    } catch (err) {
-      if (!this.user) this.$router.push({name: 'Login'})
-    } finally {
-      // console.log('FINALLY')
-      // TODO: LOGGER SERVICE HERE
-    }
-  },
-
+  components: {AppLoader},
   computed: {
     ...mapGetters('auth', ['authError', 'isAuthing']),
 
@@ -62,6 +48,20 @@ export default {
       return this.$store.getters['user/loggedInUser']
     },
   },
+  async created() {
+    try {
+      if (!this.token && !this.user) this.$router.push({name: 'Login'})
+      if (!this.token) return
+      await this.$store.dispatch('auth/verifyEmail', {token: this.token})
+      const routeName = this.user ? 'ApplicantOverview' : 'Login'
+      this.$router.push({name: routeName})
+    } catch (err) {
+      if (!this.user) this.$router.push({name: 'Login'})
+    } finally {
+      // console.log('FINALLY')
+      // TODO: LOGGER SERVICE HERE
+    }
+  },
 
   methods: {
     sendEmailAgain({target}) {
@@ -74,7 +74,5 @@ export default {
       }, 5000)
     },
   },
-
-  components: {AppLoader},
 }
 </script>

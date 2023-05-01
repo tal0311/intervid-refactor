@@ -34,15 +34,29 @@ import 'quill/dist/quill.snow.css'
 
 export default {
   props: {
-    value: String,
-    currQuestIdx: Number,
-    placeholder: String,
-    charLimit: Number,
+    value: {
+      type: String,
+      default: '',
+    },
+    currQuestIdx: {
+      type: Number,
+      default: null,
+      // required: true,
+    },
+    placeholder: {
+      type: String,
+      required: true,
+    },
+    charLimit: {
+      type: Number,
+      default: null,
+    },
     tools: {
       type: Array,
-      default: () => [],
+      default: null,
     },
   },
+  emits: ['input'],
 
   data() {
     return {
@@ -53,6 +67,23 @@ export default {
         link: 'ql-link',
       },
     }
+  },
+
+  computed: {
+    remainingCharCount() {
+      return this.charLimit - this.textLength
+    },
+
+    textLength() {
+      if (!this.editor) return this.value && this.value.length
+      return this.getLengthNoTags(this.editor.getText()) - 1
+    },
+  },
+
+  watch: {
+    currQuestIdx() {
+      this.initEditor()
+    },
   },
   created() {
     this.id = this.$utilService.makeCmpId()
@@ -65,17 +96,6 @@ export default {
 
   beforeUnmount() {
     this.editor.off('text-change', this.update)
-  },
-
-  computed: {
-    remainingCharCount() {
-      return this.charLimit - this.textLength
-    },
-
-    textLength() {
-      if (!this.editor) return this.value && this.value.length
-      return this.getLengthNoTags(this.editor.getText()) - 1
-    },
   },
 
   methods: {
@@ -105,12 +125,6 @@ export default {
       var div = document.createElement('div')
       div.innerHTML = richText
       return div.innerText.length
-    },
-  },
-
-  watch: {
-    currQuestIdx() {
-      this.initEditor()
     },
   },
 }

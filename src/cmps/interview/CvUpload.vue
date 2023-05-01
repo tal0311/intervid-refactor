@@ -2,11 +2,11 @@
   <div class="cv-upload">
     <h4>{{ $getTrans('resume') }}</h4>
     <small>{{ $getTrans('be-sure-include-updated-resume') }}</small>
-    <div ref="elDragDrop" class="drag-drop" v-if="cvUploadProgress === 0"></div>
+    <div v-if="cvUploadProgress === 0" ref="elDragDrop" class="drag-drop"></div>
     <ValidationMsg v-if="error" :error="error" />
     <small v-if="cvUploadProgress === 0">DOC, DOCX, PDF (4MB)</small>
     <div class="progress-container">
-      <div class="success" v-if="cvUploadProgress !== 0">
+      <div v-if="cvUploadProgress !== 0" class="success">
         <div class="left">
           <i class="material-icons"> description </i>
         </div>
@@ -16,15 +16,15 @@
             <p class="file-name">{{ fileName }}</p>
             <p class="uploaded-at">{{ $getTrans('uploaded-at') }} {{ createdAt }}</p>
           </div>
-          <button type="button" @click="removeUploadedCv" v-if="cvUploadProgress === 100">
+          <button v-if="cvUploadProgress === 100" type="button" @click="removeUploadedCv">
             <i class="material-icons">close</i>
           </button>
         </div>
       </div>
 
       <div
-        class="progress"
         v-if="cvUploadProgress !== 0 && cvUploadProgress !== 100"
+        class="progress"
         :style="{width: `${cvUploadProgress}%`}"
       ></div>
     </div>
@@ -32,14 +32,25 @@
 </template>
 
 <script>
+import {nextTick} from 'vue'
 import {uploaderService} from '@/services/uploaderService'
 
 import DragDrop from '@uppy/drag-drop'
 import ValidationMsg from '@/cmps/common/ValidationMsg.vue'
 
 export default {
-  props: ['errors', 'applicantCvName'],
-
+  components: {ValidationMsg},
+  props: {
+    errors: {
+      type: Array,
+      default: null,
+    },
+    applicantCvName: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['uploaded'],
   data() {
     return {
       cvUploadProgress: 0,
@@ -50,10 +61,6 @@ export default {
     }
   },
 
-  mounted() {
-    this.initUploadBtn()
-  },
-
   computed: {
     createdAt() {
       return this.$formatDate(this.uploadedAt)
@@ -62,6 +69,10 @@ export default {
     error() {
       return this.errors?.find((err) => err.elName === 'cv')?.msg
     },
+  },
+
+  mounted() {
+    this.initUploadBtn()
   },
 
   methods: {
@@ -107,10 +118,8 @@ export default {
       this.uploadedAt = null
       if (this.$refs.elDragDrop) this.$refs.elDragDrop.innerHTML = ''
       this.$emit('uploaded', {})
-      this.$nextTick(this.initUploadBtn)
+      nextTick(this.initUploadBtn)
     },
   },
-
-  components: {ValidationMsg},
 }
 </script>

@@ -3,10 +3,10 @@
     <div class="content">
       <h1>We have sent a code to your email address, please enter it below</h1>
       <main-input
+        v-model.trim="code"
         input-name="code"
         type="text"
         validate="required"
-        v-model.trim="code"
         :on-blur="validateField"
         aria-placeholder="Enter code"
         :errors="errors"

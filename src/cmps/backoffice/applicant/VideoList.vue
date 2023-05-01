@@ -2,8 +2,8 @@
   <section class="video-list">
     <VideoPreview
       v-for="(answer, key, idx) in applicant.answerMap"
-      :answer="answer"
       :key="key"
+      :answer="answer"
       :idx="idx"
       :quest="quests.find((quest) => quest.id === key)"
       :selected-quest-idx="selectedQuestIdx"
@@ -16,8 +16,21 @@
 import VideoPreview from './VideoPreview.vue'
 
 export default {
-  props: ['applicant', 'quests', 'selectedQuestIdx'],
-
   components: {VideoPreview},
+  props: {
+    applicant: {
+      type: Object,
+      required: true,
+    },
+    quests: {
+      type: Array,
+      required: true,
+    },
+    selectedQuestIdx: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['go-to-quest'],
 }
 </script>

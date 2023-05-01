@@ -15,6 +15,12 @@ import FormStepper from '@/cmps/common/FormStepper.vue'
 import InterviewCountdown from '../interview-app/InterviewCountdown.vue'
 
 export default {
+  components: {
+    ApplicantForm,
+    MediaCheck,
+    FormStepper,
+    InterviewCountdown,
+  },
   data() {
     return {
       currStep: 0,
@@ -24,10 +30,6 @@ export default {
       //   2: InterviewCountdown,
       // },
     }
-  },
-
-  mounted() {
-    faceService.loadModels()
   },
 
   computed: {
@@ -46,6 +48,10 @@ export default {
     },
   },
 
+  mounted() {
+    faceService.loadModels()
+  },
+
   methods: {
     onNextStep() {
       this.currStep++
@@ -59,13 +65,6 @@ export default {
       // if (this.currStep > 2) this.$router.push(`/interview/${this.job._id}/inprogress`)
       if (this.currStep > 2) this.$router.push({name: 'InterviewIndex'})
     },
-  },
-
-  components: {
-    ApplicantForm,
-    MediaCheck,
-    FormStepper,
-    InterviewCountdown,
   },
 }
 </script>

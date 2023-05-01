@@ -13,8 +13,16 @@
 
 <script>
 export default {
-  props: ['quest', 'isRemoveShown'],
-
-  methods: {},
+  props: {
+    quest: {
+      type: Object,
+      required: true,
+    },
+    isRemoveShown: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  emits: ['emit-action'],
 }
 </script>

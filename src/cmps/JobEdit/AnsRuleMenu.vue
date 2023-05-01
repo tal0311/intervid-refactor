@@ -2,11 +2,11 @@
   <section class="ans-rule-container">
     <div
       class="ans-rule"
-      @click="toggleAnswerModal"
       :class="{
         open: isOpen,
         disabled: !isOneTry && selectedAnsRule === 'isScreenAns',
       }"
+      @click="toggleAnswerModal"
     >
       <i class="icon material-icons">
         {{ selectedAnsRule === 'isVidAns' ? 'videocam' : 'desktop_windows' }}
@@ -17,18 +17,18 @@
         <i class="expand material-icons">expand_more</i>
       </button>
 
-      <div class="answer-modal" v-if="!isMobile">
+      <div v-if="!isMobile" class="answer-modal">
         <button
-          type="button"
           v-for="ansRule in ansRules"
           :key="ansRule.txt"
-          @click.stop="setAnsRule(ansRule.type)"
+          type="button"
           :disabled="(!isOneTry && ansRule.type === 'isScreenAns') || !verifyPerm(advancedPermsMap[ansRule.permission])"
           :class="{
             disabled:
               (!isOneTry && ansRule.type === 'isScreenAns') || !verifyPerm(advancedPermsMap[ansRule.permission]),
             selected: selectedAnsRule === ansRule.type,
           }"
+          @click.stop="setAnsRule(ansRule.type)"
         >
           <i class="icon material-icons">{{ ansRule.icon }}</i>
           {{ $getTrans(ansRule.txt) }}
@@ -38,14 +38,14 @@
       <MobileModal
         v-else-if="isOpen"
         cmp-name="ans-rule-menu"
-        @on-close="toggleAnswerModal"
         :is-one-try="isOneTry"
         :selected-ans-rule="selectedAnsRule"
+        @on-close="toggleAnswerModal"
         @set-ans-rule="setAnsRule($event)"
       />
     </div>
 
-    <p class="ans-rule-error" v-if="!isOneTry && selectedAnsRule === 'isScreenAns'">
+    <p v-if="!isOneTry && selectedAnsRule === 'isScreenAns'" class="ans-rule-error">
       {{ $getTrans('answer-type-not-available') }}
     </p>
   </section>
@@ -57,6 +57,7 @@ import {advancedPermsMap, getAnswerType, ansRules} from '@/services/constData'
 import MobileModal from '../common/modals/MobileModal.vue'
 
 export default {
+  components: {MobileModal},
   props: {
     quest: {
       type: Object,
@@ -101,6 +102,12 @@ export default {
     },
   },
 
+  watch: {
+    selectedAnsRule() {
+      this.onChangeAnsRule()
+    },
+  },
+
   methods: {
     onChangeAnsRule() {
       const ansRule = templateService.getDefaultAnsRule()
@@ -129,13 +136,5 @@ export default {
       this.selectedAnsRule = ansRule
     },
   },
-
-  watch: {
-    selectedAnsRule() {
-      this.onChangeAnsRule()
-    },
-  },
-
-  components: {MobileModal},
 }
 </script>

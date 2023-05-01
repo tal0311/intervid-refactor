@@ -14,18 +14,22 @@ import NoMobileScreenShare from '@/views/general/NoMobileScreenShare.vue'
 import NotFound from '@/views/general/NotFound.vue'
 
 export default {
-  props: ['interviewErr'],
+  components: {
+    NotSupported,
+    NoMobileScreenShare,
+    NotFound,
+  },
+  props: {
+    interviewErr: {
+      type: Object,
+      required: true,
+    },
+  },
 
   computed: {
     isBrowserErr() {
       return browserErrorMap[this.interviewErr.type]
     },
-  },
-
-  components: {
-    NotSupported,
-    NoMobileScreenShare,
-    NotFound,
   },
 }
 </script>

@@ -22,7 +22,20 @@
 import {formatDuration} from '@/services/i18nService'
 
 export default {
-  props: ['timeLimit', 'startTime', 'isAlmostDone', 'isHalfwayDone'],
+  props: {
+    timeLimit: {
+      type: Number,
+      required: true,
+    },
+    startTime: {
+      type: Number,
+      required: true,
+    },
+    isAlmostDone: Boolean,
+    isHalfwayDone: Boolean,
+  },
+  emits: ['time-up', 'halfway-done', 'almost-done'],
+  // props: ['timeLimit', 'startTime', 'isAlmostDone', 'isHalfwayDone'],
 
   timeInterval: null,
 
@@ -32,18 +45,6 @@ export default {
       isSoundPlayed: false,
       defaultTitle: document.title,
     }
-  },
-
-  mounted() {
-    document.title = this.defaultTitle
-    clearInterval(this.timeInterval)
-    this.isSoundPlayed = false
-    this.startInterval()
-  },
-
-  beforeUnmount() {
-    document.title = this.defaultTitle
-    clearInterval(this.timeInterval)
   },
 
   computed: {
@@ -69,6 +70,35 @@ export default {
     },
   },
 
+  watch: {
+    startTime() {
+      document.title = this.defaultTitle
+      clearInterval(this.timeInterval)
+      this.isSoundPlayed = false
+      this.startInterval()
+    },
+    timeLeftPercent() {
+      if (this.timeLeftPercent === 50) {
+        this.$emit('halfway-done')
+      }
+      if (this.timeLeftPercent === 20) {
+        this.$emit('almost-done')
+      }
+    },
+  },
+
+  mounted() {
+    document.title = this.defaultTitle
+    clearInterval(this.timeInterval)
+    this.isSoundPlayed = false
+    this.startInterval()
+  },
+
+  beforeUnmount() {
+    document.title = this.defaultTitle
+    clearInterval(this.timeInterval)
+  },
+
   methods: {
     startInterval() {
       this.timeInterval = setInterval(() => {
@@ -87,23 +117,6 @@ export default {
           this.isSoundPlayed = true
         }
       }, 500)
-    },
-  },
-
-  watch: {
-    startTime() {
-      document.title = this.defaultTitle
-      clearInterval(this.timeInterval)
-      this.isSoundPlayed = false
-      this.startInterval()
-    },
-    timeLeftPercent() {
-      if (this.timeLeftPercent === 50) {
-        this.$emit('halfway-done')
-      }
-      if (this.timeLeftPercent === 20) {
-        this.$emit('almost-done')
-      }
     },
   },
 }
