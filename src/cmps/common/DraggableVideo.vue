@@ -16,8 +16,8 @@ export default {
   name: 'DraggableVideo',
   props: {
     className: {
-      type: String,
-      default: '',
+      type: Object,
+      required: true,
     },
     isShown: {
       type: Boolean,

@@ -130,7 +130,8 @@ export default {
     },
     resTime() {
       if (!this.ans) return ''
-      return this.ans.resTime
+      console.log(this.ans)
+      return this.ans
     },
   },
 

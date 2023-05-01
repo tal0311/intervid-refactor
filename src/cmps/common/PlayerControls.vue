@@ -104,8 +104,8 @@ export default {
       required: true,
     },
     resTime: {
-      type: Number,
-      required: true,
+      type: Object,
+      default: null,
     },
     isDraggableShown: {
       type: Boolean,

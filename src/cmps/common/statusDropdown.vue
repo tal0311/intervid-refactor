@@ -71,7 +71,7 @@ export default {
       default: false,
     },
   },
-  emits: ['on-set-status'],
+  emits: ['on-set-status', 'modal-closed'],
   setup(props, {emit}) {
     const store = useStore()
     const modalHeight = computed(() => 342)
