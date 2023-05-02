@@ -3,7 +3,7 @@
     <div class="header-content" :class="isSmallContainer ? 'narrow-container' : 'container'">
       <div class="logo-container">
         <RouterLink class="logo" :to="loggedInUser ? '/backoffice/applicant' : '/'">
-          <img @click.stop="" loading="lazy" :src="logoURL" alt="logo" />
+          <img loading="lazy" :src="logoURL" alt="logo" @click.stop="" />
         </RouterLink>
         <LngMenu v-if="!isJobEdit" />
       </div>
@@ -23,16 +23,16 @@
               {
                 disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length),
               },
-              {selected: this.modal.isDarkScreen},
+              {selected: modal.isDarkScreen},
             ]"
             @click="onShare"
           >
             {{ $getTrans('send') }}
           </button>
-          <ShareBtns :job="jobToEdit" v-if="modal.type === 'share'" />
+          <ShareBtns v-if="modal.type === 'share'" :job="jobToEdit" />
         </div>
 
-        <div class="backoffice-nav-container" v-if="!!loggedInUser">
+        <div v-if="!!loggedInUser" class="backoffice-nav-container">
           <RouterLink
             to="/backoffice/applicant"
             class="backoffice-nav"
@@ -74,15 +74,16 @@ import config from '@/config'
 import {useShareJob} from '../composables/job/useShareJob'
 
 export default {
+  components: {UserMenu, ShareBtns, LngMenu},
+  setup() {
+    return {
+      onShareJob: useShareJob(),
+    }
+  },
   data() {
     return {
       isJobEdit: false,
       isSmallContainer: false,
-    }
-  },
-  setup() {
-    return {
-      onShareJob: useShareJob(),
     }
   },
 
@@ -132,6 +133,15 @@ export default {
     },
   },
 
+  watch: {
+    '$route.name': {
+      handler: function (routeName) {
+        this.isJobEdit = routeName === 'JobEdit'
+      },
+      immediate: true,
+    },
+  },
+
   methods: {
     onShare() {
       // this.$root.$emit('share-job')
@@ -147,17 +157,6 @@ export default {
       return this.$store.getters['auth/verifyPerm'](requiredPerm)
     },
   },
-
-  watch: {
-    '$route.name': {
-      handler: function (routeName) {
-        this.isJobEdit = routeName === 'JobEdit'
-      },
-      immediate: true,
-    },
-  },
-
-  components: {UserMenu, ShareBtns, LngMenu},
 }
 </script>
 ,

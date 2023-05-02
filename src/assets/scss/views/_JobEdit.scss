@@ -27,7 +27,7 @@
     }
 
     .quest-list {
-      >div {
+      > div {
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -56,8 +56,8 @@
 
     .add-quest {
       color: $cta;
-      &:active{
-        color:$dark-gray;
+      &:active {
+        color: $dark-gray;
       }
       @include from-mobile-layout {
         padding-bottom: 30px;
@@ -76,8 +76,8 @@
       margin-bottom: 20px;
       align-self: center;
       background-color: gray;
-      &.selected{
-        background-color:gray;
+      &.selected {
+        background-color: gray;
       }
       @include from-mobile-layout {
         display: none;

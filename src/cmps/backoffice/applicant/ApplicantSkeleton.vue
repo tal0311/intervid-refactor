@@ -6,7 +6,7 @@
 
     <div class="job-title"></div>
 
-    <div @click.stop="" class="status"></div>
+    <div class="status" @click.stop=""></div>
 
     <div class="date"></div>
   </section>

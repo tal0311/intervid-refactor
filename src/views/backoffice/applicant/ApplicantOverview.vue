@@ -13,13 +13,13 @@
           get: () => filterBy.value.txt,
           set:  onSetFilterByKey,
         }) -->
-        <SearchBox :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-applicants" />
+        <SearchBox :value="filterBy.txt" placeholder="search-applicants" @input="onSetFilterByKey" />
         <FilterBox
-          @set-filter="onSetFilter"
-          @reset-filters="resetFilters"
           :filter-by="filterBy"
           :is-applicant-overview="true"
           :filtered-applicant-count="filteredApplicantCount"
+          @set-filter="onSetFilter"
+          @reset-filters="resetFilters"
         />
       </div>
       <div class="overview-actions">
@@ -39,7 +39,7 @@
     <div class="filter-count" :class="{shown: tagList.length || filterBy.txt}">
       <span>{{ tagList.length || filterBy.txt ? filterCount : '' }}</span>
       <div class="tag-list">
-        <div class="tag-preview" v-for="tag in tagList" :key="tag.name">
+        <div v-for="tag in tagList" :key="tag.name" class="tag-preview">
           <span>{{ tag.name }}</span>
           <i class="material-icons" @click="onRemoveTag(tag)"> close </i>
         </div>
@@ -118,6 +118,14 @@ import {advancedPermsMap} from '@/services/constData'
 
 export default {
   name: 'ApplicantOverview',
+
+  components: {
+    TableList,
+    SearchBox,
+    FilterBox,
+    ListActions,
+    ShareJob,
+  },
   setup() {
     const store = useStore()
     const route = useRoute()
@@ -175,7 +183,6 @@ export default {
     }
   },
   async created() {
-    console.log('tagList',this.tagList)
     this.loadApplicants()
     this.loadJob()
     if (this.job) {
@@ -184,7 +191,6 @@ export default {
       })
     }
   },
-
   computed: {
     job() {
       return this.$store.getters['job/job']
@@ -252,6 +258,46 @@ export default {
     },
   },
 
+  watch: {
+    // 'this.$route.query': {
+    //   handler() {
+    //     console.log('route changed')
+    //     this.clearSelectedItems()
+    //     this.setFilterFromRoute()
+    //     this.loadApplicants()
+    //   },
+    //   deep: true,
+    // },
+    sort: {
+      handler() {
+        this.loadApplicants()
+      },
+      deep: true,
+    },
+    // applicants: {
+    //   handler() {
+    //     if (this.selectedItems) {
+    //       const updatedApplicants = []
+    //       for (const applicant of this.selectedItems) {
+    //         const updatedApplicant = this.applicants.find(_applicant => _applicant.id === applicant.id)
+    //         updatedApplicants.push(updatedApplicant)
+    //       }
+    //       this.selectedItems = updatedApplicants
+    //     }
+    //   },
+    //   deep: true,
+    // }
+  },
+  async created() {
+    this.loadApplicants()
+    this.loadJob()
+    if (this.job) {
+      this.$nextTick(() => {
+        document.title = 'Intervid | ' + this.job.info.title
+      })
+    }
+  },
+
   methods: {
     async loadJob() {
       const {jobId} = this.$route.params
@@ -304,7 +350,6 @@ export default {
       })
     },
   },
-
   watch: {
     // 'this.$route.query': {
     //   handler() {
@@ -335,7 +380,6 @@ export default {
     //   deep: true,
     // }
   },
-
   components: {
     TableList,
     SearchBox,

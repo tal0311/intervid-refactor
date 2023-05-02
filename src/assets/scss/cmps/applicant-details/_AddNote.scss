@@ -24,17 +24,12 @@
       transition: color 0.1s;
     }
 
-    &:not(:placeholder-shown)~.btn-container .save-btn {
+    &:not(:placeholder-shown) ~ .btn-container .save-btn {
       background: $dark-gray;
       color: #fff;
       pointer-events: all;
     }
-
   }
-
-
-
-
 
   .btn-container {
     display: flex;
@@ -102,7 +97,6 @@
           border-radius: 4px;
         }
       }
-
     }
   }
 
@@ -129,5 +123,4 @@
       pointer-events: all;
     }
   }
-
 }

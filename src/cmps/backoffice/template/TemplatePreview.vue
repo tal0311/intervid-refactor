@@ -34,7 +34,11 @@ import TemplateMenu from '@/cmps/backoffice/template/TemplateMenu.vue'
 export default {
   components: {TemplateMenu},
 
-  props: ['template', 'isSelected'],
+  props: {
+    template: {type: Object, required: true},
+    isSelected: {type: Boolean, default: false},
+  },
+  emits: ['select'],
 
   computed: {
     ownerFullName() {

@@ -1,171 +1,169 @@
 .form-stepper {
-    width: 100%;
-    display: none;
-    justify-content: space-between;
+  width: 100%;
+  display: none;
+  justify-content: space-between;
 
-    @include from-mobile-layout {
-        display: flex;
-    }
+  @include from-mobile-layout {
+    display: flex;
+  }
 
-    &.column {
-        flex-direction: column;
-        align-items: center;
-        height: 60%;
-        // justify-content: space-evenly;
-
-        .step {
-            display: flex;
-            flex-direction: row;
-            width: 60%;
-            gap: 20px;
-
-            &:not(:last-child) {
-                &:before {
-                    height: 70%;
-                    width: 1px;
-                    border-inline-start: 1px dashed $light-gray;
-                    transform: translatey(-40%);
-                    inset-inline-start: 10px;
-                    top: 50%;
-                }
-
-                &.on {
-                    &::before {
-                        border-inline-start: 1px dashed $cta;
-                    }
-
-                    .step-content {
-                        span:first-child {
-                            color: $cta;
-                        }
-                    }
-                }
-            }
-
-            &:last-child {
-                width: 60%;
-                // white-space: normal;
-            }
-
-            i {
-                font-size: 22px;
-            }
-
-            .step-content {
-                >span {
-                    transform: unset;
-                    color: $dark-gray;
-
-                    &:first-child {
-                        font-size: 16px;
-                    }
-
-                    &:last-child {
-                        white-space: unset;
-                    }
-
-                }
-            }
-        }
-    }
+  &.column {
+    flex-direction: column;
+    align-items: center;
+    height: 60%;
+    // justify-content: space-evenly;
 
     .step {
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        gap: 5px;
-        width: 0;
-        flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+      width: 60%;
+      gap: 20px;
 
-        .circle {
-            min-width: 20px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            box-shadow: inset 0 0 0 2px $light-gray;
+      &:not(:last-child) {
+        &:before {
+          height: 70%;
+          width: 1px;
+          border-inline-start: 1px dashed $light-gray;
+          transform: translatey(-40%);
+          inset-inline-start: 10px;
+          top: 50%;
         }
 
-        .step-content {
-            display: flex;
-            flex-direction: column;
-            gap: 13px;
+        &.on {
+          &::before {
+            border-inline-start: 1px dashed $cta;
+          }
 
-            span {
-                font-size: 12px;
-                color: $light-gray;
-                width: fit-content;
-                transform: translateX(calc(-50% * var(--dir) + 7.5px * var(--dir)));
-
-                &:nth-child(2) {
-                    font-size: 16px;
-                    color: #9799a1;
-                    line-height: 1.8em;
-                }
+          .step-content {
+            span:first-child {
+              color: $cta;
             }
+          }
         }
+      }
 
-        &.curr {
-            .circle {
-                box-shadow: inset 0 0 0 2px $cta;
-            }
+      &:last-child {
+        width: 60%;
+        // white-space: normal;
+      }
 
-            span {
-                color: $cta;
-            }
+      i {
+        font-size: 22px;
+      }
+
+      .step-content {
+        > span {
+          transform: unset;
+          color: $dark-gray;
+
+          &:first-child {
+            font-size: 16px;
+          }
+
+          &:last-child {
+            white-space: unset;
+          }
         }
-
-        &.done{
-            .circle {
-                box-shadow: unset;
-                background: $cta;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                &::before{
-                    content: '✓';
-                    color: #fff;
-                    font-size: 0.8em;
-                    padding-bottom: 1px;
-                }
-            }
-        }
-
-        >i {
-            color: $light-gray;
-        }
-
-        >span {
-            font-size: 12px;
-        }
-
-        &:not(:last-child) {
-     
-            &:before {
-                content: "";
-                position: absolute;
-                width: 70%;
-                height: 1px;
-                border-bottom: 1px dashed $light-gray;
-                inset-inline-start: 50%;
-                transform: translateX(calc(-50% * var(--dir) + 5px * var(--dir))) translatey(4px);
-                top: 10%;
-            }
-
-            &.done {
-                &::before {
-                    border-bottom: 1px dashed $cta;
-                }
-            }
-        }
-
-        &:last-child {
-            width: 15px;
-            flex-grow: unset;
-
-            span {
-                white-space: nowrap;
-            }
-        }
+      }
     }
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 5px;
+    width: 0;
+    flex-grow: 1;
+
+    .circle {
+      min-width: 20px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 2px $light-gray;
+    }
+
+    .step-content {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+
+      span {
+        font-size: 12px;
+        color: $light-gray;
+        width: fit-content;
+        transform: translateX(calc(-50% * var(--dir) + 7.5px * var(--dir)));
+
+        &:nth-child(2) {
+          font-size: 16px;
+          color: #9799a1;
+          line-height: 1.8em;
+        }
+      }
+    }
+
+    &.curr {
+      .circle {
+        box-shadow: inset 0 0 0 2px $cta;
+      }
+
+      span {
+        color: $cta;
+      }
+    }
+
+    &.done {
+      .circle {
+        box-shadow: unset;
+        background: $cta;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &::before {
+          content: '✓';
+          color: #fff;
+          font-size: 0.8em;
+          padding-bottom: 1px;
+        }
+      }
+    }
+
+    > i {
+      color: $light-gray;
+    }
+
+    > span {
+      font-size: 12px;
+    }
+
+    &:not(:last-child) {
+      &:before {
+        content: '';
+        position: absolute;
+        width: 70%;
+        height: 1px;
+        border-bottom: 1px dashed $light-gray;
+        inset-inline-start: 50%;
+        transform: translateX(calc(-50% * var(--dir) + 5px * var(--dir))) translatey(4px);
+        top: 10%;
+      }
+
+      &.done {
+        &::before {
+          border-bottom: 1px dashed $cta;
+        }
+      }
+    }
+
+    &:last-child {
+      width: 15px;
+      flex-grow: unset;
+
+      span {
+        white-space: nowrap;
+      }
+    }
+  }
 }

@@ -1,37 +1,37 @@
-.archive-overview{
+.archive-overview {
+  position: relative;
+  padding: unset !important;
+
+  .archive-tabs {
     position: relative;
-    padding: unset !important;
+    display: flex;
+    align-items: center;
+    width: 200px;
+    border-bottom: 2px solid $light-gray;
 
-    .archive-tabs{
-        position: relative;
-        display: flex;
-        align-items: center;
-        width: 200px;
-        border-bottom: 2px solid $light-gray;
-
-        &::before{
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 2px;
-            top: 100%;
-            inset-inline-start: 50%;
-            background: $dark-gray;
-            transition: inset-inline-start 0.15s linear;
-        }
-
-        &.left{
-            &::before{
-                inset-inline-start: 0;
-            }
-        }
-        
-        > button{
-            width: 50%;
-            color: $dark-gray;
-            padding: 8px 0;
-            font-size: 12px;
-            font-weight: 700;
-        }
+    &::before {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 2px;
+      top: 100%;
+      inset-inline-start: 50%;
+      background: $dark-gray;
+      transition: inset-inline-start 0.15s linear;
     }
+
+    &.left {
+      &::before {
+        inset-inline-start: 0;
+      }
+    }
+
+    > button {
+      width: 50%;
+      color: $dark-gray;
+      padding: 8px 0;
+      font-size: 12px;
+      font-weight: 700;
+    }
+  }
 }

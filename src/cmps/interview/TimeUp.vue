@@ -13,8 +13,13 @@
 
 <script>
 export default {
-  props: ['data'],
-
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['close'],
   timeInterval: null,
 
   data() {
@@ -22,6 +27,16 @@ export default {
       timeLeft: this.data.secondsToWait,
       startTime: Date.now(),
     }
+  },
+
+  computed: {
+    secondsLeft() {
+      return Math.ceil(this.timeLeft / 1000)
+    },
+
+    targetTime() {
+      return this.data.secondsToWait * 1000 + this.startTime
+    },
   },
 
   mounted() {
@@ -34,16 +49,6 @@ export default {
 
   unmounted() {
     document.removeEventListener('visibilitychange', this.handleBackToTab)
-  },
-
-  computed: {
-    secondsLeft() {
-      return Math.ceil(this.timeLeft / 1000)
-    },
-
-    targetTime() {
-      return this.data.secondsToWait * 1000 + this.startTime
-    },
   },
 
   methods: {

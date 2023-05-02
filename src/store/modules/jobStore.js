@@ -267,7 +267,6 @@ export const job = {
         // if (!data) return
         // let {jobs = null, pageCount, filteredJobCount, totalJobCount} = data
         // if (!jobs) return
-        console.log('should gather', shouldGather)
         if (shouldGather) {
           // console.log('jobs', jobs)
           if (jobs.length === 0) return

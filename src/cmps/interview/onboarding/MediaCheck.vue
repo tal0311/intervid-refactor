@@ -2,7 +2,7 @@
   <section class="media-check">
     <div class="check-container">
       <div class="video-wrapper">
-        <video v-if="!lastRecordedVideo" class="original" autoplay ref="video" playsinline></video>
+        <video v-if="!lastRecordedVideo" ref="video" class="original" autoplay playsinline></video>
         <video v-if="!!lastRecordedVideo" ref="recorded-video" playsinline></video>
         <div v-if="!!lastRecordedVideo" :class="{playing: isPlaying}" class="recorded-video-btn-container">
           <i class="material-icons" @click="onPlay">play_arrow</i>
@@ -16,8 +16,8 @@
         </div>
 
         <AudioMeter
-          :class="{ready: isAudioReady}"
           v-if="!lastRecordedVideo"
+          :class="{ready: isAudioReady}"
           :stream="videoStream"
           @audio-ready="setAudioStatus"
         />
@@ -54,12 +54,12 @@
         </div>
 
         <div
+          v-if="!isLoading"
           class="check-info-content step-0"
           :class="{
             center: !isSettingsOpen && currStep === 0,
             left: isSettingsOpen || currStep > 0,
           }"
-          v-if="!isLoading"
         >
           <h2>{{ $getTrans('preview-how-you-look-and-sound') }}</h2>
           <p>{{ $getTrans('record-and-play-a-short-video-sample-msg') }}</p>
@@ -73,7 +73,7 @@
           </div>
         </div>
 
-        <div class="check-info-content media-check-loader" v-else>
+        <div v-else class="check-info-content media-check-loader">
           <span>{{ $getTrans('getting-ready-media-check') }}</span>
           <VideoLoader />
         </div>
@@ -188,12 +188,12 @@
           </div>
 
           <div class="btn-container">
-            <button class="link-btn" @click="checkAgain()" :class="{border: !isAllReady}">
+            <button class="link-btn" :class="{border: !isAllReady}" @click="checkAgain()">
               <i class="material-icons">cached</i>
               <span>{{ $getTrans('check-again') }}</span>
             </button>
 
-            <button class="main-btn" @click="$emit('on-next-step')" v-if="isAllReady">
+            <button v-if="isAllReady" class="main-btn" @click="$emit('on-next-step')">
               <!-- <button class="main-btn" @click="$emit('on-next-step')"> -->
               {{ $getTrans('start-interview') }}
             </button>
@@ -261,7 +261,12 @@ import DeviceSelect from '@/cmps/interview/DeviceSelect.vue'
 import VideoLoader from '@/cmps/common/VideoLoader.vue'
 
 export default {
-  emits: ['on-next-step'],
+  components: {
+    AudioMeter,
+    DeviceSelect,
+    VideoLoader,
+  },
+  emits: ['on-next-step', 'start'],
   setup(props, {emit}) {
     const {screenStream, initScreen, screenErrors} = useScreen()
     const video = ref(null)
@@ -340,27 +345,6 @@ export default {
       isLoading: true,
       svgs: {faceHelper: ''},
     }
-  },
-
-  created() {
-    this.svgs.faceHelper = this.$getSvg('faceHelperMediaCheck')
-  },
-
-  async mounted() {
-    loggerService.info('[onBoarding] [MediaCheck] Mounted')
-    await this.initPreconditions()
-    await this.initVideoMixin()
-    if (this.isScreenAns) this.initScreen()
-    this.addNetworkListener()
-    await this.initFaceCapture()
-  },
-
-  unmounted() {
-    if (this._cameraPermission) this._cameraPermission.onchange = null
-    if (this._micPermission) this._micPermission.onchange = null
-    this.stopVideoStream()
-    this.removeNetworkListener()
-    loggerService.info('[onBoarding] [MediaCheck] unmounted')
   },
 
   computed: {
@@ -497,6 +481,64 @@ export default {
           return 'monitor'
       }
     },
+  },
+
+  watch: {
+    lastRecordedVideo() {
+      this.$nextTick(() => {
+        if (this.lastRecordedVideo) {
+          const elRecordedVideo = this.$refs['recorded-video']
+          elRecordedVideo.srcObject = null
+          elRecordedVideo.src = URL.createObjectURL(this.lastRecordedVideo)
+          elRecordedVideo.load()
+        }
+      })
+    },
+
+    currTime(newVal) {
+      if (newVal === this.previewDuration) {
+        this.currTime = 500
+        this.$nextTick(this.onNextStep)
+      }
+    },
+
+    currStep(newVal) {
+      switch (newVal) {
+        case 1:
+          this.initMediaCheck()
+          break
+        case 2:
+          this.stopMediaCheckRecording()
+          break
+        default:
+          break
+      }
+    },
+
+    'screenStatus.isError'(newVal) {
+      if (!newVal.isError) this.selectedError = null
+    },
+  },
+
+  created() {
+    this.svgs.faceHelper = this.$getSvg('faceHelperMediaCheck')
+  },
+
+  async mounted() {
+    loggerService.info('[onBoarding] [MediaCheck] Mounted')
+    await this.initPreconditions()
+    await this.initVideoMixin()
+    if (this.isScreenAns) this.initScreen()
+    this.addNetworkListener()
+    await this.initFaceCapture()
+  },
+
+  unmounted() {
+    if (this._cameraPermission) this._cameraPermission.onchange = null
+    if (this._micPermission) this._micPermission.onchange = null
+    this.stopVideoStream()
+    this.removeNetworkListener()
+    loggerService.info('[onBoarding] [MediaCheck] unmounted')
   },
 
   methods: {
@@ -661,49 +703,6 @@ export default {
         elVideo.onended = null
       }
     },
-  },
-
-  watch: {
-    lastRecordedVideo() {
-      this.$nextTick(() => {
-        if (this.lastRecordedVideo) {
-          const elRecordedVideo = this.$refs['recorded-video']
-          elRecordedVideo.srcObject = null
-          elRecordedVideo.src = URL.createObjectURL(this.lastRecordedVideo)
-          elRecordedVideo.load()
-        }
-      })
-    },
-
-    currTime(newVal) {
-      if (newVal === this.previewDuration) {
-        this.currTime = 500
-        this.$nextTick(this.onNextStep)
-      }
-    },
-
-    currStep(newVal) {
-      switch (newVal) {
-        case 1:
-          this.initMediaCheck()
-          break
-        case 2:
-          this.stopMediaCheckRecording()
-          break
-        default:
-          break
-      }
-    },
-
-    'screenStatus.isError'(newVal) {
-      if (!newVal.isError) this.selectedError = null
-    },
-  },
-
-  components: {
-    AudioMeter,
-    DeviceSelect,
-    VideoLoader,
   },
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
   <section
-    @contextmenu.prevent="closeModals"
     class="screen"
     :class="{on: isScreenShown, dark: isDarkScreen}"
+    @contextmenu.prevent="closeModals"
     @click="closeModals"
   ></section>
 </template>

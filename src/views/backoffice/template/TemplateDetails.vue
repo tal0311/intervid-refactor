@@ -1,5 +1,5 @@
 <template>
-  <section class="template-details" v-if="!isFetching">
+  <section v-if="!isFetching" class="template-details">
     <div class="template-nav" @click="onGoBack">
       <i class="material-icons">chevron_left</i>
       <span>{{ $getTrans('go-back') }}</span>
@@ -27,14 +27,15 @@ import TemplateMenu from '@/cmps/backoffice/template/TemplateMenu.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
 
 export default {
+  components: {
+    QuestPreview,
+    TemplateMenu,
+    AppLoader,
+  },
   data() {
     return {
       isMenuOpen: false,
     }
-  },
-
-  async created() {
-    this.loadTemplate()
   },
 
   computed: {
@@ -45,6 +46,10 @@ export default {
     isFetching() {
       return this.$store.getters['template/isFetching']
     },
+  },
+
+  async created() {
+    this.loadTemplate()
   },
 
   methods: {
@@ -80,12 +85,6 @@ export default {
         query: filterBy || {},
       })
     },
-  },
-
-  components: {
-    QuestPreview,
-    TemplateMenu,
-    AppLoader,
   },
 }
 </script>

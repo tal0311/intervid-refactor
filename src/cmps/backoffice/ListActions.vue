@@ -1,10 +1,10 @@
 <template>
   <section class="list-actions">
-    <div class="actions" v-if="selectedItemCount">
+    <div v-if="selectedItemCount" class="actions">
       <i
         class="material-icons bottom-tooltip"
-        @click="$emit('archive')"
         :data-tooltip="filterBy.showArchived ? $getTrans('restore') : $getTrans('archive')"
+        @click="$emit('archive')"
       >
         {{ filterBy.showArchived ? 'unarchive' : 'archive' }}
       </i>
@@ -43,6 +43,9 @@
 import AppPagination from '@/cmps/common/AppPagination.vue'
 
 export default {
+  components: {AppPagination},
+  // TODO: I disabled the lint rule here because the props are very complex, so I wanted to leave it for when we look the at this cmp more thoroughly.
+  /* eslint-disable vue/require-prop-types */
   props: [
     'selectedItemCount',
     'isLockedItemSelected',
@@ -53,7 +56,7 @@ export default {
     'isRead',
     'pageCount',
   ],
-
-  components: {AppPagination},
+  /* eslint-enable vue/require-prop-types */
+  emits: ['archive', 'remove', 'toggle-read', 'change-page'],
 }
 </script>

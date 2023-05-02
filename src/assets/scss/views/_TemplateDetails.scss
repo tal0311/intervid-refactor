@@ -1,86 +1,85 @@
 .template-details {
+  display: flex;
+  flex-direction: column;
+  padding-block-start: 25px;
+  gap: 40px;
+  height: calc(100vh - var(--header-height));
+  background: $background-gray;
+  overflow-y: auto;
+  padding-inline: 0.5rem;
+
+  @include from-mini-layout {
+    padding-inline: 1rem;
+  }
+
+  @include from-normal-layout {
+    padding-inline: 40px;
+  }
+
+  .template-nav {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    gap: 10px;
+
+    i {
+      width: 0.5em;
+      transform: translateX(-50%);
+    }
+
+    > * {
+      cursor: pointer;
+      white-space: nowrap;
+    }
+  }
+
+  .template-header {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-block-end: 10px;
+    color: $darkest-gray;
+
+    @include from-mobile-layout {
+      padding-inline-start: unset;
+    }
+
+    .btn-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .use-template-btn {
+        width: 100%;
+        background-color: $dark-gray;
+        color: #fff;
+        border-radius: 4px;
+        padding: 0.5em 1em;
+        font-size: 1.1em;
+
+        &:hover {
+          background-color: $light-gray;
+        }
+      }
+
+      .action-menu {
+        > button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  .quest-list {
     display: flex;
     flex-direction: column;
-    padding-block-start: 25px;
     gap: 40px;
-    height: calc(100vh - var(--header-height));
-    background: $background-gray;
-    overflow-y: auto;
-    padding-inline: 0.5rem;
-
-    @include from-mini-layout {
-      padding-inline: 1rem;
-    }
-  
-    @include from-normal-layout {
-      padding-inline: 40px;
-    }
-
-    .template-nav{
-        display: flex;
-        align-items: center;
-        font-size: 18px;
-        font-weight: 700;
-        gap: 10px;
-
-        i{
-            width: 0.5em;
-            transform: translateX(-50%);
-        }
-
-        > * {
-            cursor: pointer;
-            white-space: nowrap;
-        }
-    }
-
-    .template-header {
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-block-end: 10px;
-        color: $darkest-gray;
-
-        @include from-mobile-layout{
-            padding-inline-start: unset;
-        }
-
-        .btn-container{
-            display: flex;
-            align-items: center;
-            gap: 20px;
-
-            .use-template-btn{
-                width: 100%;
-                background-color: $dark-gray;
-                color: #fff;
-                border-radius: 4px;
-                padding: 0.5em 1em;
-                font-size: 1.1em;
-        
-                &:hover{
-                  background-color: $light-gray;
-                }
-            }
-            
-            .action-menu{
-                > button{
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-            }
-        }
-    }
-
-   .quest-list{
-       display: flex;
-       flex-direction: column;
-       gap: 40px;
-       height: 0;
-       flex-grow: 1;
-   }
+    height: 0;
+    flex-grow: 1;
+  }
 }

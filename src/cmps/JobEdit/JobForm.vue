@@ -1,13 +1,13 @@
 <template>
   <div class="job-form">
-    <CoverUpload @upload="onSetCover" :initial-cover="mutableJob.info.coverUrl" :id="id" />
+    <CoverUpload :id="id" :initial-cover="mutableJob.info.coverUrl" @upload="onSetCover" />
     <section class="job-info">
       <div class="form-title">
         <MainInput
+          v-model.trim="mutableJob.info.title"
           input-name="title"
           :placeholder="$getTrans('job-title')"
           validate="required"
-          v-model.trim="mutableJob.info.title"
           :on-blur="validateField"
           :errors="errors"
           styled="main"
@@ -15,33 +15,33 @@
       </div>
 
       <div class="input-container">
-        <ImgUpload @upload="onSetImg" :initial-img="job.company.logoUrl" />
+        <ImgUpload :initial-img="job.company.logoUrl" @upload="onSetImg" />
         <MainInput
+          v-model.trim="mutableJob.company.name"
           input-name="company"
           :label="$getTrans('company-name')"
           validate="required"
-          v-model.trim="mutableJob.company.name"
           :on-blur="validateField"
           :errors="errors"
           styled="main"
         />
         <MainInput
+          v-model.trim="mutableJob.info.location"
           input-name="location"
           :label="$getTrans('location')"
-          v-model.trim="mutableJob.info.location"
           :on-blur="validateField"
           :errors="errors"
           styled="main"
         />
       </div>
 
-      <div class="textarea-container" v-if="isDesc">
+      <div v-if="isDesc" class="textarea-container">
         <i class="icon material-icons remove-btn" @click="onClearDesc">close</i>
         <MainInput
+          v-model.trim="mutableJob.info.desc"
           input-name="description"
           :placeholder="$getTrans('description')"
           validate="required"
-          v-model.trim="mutableJob.info.desc"
           :errors="errors"
           styled="main"
           :on-blur="validateField"
@@ -52,7 +52,7 @@
       <div class="toggle-container">
         <div class="main-toggle">
           <label> {{ $getTrans('candidate-cv') }}</label>
-          <input type="checkbox" id="cv" name="cv" v-model="mutableJob.rule.isCvRequired" />
+          <input id="cv" v-model="mutableJob.rule.isCvRequired" type="checkbox" name="cv" />
           <div class="outer">
             <div class="inner"></div>
             <p>{{ $getTrans('not-required') }}</p>
@@ -62,7 +62,7 @@
 
         <div class="main-toggle">
           <label> {{ $getTrans('video-recording') }}</label>
-          <input type="checkbox" id="one-try" name="one-try" v-model="mutableJob.rule.isOneTry" />
+          <input id="one-try" v-model="mutableJob.rule.isOneTry" type="checkbox" name="one-try" />
           <div class="outer">
             <div class="inner"></div>
             <p>{{ $getTrans('allow-multiple-tries') }}</p>
@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <div class="add add-desc" @click="isDesc = !isDesc" v-if="!isDesc">
+      <div v-if="!isDesc" class="add add-desc" @click="isDesc = !isDesc">
         <i class="material-icons">add_circle_outline</i>
         {{ $getTrans('add-description') }}
       </div>
@@ -92,6 +92,7 @@ import CoverUpload from '@/cmps/common/CoverUpload.vue'
 import MainInput from '@/cmps/common/MainInput.vue'
 
 export default {
+  components: {ImgUpload, CoverUpload, MainInput},
   props: {
     job: {
       type: Object,
@@ -108,10 +109,6 @@ export default {
       isDesc: this.job.info.desc,
       mutableJob: this.job,
     }
-  },
-
-  created() {
-    this.id = this.$utilService.makeCmpId()
   },
 
   computed: {
@@ -133,6 +130,10 @@ export default {
     isOpen() {
       return this.modal.type === 'change-cover' && this.modal.data.modalId === this.id
     },
+  },
+
+  created() {
+    this.id = this.$utilService.makeCmpId()
   },
 
   methods: {
@@ -160,7 +161,5 @@ export default {
       this.$store.dispatch('app/toggleModal', {type, data: {modalId}})
     },
   },
-
-  components: {ImgUpload, CoverUpload, MainInput},
 }
 </script>

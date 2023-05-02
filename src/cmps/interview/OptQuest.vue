@@ -1,19 +1,29 @@
 <template>
   <div class="opt-quest-preview">
     <CheckboxInput
-      color="blue"
       v-for="(opt, idx) in opts"
       :key="idx"
+      color="blue"
       :checked="optIdxs.includes(idx)"
-      @input="onChoseOpt(idx)"
       :txt="opt.txt"
+      @input="onChoseOpt(idx)"
     />
   </div>
 </template>
 
 <script>
 export default {
-  props: ['opts', 'optIdxs'],
+  props: {
+    opts: {
+      type: Array,
+      required: true,
+    },
+    optIdxs: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ['set-opt'],
 
   methods: {
     onChoseOpt(optIdx) {

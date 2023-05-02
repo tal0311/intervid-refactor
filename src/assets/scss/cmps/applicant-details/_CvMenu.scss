@@ -1,5 +1,4 @@
 .cv-menu {
- 
   .menu-btn {
     width: 25px;
     height: 25px;
@@ -9,7 +8,7 @@
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: 100% 100%;
-   
+
     &.view-cv {
       display: block;
       margin-block-start: 1px;
@@ -20,11 +19,11 @@
       background-image: url('https://res.cloudinary.com/intervid/image/upload/v1661183353/Frontend/add-cv_jlvvub.svg');
     }
   }
- // &.selected {
-    //   color: #fff;  
-    //   background-color: rgb(0 0 0 / 7%);
-    //   // border-radius: 50%;
-    // }
+  // &.selected {
+  //   color: #fff;
+  //   background-color: rgb(0 0 0 / 7%);
+  //   // border-radius: 50%;
+  // }
   .menu-modal {
     position: absolute;
     background: #fff;
@@ -41,9 +40,8 @@
     &.open {
       transform: scaleY(1);
     }
-  
   }
-  &.selected{
+  &.selected {
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.03);
     color: #fff;

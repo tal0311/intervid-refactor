@@ -186,7 +186,7 @@
     animation: scalein 0.3s ease-in-out;
     border-radius: 5px;
 
-    &>* {
+    & > * {
       max-width: 100%;
     }
 
@@ -221,12 +221,12 @@
     gap: 20px;
     padding: 15px;
 
-    >i {
+    > i {
       display: none;
       font-size: 2.5em;
     }
 
-    >div {
+    > div {
       gap: 15px;
       display: flex;
       flex-direction: column;
@@ -238,7 +238,7 @@
     font-size: 1.2em;
   }
 
-  >.btns {
+  > .btns {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -246,7 +246,7 @@
     padding: 15px;
     border-top: 1px solid #e3e3e3;
 
-    >button {
+    > button {
       padding: 0.8em;
       border-radius: 4px;
 
@@ -275,7 +275,7 @@
       }
     }
 
-    >.btns {
+    > .btns {
       button {
         padding: 0.5em 0.8em;
 
@@ -288,7 +288,6 @@
 }
 
 @keyframes load4 {
-
   0%,
   100% {
     box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em,
@@ -332,7 +331,6 @@
 }
 
 @keyframes load5 {
-
   0%,
   100% {
     box-shadow: 0em -2.6em 0em 0em #ffffff, 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2),
@@ -754,9 +752,7 @@
       .right-side {
         display: none;
       }
-    }
-
-    @else {
+    } @else {
       clip: rect(auto, auto, auto, auto);
 
       .right-side {
@@ -842,9 +838,7 @@
       &.progress-#{$i} {
         @include draw-progress($i, $light-blue);
       }
-    }
-
-    @else {
+    } @else {
       &.progress-#{$i} {
         @include draw-progress($i, #75df75);
       }

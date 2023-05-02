@@ -1,6 +1,6 @@
 <template>
   <div class="code-ans grow">
-    <VAceEditor :value="ans.txt" @init="editorInit" @change="recordKeystroke" lang="js" />
+    <VAceEditor :value="ans.txt" lang="js" @init="editorInit" @change="recordKeystroke" />
   </div>
 </template>
 
@@ -8,13 +8,33 @@
 import {VAceEditor} from 'vue3-ace-editor'
 
 export default {
-  props: ['ans', 'questId'],
+  components: {
+    VAceEditor,
+  },
+  props: {
+    ans: {
+      type: Object,
+      required: true,
+    },
+    questId: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['save-ans'],
 
   data() {
     return {
       editor: null,
       keystrokes: [],
     }
+  },
+
+  watch: {
+    questId() {
+      this.editor.setValue(this.ans.txt)
+      this.keystrokes = []
+    },
   },
 
   methods: {
@@ -52,17 +72,6 @@ export default {
 
       this.keystrokes.push(keyEvent)
     },
-  },
-
-  watch: {
-    questId() {
-      this.editor.setValue(this.ans.txt)
-      this.keystrokes = []
-    },
-  },
-
-  components: {
-    VAceEditor,
   },
 }
 </script>

@@ -1,16 +1,16 @@
 <template>
-  <section class="job-edit" v-if="job">
-    <form @input="handleChange" ref="jobForm" novalidate class="form" v-if="!isFetching" @submit.prevent="">
+  <section v-if="job" class="job-edit">
+    <form v-if="!isFetching" ref="jobForm" novalidate class="form" @input="handleChange" @submit.prevent="">
       <JobForm :job="job" :errors="jobEditErrors" @update-job="validateForm" @validate-field="validateField" />
 
       <div class="quest-list">
         <draggable
           v-model="job.quests"
-          @end="onDragEnd"
           v-bind="dragOptions"
           handle=".drag-indicator"
           ghost-class="ghost"
           item-key="id"
+          @end="onDragEnd"
         >
           <!-- This is destructuring, just like doing someFunc({element:quest,index:idx}) ,
           element is the name provided in the draggable component, and quest is the name of the variable
@@ -22,11 +22,11 @@
               :quest="quest"
               :quests-count="job.quests.length"
               :errors="jobEditErrors"
+              :is-one-try="job.rule.isOneTry"
               @remove-quest="onRemoveQuest"
               @update-quest="onUpdateQuest"
               @duplicate-quest="onDuplicateQuest"
               @validate-field="validateField"
-              :is-one-try="job.rule.isOneTry"
             />
           </template>
           <!-- TODO: Delete isOneTry prop on V2 -->
@@ -70,34 +70,16 @@ import config from '@/config'
 import {useShareJob} from '@/composables/job/useShareJob'
 
 export default {
-  data() {
-    return {
-      job: null,
-    }
-  },
+  components: {JobForm, QuestEdit, AppLoader, draggable},
   setup() {
     return {
       onShareJob: useShareJob(),
     }
   },
-
-  async created() {
-    await this.loadJob()
-    this.job = this.$utilService.deepClone(this.jobToEdit)
-    if (this.$route.query.templateId) await this.loadTemplateQuests()
-  },
-
-  mounted() {
-    // this.$root.$on('share-job', this.onShare)
-    this.$nextTick(this.validateForm)
-  },
-
-  beforeUnmount() {
-    // this.$root.$off('share-job', this.onShare)
-  },
-
-  unmounted() {
-    this.$store.commit('job/setIsFirstChange', true)
+  data() {
+    return {
+      job: null,
+    }
   },
 
   computed: {
@@ -134,6 +116,31 @@ export default {
     invitationUrl() {
       return `${config.baseUrl}interview/${this.jobToEdit._id}`
     },
+  },
+
+  watch: {
+    jobToEdit() {
+      this.job = this.$utilService.deepClone(this.jobToEdit)
+    },
+  },
+
+  async created() {
+    await this.loadJob()
+    this.job = this.$utilService.deepClone(this.jobToEdit)
+    if (this.$route.query.templateId) await this.loadTemplateQuests()
+  },
+
+  mounted() {
+    // this.$root.$on('share-job', this.onShare)
+    this.$nextTick(this.validateForm)
+  },
+
+  beforeUnmount() {
+    // this.$root.$off('share-job', this.onShare)
+  },
+
+  unmounted() {
+    this.$store.commit('job/setIsFirstChange', true)
   },
 
   methods: {
@@ -257,13 +264,5 @@ export default {
       }
     },
   },
-
-  watch: {
-    jobToEdit() {
-      this.job = this.$utilService.deepClone(this.jobToEdit)
-    },
-  },
-
-  components: {JobForm, QuestEdit, AppLoader, draggable},
 }
 </script>

@@ -7,8 +7,8 @@
     <!-- Chrome -->
     <div class="browser-list">
       <a
-        class="browser-card"
         v-if="!isVersionErr || (isVersionErr && browserName === 'chrome')"
+        class="browser-card"
         href="https://www.google.com/chrome/?hl=en_GB"
         target="_blank"
       >
@@ -22,8 +22,8 @@
 
       <!-- Firefox -->
       <a
-        class="browser-card"
         v-if="!isVersionErr || (isVersionErr && browserName === 'firefox')"
+        class="browser-card"
         href="https://www.mozilla.com/firefox/"
         target="_blank"
       >
@@ -37,8 +37,8 @@
 
       <!-- Safari -->
       <a
-        class="browser-card"
         v-if="!isVersionErr || (isVersionErr && browserName === 'safari')"
+        class="browser-card"
         href="https://www.apple.com/safari/"
         target="_blank"
       >
@@ -52,8 +52,8 @@
 
       <!-- Edge -->
       <a
-        class="browser-card"
         v-if="!isVersionErr || (isVersionErr && browserName === 'edge-chromium')"
+        class="browser-card"
         href="https://www.microsoft.com/en-us/edge"
         target="_blank"
       >

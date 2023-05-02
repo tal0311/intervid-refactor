@@ -8,7 +8,9 @@
 import {getSvg} from '@/services/svgService'
 
 export default {
-  props: ['isLocal'],
+  props: {
+    isLocal: Boolean,
+  },
 
   data() {
     return {

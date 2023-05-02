@@ -1,13 +1,13 @@
 <template>
-  <section class="template-edit" v-if="!isFetching">
+  <section v-if="!isFetching" class="template-edit">
     <h2>{{ $getTrans('create-new-template') }}</h2>
-    <form novalidate @submit.prevent="onSaveTemplate" class="template-container">
+    <form novalidate class="template-container" @submit.prevent="onSaveTemplate">
       <main-input
         v-if="templateToEdit"
+        v-model.trim="templateToEdit.title"
         input-name="title"
         placeholder="Enter title"
         validate="required"
-        v-model.trim="templateToEdit.title"
         :on-blur="validateField"
         :errors="errors"
         styled="main"
@@ -36,7 +36,7 @@
       </div>
     </form>
 
-    <div class="confirmation-modal" v-if="isDialogOpen">
+    <div v-if="isDialogOpen" class="confirmation-modal">
       <p>{{ $getTrans('confirmation-modal') }}</p>
       <div>
         <button data-ans="yes" @click="onDialogAns">
@@ -59,18 +59,9 @@ import QuestEdit from '@/cmps/backoffice/template/QuestEdit.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
 
 export default {
-  data() {
-    return {
-      templateToEdit: null,
-      errors: null,
-      isDialogOpen: false,
-      dialogResolve: null,
-    }
-  },
-
-  async created() {
-    const {templateId} = this.$route.params
-    await this.loadTemplate(templateId)
+  components: {
+    QuestEdit,
+    AppLoader,
   },
 
   async beforeRouteLeave(to, from, next) {
@@ -80,6 +71,14 @@ export default {
     })
     if (confirmation === 'yes') next()
     else if (confirmation === 'no') next(false)
+  },
+  data() {
+    return {
+      templateToEdit: null,
+      errors: null,
+      isDialogOpen: false,
+      dialogResolve: null,
+    }
   },
 
   computed: {
@@ -94,6 +93,11 @@ export default {
     isFetching() {
       return this.$store.getters['template/isFetching']
     },
+  },
+
+  async created() {
+    const {templateId} = this.$route.params
+    await this.loadTemplate(templateId)
   },
 
   methods: {
@@ -141,11 +145,6 @@ export default {
       this.dialogResolve(ans)
       this.isDialogOpen = false
     },
-  },
-
-  components: {
-    QuestEdit,
-    AppLoader,
   },
 }
 </script>

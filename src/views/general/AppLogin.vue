@@ -3,13 +3,13 @@
     <div class="form-container">
       <h2>{{ $getTrans('login-title') }}</h2>
 
-      <form @submit.prevent="onLogin" novalidate>
+      <form novalidate @submit.prevent="onLogin">
         <main-input
+          v-model.trim="email"
           input-name="email"
           :placeholder="$getTrans('email')"
           type="email"
           validate="required|email"
-          v-model.trim="email"
           :on-blur="validateField"
           :errors="errors"
           styled="basic"
@@ -18,11 +18,11 @@
         />
 
         <main-input
+          v-model.trim="password"
           input-name="password"
           :placeholder="$getTrans('password')"
           type="password"
           validate="required"
-          v-model.trim="password"
           :on-blur="validateField"
           :errors="errors"
           styled="basic"
@@ -32,7 +32,7 @@
 
         <span @click="openForgotPassword">{{ $getTrans('forgot-my-password') }}</span>
 
-        <div class="errors" v-if="authError">
+        <div v-if="authError" class="errors">
           {{ $getTrans(authError) }}
         </div>
 
@@ -60,6 +60,7 @@ import {mapActions, mapGetters} from 'vuex'
 import GoogleBtn from './GoogleBtn.vue'
 
 export default {
+  components: {GoogleBtn},
   data() {
     return {
       email: '',
@@ -67,13 +68,11 @@ export default {
       errors: null,
     }
   },
-
-  unmounted() {
-    this.clearAuthErr()
-  },
-
   computed: {
     ...mapGetters('auth', ['isAuthing', 'authError']),
+  },
+  unmounted() {
+    this.clearAuthErr()
   },
 
   methods: {
@@ -111,7 +110,5 @@ export default {
       this.errors = validate(ev.target.form)
     },
   },
-
-  components: {GoogleBtn},
 }
 </script>

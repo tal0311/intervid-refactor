@@ -12,7 +12,13 @@
 
 <script>
 export default {
-  props: ['template'],
+  props: {
+    template: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['emit-action', 'on-edit-template'],
 
   computed: {
     isDefault() {

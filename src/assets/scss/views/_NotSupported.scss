@@ -26,20 +26,20 @@
       font-size: 14px;
       gap: 1em;
       width: 70px;
-      
-      img{
+
+      img {
         width: 30px;
       }
 
-      @include from-mini-layout{
+      @include from-mini-layout {
         width: 90px;
       }
-      
-      @include from-mobile-layout{
+
+      @include from-mobile-layout {
         justify-content: space-between;
         width: 162px;
 
-        img{
+        img {
           width: 60px;
         }
       }
@@ -47,7 +47,6 @@
       &:hover {
         background-color: #f5f5f5;
       }
-
     }
   }
 }

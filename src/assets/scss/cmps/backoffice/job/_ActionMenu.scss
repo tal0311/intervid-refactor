@@ -16,7 +16,7 @@
     box-shadow: 0 0 10px 0 #0002;
     // z-index: 10;
 
-    >div {
+    > div {
       height: 50px;
       border-bottom: 1px solid $lightest-gray;
       display: flex;
@@ -27,7 +27,6 @@
       &:hover {
         background: $lightest-gray;
       }
-
     }
 
     &.top {

@@ -76,7 +76,6 @@ p {
   margin: 0;
 }
 
-
 pre {
   font-family: roboto, sans-serif;
   margin: 0;
@@ -108,7 +107,7 @@ input {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
   }
 
-  &[type="password"] {
+  &[type='password'] {
     &::-ms-reveal {
       display: none;
     }
@@ -125,17 +124,13 @@ input {
 
 .material-icons {
   direction: inherit;
-  font-variation-settings:
-    'FILL' 0,
+  font-variation-settings: 'FILL' 0;
 }
-
 
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
-
-
 
 @include from-narrow-layout {
   ::-webkit-scrollbar {

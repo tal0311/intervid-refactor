@@ -1,6 +1,7 @@
 <template>
   <section class="account-overview overview">
     <div class="overview-header">
+
       <i @click="onAddUser" class="material-icons add-btn">add</i>
       <AppPagination
         :item-count="usersToShow.length"
@@ -8,15 +9,6 @@
         :items-per-page="filterBy.itemsPerPage || 10"
         @change-page="onChangePage"
       />
-    
-      <!-- <list-actions
-        :selected-item-count="selectedItems.length"
-        :filter-by="filterBy"
-        :item-count="usersToShow.length"
-        :curr-page="filterBy.currPage || 0"
-        :items-per-page="filterBy.itemsPerPage"
-        @change-page="onChangePage"
-      /> -->
     </div>
 
     <TableList
@@ -44,6 +36,7 @@ import {useSelection} from '@/composables/overview/useSelection'
 import {usePagination} from '@/composables/overview/usePagination'
 
 export default {
+  components: {TableList, ListActions},
   setup() {
     const {filterBy, onSetFilterByKey} = useFilter()
     const {sort, onSort, sortFunc} = useSort()
@@ -51,9 +44,6 @@ export default {
     const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
 
     return {filterBy, onChangePage, sort, onSort, sortFunc, selectedItems, isSelected}
-  },
-  async created() {
-    await this.loadUsers()
   },
 
   computed: {
@@ -69,12 +59,13 @@ export default {
       return this.$store.getters['user/isFetching']
     },
   },
-
+  async created() {
+    await this.loadUsers()
+  },
   methods: {
     async loadUsers() {
       await this.$store.dispatch('user/loadUsers')
     },
-
     onAddUser() {
       this.$store.dispatch('app/toggleModal', {
         type: 'AccountEdit',

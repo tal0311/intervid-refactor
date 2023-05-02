@@ -22,7 +22,7 @@
     width: 100%;
     height: max-content;
     padding-block-start: 20px;
-    
+
     @include from-mobile-layout {
       justify-content: flex-start;
       flex-direction: row;
@@ -36,7 +36,7 @@
       flex-direction: column;
       gap: 0.75em;
       text-align: center;
-      
+
       // height: 100%;
       @include from-mobile-layout {
         text-align: unset;
@@ -57,7 +57,7 @@
       p {
         font-size: 16px;
         line-height: 1.5em;
-        
+
         @include from-mobile-layout {
           font-size: 20px;
         }
@@ -134,7 +134,7 @@
         font-size: 14px;
         line-height: 20px;
 
-        p:first-child{
+        p:first-child {
           font-weight: 700;
         }
       }

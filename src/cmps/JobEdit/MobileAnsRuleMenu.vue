@@ -1,15 +1,15 @@
 <template>
   <div class="mobile-ans-rule-modal mobile-modal-content">
     <button
-      type="button"
       v-for="ansRule in ansRules"
       :key="ansRule.txt"
-      @click.stop="$emit('set-ans-rule', ansRule.type)"
+      type="button"
       :disabled="!isOneTry || !verifyPerm(advancedPermsMap[ansRule.permission])"
       :class="{
         disabled: !isOneTry || !verifyPerm(advancedPermsMap[ansRule.permission]),
         selected: selectedAnsRule === ansRule.type,
       }"
+      @click.stop="$emit('set-ans-rule', ansRule.type)"
     >
       <i class="icon material-icons">{{ ansRule.icon }}</i>
       {{ $getTrans(ansRule.txt) }}
@@ -28,6 +28,7 @@ export default {
       required: true,
     },
   },
+  emits: ['set-ans-rule'],
   computed: {
     ansRules() {
       return ansRules
