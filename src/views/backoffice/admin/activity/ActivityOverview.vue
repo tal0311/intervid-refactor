@@ -3,25 +3,12 @@
     <div class="overview-header">
       <ActivityFilter :filter-by="filterBy" :users="users" @set-filter="onSetFilterByKey" />
 
-      <ListActions
-        :filter-by="filterBy"
-        :item-count="totalActivityCount"
-        :curr-page="filterBy.currPage || 0"
-        :items-per-page="filterBy.itemsPerPage"
-        @change-page="onChangePage"
-      />
+      <ListActions :filter-by="filterBy" :item-count="totalActivityCount" :curr-page="filterBy.currPage || 0"
+        :items-per-page="filterBy.itemsPerPage" @change-page="onChangePage" />
     </div>
 
-    <TableList
-      :items="activities"
-      :items-per-page="filterBy.itemsPerPage"
-      :total-item-count="totalActivityCount"
-      :sort="sort"
-      :is-fetching="isFetching"
-      :is-selected="isSelected"
-      @change-page="onChangePage"
-      @sort="onSort"
-    />
+    <TableList :items="activities" :items-per-page="filterBy.itemsPerPage" :total-item-count="totalActivityCount"
+      :sort="sort" :is-fetching="isFetching" :is-selected="isSelected" @change-page="onChangePage" @sort="onSort" />
   </div>
 </template>
 
@@ -31,19 +18,19 @@ import ActivityFilter from '@/cmps/backoffice/admin/ActivityFilter.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
 import ListActions from '@/cmps/backoffice/ListActions.vue'
 // composables
-import {useFilter} from '@/composables/overview/useFilter'
-import {useSort} from '@/composables/overview/useSort'
-import {useSelection} from '@/composables/overview/useSelection'
-import {usePagination} from '@/composables/overview/usePagination'
+import { useFilter } from '@/composables/overview/useFilter'
+import { useSort } from '@/composables/overview/useSort'
+import { useSelection } from '@/composables/overview/useSelection'
+import { usePagination } from '@/composables/overview/usePagination'
 // services
 
 export default {
-  components: {ActivityFilter, TableList, ListActions},
+  components: { ActivityFilter, TableList, ListActions },
   setup() {
-    const {filterBy, onSetFilterByKey, setFilterFromRoute} = useFilter()
-    const {sort, onSort} = useSort()
-    const {selectedItems, isSelected} = useSelection()
-    const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
+    const { filterBy, onSetFilterByKey, setFilterFromRoute } = useFilter()
+    const { sort, onSort } = useSort()
+    const { selectedItems, isSelected } = useSelection()
+    const { onChangePage } = usePagination({ filterBy, onSetFilterByKey })
 
     return {
       filterBy,
@@ -64,7 +51,7 @@ export default {
 
     activities() {
       return this.$store.getters['activity/activities']
-        .map((activity) => ({...activity, start: new Date(activity.start)}))
+        .map((activity) => ({ ...activity, start: new Date(activity.start) }))
         .sort(this.$utilService.getSortFunc(this.sort))
     },
 
@@ -92,7 +79,7 @@ export default {
   methods: {
     loadActivities() {
       this.$store.dispatch('activity/loadActivities', {
-        filterBy: {...this.filterBy},
+        filterBy: { ...this.filterBy },
       })
     },
 
