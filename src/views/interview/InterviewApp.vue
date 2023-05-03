@@ -3,11 +3,9 @@
     <header v-if="!!job">
       <div class="header-content container">
         <div class="logo-container">
-          <img
-            loading="lazy"
+          <img loading="lazy"
             src="https://res.cloudinary.com/intervid/image/upload/v1661181884/Frontend/logo-color_kftsor.png"
-            alt="logo"
-          />
+            alt="logo" />
           <LngMenu />
         </div>
         <div class="btn-container">
@@ -30,13 +28,13 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
-import {uploaderService} from '@/services/uploaderService'
-import {timelineService} from '@/services/timelineService'
-import {browserErrorMap} from '@/services/errorService'
-import {getEmitData, socketService, SOCKET_EMIT_DONE_INTERVIEW} from '@/services/socketService'
-import {loggerService} from '@/services/loggerService'
-import {supportedBrowsersMap, defaultImgUrl} from '@/services/constData'
+import { mapMutations } from 'vuex'
+import { uploaderService } from '@/services/uploaderService'
+import { timelineService } from '@/services/timelineService'
+import { browserErrorMap } from '@/services/errorService'
+import { getEmitData, socketService, SOCKET_EMIT_DONE_INTERVIEW } from '@/services/socketService'
+import { loggerService } from '@/services/loggerService'
+import { supportedBrowsersMap, defaultImgUrl } from '@/services/constData'
 
 import InterviewError from '@/cmps/interview/InterviewError.vue'
 import AppModal from '@/cmps/common/AppModal.vue'
@@ -128,12 +126,12 @@ export default {
     },
 
     isBrowserSupported() {
-      const {name} = this.browser
+      const { name } = this.browser
       return !!supportedBrowsersMap[name]
     },
 
     isBrowserVersionSupported() {
-      const {name, os} = this.browser
+      const { name, os } = this.browser
       if (os === 'iOS') {
         const agent = window.navigator.userAgent
         const start = agent.indexOf('OS ')
@@ -167,8 +165,7 @@ export default {
   },
 
   mounted() {
-    // console.log('mounted')
-    if (this.$route.query.demo) this.$store.commit({type: 'applicant/setIsPreview', isPreview: true})
+    if (this.$route.query.demo) this.$store.commit({ type: 'applicant/setIsPreview', isPreview: true })
   },
 
   methods: {
@@ -178,7 +175,7 @@ export default {
       this.updatePrms = []
       this.initUploader()
       await this.loadJob()
-      if (!this.job) return this.setInterviewErr({type: 'INTERVIEW_NOT_FOUND'})
+      if (!this.job) return this.setInterviewErr({ type: 'INTERVIEW_NOT_FOUND' })
       this.loadApplicant()
       this.setMeta()
     },
@@ -212,16 +209,16 @@ export default {
       })
     },
     async loadJob() {
-      const {jobId} = this.$route.params
-      await this.$store.dispatch('applicant/loadJob', {jobId})
+      const { jobId } = this.$route.params
+      await this.$store.dispatch('applicant/loadJob', { jobId })
       if (this.isScreenInterview && this.isMobileDevice) {
-        this.setInterviewErr({type: 'NO_MOBILE_SCREEN_SHARE'})
+        this.setInterviewErr({ type: 'NO_MOBILE_SCREEN_SHARE' })
       }
     },
 
     async loadApplicant() {
-      const {applicantId} = this.$route.params
-      await this.$store.dispatch('applicant/loadApplicant', {applicantId})
+      const { applicantId } = this.$route.params
+      await this.$store.dispatch('applicant/loadApplicant', { applicantId })
       loggerService.info(
         `[InterviewApp] [loadApplicant] ${applicantId ? 'Applicant loaded - ' + applicantId : 'New applicant created'}`,
       )
@@ -231,11 +228,11 @@ export default {
       loggerService.info('[InterviewApp] [updateApplicant] Applicant updated', {
         applicant,
       })
-      return this.$store.dispatch('applicant/updateApplicant', {applicant})
+      return this.$store.dispatch('applicant/updateApplicant', { applicant })
     },
 
     checkPrerequisites() {
-      const {name, version} = this.browser
+      const { name, version } = this.browser
       if (!this.isBrowserSupported) {
         loggerService.error('User browser is not supported', name)
         this.setInterviewErr(browserErrorMap.NO_BROWSER_SUPPORT)
@@ -252,7 +249,7 @@ export default {
     },
 
     onUploadSuccess(file) {
-      loggerService.info('[InterviewApp] [onUploadSuccess] file uploaded successfully', {file})
+      loggerService.info('[InterviewApp] [onUploadSuccess] file uploaded successfully', { file })
       const fileKey = `${this.job._id}/${file.meta.name}`
       this.saveAsset(fileKey, file.data.interviewData)
       this.failedFiles = this.failedFiles.filter((fileId) => file.id !== fileId)
@@ -278,7 +275,7 @@ export default {
           this.$store.commit('applicant/setWaitForNetwork', {
             waitForNetwork: true,
           })
-          loggerService.info('[InterviewApp] [onUploadError] Axios error - network error', {err})
+          loggerService.info('[InterviewApp] [onUploadError] Axios error - network error', { err })
           return uploaderService.handleNetworkError(fileId)
         }
       }
@@ -299,21 +296,20 @@ export default {
           `[InterviewApp] [onUploadError] Retrying file upload, retryCount: ${retryCount}, fileId: ${fileId}`,
         )
         uploaderService.retryUpload(fileId)
-        this.addFileRetry({fileId})
+        this.addFileRetry({ fileId })
       }, 1000 * retryCount)
     },
 
-    saveAsset(fileKey, {isScreen, questId}) {
-      const ans = {...this.applicant.answerMap[questId]}
+    saveAsset(fileKey, { isScreen, questId }) {
+      const ans = { ...this.applicant.answerMap[questId] }
       ans[isScreen ? 'screenKey' : 'faceKey'] = fileKey
       loggerService.info(
-        `[InterviewApp] [saveAsset] Saving ${
-          isScreen ? 'screen' : 'face'
+        `[InterviewApp] [saveAsset] Saving ${isScreen ? 'screen' : 'face'
         } video key: ${fileKey} for questId: ${questId}`,
       )
       const applicant = {
         ...this.applicant,
-        answerMap: {...this.applicant.answerMap, [questId]: ans},
+        answerMap: { ...this.applicant.answerMap, [questId]: ans },
       }
       const prm = this.updateApplicant(applicant)
       this.updatePrms.push(prm)
@@ -321,11 +317,11 @@ export default {
 
     setLang(lang) {
       this.toggleLngModal()
-      this.$store.dispatch('app/setLang', {lang})
+      this.$store.dispatch('app/setLang', { lang })
     },
 
     toggleLngModal() {
-      this.$store.dispatch('app/toggleModal', {type: 'lng'})
+      this.$store.dispatch('app/toggleModal', { type: 'lng' })
     },
 
     async doneInterview() {
@@ -360,10 +356,10 @@ export default {
 
       const applicant = {
         ...this.applicant,
-        timestamp: {...this.applicant.timestamp, submitted: Date.now()},
+        timestamp: { ...this.applicant.timestamp, submitted: Date.now() },
         timeline: [...this.applicant.timeline, timeEvent],
       }
-      loggerService.info('[InterviewApp] [saveApplicant] Save full applicant (add submitted time event)', {applicant})
+      loggerService.info('[InterviewApp] [saveApplicant] Save full applicant (add submitted time event)', { applicant })
       this.updateApplicant(applicant)
       socketService.emit(SOCKET_EMIT_DONE_INTERVIEW, getEmitData('submit', this.job, applicant))
     },
@@ -372,15 +368,15 @@ export default {
       const timeEvent = timelineService.activityEvent('quited')
       const applicant = {
         ...this.applicant,
-        timestamp: {...this.applicant.timestamp, quited: Date.now()},
+        timestamp: { ...this.applicant.timestamp, quited: Date.now() },
         timeline: [...this.applicant.timeline, timeEvent],
       }
-      loggerService.info('[InterviewApp] [handleQuit] Save full applicant (add quited time event)', {applicant})
+      loggerService.info('[InterviewApp] [handleQuit] Save full applicant (add quited time event)', { applicant })
       socketService.emit(SOCKET_EMIT_DONE_INTERVIEW, getEmitData('quit', this.job, applicant))
       // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon
       // can change route to '//localhost:3030/api/applicant'
       const url = `${config.apiUrl}applicant/quited`
-      navigator.sendBeacon(url, JSON.stringify({applicant, jobId: this.job._id}))
+      navigator.sendBeacon(url, JSON.stringify({ applicant, jobId: this.job._id }))
       loggerService.info(`[InterviewApp] [handleQuit] Applicant ${this.applicant.id} has quit the interview`)
     },
   },

@@ -2,7 +2,6 @@ import axios from 'axios'
 import { utilService } from '@/services/utilService'
 import { setLang } from '@/services/i18nService'
 import { detect } from 'detect-browser'
-// console.log(import.meta.env.MODE)
 export const app = {
   namespaced: true,
 
@@ -76,7 +75,6 @@ export const app = {
       state.alertData = alertData
     },
     setActionsData(state, { actionsData }) {
-      console.log('actionsData', actionsData)
       state.actionsData = actionsData
     },
 

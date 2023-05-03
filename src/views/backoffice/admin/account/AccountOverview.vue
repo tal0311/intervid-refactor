@@ -3,25 +3,13 @@
     <div class="overview-header">
 
       <i @click="onAddUser" class="material-icons add-btn">add</i>
-      <AppPagination
-        :item-count="usersToShow.length"
-        :curr-page="filterBy.currPage || 0"
-        :items-per-page="filterBy.itemsPerPage || 10"
-        @change-page="onChangePage"
-      />
+      <AppPagination :item-count="usersToShow.length" :curr-page="filterBy.currPage || 0"
+        :items-per-page="filterBy.itemsPerPage || 10" @change-page="onChangePage" />
     </div>
 
-    <TableList
-      :items="usersToShow"
-      :curr-page="filterBy.currPage"
-      :items-per-page="filterBy.itemsPerPage"
-      :total-item-count="usersToShow.length"
-      :sort="sort"
-      :is-fetching="isFetching"
-      :is-selected="isSelected"
-      @change-page="onChangePage"
-      @sort="onSort"
-    />
+    <TableList :items="usersToShow" :curr-page="filterBy.currPage" :items-per-page="filterBy.itemsPerPage"
+      :total-item-count="usersToShow.length" :sort="sort" :is-fetching="isFetching" :is-selected="isSelected"
+      @change-page="onChangePage" @sort="onSort" />
   </section>
 </template>
 
@@ -30,20 +18,20 @@
 import TableList from '@/cmps/backoffice/TableList.vue'
 import AppPagination from '@/cmps/common/AppPagination.vue'
 // composables
-import {useFilter} from '@/composables/overview/useFilter'
-import {useSort} from '@/composables/overview/useSort'
-import {useSelection} from '@/composables/overview/useSelection'
-import {usePagination} from '@/composables/overview/usePagination'
+import { useFilter } from '@/composables/overview/useFilter'
+import { useSort } from '@/composables/overview/useSort'
+import { useSelection } from '@/composables/overview/useSelection'
+import { usePagination } from '@/composables/overview/usePagination'
 
 export default {
-  components: {TableList, ListActions},
+  components: { TableList, },
   setup() {
-    const {filterBy, onSetFilterByKey} = useFilter()
-    const {sort, onSort, sortFunc} = useSort()
-    const {selectedItems, isSelected} = useSelection()
-    const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
+    const { filterBy, onSetFilterByKey } = useFilter()
+    const { sort, onSort, sortFunc } = useSort()
+    const { selectedItems, isSelected } = useSelection()
+    const { onChangePage } = usePagination({ filterBy, onSetFilterByKey })
 
-    return {filterBy, onChangePage, sort, onSort, sortFunc, selectedItems, isSelected}
+    return { filterBy, onChangePage, sort, onSort, sortFunc, selectedItems, isSelected }
   },
 
   computed: {
@@ -73,6 +61,6 @@ export default {
       })
     },
   },
-  components: {TableList, AppPagination},
+  components: { TableList, AppPagination },
 }
 </script>

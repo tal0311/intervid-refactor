@@ -1,8 +1,8 @@
-import {authService} from '../../services/authService'
+import { authService } from '../../services/authService'
 // import { activityMap } from '@/services/activityService'
-import {loggerService} from '@/services/loggerService'
+import { loggerService } from '@/services/loggerService'
 import router from '@/router'
-import {userService} from '../../services/userService'
+import { userService } from '../../services/userService'
 
 export const auth = {
   namespaced: true,
@@ -38,7 +38,7 @@ export const auth = {
       state.isAuthing = false
     },
 
-    setAuthError(state, {msg}) {
+    setAuthError(state, { msg }) {
       state.isAuthing = false
       state.authError = msg
     },
@@ -55,18 +55,16 @@ export const auth = {
   },
 
   actions: {
-    async login({commit}, {userCred}) {
+    async login({ commit }, { userCred }) {
       // {dispatch}
       commit('loginRequest')
       try {
         const user = await authService.login(userCred)
-        // console.log('login in store - after service', 'user', user)
         commit('loginSuccess')
-        await commit('user/setLoggedInUser', {user}, {root: true})
+        await commit('user/setLoggedInUser', { user }, { root: true })
         // dispatch('activity/addActivity', activityMap.user({ type: 'login' }), { root: true })
-        // console.log('login in store - after service')
 
-        router.push({name: 'ApplicantOverview'})
+        router.push({ name: 'ApplicantOverview' })
       } catch (err) {
         loggerService.error("[authStore] [login] - Couldn't login user:", userCred.email, err)
         commit('setAuthError', err)
@@ -74,16 +72,16 @@ export const auth = {
       }
     },
 
-    async signup({commit}, {userCred}) {
+    async signup({ commit }, { userCred }) {
       // {dispatch}
       commit('loginRequest')
       try {
         const user = await authService.signup(userCred)
         commit('loginSuccess')
-        commit('user/setLoggedInUser', {user}, {root: true})
+        commit('user/setLoggedInUser', { user }, { root: true })
         // dispatch('activity/addActivity', activityMap.user({ type: 'signup' }), { root: true })
         // TODO: Redirect the user to the page he first tried to visit or to the home view
-        router.push({name: 'VerifyEmail'})
+        router.push({ name: 'VerifyEmail' })
         return true
       } catch (err) {
         loggerService.error("[authStore] [signup] - Couldn't signup", err)
@@ -92,17 +90,17 @@ export const auth = {
       }
     },
 
-    logout({commit}) {
+    logout({ commit }) {
       // {commit, dispatch}
       // dispatch('activity/addActivity', activityMap.user({ type: 'logout' }), { root: true })
       authService.logout()
       commit('logoutSuccess')
-      commit('user/setLoggedInUser', {user: null}, {root: true})
-      commit('resetState', null, {root: true})
-      router.push({name: 'Login'})
+      commit('user/setLoggedInUser', { user: null }, { root: true })
+      commit('resetState', null, { root: true })
+      router.push({ name: 'Login' })
     },
 
-    refreshToken({commit, state}) {
+    refreshToken({ commit, state }) {
       if (state.refreshTokenPrm) return state.refreshTokenPrm
       const prm = authService
         .getNewToken()
@@ -118,7 +116,7 @@ export const auth = {
       return prm
     },
 
-    async resetPassword({commit}, {email}) {
+    async resetPassword({ commit }, { email }) {
       try {
         await authService.resetPassword(email)
       } catch (err) {
@@ -128,7 +126,7 @@ export const auth = {
       }
     },
 
-    async changePassword({commit}, {email, password}) {
+    async changePassword({ commit }, { email, password }) {
       // {dispatch}
       try {
         await authService.changePassword(email, password)
@@ -140,12 +138,12 @@ export const auth = {
       }
     },
 
-    async verifyEmail({commit}, {token}) {
+    async verifyEmail({ commit }, { token }) {
       try {
         commit('loginRequest')
         const user = await authService.verifyEmail(token)
         commit('loginSuccess')
-        commit('user/setLoggedInUser', {user}, {root: true})
+        commit('user/setLoggedInUser', { user }, { root: true })
       } catch (err) {
         loggerService.error("[authStore] [verifyEmail] - Couldn't verify Email:", err)
         commit('setAuthError', err)
@@ -153,7 +151,7 @@ export const auth = {
       }
     },
 
-    async verifyCode({commit}, {enteredCode}) {
+    async verifyCode({ commit }, { enteredCode }) {
       try {
         await authService.verifyCode(enteredCode)
       } catch (err) {
@@ -163,13 +161,13 @@ export const auth = {
       }
     },
 
-    async loginWithOtp({commit}, {email, enteredCode}) {
+    async loginWithOtp({ commit }, { email, enteredCode }) {
       // {dispatch}
       commit('loginRequest')
       try {
         const user = await authService.loginWithOtp(email, enteredCode)
         commit('loginSuccess')
-        commit('user/setLoggedInUser', {user}, {root: true})
+        commit('user/setLoggedInUser', { user }, { root: true })
         // dispatch('activity/addActivity', { type: 'login', target: 'User' }, { root: true })
       } catch (err) {
         loggerService.error("[authStore] [loginWithOtp] - Couldn't login with Otp - user:", email, err)
@@ -178,7 +176,7 @@ export const auth = {
       }
     },
 
-    async sendVerifyEmail({commit}) {
+    async sendVerifyEmail({ commit }) {
       try {
         await authService.sendVerifyEmail()
       } catch (err) {
@@ -188,8 +186,8 @@ export const auth = {
       }
     },
 
-    async clearAuthErr({commit}) {
-      commit('setAuthError', {msg: ''})
+    async clearAuthErr({ commit }) {
+      commit('setAuthError', { msg: '' })
     },
   },
 }

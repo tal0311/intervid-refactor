@@ -1,55 +1,40 @@
 <template>
-  <div ref="modalWrapper" class="status-dropdown" :class="{'full-width': isFullWidth}">
-    <button
-      ref="status-btn"
-      class="status-btn"
-      :class="{
+  <div ref="modalWrapper" class="status-dropdown" :class="{ 'full-width': isFullWidth }">
+    <button ref="status-btn" class="status-btn" :class="{
         open: isOpen && !isMobile,
         recruitment: isRecruitmentStatus,
         top: modalPos.isBottom,
-      }"
-      :style="{
-        backgroundColor: isDisabled ? '#EBEEF2' : applicantStatus.color,
-        color: isDisabled ? '#AAADB5' : '#fff',
-      }"
-      @click="toggleModal"
-    >
+      }" :style="{
+      backgroundColor: isDisabled ? '#EBEEF2' : applicantStatus.color,
+      color: isDisabled ? '#AAADB5' : '#fff',
+    }" @click="toggleModal">
       {{ $getTrans(statusBtnTxt) }}
       <i v-if="!isDisabled && !isShowArchived" class="material-icons">expand_more</i>
     </button>
 
     <div class="status-modal" :class="modalClass" :style="modalStyle">
-      <button
-        v-for="(status, idx) in statusMap"
-        :key="status.label"
-        :style="{backgroundColor: status.color}"
+      <button v-for="(status, idx) in statusMap" :key="status.label" :style="{ backgroundColor: status.color }"
         :data-label="idx === '0' ? $getTrans('evaluation') : idx === '5' ? $getTrans('recruitment') : ''"
-        @click="onSetStatus(idx)"
-      >
+        @click="onSetStatus(idx)">
         {{ $getTrans(status.label) }}
       </button>
     </div>
 
-    <MobileModal
-      v-if="isOpen && isMobile"
-      cmp-name="update status"
-      :applicant="applicant"
-      @on-close="toggleModal"
-      @set-status="onSetStatus"
-    />
+    <MobileModal v-if="isOpen && isMobile" cmp-name="update status" :applicant="applicant" @on-close="toggleModal"
+      @set-status="onSetStatus" />
   </div>
 </template>
 
 <script>
 // core
-import {computed, ref} from 'vue'
+import { computed, ref } from 'vue'
 // lib
-import {useStore} from 'vuex'
+import { useStore } from 'vuex'
 // custom composables
-import {useModal} from '@/composables/useModal.js'
+import { useModal } from '@/composables/useModal.js'
 // services
-import {activityMap} from '@/services/activityService'
-import {getStatusByCode, statusMap} from '@/services/constData'
+import { activityMap } from '@/services/activityService'
+import { getStatusByCode, statusMap } from '@/services/constData'
 // cmps
 import MobileModal from './modals/MobileModal.vue'
 
@@ -72,11 +57,11 @@ export default {
     },
   },
   emits: ['on-set-status', 'modal-closed'],
-  setup(props, {emit}) {
+  setup(props, { emit }) {
     const store = useStore()
     const modalHeight = computed(() => 342)
     const modalWrapper = ref(null)
-    const {isOpen, modalPos} = useModal({
+    const { isOpen, modalPos } = useModal({
       emit,
       modalHeight,
       modalType: 'status-picker',
@@ -90,7 +75,6 @@ export default {
     })
 
     const modalStyle = computed(() => {
-      // console.log('modalPos.value', modalPos.value)
       return {
         top: `${modalPos?.value.top}px`,
         width: `${modalPos?.value.modalWidth}px`,
@@ -152,7 +136,7 @@ export default {
       const modalId = this.isOpen ? null : this.applicant.id
       this.$store.dispatch('app/toggleModal', {
         type: 'status-picker',
-        data: {modalId},
+        data: { modalId },
       })
     },
 

@@ -4,31 +4,13 @@
       <h2>{{ $getTrans('login-title') }}</h2>
 
       <form novalidate @submit.prevent="onLogin">
-        <main-input
-          v-model.trim="email"
-          input-name="email"
-          :placeholder="$getTrans('email')"
-          type="email"
-          validate="required|email"
-          :on-blur="validateField"
-          :errors="errors"
-          styled="basic"
-          :disabled="isAuthing"
-          autocomplete="email"
-        />
+        <main-input v-model.trim="email" input-name="email" :placeholder="$getTrans('email')" type="email"
+          validate="required|email" :on-blur="validateField" :errors="errors" styled="basic" :disabled="isAuthing"
+          autocomplete="email" />
 
-        <main-input
-          v-model.trim="password"
-          input-name="password"
-          :placeholder="$getTrans('password')"
-          type="password"
-          validate="required"
-          :on-blur="validateField"
-          :errors="errors"
-          styled="basic"
-          :disabled="isAuthing"
-          autocomplete="current-password"
-        />
+        <main-input v-model.trim="password" input-name="password" :placeholder="$getTrans('password')" type="password"
+          validate="required" :on-blur="validateField" :errors="errors" styled="basic" :disabled="isAuthing"
+          autocomplete="current-password" />
 
         <span @click="openForgotPassword">{{ $getTrans('forgot-my-password') }}</span>
 
@@ -54,13 +36,13 @@
 </template>
 
 <script>
-import {validate} from '@/services/errorService.js'
-import {mapActions, mapGetters} from 'vuex'
+import { validate } from '@/services/errorService.js'
+import { mapActions, mapGetters } from 'vuex'
 
 import GoogleBtn from './GoogleBtn.vue'
 
 export default {
-  components: {GoogleBtn},
+  components: { GoogleBtn },
   data() {
     return {
       email: '',
@@ -78,7 +60,7 @@ export default {
   methods: {
     ...mapActions('auth', ['login', 'clearAuthErr']),
 
-    async onLogin({target}) {
+    async onLogin({ target }) {
       try {
         this.errors = validate(target)
         if (this.errors.length) return
@@ -86,7 +68,7 @@ export default {
           email: this.email.toLowerCase(),
           password: this.password,
         }
-        await this.login({userCred})
+        await this.login({ userCred })
       } catch (error) {
         this.errors = [error]
       }
@@ -96,8 +78,7 @@ export default {
       const userCred = {
         token,
       }
-      // console.log('🚀 ~ file: AppLogin.vue:101 ~ onGoogleLogin ~ userCred:', userCred)
-      await this.login({userCred})
+      await this.login({ userCred })
     },
 
     openForgotPassword() {
