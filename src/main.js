@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 
 // import VueHotjar from 'vue-hotjar-next'
 // import VueAnalytics from "vue-analytics";
@@ -7,24 +7,24 @@ import { createApp } from 'vue'
 // import { clickOutside } from './directivs'
 
 // TODO CHECK IF NEEDED
-import { ObserveVisibility } from 'vue3-observe-visibility'
+import {ObserveVisibility} from 'vue3-observe-visibility'
 import Vue3TouchEvents from 'vue3-touch-events'
 import vue3GoogleLogin from 'vue3-google-login'
 import VueSocialSharing from 'vue-social-sharing'
 
-import { createMetaManager } from 'vue-meta'
+import {createMetaManager} from 'vue-meta'
 
 // import './registerServiceWorker'
 import 'material-icons/iconfont/material-icons.css'
 
 // import {tokenService} from './services/tokenService'
-import { utilService } from './services/utilService'
-import { loggerService } from './services/loggerService'
+import {utilService} from './services/utilService'
+import {loggerService} from './services/loggerService'
 
 import MainInput from '@/cmps/common/MainInput.vue'
 import CheckboxInput from '@/cmps/common/CheckboxInput.vue'
 import BasicSelect from '@/cmps/common/BasicSelect.vue'
-import { clickOutside } from './directivs'
+import {clickOutside} from './directivs'
 
 import './assets/scss/global.scss'
 // import {getTrans} from './services/i18nService'
@@ -34,57 +34,57 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import { i18nPlugin } from './plugins/i18n.plugin'
-import { utilServicePlugin } from './plugins/utilService.plugin'
-import { svgPlugin } from './plugins/svg.plugin'
-  // NOTE: remove this func, set it as guard in the router index. see:
-  // ;(async function () {
-  //   console.log('router.get', router)
-  //   const isInInterview = false
-  //   if (isInInterview) return
-  //   if (tokenService.getToken()) {
-  //     store.dispatch('user/loadLoggedUser')
-  //   }
-  // })()
+import {i18nPlugin} from './plugins/i18n.plugin'
+import {utilServicePlugin} from './plugins/utilService.plugin'
+import {svgPlugin} from './plugins/svg.plugin'
+// NOTE: remove this func, set it as guard in the router index. see:
+// ;(async function () {
+//   console.log('router.get', router)
+//   const isInInterview = false
+//   if (isInInterview) return
+//   if (tokenService.getToken()) {
+//     store.dispatch('user/loadLoggedUser')
+//   }
+// })()
 
-  // Accessibillty helper:
-  ; (function () {
-    window.interdeal = {
-      sitekey: 'eb985e13938463d3b349126ea36d814e',
-      Position: 'Start',
-      Menulang: 'EN',
-      domains: {
-        js: 'https://cdn.equalweb.com/',
-        acc: 'https://access.equalweb.com/',
+// Accessibillty helper:
+;(function () {
+  window.interdeal = {
+    sitekey: 'eb985e13938463d3b349126ea36d814e',
+    Position: 'Start',
+    Menulang: 'EN',
+    domains: {
+      js: 'https://cdn.equalweb.com/',
+      acc: 'https://access.equalweb.com/',
+    },
+    btnStyle: {
+      vPosition: ['80%', null],
+      scale: ['0.5', '0.5'],
+      color: {
+        main: '#6e7577',
+        second: '',
       },
-      btnStyle: {
-        vPosition: ['80%', null],
-        scale: ['0.5', '0.5'],
-        color: {
-          main: '#6e7577',
-          second: '',
-        },
-        icon: {
-          type: 11,
-          shape: 'semicircle',
-          outline: false,
-        },
+      icon: {
+        type: 11,
+        shape: 'semicircle',
+        outline: false,
       },
-    }
-      ; (function (doc, head, body) {
-        var coreCall = doc.createElement('script')
-        coreCall.src = 'https://cdn.equalweb.com/core/4.3.7/accessibility.js'
-        coreCall.defer = true
-        coreCall.integrity =
-          'sha512-hGa5HZtFkT1M7+tUDtU/cbw6AG0ORz3oblztCoTZ/z2qPyr7dgwH3zoT8qpgj21MgcRsMFLD6NNKePGvVks3Ig=='
-        coreCall.crossOrigin = 'anonymous'
-        coreCall.setAttribute('data-cfasync', true)
-        body ? body.appendChild(coreCall) : head.appendChild(coreCall)
-      })(document, document.head, document.body)
-  })()
+    },
+  }
+  ;(function (doc, head, body) {
+    var coreCall = doc.createElement('script')
+    coreCall.src = 'https://cdn.equalweb.com/core/4.3.7/accessibility.js'
+    coreCall.defer = true
+    coreCall.integrity =
+      'sha512-hGa5HZtFkT1M7+tUDtU/cbw6AG0ORz3oblztCoTZ/z2qPyr7dgwH3zoT8qpgj21MgcRsMFLD6NNKePGvVks3Ig=='
+    coreCall.crossOrigin = 'anonymous'
+    coreCall.setAttribute('data-cfasync', true)
+    body ? body.appendChild(coreCall) : head.appendChild(coreCall)
+  })(document, document.head, document.body)
+})()
 
 window.addEventListener('resize', () => {
-  store.commit({ type: 'app/setIsMobile', isMobile: utilService.isMobile() })
+  store.commit({type: 'app/setIsMobile', isMobile: utilService.isMobile()})
 })
 
 window.onerror = function (message) {
@@ -100,7 +100,7 @@ let userLang = localStorage.getItem('userLang')
 if (!userLang) {
   userLang = navigator.language === 'he' ? 'he' : 'en'
 }
-store.dispatch('app/setLang', { lang: userLang })
+store.dispatch('app/setLang', {lang: userLang})
 
 const app = createApp(App)
 

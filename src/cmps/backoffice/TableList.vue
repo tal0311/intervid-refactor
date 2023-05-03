@@ -1,14 +1,29 @@
 <template>
   <AppLoader v-if="isFetching && !shouldGather" :is-local="true" />
-  <section v-else-if="isItemsToShow" class="table-list" :class="{ cards: viewType === 'cards' && itemName === 'job' }">
-    <SortableHeaders :sort="sort" :filter-by="filterBy" :selected-item-count="selectedItemCount"
-      :item-count="totalItemCount" :items-per-page="itemsPerPage" @select-all="$emit('select-all', items)"
-      @sort="$emit('sort', $event)" />
+  <section v-else-if="isItemsToShow" class="table-list" :class="{cards: viewType === 'cards' && itemName === 'job'}">
+    <SortableHeaders
+      :sort="sort"
+      :filter-by="filterBy"
+      :selected-item-count="selectedItemCount"
+      :item-count="totalItemCount"
+      :items-per-page="itemsPerPage"
+      @select-all="$emit('select-all', items)"
+      @sort="$emit('sort', $event)"
+    />
 
     <div class="list-content">
-      <component :is="itemName" v-for="item in items" :key="item._id" ref="preview" :filter-by="filterBy"
-        v-bind="getNamedProp(item)" :is-selected="isSelected(item)" @select="$emit('select', item)"
-        @load-items="$emit('load-items')" @remove="$emit('remove', $event)" />
+      <component
+        :is="itemName"
+        v-for="item in items"
+        :key="item._id"
+        ref="preview"
+        :filter-by="filterBy"
+        v-bind="getNamedProp(item)"
+        :is-selected="isSelected(item)"
+        @select="$emit('select', item)"
+        @load-items="$emit('load-items')"
+        @remove="$emit('remove', $event)"
+      />
 
       <component :is="skeletonToShow" v-if="isInfiniteScroll && !isAllItems" v-observe-visibility="onScrollToBottom">
       </component>
@@ -115,7 +130,7 @@ export default {
 
   methods: {
     getNamedProp(item) {
-      return { [this.itemName]: item }
+      return {[this.itemName]: item}
     },
 
     onScrollToBottom(isVisible) {

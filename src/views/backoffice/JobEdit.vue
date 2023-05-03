@@ -4,16 +4,30 @@
       <JobForm :job="job" :errors="jobEditErrors" @update-job="validateForm" @validate-field="validateField" />
 
       <div class="quest-list">
-        <draggable v-model="job.quests" v-bind="dragOptions" handle=".drag-indicator" ghost-class="ghost" item-key="id"
-          @end="onDragEnd">
+        <draggable
+          v-model="job.quests"
+          v-bind="dragOptions"
+          handle=".drag-indicator"
+          ghost-class="ghost"
+          item-key="id"
+          @end="onDragEnd"
+        >
           <!-- This is destructuring, just like doing someFunc({element:quest,index:idx}) ,
           element is the name provided in the draggable component, and quest is the name of the variable
           see: https://github.com/SortableJS/vue.draggable.next#migrate-from-vue-2-version
         -->
-          <template #item="{ element: quest, index: idx }">
-            <QuestEdit :idx="idx" :quest="quest" :quests-count="job.quests.length" :errors="jobEditErrors"
-              :is-one-try="job.rule.isOneTry" @remove-quest="onRemoveQuest" @update-quest="onUpdateQuest"
-              @duplicate-quest="onDuplicateQuest" @validate-field="validateField" />
+          <template #item="{element: quest, index: idx}">
+            <QuestEdit
+              :idx="idx"
+              :quest="quest"
+              :quests-count="job.quests.length"
+              :errors="jobEditErrors"
+              :is-one-try="job.rule.isOneTry"
+              @remove-quest="onRemoveQuest"
+              @update-quest="onUpdateQuest"
+              @duplicate-quest="onDuplicateQuest"
+              @validate-field="validateField"
+            />
           </template>
           <!-- TODO: Delete isOneTry prop on V2 -->
         </draggable>
@@ -24,12 +38,16 @@
         {{ $getTrans('add-question') }}
       </div>
 
-      <button class="send-btn" :class="[
-        {
-          disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length),
-        },
-        { selected: onShare },
-      ]" @click.prevent="onShare">
+      <button
+        class="send-btn"
+        :class="[
+          {
+            disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length),
+          },
+          {selected: onShare},
+        ]"
+        @click.prevent="onShare"
+      >
         {{ $getTrans('send') }}
       </button>
     </form>
@@ -39,9 +57,9 @@
 </template>
 
 <script>
-import { msgService } from '@/services/msgService'
-import { validate } from '@/services/errorService.js'
-import { templateService } from '@/services/templateService'
+import {msgService} from '@/services/msgService'
+import {validate} from '@/services/errorService.js'
+import {templateService} from '@/services/templateService'
 
 import draggable from 'vuedraggable'
 
@@ -49,10 +67,10 @@ import QuestEdit from '@/cmps/JobEdit/QuestEdit.vue'
 import JobForm from '@/cmps/JobEdit/JobForm.vue'
 import AppLoader from '@/cmps/common/AppLoader.vue'
 import config from '@/config'
-import { useShareJob } from '@/composables/job/useShareJob'
+import {useShareJob} from '@/composables/job/useShareJob'
 
 export default {
-  components: { JobForm, QuestEdit, AppLoader, draggable },
+  components: {JobForm, QuestEdit, AppLoader, draggable},
   setup() {
     return {
       onShareJob: useShareJob(),
@@ -127,17 +145,17 @@ export default {
 
   methods: {
     async loadJob() {
-      const { jobId } = this.$route.params
-      await this.$store.dispatch('job/loadJobToEdit', { jobId })
+      const {jobId} = this.$route.params
+      await this.$store.dispatch('job/loadJobToEdit', {jobId})
     },
 
     async addJob() {
-      await this.$store.dispatch('job/addJob', { job: this.job })
+      await this.$store.dispatch('job/addJob', {job: this.job})
       this.$router.push(`/create/${this.job._id}`)
     },
 
     async updateJob() {
-      await this.$store.dispatch('job/updateJob', { job: this.job })
+      await this.$store.dispatch('job/updateJob', {job: this.job})
     },
 
     async saveJob() {
@@ -155,7 +173,7 @@ export default {
       await this.validateForm()
     },
 
-    async onDuplicateQuest({ txt, desc, ansRule, timeLimit }) {
+    async onDuplicateQuest({txt, desc, ansRule, timeLimit}) {
       const duplicatedQuest = templateService.createQuest(txt, desc, ansRule, timeLimit)
       this.job.quests.push(duplicatedQuest)
       await this.validateForm()
@@ -165,10 +183,10 @@ export default {
       this.job.quests = this.job.quests.filter((quest) => quest.id !== questId)
       this.$nextTick(this.validateForm)
       const msg = msgService.remove('question', 1, true)
-      this.$store.commit('app/setAlertData', { alertData: msg })
+      this.$store.commit('app/setAlertData', {alertData: msg})
     },
 
-    validateField({ target }) {
+    validateField({target}) {
       if (!target.value) {
         this.setDefaultValue(target.name)
       }
@@ -199,7 +217,7 @@ export default {
 
     onDragEnd(ev) {
       if (ev.oldIndex === ev.newIndex) return
-      this.handleChange({ target: ev.target })
+      this.handleChange({target: ev.target})
     },
 
     async loadTemplateQuests() {

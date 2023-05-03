@@ -26,13 +26,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import AppLoader from '@/cmps/common/AppLoader.vue'
 
-import { msgService } from '@/services/msgService'
+import {msgService} from '@/services/msgService'
 
 export default {
-  components: { AppLoader },
+  components: {AppLoader},
   computed: {
     ...mapGetters('auth', ['authError', 'isAuthing']),
 
@@ -50,24 +50,23 @@ export default {
   },
   async created() {
     try {
-      if (!this.token && !this.user) this.$router.push({ name: 'Login' })
+      if (!this.token && !this.user) this.$router.push({name: 'Login'})
       if (!this.token) return
-      await this.$store.dispatch('auth/verifyEmail', { token: this.token })
+      await this.$store.dispatch('auth/verifyEmail', {token: this.token})
       const routeName = this.user ? 'ApplicantOverview' : 'Login'
-      this.$router.push({ name: routeName })
+      this.$router.push({name: routeName})
     } catch (err) {
-      if (!this.user) this.$router.push({ name: 'Login' })
+      if (!this.user) this.$router.push({name: 'Login'})
     } finally {
-
       // TODO: LOGGER SERVICE HERE
     }
   },
 
   methods: {
-    sendEmailAgain({ target }) {
+    sendEmailAgain({target}) {
       this.$store.dispatch('auth/sendVerifyEmail')
       const msg = msgService.send('email')
-      this.$store.commit('app/setAlertData', { alertData: msg })
+      this.$store.commit('app/setAlertData', {alertData: msg})
       target.disabled = true
       setTimeout(() => {
         target.disabled = false

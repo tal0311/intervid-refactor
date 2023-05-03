@@ -1,6 +1,6 @@
 <template>
   <section class="action-list">
-    <div class="actions" v-if="selectedItemCount">
+    <div v-if="selectedItemCount" class="actions">
       <section>
         <div
           class="pointer"

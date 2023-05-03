@@ -1,49 +1,49 @@
 .actions-container {
-    position: fixed;
-    grid-template-columns: 5.5rem 1fr 5.5rem;
-    width: 37.5rem;
-    bottom: 0;
-    inset-inline-start: 50%;
-    transform: translateX(calc(-50% * var(--dir))) translateY(-20%);
-    height: 5.62rem;
+  position: fixed;
+  grid-template-columns: 5.5rem 1fr 5.5rem;
+  width: 37.5rem;
+  bottom: 0;
+  inset-inline-start: 50%;
+  transform: translateX(calc(-50% * var(--dir))) translateY(-20%);
+  height: 5.62rem;
+  border-radius: 5px;
+  box-shadow: $modal-shadow;
+  background-color: $background-white;
+
+  .iteams-count {
+    font-size: 40px;
+    color: $background-white;
     border-radius: 5px;
-    box-shadow: $modal-shadow;
+    background-color: $cta;
+  }
+
+  .close-btn {
+    font-size: 42px;
+    border-radius: 5px;
     background-color: $background-white;
+  }
 
-    .iteams-count {
-        font-size: 40px;
-        color: $background-white;
-        border-radius: 5px;
-        background-color: $cta;
+  .inner-actions-container {
+    grid-template-columns: 1.3fr 1fr;
+    padding: 0.56rem;
+    border-inline-end: 1px solid #c6c6c7;
+
+    h4 {
+      font-size: 1.3rem;
+      margin-block-end: 0.4rem;
+    }
+  }
+
+  section.inner-actions-container > div:first-of-type {
+    flex-direction: column;
+    span {
+      font-size: 0.94rem;
+      margin-inline-start: 1px;
     }
 
-    .close-btn {
-        font-size: 42px;
-        border-radius: 5px;
-        background-color: $background-white;
+    .selected-iteams-count {
+      color: $medium-gray;
+      margin-inline-start: 5px;
     }
-
-    .inner-actions-container {
-        grid-template-columns: 1.3fr 1fr;
-        padding: 0.56rem;
-        border-inline-end: 1px solid #c6c6c7;
-
-        h4 {
-            font-size: 1.3rem;
-            margin-block-end: 0.4rem;
-        }
-    }
-
-    section.inner-actions-container>div:first-of-type {
-        flex-direction: column;
-        span {
-            font-size: 0.94rem;
-            margin-inline-start: 1px;
-        }
-
-        .selected-iteams-count {
-            color: $medium-gray;
-            margin-inline-start: 5px;
-        }
-    }
+  }
 }

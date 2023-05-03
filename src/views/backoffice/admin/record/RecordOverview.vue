@@ -1,13 +1,26 @@
 <template>
   <section class="record-overview overview">
     <div class="overview-header">
-      <record-filter :filter-by="filterBy" @set-filter="onSetFilterByKey" />
-      <AppPagination v-if="pageCount > 1" :item-count="totalRecordCount" :page-count="pageCount"
-        :curr-page="filterBy.currPage || 0" :items-per-page="filterBy.itemsPerPage" @change-page="onChangePage" />
+      <RecordFilter :filter-by="filterBy" @set-filter="onSetFilterByKey" />
+      <AppPagination
+        v-if="pageCount > 1"
+        :item-count="totalRecordCount"
+        :page-count="pageCount"
+        :curr-page="filterBy.currPage || 0"
+        :items-per-page="filterBy.itemsPerPage"
+        @change-page="onChangePage"
+      />
     </div>
 
-    <TableList :items="records" :items-per-page="filterBy.itemsPerPage" :total-item-count="totalRecordCount" :sort="sort"
-      :is-fetching="isFetching" :is-selected="isSelected" @sort="onSort" />
+    <TableList
+      :items="records"
+      :items-per-page="filterBy.itemsPerPage"
+      :total-item-count="totalRecordCount"
+      :sort="sort"
+      :is-fetching="isFetching"
+      :is-selected="isSelected"
+      @sort="onSort"
+    />
   </section>
 </template>
 
@@ -18,22 +31,23 @@ import TableList from '@/cmps/backoffice/TableList.vue'
 import AppPagination from '@/cmps/common/AppPagination.vue'
 
 // composables
-import { useFilter } from '@/composables/overview/useFilter'
-import { useSort } from '@/composables/overview/useSort'
-import { useSelection } from '@/composables/overview/useSelection'
-import { usePagination } from '@/composables/overview/usePagination'
+import {useFilter} from '@/composables/overview/useFilter'
+import {useSort} from '@/composables/overview/useSort'
+import {useSelection} from '@/composables/overview/useSelection'
+import {usePagination} from '@/composables/overview/usePagination'
 
 export default {
   components: {
     RecordFilter,
     TableList,
-
+    AppPagination,
   },
+
   setup() {
-    const { filterBy, onSetFilterByKey, setFilterFromRoute } = useFilter()
-    const { onChangePage } = usePagination({ filterBy, onSetFilterByKey })
-    const { sort, onSort } = useSort()
-    const { selectedItems, isSelected } = useSelection()
+    const {filterBy, onSetFilterByKey, setFilterFromRoute} = useFilter()
+    const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
+    const {sort, onSort} = useSort()
+    const {selectedItems, isSelected} = useSelection()
 
     return {
       filterBy,
@@ -86,19 +100,13 @@ export default {
   async created() {
     await this.loadRecords()
   },
-  components: {
-    RecordFilter,
-    TableList,
-    AppPagination,
-
-    methods: {
-      loadRecords() {
-        return this.$store.dispatch('record/loadRecords', {
-          filterBy: { ...this.filterBy },
-          sort: this.sort,
-        })
-      },
+  methods: {
+    loadRecords() {
+      return this.$store.dispatch('record/loadRecords', {
+        filterBy: {...this.filterBy},
+        sort: this.sort,
+      })
     },
-  }
+  },
 }
 </script>

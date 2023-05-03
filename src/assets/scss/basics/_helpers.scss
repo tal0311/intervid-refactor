@@ -1,46 +1,46 @@
-// Flex 
+// Flex
 .flex {
-    display: flex;
+  display: flex;
 }
 .grid {
-    display: grid;
+  display: grid;
 }
 
 .flex.inline-flex {
-    display: inline-flex;
+  display: inline-flex;
 }
 
 .align-self-center {
-    align-self: center;
+  align-self: center;
 }
 
 .align-items-center {
-    align-items: center
+  align-items: center;
 }
 
 .justify-content-center {
-    justify-content: center;
+  justify-content: center;
 }
 
 .flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-// List 
+// List
 .clean-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-// Text 
+// Text
 .vertical-text {
-    writing-mode: tb-rl;
-    transform: rotate(-180deg);
+  writing-mode: tb-rl;
+  transform: rotate(-180deg);
 }

@@ -1,7 +1,12 @@
 <template>
-  <div class="md-checkbox" :class="{ 'md-checkbox-inline': inline }" @click="onChange" @input="onChange">
-    <input :id="id" type="checkbox" :class="{ partial: partial, [color]: color }" :checked="value || checked"
-      :disabled="disabled" />
+  <div class="md-checkbox" :class="{'md-checkbox-inline': inline}" @click="onChange" @input="onChange">
+    <input
+      :id="id"
+      type="checkbox"
+      :class="{partial: partial, [color]: color}"
+      :checked="value || checked"
+      :disabled="disabled"
+    />
     <label class="check-label" :for="id">
       {{ txt }}
     </label>
@@ -37,7 +42,6 @@ export default {
   created() {
     this.id = this.$utilService.makeId(20)
     // Evan you claims this is a bad practice, and it is, especially since this._uid returns undefined.
-
   },
 
   methods: {

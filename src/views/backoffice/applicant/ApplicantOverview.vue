@@ -14,18 +14,29 @@
           set:  onSetFilterByKey,
         }) -->
         <SearchBox :value="filterBy.txt" placeholder="search-applicants" @input="onSetFilterByKey" />
-        <FilterBox :filter-by="filterBy" :is-applicant-overview="true" :filtered-applicant-count="filteredApplicantCount"
-          @set-filter="onSetFilter" @reset-filters="resetFilters" />
+        <FilterBox
+          :filter-by="filterBy"
+          :is-applicant-overview="true"
+          :filtered-applicant-count="filteredApplicantCount"
+          @set-filter="onSetFilter"
+          @reset-filters="resetFilters"
+        />
       </div>
       <div class="overview-actions">
-        <AppPagination v-if="pageCount > 1" :item-count="filteredApplicantCount" :page-count="pageCount || 0"
-          :curr-page="filterBy.currPage || 0" :items-per-page="filterBy.itemsPerPage" @change-page="onChangePage" />
+        <AppPagination
+          v-if="pageCount > 1"
+          :item-count="filteredApplicantCount"
+          :page-count="pageCount || 0"
+          :curr-page="filterBy.currPage || 0"
+          :items-per-page="filterBy.itemsPerPage"
+          @change-page="onChangePage"
+        />
 
-        <share-job v-if="job && job.applicantSummary.applicantCount" :job="job" />
+        <ShareJob v-if="job && job.applicantSummary.applicantCount" :job="job" />
       </div>
     </div>
 
-    <div class="filter-count" :class="{ shown: tagList.length || filterBy.txt }">
+    <div class="filter-count" :class="{shown: tagList.length || filterBy.txt}">
       <span>{{ tagList.length || filterBy.txt ? filterCount : '' }}</span>
       <div class="tag-list">
         <div v-for="tag in tagList" :key="tag.name" class="tag-preview">
@@ -35,34 +46,54 @@
       </div>
     </div>
 
-    <TableList :items="applicants" :selected-item-count="selectedItems && selectedItems.length"
-      :total-item-count="applicants && applicants.length" :max-item-count="applicantCount"
-      :filtered-item-count="filteredApplicantCount" :items-per-page="filterBy.itemsPerPage" :sort="sort"
-      :filter-by="filterBy" :is-fetching="isFetching" :should-gather="shouldGather" :is-selected="isSelected"
-      @select-all="onSelectAll" @sort="onSort" @select="onSelectItem" @load-next-items="onLoadNextApplicants" />
+    <TableList
+      :items="applicants"
+      :selected-item-count="selectedItems && selectedItems.length"
+      :total-item-count="applicants && applicants.length"
+      :max-item-count="applicantCount"
+      :filtered-item-count="filteredApplicantCount"
+      :items-per-page="filterBy.itemsPerPage"
+      :sort="sort"
+      :filter-by="filterBy"
+      :is-fetching="isFetching"
+      :should-gather="shouldGather"
+      :is-selected="isSelected"
+      @select-all="onSelectAll"
+      @sort="onSort"
+      @select="onSelectItem"
+      @load-next-items="onLoadNextApplicants"
+    />
 
     <div v-if="selectedItems.length" class="actions-container grid">
       <div class="flex-center iteams-count">{{ selectedItems.length }}</div>
       <section class="inner-actions-container grid">
         <div class="flex justify-content-center">
           <h4>Iteams Selected</h4>
-          <ItemsIndicator :selectedItems="selectedItems" />
+          <ItemsIndicator :selected-items="selectedItems" />
         </div>
-        <ActionsList :items="applicants" :selected-item-count="selectedItems && selectedItems.length"
-          :filter-by="filterBy" :is-locked-item-selected="isLockedItemSelected" @select-all="onSelectAll"
-          @archive="onArchiveSelected" @toggle-read="toggleIsRead" @remove="onRemoveSelected" @select="onSelectItem" />
+        <ActionsList
+          :items="applicants"
+          :selected-item-count="selectedItems && selectedItems.length"
+          :filter-by="filterBy"
+          :is-locked-item-selected="isLockedItemSelected"
+          @select-all="onSelectAll"
+          @archive="onArchiveSelected"
+          @toggle-read="toggleIsRead"
+          @remove="onRemoveSelected"
+          @select="onSelectItem"
+        />
       </section>
-      <div @click="clearSelectedItems" class="pointer flex-center close-btn" v-html="$getSvg('close')"></div>
+      <div class="pointer flex-center close-btn" @click="clearSelectedItems" v-html="$getSvg('close')"></div>
     </div>
   </section>
 </template>
 
 <script>
 // core
-import { watch } from 'vue'
+import {watch} from 'vue'
 // lib
-import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
+import {useStore} from 'vuex'
+import {useRoute} from 'vue-router'
 // cmps
 import AppPagination from '@/cmps/common/AppPagination.vue'
 import ActionsList from '@/cmps/common/ActionsList.vue'
@@ -73,16 +104,16 @@ import FilterBox from '@/cmps/common/FilterBox.vue'
 import ItemsIndicator from '@/cmps/backoffice/ItemsIndicator.vue'
 import ShareJob from '@/cmps/common/ShareJob.vue'
 // composables
-import { useFilter } from '@/composables/overview/useFilter'
-import { useSort } from '@/composables/overview/useSort'
-import { useTags } from '@/composables/overview/useTags'
-import { useSelection } from '@/composables/overview/useSelection'
-import { useShouldGather } from '@/composables/overview/useShouldGather'
-import { usePagination } from '@/composables/overview/usePagination'
+import {useFilter} from '@/composables/overview/useFilter'
+import {useSort} from '@/composables/overview/useSort'
+import {useTags} from '@/composables/overview/useTags'
+import {useSelection} from '@/composables/overview/useSelection'
+import {useShouldGather} from '@/composables/overview/useShouldGather'
+import {usePagination} from '@/composables/overview/usePagination'
 // services
 // import {userService} from '@/services/userService'
 // misc
-import { advancedPermsMap } from '@/services/constData'
+import {advancedPermsMap} from '@/services/constData'
 // import {useLoadItems} from '@/composables/overview/useLoadItems'
 
 export default {
@@ -92,19 +123,21 @@ export default {
     TableList,
     SearchBox,
     FilterBox,
-
     ShareJob,
+    AppPagination,
+    ActionsList,
+    ItemsIndicator,
   },
   setup() {
     const store = useStore()
     const route = useRoute()
 
-    const { filterBy, onSetFilterByKey, onSetFilter, setFilterFromRoute, resetFilters, onDeleteFilterByKey } = useFilter()
-    const { sort, onSort } = useSort()
-    const { selectedItems, setSelectedItems, onSelectAll, isSelected, onSelectItem, clearSelectedItems } = useSelection()
-    const { shouldGather, setShouldGather } = useShouldGather()
-    const { onChangePage } = usePagination({ filterBy, onSetFilterByKey })
-    const { tagList, onRemoveTag } = useTags({ onSetFilterByKey })
+    const {filterBy, onSetFilterByKey, onSetFilter, setFilterFromRoute, resetFilters, onDeleteFilterByKey} = useFilter()
+    const {sort, onSort} = useSort()
+    const {selectedItems, setSelectedItems, onSelectAll, isSelected, onSelectItem, clearSelectedItems} = useSelection()
+    const {shouldGather, setShouldGather} = useShouldGather()
+    const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
+    const {tagList, onRemoveTag} = useTags({onSetFilterByKey})
     // const {loadItems: loadApplicants} = useLoadItems({
     //   dispatchName: 'job/loadApplicants',
     //   filterBy,
@@ -119,7 +152,7 @@ export default {
       loadApplicants()
     })
     async function loadApplicants() {
-      const { jobId } = route.params
+      const {jobId} = route.params
       if (jobId) onSetFilterByKey('jobId', jobId)
       else onDeleteFilterByKey('jobId')
       await store.dispatch('job/loadApplicants', {
@@ -149,15 +182,6 @@ export default {
       shouldGather,
       setShouldGather,
       loadApplicants,
-    }
-  },
-  async created() {
-    this.loadApplicants()
-    this.loadJob()
-    if (this.job) {
-      this.$nextTick(() => {
-        document.title = 'Intervid | ' + this.job.info.title
-      })
     }
   },
   computed: {
@@ -208,7 +232,7 @@ export default {
     },
 
     filterCount() {
-      const { $getTrans } = this
+      const {$getTrans} = this
       if (this.filteredApplicantCount > 1)
         return `${$getTrans('showing')} ${this.filteredApplicantCount} ${$getTrans('applicants').toLowerCase()}`
       else if (this.filteredApplicantCount === 1) {
@@ -257,68 +281,6 @@ export default {
     //   deep: true,
     // }
   },
-  async created() {
-    this.loadApplicants()
-    this.loadJob()
-    if (this.job) {
-      this.$nextTick(() => {
-        document.title = 'Intervid | ' + this.job.info.title
-      })
-    }
-  },
-
-  methods: {
-    async loadJob() {
-      const { jobId } = this.$route.params
-      if (!jobId) return this.$store.commit('job/setJob', { job: null })
-      await this.$store.dispatch('job/loadJob', {
-        jobId,
-      })
-    },
-
-    onLoadNextApplicants() {
-      this.filterBy.currPage = this.filterBy.currPage + 1
-      this.setShouldGather(true)
-      this.loadApplicants()
-    },
-
-    async onArchiveSelected() {
-      const applicants = [...this.selectedItems]
-      await this.$store.dispatch('job/toggleArchiveApplicant', {
-        applicants,
-        isAllSelected: this.isAllSelected,
-      })
-      if (!this.applicants.length && this.filterBy?.currPage > 0) {
-        this.onChangePage({ diff: -1, cmpName: this.$route.name })
-      } else if (!this.applicants.length && this.filterBy?.currPage === 0) {
-        this.loadApplicants()
-      }
-      this.clearSelectedItems()
-    },
-
-    async onRemoveSelected() {
-      const applicants = [...this.selectedItems]
-      this.clearSelectedItems()
-      await this.$store.dispatch('job/removeApplicants', { applicants })
-
-      if (!this.applicants.length && this.filterBy?.currPage > 0) {
-        this.onChangePage({ diff: -1, cmpName: this.$route.name })
-      } else if (!this.applicants.length && this.filterBy?.currPage === 0) {
-        this.loadApplicants()
-      }
-    },
-
-    async toggleIsRead() {
-      const isRead = this.isAllSelectedRead
-      const updatedApplicants = this.selectedItems.map((applicant) => {
-        return { ...applicant, isRead: !isRead }
-      })
-      this.setSelectedItems(updatedApplicants)
-      await this.$store.dispatch('job/updateApplicants', {
-        applicants: updatedApplicants,
-      })
-    },
-  },
   watch: {
     // 'this.$route.query': {
     //   handler() {
@@ -349,14 +311,67 @@ export default {
     //   deep: true,
     // }
   },
-  components: {
-    TableList,
-    SearchBox,
-    FilterBox,
-    ShareJob,
-    AppPagination,
-    ActionsList,
-    ItemsIndicator,
+  async created() {
+    this.loadApplicants()
+    this.loadJob()
+    if (this.job) {
+      this.$nextTick(() => {
+        document.title = 'Intervid | ' + this.job.info.title
+      })
+    }
+  },
+
+  methods: {
+    async loadJob() {
+      const {jobId} = this.$route.params
+      if (!jobId) return this.$store.commit('job/setJob', {job: null})
+      await this.$store.dispatch('job/loadJob', {
+        jobId,
+      })
+    },
+
+    onLoadNextApplicants() {
+      this.filterBy.currPage = this.filterBy.currPage + 1
+      this.setShouldGather(true)
+      this.loadApplicants()
+    },
+
+    async onArchiveSelected() {
+      const applicants = [...this.selectedItems]
+      await this.$store.dispatch('job/toggleArchiveApplicant', {
+        applicants,
+        isAllSelected: this.isAllSelected,
+      })
+      if (!this.applicants.length && this.filterBy?.currPage > 0) {
+        this.onChangePage({diff: -1, cmpName: this.$route.name})
+      } else if (!this.applicants.length && this.filterBy?.currPage === 0) {
+        this.loadApplicants()
+      }
+      this.clearSelectedItems()
+    },
+
+    async onRemoveSelected() {
+      const applicants = [...this.selectedItems]
+      this.clearSelectedItems()
+      await this.$store.dispatch('job/removeApplicants', {applicants})
+
+      if (!this.applicants.length && this.filterBy?.currPage > 0) {
+        this.onChangePage({diff: -1, cmpName: this.$route.name})
+      } else if (!this.applicants.length && this.filterBy?.currPage === 0) {
+        this.loadApplicants()
+      }
+    },
+
+    async toggleIsRead() {
+      const isRead = this.isAllSelectedRead
+      const updatedApplicants = this.selectedItems.map((applicant) => {
+        return {...applicant, isRead: !isRead}
+      })
+      this.setSelectedItems(updatedApplicants)
+      await this.$store.dispatch('job/updateApplicants', {
+        applicants: updatedApplicants,
+      })
+    },
   },
 }
 </script>

@@ -1,14 +1,14 @@
 <template>
   <section class="items-indicator flex align-items-center">
     <span
-      class="material-icons"
       v-for="item in selectedItems.slice(0, 10)"
-      :style="{color: getColorByStatus(item)}"
       :key="item.id"
+      class="material-icons"
+      :style="{color: getColorByStatus(item)}"
     >
       circle
     </span>
-    <span class="selected-iteams-count" v-if="selectedItems.length > 10"> +{{ selectedItems.length - 10 }}</span>
+    <span v-if="selectedItems.length > 10" class="selected-iteams-count"> +{{ selectedItems.length - 10 }}</span>
   </section>
 </template>
 

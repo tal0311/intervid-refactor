@@ -9,7 +9,7 @@ export const mediaService = {
 // const MAX_VID_SIZE = 80 * MB
 
 const UNSPLASH_KEY = import.meta.env.VUE_APP_UNSPLASH_KEY
-const config = { CLOUD_NAME: 'webify', PRESET_NAME: 'intervid' }
+const config = {CLOUD_NAME: 'webify', PRESET_NAME: 'intervid'}
 
 function readFile(file) {
   return new Promise((resolve) => {
@@ -20,7 +20,7 @@ function readFile(file) {
 }
 
 async function uploadImg(img) {
-  const { CLOUD_NAME } = config
+  const {CLOUD_NAME} = config
   const PRESET_NAME = 'intervid_user'
   const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
   const formData = new FormData()
@@ -40,7 +40,7 @@ async function getImgs(search) {
     const res = await (
       await fetch(
         `https://api.unsplash.com/search/photos?page=1&per_page=20&query=${search}&client_id=${UNSPLASH_KEY}`,
-        { method: 'GET' },
+        {method: 'GET'},
       )
     ).json()
     return res.results.map((result) => {
@@ -199,34 +199,34 @@ export function addStreamStopListener(stream) {
         'ended',
         (e) => {
           callback(e)
-          callback = function () { }
+          callback = function () {}
         },
-        { once: true },
+        {once: true},
       )
       stream.addEventListener(
         'inactive',
         (e) => {
           callback(e)
-          callback = function () { }
+          callback = function () {}
         },
-        { once: true },
+        {once: true},
       )
       stream.getTracks().forEach((track) => {
         track.addEventListener(
           'ended',
           (e) => {
             callback(e)
-            callback = function () { }
+            callback = function () {}
           },
-          { once: true },
+          {once: true},
         )
         track.addEventListener(
           'inactive',
           (e) => {
             callback(e)
-            callback = function () { }
+            callback = function () {}
           },
-          { once: true },
+          {once: true},
         )
       })
     } catch (e) {
