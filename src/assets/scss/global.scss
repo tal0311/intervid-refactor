@@ -10,6 +10,7 @@
 @import 'basics/modals';
 @import 'basics/inputs';
 @import 'basics/buttons';
+@import 'basics/helpers';
 
 // Views
 @import 'views/InterviewApp';
@@ -36,6 +37,7 @@
 @import 'cmps/SideNav';
 @import 'cmps/VideoRecorder';
 @import 'cmps/GoogleBtn';
+@import 'cmps/Action-list';
 
 @import 'cmps/modals/MobileModal';
 @import 'cmps/modals/Screen';
@@ -58,6 +60,7 @@
 @import 'cmps/common/LngMenu';
 @import 'cmps/common/UserMenu';
 @import 'cmps/common/LongText';
+@import 'cmps/common/ActionsModal';
 
 @import 'cmps/backoffice/BackofficeToggle';
 @import 'cmps/backoffice/EmptyList';

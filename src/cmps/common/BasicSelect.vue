@@ -61,7 +61,7 @@ export default {
   },
 
   created() {
-    this.id = this.$utilsService.makeCmpId()
+    this.id = this.$utilService.makeCmpId()
   },
 
   mounted() {

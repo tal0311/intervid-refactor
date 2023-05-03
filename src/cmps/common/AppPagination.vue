@@ -64,7 +64,6 @@ export default {
       gap: 1,
     }
   },
-
   computed: {
     pageCount() {
       return Math.ceil(this.itemCount / this.itemsPerPage)

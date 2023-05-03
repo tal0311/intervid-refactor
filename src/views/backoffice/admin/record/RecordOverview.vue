@@ -1,11 +1,9 @@
 <template>
   <section class="record-overview overview">
     <div class="overview-header">
-      <RecordFilter :filter-by="filterBy" @set-filter="onSetFilterByKey" />
-
-      <ListActions
-        :selected-item-count="selectedItems.length"
-        :filter-by="filterBy"
+      <record-filter :filter-by="filterBy" @set-filter="onSetFilterByKey" />
+      <AppPagination
+        v-if="pageCount > 1"
         :item-count="totalRecordCount"
         :page-count="pageCount"
         :curr-page="filterBy.currPage || 0"
@@ -30,7 +28,8 @@
 // cmps
 import RecordFilter from '@/cmps/backoffice/admin/RecordFilter.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
-import ListActions from '@/cmps/backoffice/ListActions.vue'
+import AppPagination from '@/cmps/common/AppPagination.vue'
+
 // composables
 import {useFilter} from '@/composables/overview/useFilter'
 import {useSort} from '@/composables/overview/useSort'
@@ -100,6 +99,10 @@ export default {
   async created() {
     await this.loadRecords()
   },
+  components: {
+    RecordFilter,
+    TableList,
+    AppPagination,
 
   methods: {
     loadRecords() {
