@@ -1,6 +1,6 @@
 <template>
-  <section class="device-select" ref="modal-wrapper">
-    <div class="select-device-menu" @click="toggleAnswerModal(mediaType)" :class="{open: isAnswerModalOpen}">
+  <section ref="modal-wrapper" class="device-select">
+    <div class="select-device-menu" :class="{open: isAnswerModalOpen}" @click="toggleAnswerModal(mediaType)">
       <button class="device-select-btn">
         <label>{{ $getTrans(mediaType) }}</label>
         <div>
@@ -9,7 +9,7 @@
         </div>
       </button>
 
-      <div class="device-modal" v-if="devices.length > 1">
+      <div v-if="devices.length > 1" class="device-modal">
         <p
           v-for="device in devices"
           :key="device.id"
@@ -25,16 +25,26 @@
 
 <script>
 export default {
+  // props: ['selectedDeviceId', 'devices', 'type'],
+  props: {
+    selectedDeviceId: {
+      type: String,
+      required: true,
+    },
+    devices: {
+      type: Array,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['set-device'],
   data() {
     return {
       modalHight: 290,
     }
-  },
-
-  props: ['selectedDeviceId', 'devices', 'type'],
-
-  unmounted() {
-    if (this.isAnswerModalOpen) this.toggleAnswerModal()
   },
 
   computed: {
@@ -59,6 +69,10 @@ export default {
     selectedDeviceName() {
       return this.currDevice?.name || (this.devices[0]?.name && this.devices[0].name) || 'Not recognized'
     },
+  },
+
+  unmounted() {
+    if (this.isAnswerModalOpen) this.toggleAnswerModal()
   },
 
   methods: {

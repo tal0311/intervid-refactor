@@ -1,49 +1,49 @@
 <template>
-  <section class="applicant-edit-wrapper" v-if="applicantToEdit.info" ref="edit-wrapper">
+  <section v-if="applicantToEdit.info" ref="edit-wrapper" class="applicant-edit-wrapper">
     <div class="applicant-edit" @click.stop="">
       <h2>
         {{ $getTrans('edit-applicant') }}
-        <button @click="closeModal" ref="close-btn" class="material-icons">close</button>
+        <button ref="close-btn" class="material-icons" @click="closeModal">close</button>
       </h2>
-      <form @submit.prevent="onUpdateApplicant" novalidate>
+      <form novalidate @submit.prevent="onUpdateApplicant">
         <MainInput
+          v-model.trim="applicantToEdit.info.fName"
           input-name="fName"
           :label="$getTrans('f-name')"
           type="text"
-          v-model.trim="applicantToEdit.info.fName"
           :errors="errors"
           styled="main"
           validate="required"
         />
         <MainInput
+          v-model.trim="applicantToEdit.info.lName"
           input-name="lName"
           :label="$getTrans('l-name')"
           type="text"
-          v-model.trim="applicantToEdit.info.lName"
           :errors="errors"
           styled="main"
         />
         <MainInput
+          v-model.trim="applicantToEdit.info.email"
           input-name="email"
           :label="$getTrans('email')"
           type="email"
-          v-model.trim="applicantToEdit.info.email"
           :errors="errors"
           styled="main"
         />
         <MainInput
+          v-model.trim="applicantToEdit.info.phone"
           input-name="phone"
           :label="$getTrans('phone-number')"
           type="phone"
-          v-model.trim="applicantToEdit.info.phone"
           :errors="errors"
           styled="main"
         />
         <MainInput
+          v-model.trim="applicantToEdit.info.hometown"
           input-name="hometown"
           :label="$getTrans('hometown')"
           type="text"
-          v-model.trim="applicantToEdit.info.hometown"
           :errors="errors"
           styled="main"
         />
@@ -59,7 +59,14 @@ import {validate} from '@/services/errorService.js'
 import MainInput from '@/cmps/common/MainInput.vue'
 
 export default {
-  props: ['applicant'],
+  components: {MainInput},
+  props: {
+    applicant: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['update-applicant'],
 
   data() {
     return {
@@ -87,7 +94,5 @@ export default {
       this.$store.dispatch('app/toggleModal', {type: null})
     },
   },
-
-  components: {MainInput},
 }
 </script>

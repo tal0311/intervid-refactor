@@ -1,7 +1,7 @@
 <template>
   <section class="backoffice">
     <div class="backoffice-content" :class="{'no-header': isFullscreenLayout, 'no-overflow-y': isCardView}">
-      <div class="mobile-toggle-wrapper" v-if="isMobileToggleShown">
+      <div v-if="isMobileToggleShown" class="mobile-toggle-wrapper">
         <RouterLink class="mobile-create-btn" to="/create">
           <i class="material-icons">add</i>
         </RouterLink>
@@ -16,6 +16,23 @@ import {msgService} from '@/services/msgService'
 import {socketService, SOCKET_ON_DONE_INTERVIEW, SOCKET_ON_SAVE_APPLICANT} from '@/services/socketService'
 
 export default {
+  computed: {
+    isMobile() {
+      return this.$store.getters['app/isMobile']
+    },
+
+    isFullscreenLayout() {
+      return this.isMobile && (this.$route.fullPath.includes('create') || this.$route.fullPath.includes('details'))
+    },
+
+    isMobileToggleShown() {
+      return this.$route.name === 'ApplicantOverview' || this.$route.name === 'JobOverview'
+    },
+
+    isCardView() {
+      return this.$store.getters['job/viewType'] === 'cards'
+    },
+  },
   async created() {
     socketService.setUserWatch()
     socketService.on(SOCKET_ON_SAVE_APPLICANT, this.saveApplicant)
@@ -34,24 +51,6 @@ export default {
   unmounted() {
     socketService.off(SOCKET_ON_SAVE_APPLICANT, this.saveApplicant)
     socketService.off(SOCKET_ON_DONE_INTERVIEW, this.alertInterviewStatus)
-  },
-
-  computed: {
-    isMobile() {
-      return this.$store.getters['app/isMobile']
-    },
-
-    isFullscreenLayout() {
-      return this.isMobile && (this.$route.fullPath.includes('create') || this.$route.fullPath.includes('details'))
-    },
-
-    isMobileToggleShown() {
-      return this.$route.name === 'ApplicantOverview' || this.$route.name === 'JobOverview'
-    },
-
-    isCardView() {
-      return this.$store.getters['job/viewType'] === 'cards'
-    },
   },
 
   methods: {

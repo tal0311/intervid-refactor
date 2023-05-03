@@ -1,6 +1,7 @@
 <template>
-  <div class="status-dropdown" ref="modalWrapper" :class="{'full-width': isFullWidth}">
+  <div ref="modalWrapper" class="status-dropdown" :class="{'full-width': isFullWidth}">
     <button
+      ref="status-btn"
       class="status-btn"
       :class="{
         open: isOpen && !isMobile,
@@ -11,7 +12,6 @@
         backgroundColor: isDisabled ? '#EBEEF2' : applicantStatus.color,
         color: isDisabled ? '#AAADB5' : '#fff',
       }"
-      ref="status-btn"
       @click="toggleModal"
     >
       {{ $getTrans(statusBtnTxt) }}
@@ -23,8 +23,8 @@
         v-for="(status, idx) in statusMap"
         :key="status.label"
         :style="{backgroundColor: status.color}"
-        @click="onSetStatus(idx)"
         :data-label="idx === '0' ? $getTrans('evaluation') : idx === '5' ? $getTrans('recruitment') : ''"
+        @click="onSetStatus(idx)"
       >
         {{ $getTrans(status.label) }}
       </button>
@@ -54,7 +54,24 @@ import {getStatusByCode, statusMap} from '@/services/constData'
 import MobileModal from './modals/MobileModal.vue'
 
 export default {
-  props: ['applicant', 'isShowArchived', 'isFullWidth'],
+  components: {
+    MobileModal,
+  },
+  props: {
+    applicant: {
+      type: Object,
+      default: null,
+    },
+    isShowArchived: {
+      type: Boolean,
+      default: false,
+    },
+    isFullWidth: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  emits: ['on-set-status', 'modal-closed'],
   setup(props, {emit}) {
     const store = useStore()
     const modalHeight = computed(() => 342)
@@ -144,10 +161,6 @@ export default {
       if (statusCode === this.applicant.status) return
       this.$emit('on-set-status', statusCode)
     },
-  },
-
-  components: {
-    MobileModal,
   },
 }
 </script>

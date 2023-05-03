@@ -24,6 +24,9 @@
 
 <script>
 export default {
-  props: ['quest', 'idx'],
+  props: {
+    quest: {type: Object, required: true},
+    idx: {type: Number, required: true},
+  },
 }
 </script>

@@ -44,6 +44,11 @@ import LngMenu from '@/cmps/common/LngMenu.vue'
 import config from '@/config'
 
 export default {
+  components: {
+    AppModal,
+    InterviewError,
+    LngMenu,
+  },
   data() {
     return {
       updatePrms: [],
@@ -52,17 +57,6 @@ export default {
       failedFiles: [],
       totallyFailedfiles: [],
     }
-  },
-
-  async created() {
-    this.checkPrerequisites()
-    this.initInterview()
-    socketService.setup()
-  },
-
-  mounted() {
-    // console.log('mounted')
-    if (this.$route.query.demo) this.$store.commit({type: 'applicant/setIsPreview', isPreview: true})
   },
 
   computed: {
@@ -151,6 +145,30 @@ export default {
       const supportedBrowserVersion = supportedBrowsersMap[name]
       return userBrowserVersion >= supportedBrowserVersion
     },
+  },
+
+  watch: {
+    '$route.name': {
+      handler: function (nextRoute) {
+        if (nextRoute === 'OnBoarding') this.initInterview()
+        this.isInterview = nextRoute === 'Interview'
+      },
+    },
+
+    jobTitle() {
+      document.title = `${this.job.company.name} | ${this.jobTitle}`
+    },
+  },
+
+  async created() {
+    this.checkPrerequisites()
+    this.initInterview()
+    socketService.setup()
+  },
+
+  mounted() {
+    // console.log('mounted')
+    if (this.$route.query.demo) this.$store.commit({type: 'applicant/setIsPreview', isPreview: true})
   },
 
   methods: {
@@ -365,25 +383,6 @@ export default {
       navigator.sendBeacon(url, JSON.stringify({applicant, jobId: this.job._id}))
       loggerService.info(`[InterviewApp] [handleQuit] Applicant ${this.applicant.id} has quit the interview`)
     },
-  },
-
-  watch: {
-    '$route.name': {
-      handler: function (nextRoute) {
-        if (nextRoute === 'OnBoarding') this.initInterview()
-        this.isInterview = nextRoute === 'Interview'
-      },
-    },
-
-    jobTitle() {
-      document.title = `${this.job.company.name} | ${this.jobTitle}`
-    },
-  },
-
-  components: {
-    AppModal,
-    InterviewError,
-    LngMenu,
   },
 }
 </script>

@@ -1,118 +1,116 @@
 .cv-upload {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 
-    h4 {
-        font-size: 20px;
+  h4 {
+    font-size: 20px;
+  }
+
+  > small {
+    font-size: 14px;
+    color: $light-gray;
+  }
+
+  .validation {
+    color: red;
+    font-size: 12px;
+  }
+
+  .drag-drop {
+    align-self: flex-start;
+
+    > button {
+      background: #fff;
+      color: $dark-gray;
+      border: 1px solid $dark-gray;
+      border-radius: 4px;
+      padding: 0.5em 1em;
+
+      > .uppy-DragDrop-inner {
+        > svg {
+          display: none;
+        }
+      }
+
+      &:hover {
+        background: $dark-gray;
+        color: #fff;
+        border: 1px solid transparent;
+      }
     }
+  }
 
-    >small {
-        font-size: 14px;
-        color: $light-gray;
-    }
+  .progress-container {
+    position: relative;
+    align-self: flex-start;
 
+    .success {
+      border: 1px solid $light-gray;
+      display: flex;
+      border-radius: 4px;
+      overflow: hidden;
+      height: 60px;
 
+      .left {
+        background: $red;
+        width: 50px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    .validation {
-        color: red;
-        font-size: 12px;
-    }
+      .right {
+        display: flex;
+        background: #fff;
+        padding: 10px 15px 10px 20px;
+        gap: 20px;
+        overflow: hidden;
 
-    .drag-drop {
-        align-self: flex-start;
+        .file-info {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 5px;
 
-        >button {
-            background: #fff;
+          p {
+            font-size: 13px;
             color: $dark-gray;
-            border: 1px solid $dark-gray;
-            border-radius: 4px;
-            padding: 0.5em 1em;
 
-            >.uppy-DragDrop-inner {
-                >svg {
-                    display: none;
-                }
+            &:first-child {
+              font-weight: 700;
+              width: 180px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
             }
 
-            &:hover {
-                background: $dark-gray;
-                color: #fff;
-                border: 1px solid transparent;
+            &:last-child {
+              color: $light-gray;
             }
+          }
         }
+
+        button {
+          display: grid;
+          align-content: center;
+
+          i {
+            font-size: 16px;
+            font-weight: 600;
+          }
+        }
+      }
     }
 
-    .progress-container {
-        position: relative;
-        align-self: flex-start;
-
-        .success {
-            border: 1px solid $light-gray;
-            display: flex;
-            border-radius: 4px;
-            overflow: hidden;
-            height: 60px;
-
-            .left {
-                background: $red;
-                width: 50px;
-                color: #fff;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .right {
-                display: flex;
-                background: #fff;
-                padding: 10px 15px 10px 20px;
-                gap: 20px;
-                overflow: hidden;
-
-                .file-info {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    gap: 5px;
-
-                    p {
-                        font-size: 13px;
-                        color: $dark-gray;
-
-                        &:first-child {
-                            font-weight: 700;
-                            width: 180px;
-                            overflow: hidden;
-                            white-space: nowrap;
-                            text-overflow: ellipsis;
-                        }
-
-                        &:last-child {
-                            color: $light-gray;
-                        }
-                    }
-                }
-
-                button {
-                    display: grid;
-                    align-content: center;
-
-                    i {
-                        font-size: 16px;
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
-
-        .progress {
-            height: 60px;
-            position: absolute;
-            background-color: $cta;
-            top: 0;
-            opacity: 0.2;
-            pointer-events: none;
-        }
+    .progress {
+      height: 60px;
+      position: absolute;
+      background-color: $cta;
+      top: 0;
+      opacity: 0.2;
+      pointer-events: none;
     }
+  }
 }

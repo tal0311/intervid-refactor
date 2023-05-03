@@ -10,8 +10,8 @@
   border-radius: 8px;
   position: relative;
 
-  &:focus-within{
-    box-shadow:inset 5px 0 0 0 $cta ,0 0 15px -10px #0005;
+  &:focus-within {
+    box-shadow: inset 5px 0 0 0 $cta, 0 0 15px -10px #0005;
   }
 
   @include from-mobile-layout {

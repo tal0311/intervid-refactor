@@ -1,7 +1,7 @@
 const SVG_ICONS = {
-  // FILTER BOX
-  /* 🚩 ~~~ TODO - new filter icon ~~~ 🚩 */
-  filter: (width = 16, height = 16) => `
+    // FILTER BOX
+    /* 🚩 ~~~ TODO - new filter icon ~~~ 🚩 */
+    filter: (width = 16, height = 16) => `
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-adjustments-horizontal" width="${width}" height="${height}" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <circle cx="14" cy="6" r="2" />
@@ -16,8 +16,8 @@ const SVG_ICONS = {
         </svg>
     `,
 
-  // APP LOADER
-  loader: `
+    // APP LOADER
+    loader: `
                 <div class="left-wheel-wrapper">
                 <svg
                 class="wheel"
@@ -73,7 +73,7 @@ const SVG_ICONS = {
             </div>
     `,
 
-  oldLoader: `
+    oldLoader: `
              <div class="loader">
             <svg viewBox="0 0 362 264" xmlns="http://www.w3.org/2000/svg">
             <rect width="362" height="264" rx="8" />
@@ -218,8 +218,8 @@ const SVG_ICONS = {
         </div>
     `,
 
-  // SHARE BTNS
-  whatsappIcon: `
+    // SHARE BTNS
+    whatsappIcon: `
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -234,7 +234,7 @@ const SVG_ICONS = {
           >
     `,
 
-  facebookIcon: `
+    facebookIcon: `
             <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26px" height="26px">
             <path
               d="M16.403,9H14V7c0-1.032,0.084-1.682,1.563-1.682h0.868c0.552,0,1-0.448,1-1V3.064c0-0.523-0.401-0.97-0.923-1.005 C15.904,2.018,15.299,1.999,14.693,2C11.98,2,10,3.657,10,6.699V9H8c-0.552,0-1,0.448-1,1v2c0,0.552,0.448,1,1,1l2-0.001V21 c0,0.552,0.448,1,1,1h2c0.552,0,1-0.448,1-1v-8.003l2.174-0.001c0.508,0,0.935-0.381,0.993-0.886l0.229-1.996 C17.465,9.521,17.001,9,16.403,9z"
@@ -242,8 +242,8 @@ const SVG_ICONS = {
           </svg>
     `,
 
-  // UPLOADING ANIMATION
-  laptopUploadingAnimation: `
+    // UPLOADING ANIMATION
+    laptopUploadingAnimation: `
             <svg viewBox="0 0 431 300" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
             d="M416.976 300H13.5278C9.94003 300 6.49917 298.575 3.96221 296.038C1.42525 293.501 0 290.06 0 286.472C146.25 269.475 289.751 269.475 430.504 286.472C430.504 290.06 429.079 293.501 426.542 296.038C424.005 298.575 420.564 300 416.976 300Z"
@@ -274,7 +274,7 @@ const SVG_ICONS = {
         </svg>
     `,
 
-  videoUploadingAnimation: `
+    videoUploadingAnimation: `
             <svg class="video-1" width="150" height="182" viewBox="0 0 150 182" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_i_1756_77)">
             <rect class="applicant-video" y="32" width="150" height="150" rx="4" fill="#83BDE3" />
@@ -474,15 +474,15 @@ const SVG_ICONS = {
         </svg>
     `,
 
-  // VIDEO LOADER
-  videoLoader: `
+    // VIDEO LOADER
+    videoLoader: `
         <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="50" cy="50" r="45" />
          </svg>
     `,
 
-  // VIDEO PLAYER
-  playPauseAnimationIcons: `
+    // VIDEO PLAYER
+    playPauseAnimationIcons: `
         <svg class="play" width="76" height="77" viewBox="0 0 76 77" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
         d="M0 38.5V72.0279C0 75.0014 3.12925 76.9354 5.78885 75.6056L72.8446 42.0777C75.7928 40.6036 75.7928 36.3964 72.8446 34.9223L5.78886 1.39443C3.12926 0.064628 0 1.99861 0 4.97214V38.5Z"
@@ -495,8 +495,8 @@ const SVG_ICONS = {
     </svg>
     `,
 
-  // MEDIA CHECK
-  faceHelperMediaCheck: `
+    // MEDIA CHECK
+    faceHelperMediaCheck: `
             <svg viewBox="0 0 859 527">
             <line x1="5" y1="2.5" x2="153" y2="2.5" />
             <line x1="7.5" y1="5" x2="7.49999" y2="177" />
@@ -508,11 +508,18 @@ const SVG_ICONS = {
             <line x1="5" y1="519.5" x2="153" y2="519.5" />
         </svg>
     `,
+    visability: `
+    <svg xmlns="http://www.w3.org/2000/svg" fill="#6a6a6a" height="48" viewBox="0 96 960 960" width="48"><path d="M480.353 701Q540 701 582.5 658.147q42.5-42.853 42.5-102.5T582.147 453.5q-42.853-42.5-102.5-42.5T377.5 453.853q-42.5 42.853-42.5 102.5T377.853 658.5q42.853 42.5 102.5 42.5Zm-.882-35Q434 666 402 633.471q-32-32.53-32-78Q370 510 402.529 478q32.53-32 78-32Q526 446 558 478.529q32 32.53 32 78Q590 602 557.471 634q-32.53 32-78 32Zm.672 153Q350 819 241.5 747.5T78 556q55-120 163.357-191.5t238.5-71.5Q610 293 718.5 364.5T882 556q-55 120-163.357 191.5t-238.5 71.5ZM480 556Zm-.169 228Q598 784 694.872 722.918 791.745 661.836 844 556q-52.255-105.836-148.959-166.918Q598.337 328 480.169 328 362 328 264.628 389.082 167.255 450.164 116 556q51.255 105.836 148.459 166.918Q361.663 784 479.831 784Z"/></svg>    `,
+    archive: `
+    <svg xmlns="http://www.w3.org/2000/svg" fill="#6a6a6a" height="48" viewBox="0 96 960 960" width="48"><path d="M216 905q-24.725 0-42.362-17.112Q156 870.775 156 846V403.718q0-11.18 2-18.949Q160 377 166 371l50.375-62.025Q222 303 231.263 300.5t19.847-2.5h457.78q10.584 0 19.847 1.5 9.263 1.5 15.152 9.478l49.222 62.044Q799 377 801.5 384.769q2.5 7.769 2.5 18.949V846q0 24.775-17.637 41.888Q768.725 905 744 905H216Zm-9-530h545l-35.688-42H243l-36 42Zm-16 35v428q0 12 10 22t22 10h514q12 0 22-10t10-22V410H191Zm289 360 134-134-24-24-92 92V504h-35v200l-93-92-23 24 133 134ZM191 870h578-578Z"/></svg> `,
+    unArchive: ` <svg xmlns="http://www.w3.org/2000/svg" fill="#6a6a6a" height="48" viewBox="0 96 960 960" width="48"><path d="M216 905q-24.725 0-42.362-17.112Q156 870.775 156 846V403.718q0-11.18 2-18.949Q160 377 166 371l50.375-62.025Q222 303 231.263 300.5t19.847-2.5h457.78q10.584 0 19.847 1.5 9.263 1.5 15.152 9.478l49.222 62.044Q799 377 801.5 384.769q2.5 7.769 2.5 18.949V846q0 24.775-17.637 41.888Q768.725 905 744 905H216Zm-9-530h545l-35.688-42H243l-36 42Zm-16 35v428q0 12 10 22t22 10h514q12 0 22-10t10-22V410H191Zm272 360h35V569l92 93 24-26-134-132-133 132 23 26 93-93v201ZM191 870h578-578Z"/></svg> `,
+    close: `<svg xmlns="http://www.w3.org/2000/svg" fill="#6a6a6a" height="48" viewBox="0 96 960 960" width="48"><path d="m252 830-25-26 228-228-228-229 25-26 229 229 227-229 25 26-227 229 227 228-25 26-227-229-229 229Z"/></svg>`,
+    delete:`<svg fill="#6a6a6a" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path d="M304 900q-27.75 0-47.375-19.625T237 833V325h-40v-35h158v-29h251v29h158v35h-40v508q0 27.5-19.75 47.25T657 900H304Zm385-575H272v508q0 14 9.5 23t22.5 9h353q12 0 22-10t10-22V325ZM394 782h35V406h-35v376Zm139 0h35V406h-35v376ZM272 325v540-540Z"/></svg>`
 }
 
 export function getSvg(svgName, width, height) {
-  if (typeof SVG_ICONS[svgName] === 'function') {
-    return SVG_ICONS[svgName](width, height) || ''
-  }
-  return SVG_ICONS[svgName] || ''
+    if (typeof SVG_ICONS[svgName] === 'function') {
+        return SVG_ICONS[svgName](width, height) || ''
+    }
+    return SVG_ICONS[svgName] || ''
 }

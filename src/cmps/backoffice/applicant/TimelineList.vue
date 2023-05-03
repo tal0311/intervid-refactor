@@ -19,8 +19,24 @@
 import TimeEventPreview from './timeEventPreview.vue'
 
 export default {
-  props: ['timeline', 'applicantName', 'jobTitle'],
-
+  components: {
+    TimeEventPreview,
+  },
+  props: {
+    timeline: {
+      type: Array,
+      required: true,
+    },
+    applicantName: {
+      type: String,
+      required: true,
+    },
+    jobTitle: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['remove-note-event'],
   computed: {
     timelineToShow() {
       const timelineToShow = this.$utilService.deepClone(this.timeline)
@@ -32,10 +48,6 @@ export default {
     onRemoveNoteEvent(noteEvent) {
       this.$emit('remove-note-event', noteEvent.noteId)
     },
-  },
-
-  components: {
-    TimeEventPreview,
   },
 }
 </script>

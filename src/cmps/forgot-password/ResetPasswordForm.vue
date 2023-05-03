@@ -1,7 +1,7 @@
 <template>
   <section class="reset-password">
     <h1>{{ $getTrans('reset-your-password') }}</h1>
-    <form class="reset-password-form" @submit.prevent="handleSubmit" autocomplete="off">
+    <form class="reset-password-form" autocomplete="off" @submit.prevent="handleSubmit">
       <h2>
         {{ $getTrans('enter-the-code-we-sent-to') }}
         <p>{{ email }}</p>
@@ -10,14 +10,14 @@
       <section class="password-inputs">
         <CodeDigitInput
           v-for="(item, idx) in 6"
-          v-model="input[idx]"
-          @go-to="goto($event)"
-          @paste="paste($event)"
-          @remove="remove($event)"
-          :idx="idx"
-          :disabled="input.length < idx"
           :ref="`digitInput${idx}`"
           :key="item"
+          v-model="input[idx]"
+          :idx="idx"
+          :disabled="input.length < idx"
+          @go-to="goto($event)"
+          @paste-input="paste($event)"
+          @remove="remove($event)"
         />
       </section>
       <slot></slot>
@@ -27,13 +27,18 @@
 </template>
 
 <script>
+import {nextTick} from 'vue'
 import CodeDigitInput from './CodeDigitInput.vue'
 
 export default {
+  components: {CodeDigitInput},
   props: {
-    email: String,
+    email: {
+      type: String,
+      required: true,
+    },
   },
-
+  emits: ['on-next-step'],
   data() {
     return {
       input: [],
@@ -70,14 +75,13 @@ export default {
       } else {
         if (idx === 0) return
         this.input[idx - 1] = undefined
-        this.$nextTick(() => {
+        nextTick(() => {
           this.goto(idx - 1)
         })
       }
+      // See https://stackoverflow.com/questions/67469326/this-forceupdate-equivalent-in-vue-3-composition-api
       this.$forceUpdate()
     },
   },
-
-  components: {CodeDigitInput},
 }
 </script>

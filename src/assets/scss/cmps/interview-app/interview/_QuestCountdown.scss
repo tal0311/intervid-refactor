@@ -6,11 +6,11 @@
   gap: 20px;
   border-radius: 8px;
   background-color: $background-gray;
-  
-  @include from-narrow-layout{
+
+  @include from-narrow-layout {
     flex-grow: 1;
   }
-  
+
   .counter {
     background: $cta;
     width: 10vmin;

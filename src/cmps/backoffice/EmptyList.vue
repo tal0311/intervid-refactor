@@ -105,7 +105,13 @@
 import ShareBtns from '../JobEdit/ShareBtns.vue'
 
 export default {
-  props: ['itemName'],
+  components: {ShareBtns},
+  props: {
+    itemName: {
+      type: String,
+      default: '',
+    },
+  },
 
   computed: {
     isArchive() {
@@ -153,7 +159,5 @@ export default {
       return false
     },
   },
-
-  components: {ShareBtns},
 }
 </script>

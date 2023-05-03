@@ -1,5 +1,5 @@
 <template>
-  <ApplicationIndex class="embeded-preview" v-if="job">
+  <ApplicationIndex v-if="job" class="embeded-preview">
     <button class="main-btn" @click="onApply">
       {{ $getTrans('apply-for-this-job') }}
     </button>
@@ -11,15 +11,16 @@ import config from '@/config'
 import ApplicationIndex from '../interview/onboarding/ApplicationIndex.vue'
 
 export default {
-  created() {
-    this.loadJob()
-    this.setLang()
-  },
+  components: {ApplicationIndex},
 
   computed: {
     job() {
       return this.$store.getters['applicant/job']
     },
+  },
+  created() {
+    this.loadJob()
+    this.setLang()
   },
 
   methods: {
@@ -38,7 +39,5 @@ export default {
       window.open(`${config.baseUrl}interview/${this.job._id}`, '_blank')
     },
   },
-
-  components: {ApplicationIndex},
 }
 </script>

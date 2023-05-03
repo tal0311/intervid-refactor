@@ -17,6 +17,7 @@
 
 <script>
 export default {
+  emits: ['on-close'],
   computed: {
     isAdmin() {
       const loggedInUser = this.$store.getters['user/loggedInUser']

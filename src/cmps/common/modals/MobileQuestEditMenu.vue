@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  emits: ['on-remove-quest', 'on-close'],
   methods: {
     onRemoveQuest() {
       this.$emit('on-close')

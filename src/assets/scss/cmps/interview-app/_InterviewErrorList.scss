@@ -1,109 +1,106 @@
 .interview-error-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  inset: 0;
+  padding: 20px;
+  font-size: 14px;
+
+  .error-preview {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    position: absolute;
-    inset: 0;
-    padding: 20px;
-    font-size: 14px;
+    gap: 20px;
+    background-color: $dark-gray;
+    color: #fff;
+    border-radius: 4px;
+    // overflow: hidden;
+    padding: 10px;
+    position: relative;
 
-    .error-preview {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        background-color: $dark-gray;
-        color: #fff;
-        border-radius: 4px;
-        // overflow: hidden;
-        padding: 10px;
-        position: relative;
+    .error-info {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      line-height: 1.5em;
 
-        .error-info {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 20px;
-            line-height: 1.5em;
+      div {
+        p {
+          padding-inline-start: 30px;
 
-            div {
-                p {
-                    padding-inline-start: 30px;
-
-                    span {
-                        color: $blue;
-                        text-decoration: underline;
-                        white-space: nowrap;
-                        padding-inline-start: 5px;
-                        cursor: pointer;
-                    }
-                }
-
-                i {
-                    position: absolute;
-                }
-            }
-
-
-        }
-
-        .error-desc {
-            display: flex;
-            flex-direction: column;
-            padding-inline-start: 30px;
-
-            pre {
-                line-height: 1.5em;
-                background-color: $dark-gray;
-                color: #fff;
-            }
+          span {
+            color: $blue;
+            text-decoration: underline;
+            white-space: nowrap;
+            padding-inline-start: 5px;
+            cursor: pointer;
+          }
         }
 
         i {
-            font-size: 20px;
+          position: absolute;
         }
-
-        >button {
-            position: absolute;
-            top: 0;
-            inset-inline-end: 0;
-            transform: translateX(calc(40% * var(--dir))) translateY(-40%) scale(0);
-            font-size: 15px;
-            width: 19px;
-            height: 19px;
-            display: grid;
-            place-items: center;
-            border-radius: 40rem;
-            background-color: rgba($lightest-gray, 0.8);
-            color: $dark-gray;
-            transition: transform .1s;
-
-            &:hover {
-                background-color: $lightest-gray;
-            }
-        }
-
-        &:hover {
-            >button {
-                transform: translateX(calc(40% * var(--dir))) translateY(-40%) scale(1);
-            }
-        }
-
+      }
     }
 
-    .reload-btn {
-        position: absolute;
-        bottom: 0%;
-        inset-inline-start: 50%;
-        transform: translateX(calc(-50% * var(--dir))) translateY(-50%);
-        background: #fff;
-        padding: 0.5em 1em;
-        border-radius: 4px;
-        font-size: 1.2em;
-        line-height: 1em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 1000;
+    .error-desc {
+      display: flex;
+      flex-direction: column;
+      padding-inline-start: 30px;
+
+      pre {
+        line-height: 1.5em;
+        background-color: $dark-gray;
+        color: #fff;
+      }
     }
+
+    i {
+      font-size: 20px;
+    }
+
+    > button {
+      position: absolute;
+      top: 0;
+      inset-inline-end: 0;
+      transform: translateX(calc(40% * var(--dir))) translateY(-40%) scale(0);
+      font-size: 15px;
+      width: 19px;
+      height: 19px;
+      display: grid;
+      place-items: center;
+      border-radius: 40rem;
+      background-color: rgba($lightest-gray, 0.8);
+      color: $dark-gray;
+      transition: transform 0.1s;
+
+      &:hover {
+        background-color: $lightest-gray;
+      }
+    }
+
+    &:hover {
+      > button {
+        transform: translateX(calc(40% * var(--dir))) translateY(-40%) scale(1);
+      }
+    }
+  }
+
+  .reload-btn {
+    position: absolute;
+    bottom: 0%;
+    inset-inline-start: 50%;
+    transform: translateX(calc(-50% * var(--dir))) translateY(-50%);
+    background: #fff;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    font-size: 1.2em;
+    line-height: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+  }
 }

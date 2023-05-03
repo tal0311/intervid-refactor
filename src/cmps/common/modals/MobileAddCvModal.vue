@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-add-cv-modal">
-    <CvUpload @uploaded="onUploadCv" :applicant-full-name="applicantFullName" />
+    <CvUpload :applicant-full-name="applicantFullName" @uploaded="onUploadCv" />
   </div>
 </template>
 
@@ -8,7 +8,14 @@
 import CvUpload from '@/cmps/interview/CvUpload.vue'
 
 export default {
-  props: ['applicantFullName'],
+  components: {CvUpload},
+  props: {
+    applicantFullName: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['on-cv-upload', 'on-close'],
 
   methods: {
     onUploadCv(cv) {
@@ -16,7 +23,5 @@ export default {
       this.$emit('on-cv-upload', cv)
     },
   },
-
-  components: {CvUpload},
 }
 </script>

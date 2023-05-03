@@ -1,75 +1,73 @@
 .verify-email {
-   flex: 1;
-   display: flex;
-   justify-content: center;
-   height: calc(100vh - var(--header-height));
-   background-image: url('https://res.cloudinary.com/intervid/image/upload/v1661183521/Frontend/login-background_xypzsg.png');
-   background-size: 100% 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - var(--header-height));
+  background-image: url('https://res.cloudinary.com/intervid/image/upload/v1661183521/Frontend/login-background_xypzsg.png');
+  background-size: 100% 100%;
 
-   @include from-mobile-layout {
-      align-items: center;
-   }
+  @include from-mobile-layout {
+    align-items: center;
+  }
 
-   .confirm-email,
-   .confirmation-failed {
-      display: flex;
-      flex-direction: column;
-      background-color: #fff;
-      padding: 30px;
-      box-shadow: 0 0 50px -10px #00000020;
-      border-radius: 0px;
-      min-width: 100%;
+  .confirm-email,
+  .confirmation-failed {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 0 50px -10px #00000020;
+    border-radius: 0px;
+    min-width: 100%;
+    gap: 30px;
+
+    @include from-mobile-layout {
+      border-radius: 8px;
+      min-width: unset;
       gap: 30px;
+      max-width: 440px;
+    }
 
-      @include from-mobile-layout {
-         border-radius: 8px;
-         min-width: unset;
-         gap: 30px;
-         max-width: 440px;
+    p {
+      line-height: 1.7rem;
+
+      span {
+        font-weight: 700;
+      }
+    }
+
+    button {
+      color: $blue;
+      padding: 8px;
+      border-radius: 4px;
+
+      &:hover {
+        text-decoration: underline;
       }
 
-      p {
-         line-height: 1.7rem;
-
-         span{
-            font-weight: 700;
-         }
+      &[disabled] {
+        color: $btn-disable-color;
+        cursor: auto;
       }
+    }
+  }
 
-      button {
-         color: $blue;
-         padding: 8px;
-         border-radius: 4px;
+  .confirm-email {
+    text-align: center;
+    align-items: center;
 
-         &:hover{
-            text-decoration: underline;
-         }
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      color: $darkest-gray;
+      margin-bottom: 20px;
+    }
+  }
 
-         &[disabled] {
-            color: $btn-disable-color;
-            cursor: auto;
-         }
-      }
-
-   }
-
-   .confirm-email {
-      text-align: center;
-      align-items: center;
-
-      h1 {
-         font-size: 30px;
-         font-weight: 700;
-         color: $darkest-gray;
-         margin-bottom: 20px;
-      }
-   }
-
-   .confirmation-failed {
-
-      h2 {
-         font-size: 1.3rem;
-         font-weight: 600;
-      }
-   }
+  .confirmation-failed {
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+  }
 }

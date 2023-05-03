@@ -29,8 +29,8 @@
       {{ applicant.info.hometown || 'N/A' }}
     </div>
 
-    <div @click.stop="" class="status">
-      <StatusDropdown :applicant="applicant" @on-set-status="setStatus" :is-show-archived="filterBy.showArchived" />
+    <div class="status" @click.stop="">
+      <StatusDropdown :applicant="applicant" :is-show-archived="filterBy.showArchived" @on-set-status="setStatus" />
     </div>
 
     <div class="date">
@@ -47,8 +47,25 @@ import StatusDropdown from '@/cmps/common/StatusDropdown.vue'
 import ApplicantAvatar from '@/cmps/common/ApplicantAvatar.vue'
 
 export default {
-  props: ['applicant', 'isSelected', 'filterBy'],
-
+  components: {
+    StatusDropdown,
+    ApplicantAvatar,
+  },
+  props: {
+    applicant: {
+      type: Object,
+      required: true,
+    },
+    isSelected: {
+      type: Boolean,
+      required: true,
+    },
+    filterBy: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: ['select'],
   data() {
     return {
       isMenuOpen: false,
@@ -94,11 +111,6 @@ export default {
       // const desc = `to "${getStatusByCode(statusCode).label}" for candidate ${this.applicantFullName}`
       // this.$store.dispatch('activity/addActivity', activityMap.status({ desc }))
     },
-  },
-
-  components: {
-    StatusDropdown,
-    ApplicantAvatar,
   },
 }
 </script>

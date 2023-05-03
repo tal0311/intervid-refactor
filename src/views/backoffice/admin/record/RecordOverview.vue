@@ -1,11 +1,9 @@
 <template>
   <section class="record-overview overview">
     <div class="overview-header">
-      <RecordFilter :filter-by="filterBy" @set-filter="onSetFilterByKey" />
-
-      <ListActions
-        :selected-item-count="selectedItems.length"
-        :filter-by="filterBy"
+      <record-filter :filter-by="filterBy" @set-filter="onSetFilterByKey" />
+      <AppPagination
+        v-if="pageCount > 1"
         :item-count="totalRecordCount"
         :page-count="pageCount"
         :curr-page="filterBy.currPage || 0"
@@ -30,7 +28,8 @@
 // cmps
 import RecordFilter from '@/cmps/backoffice/admin/RecordFilter.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
-import ListActions from '@/cmps/backoffice/ListActions.vue'
+import AppPagination from '@/cmps/common/AppPagination.vue'
+
 // composables
 import {useFilter} from '@/composables/overview/useFilter'
 import {useSort} from '@/composables/overview/useSort'
@@ -38,6 +37,11 @@ import {useSelection} from '@/composables/overview/useSelection'
 import {usePagination} from '@/composables/overview/usePagination'
 
 export default {
+  components: {
+    RecordFilter,
+    TableList,
+    ListActions,
+  },
   setup() {
     const {filterBy, onSetFilterByKey, setFilterFromRoute} = useFilter()
     const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
@@ -54,9 +58,6 @@ export default {
       onChangePage,
       onSort,
     }
-  },
-  async created() {
-    await this.loadRecords()
   },
 
   computed: {
@@ -83,15 +84,6 @@ export default {
     },
   },
 
-  methods: {
-    loadRecords() {
-      return this.$store.dispatch('record/loadRecords', {
-        filterBy: {...this.filterBy},
-        sort: this.sort,
-      })
-    },
-  },
-
   watch: {
     $route() {
       this.setFilterFromRoute()
@@ -104,11 +96,21 @@ export default {
       deep: true,
     },
   },
-
+  async created() {
+    await this.loadRecords()
+  },
   components: {
     RecordFilter,
     TableList,
-    ListActions,
+    AppPagination,
+
+  methods: {
+    loadRecords() {
+      return this.$store.dispatch('record/loadRecords', {
+        filterBy: {...this.filterBy},
+        sort: this.sort,
+      })
+    },
   },
 }
 </script>

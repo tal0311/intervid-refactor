@@ -1,31 +1,31 @@
 // Colors:
-$cta: #FD266F;
-$light-cta: #FFF1F1;
+$cta: #fd266f;
+$light-cta: #fff1f1;
 $background-cta: linear-gradient(to end, #fb387b 0%, #fd2770 50%, #fd0f60 100%);
 
-$lightest-gray: #EBEEF2;
+$lightest-gray: #ebeef2;
 $light-gray: #9c9ea5;
-// $light-gray: #a9abb3; 
+// $light-gray: #a9abb3;
 $medium-gray: #82848a;
 $dark-gray: #55575c;
 $darkest-gray: #303135;
 
 // $background-gray: #f0f2f5;
 $background-gray: #f4f6fa;
+$background-white: rgb(255, 255, 255);
 
-$btn-disable-background: #EDEFF4;
-$btn-disable-color: #AAADB5;
+$btn-disable-background: #edeff4;
+$btn-disable-color: #aaadb5;
 
 $blue: #3385ff;
 $lightest-blue: #a8dadc;
 $light-blue: #457b9d;
 $dark-blue: #1d3557;
 
-$red: #E34D4D;
-$green: #66D064;
-$yellow: #E9C467;
-$err-red: #FF6584;
-
+$red: #e34d4d;
+$green: #66d064;
+$yellow: #e9c467;
+$err-red: #ff6584;
 
 // Breakpoints:
 $mini-breakpoint: 520px;
@@ -35,7 +35,6 @@ $normal-breakpoint: 1250px;
 $wide-breakpoint: 1460px;
 $max-breakpoint: 1800px;
 
-
 //Size:
 $header-height: 60px;
 $mobile-navbar-height: 109px;
@@ -43,7 +42,8 @@ $short-td-width: 80px;
 $interview-container-width: calc(min(calc(200vh - 500px), 80%));
 $side-nav-width: 250px;
 
-
 //Box shadows:
 $light-shadow: 0 4px 10px 0 #0000000a;
 $border-bottom-shadow: 0 4px 10px 0 #0000000a;
+$modal-shadow: 0px 15px 50px rgba(0, 0, 0, 0.3);;
+

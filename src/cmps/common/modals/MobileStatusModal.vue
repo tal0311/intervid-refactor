@@ -4,8 +4,8 @@
       v-for="(status, idx) in statusMap"
       :key="status.label"
       :style="{backgroundColor: status.color}"
-      @click="onSetStatus(idx)"
       :data-label="idx === '0' ? $getTrans('evaluation') : idx === '5' ? $getTrans('recruitment') : ''"
+      @click="onSetStatus(idx)"
     >
       {{ $getTrans(status.label) }}
     </button>
@@ -16,6 +16,7 @@
 import {statusMap} from '@/services/constData'
 
 export default {
+  emits: ['set-status'],
   computed: {
     statusMap() {
       return statusMap

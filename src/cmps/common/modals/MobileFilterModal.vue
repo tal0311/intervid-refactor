@@ -16,24 +16,24 @@
         <div class="filter-list">
           <label :class="{selected: !mutableUpdatedFilterBy.daysAgo}" @input="$emit('edit-filter', 'daysAgo', '')">
             <input
+              v-model="mutableUpdatedFilterBy.daysAgo"
               type="radio"
               value=""
               :checked="!mutableUpdatedFilterBy.daysAgo"
-              v-model="mutableUpdatedFilterBy.daysAgo"
             />
             {{ $getTrans('all') }}
           </label>
           <label
             v-for="date in filterDates"
-            :class="{selected: mutableUpdatedFilterBy.daysAgo == date.daysAgo}"
             :key="date.id"
+            :class="{selected: mutableUpdatedFilterBy.daysAgo == date.daysAgo}"
             @input="$emit('edit-filter', 'daysAgo', date.daysAgo)"
           >
             <input
+              v-model="mutableUpdatedFilterBy.daysAgo"
               type="radio"
               :value="date.daysAgo"
               :checked="mutableUpdatedFilterBy.daysAgo == date.daysAgo"
-              v-model="mutableUpdatedFilterBy.daysAgo"
             />
             {{ $getTrans(date.label) }}
           </label>
@@ -53,10 +53,10 @@
             "
           >
             <input
+              v-model="mutableUpdatedFilterBy.incomplete"
               type="radio"
               :checked="mutableUpdatedFilterBy.incomplete === undefined"
               :value="undefined"
-              v-model="mutableUpdatedFilterBy.incomplete"
             />
             {{ $getTrans('show-all') }}
           </label>
@@ -67,10 +67,10 @@
             @input="$emit('edit-filter', 'incomplete', $event.target.checked)"
           >
             <input
+              v-model="mutableUpdatedFilterBy.incomplete"
               type="radio"
               :value="true"
               :checked="mutableUpdatedFilterBy.incomplete === false"
-              v-model="mutableUpdatedFilterBy.incomplete"
             />
             {{ $getTrans('show-incomplete') }}
           </label>
@@ -80,10 +80,10 @@
             @input="$emit('edit-filter', 'incomplete', !$event.target.checked)"
           >
             <input
+              v-model="mutableUpdatedFilterBy.incomplete"
               type="radio"
               :value="false"
               :checked="mutableUpdatedFilterBy.incomplete"
-              v-model="mutableUpdatedFilterBy.incomplete"
             />
             {{ $getTrans('show-complete') }}
           </label>
@@ -101,11 +101,11 @@
           <div class="main-toggle">
             <label for="show-archived">
               <input
-                type="checkbox"
                 id="show-archived"
+                v-model="mutableUpdatedFilterBy.showArchived"
+                type="checkbox"
                 name="show-archived"
                 :checked="mutableUpdatedFilterBy.showArchived"
-                v-model="mutableUpdatedFilterBy.showArchived"
                 @input="$emit('edit-filter', 'showArchived', $event.target.checked)"
               />
               <div class="outer">
@@ -131,8 +131,29 @@
 import {statusMap, filterDates} from '@/services/constData'
 
 export default {
-  props: ['filterBy', 'expectedEntityCount', 'filteredJobCount', 'entity', 'updatedFilterBy'],
-
+  props: {
+    filterBy: {
+      type: Object,
+      default: null,
+    },
+    expectedEntityCount: {
+      type: Number,
+      default: 0,
+    },
+    filteredJobCount: {
+      type: Number,
+      default: 0,
+    },
+    entity: {
+      type: String,
+      default: '',
+    },
+    updatedFilterBy: {
+      type: Object,
+      default: null,
+    },
+  },
+  emits: ['edit-filter', 'clear-filter', 'set-filter', 'select-status', 'reset-filter'],
   data() {
     return {
       // selectedDaysAgo: this.filterBy?.daysAgo || '',
@@ -173,7 +194,7 @@ export default {
     showCount() {
       const {$getTrans} = this
       if (this.expectedEntityCount > 1)
-        return `${$getTrans('show')} ${this.expectedEntityCount} 
+        return `${$getTrans('show')} ${this.expectedEntityCount}
           ${$getTrans(`${this.entity}s`.toLowerCase()).toLowerCase()}`
       else if (this.expectedEntityCount === 1) {
         return this.lng === 'en'

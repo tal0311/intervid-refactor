@@ -27,8 +27,17 @@
 
 <script>
 export default {
-  props: ['items', 'headers'],
-
+  props: {
+    items: {
+      type: Array,
+      default: () => [],
+    },
+    headers: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ['item-clicked'],
   computed: {
     dataHeaders() {
       return this.headers.filter((head) => head.txt !== 'Actions')

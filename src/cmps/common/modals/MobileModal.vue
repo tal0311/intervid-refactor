@@ -1,11 +1,11 @@
 <template>
   <section
-    v-touch:moving="onDrag"
     ref="modal"
+    v-touch:moving="onDrag"
     class="mobile-modal"
     :style="{transform: `translateY(${dragPercent + '%'}`}"
   >
-    <div class="modal-header" v-touch:start="onDown" v-touch:end="onUp">
+    <div v-touch:start="onDown" v-touch:end="onUp" class="modal-header">
       <h4>{{ $getTrans(cmpName) }}</h4>
     </div>
 
@@ -65,25 +65,98 @@ import MobileAnsRuleMenu from '@/cmps/JobEdit/MobileAnsRuleMenu.vue'
 import MobileTimelimitMenu from '@/cmps/JobEdit/MobileTimelimitMenu.vue'
 
 export default {
-  props: [
-    'cmpName',
-    'filterBy',
-    'job',
-    'template',
-    'applicantFullName',
-    'quest',
-    'isRemoveShown',
-    'filteredJobCount',
-    'expectedEntityCount',
-    'entity',
-    'updatedFilterBy',
-    'isOneTry',
-    'selectedAnsRule',
-    'selectedTimelimit',
+  components: {
+    MobileFilterModal,
+    MobileJobMenuModal,
+    MobileUserModal,
+    MobileStatusModal,
+    MobileLngModal,
+    MobileApplicantMenuModal,
+    MobileAddCvModal,
+    MobileInterviewFormMenuModal,
+    MobileQuestEditMenu,
+    MobileTimeEventMenu,
+    MobileAnsRuleMenu,
+  },
+  props: {
+    cmpName: {
+      type: String,
+      required: true,
+    },
+    filterBy: {
+      type: Object,
+      default: null,
+    },
+    job: {
+      type: Object,
+      default: null,
+    },
+    template: {
+      type: Object,
+      default: null,
+    },
+    applicantFullName: {
+      type: String,
+      default: '',
+    },
+    quest: {
+      type: Object,
+      default: null,
+    },
+    isRemoveShown: Boolean,
+    filteredJobCount: {
+      type: Number,
+      default: null,
+    },
+    expectedEntityCount: {
+      type: Number,
+      default: null,
+    },
+    entity: {
+      type: Object,
+      default: null,
+    },
+    updatedFilterBy: {
+      type: Object,
+      default: null,
+    },
+    isOneTry: Boolean,
+    selectedAnsRule: {
+      type: Object,
+      default: null,
+    },
+    selectedTimelimit: {
+      type: Object,
+      default: null,
+    },
+  },
+  emits: [
+    'edit-filter',
+    'reset-filter',
+    'set-status',
+    'select-status',
+    'emit-action',
+    'on-archive-applicant',
+    'on-edit-applicant',
+    'on-edit-template',
+    'on-remove-quest',
+    'on-remove-note-event',
+    'on-cv-upload',
+    'on-close',
+    'on-clone-job',
+    'on-open-preview',
+    'on-share',
+    'on-toggle-archive',
+    'on-copy-url',
+    'on-go-to-page',
+    'set-ans-rule',
+    'set-timelimit',
+    'set-filter',
   ],
 
   data() {
     return {
+      // TODO: Remove this from the reactive data and use a better approach (strings is the best)
       cmps: {
         filter: MobileFilterModal,
         'job-actions': MobileJobMenuModal,
@@ -110,17 +183,6 @@ export default {
     }
   },
 
-  mounted() {
-    const {top, height} = this.$refs.modal.getBoundingClientRect()
-    this.modalOptions.modalTop = top
-    this.modalOptions.modalHeight = height
-    document.body.style.overflow = 'hidden'
-  },
-
-  unmounted() {
-    document.body.style.overflow = 'initial'
-  },
-
   computed: {
     cmpToShow() {
       return this.cmps[this.cmpName]
@@ -132,6 +194,23 @@ export default {
       if (this.isDragging) return percent > 0 ? percent : 0
       return percent >= 50 ? 110 : 0
     },
+  },
+
+  watch: {
+    dragPercent(value) {
+      if (value > 100) this.closeModal()
+    },
+  },
+
+  mounted() {
+    const {top, height} = this.$refs.modal.getBoundingClientRect()
+    this.modalOptions.modalTop = top
+    this.modalOptions.modalHeight = height
+    document.body.style.overflow = 'hidden'
+  },
+
+  unmounted() {
+    document.body.style.overflow = 'initial'
   },
 
   methods: {
@@ -163,26 +242,6 @@ export default {
     getClientY(ev) {
       return ev.type.includes('touch') ? ev.targetTouches[0].clientY : ev.clientY
     },
-  },
-
-  watch: {
-    dragPercent(value) {
-      if (value > 100) this.closeModal()
-    },
-  },
-
-  components: {
-    MobileFilterModal,
-    MobileJobMenuModal,
-    MobileUserModal,
-    MobileStatusModal,
-    MobileLngModal,
-    MobileApplicantMenuModal,
-    MobileAddCvModal,
-    MobileInterviewFormMenuModal,
-    MobileQuestEditMenu,
-    MobileTimeEventMenu,
-    MobileAnsRuleMenu,
   },
 }
 </script>

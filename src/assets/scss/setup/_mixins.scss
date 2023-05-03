@@ -40,9 +40,9 @@
     pointer-events: none;
   }
 
-  &>video,
-  &>img,
-  &>iframe {
+  & > video,
+  & > img,
+  & > iframe {
     position: absolute;
     top: 0;
     inset-inline-start: 0;
@@ -52,8 +52,8 @@
     width: 100%;
   }
 
-  >img,
-  >video {
+  > img,
+  > video {
     object-fit: cover;
   }
 }

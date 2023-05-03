@@ -12,6 +12,6 @@
 
 <script>
 export default {
-  methods: {},
+  emits: ['on-archive-applicant', 'on-edit-applicant'],
 }
 </script>

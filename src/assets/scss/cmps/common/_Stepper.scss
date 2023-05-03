@@ -1,8 +1,7 @@
 .stepper {
   $bulletSize: 2rem;
   $bulletSizeHalf: calc(#{$bulletSize} / 2);
-  $stepTransition: background 0.5s,
-  color 0.5s;
+  $stepTransition: background 0.5s, color 0.5s;
   $step-bar-bg: gray;
   $step-bullet-bg: gray;
   $bulletColor: #fff;

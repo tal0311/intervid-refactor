@@ -1,5 +1,5 @@
 <template>
-  <div class="search-box" @click="setFocus(true)" v-click-outside="() => setFocus(false)" :class="{focused: isFocus}">
+  <div v-click-outside="() => setFocus(false)" class="search-box" :class="{focused: isFocus}" @click="setFocus(true)">
     <!-- Second option, according to ApplicantOverview
     <input
     :value="modelValue"
@@ -12,12 +12,12 @@
     -->
     <input
       v-model.trim="txt"
-      @focus="setFocus(true)"
       :autofocus="autofocus"
       :placeholder="$getTrans(placeholder)"
       type="search"
       autocomplete="off"
       results="5"
+      @focus="setFocus(true)"
     />
     <i class="material-icons">search</i>
   </div>

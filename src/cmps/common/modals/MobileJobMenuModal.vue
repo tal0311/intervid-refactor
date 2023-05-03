@@ -27,6 +27,25 @@
 
 <script>
 export default {
-  props: ['job'],
+  props: {
+    job: {
+      type: Object,
+      required: true,
+    },
+  },
+  emits: [
+    'on-remove-note-event',
+    'on-remove-quest',
+    'on-edit-template',
+    'on-cv-upload',
+    'on-clone-job',
+    'on-open-preview',
+    'on-share',
+    'on-toggle-archive',
+    'on-copy-url',
+    'on-go-to-page',
+    'set-ans-rule',
+    'set-timelimit',
+  ],
 }
 </script>

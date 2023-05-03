@@ -14,6 +14,7 @@ export function useVideo({emit, videoRef = null, videoRecorderRef = null}) {
   // Data
   // #unused
   // Left this as an es-lint error so we can remember to use / remove it later
+  //  eslint-disable-next-line no-unused-vars
   let isPaused = false
   // #SHARED WITH CMP AKLOSHBFKJASDFBVJKASDCBH
   const isAudioReady = ref(false)

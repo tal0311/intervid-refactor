@@ -1,5 +1,5 @@
 <template>
-  <section class="time-event-preview" v-if="timeEvent">
+  <section v-if="timeEvent" class="time-event-preview">
     <i :style="{color: timeEventToShow.color}" class="time-event-icon material-icons" :class="timeEventToShow.icon">
       {{ timeEventToShow.icon }}
     </i>
@@ -25,7 +25,27 @@ import {timelineService} from '@/services/timelineService'
 import TimeEventMenu from './TimeEventMenu.vue'
 
 export default {
-  props: ['timeEvent', 'idx', 'jobTitle', 'applicantName'],
+  components: {TimeEventMenu},
+  props: {
+    timeEvent: {
+      type: Object,
+      required: true,
+    },
+    idx: {
+      type: Number,
+      required: true,
+    },
+    jobTitle: {
+      type: String,
+      required: true,
+    },
+    applicantName: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['remove-note-event'],
+
   computed: {
     timeEventToShow() {
       return timelineService.getTimeEventToShow(this.timeEvent, this.applicantName, this.jobTitle, this.$getTrans)
@@ -69,7 +89,5 @@ export default {
       })
     },
   },
-
-  components: {TimeEventMenu},
 }
 </script>

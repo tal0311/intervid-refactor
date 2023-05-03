@@ -8,7 +8,7 @@
     <AppSpinner v-if="isUploading" />
 
     <label class="upload-label" :for="`upload-${id}`"> </label>
-    <input @input="onUploadImg" type="file" name="" :id="`upload-${id}`" accept="image/*" />
+    <input :id="`upload-${id}`" type="file" name="" accept="image/*" @input="onUploadImg" />
   </div>
 </template>
 
@@ -17,7 +17,14 @@ import {mediaService} from '@/services/mediaService'
 import AppSpinner from './AppSpinner.vue'
 
 export default {
-  props: ['initialImg'],
+  components: {AppSpinner},
+  props: {
+    initialImg: {
+      type: String,
+      default: '',
+    },
+  },
+  emits: ['upload'],
 
   data() {
     return {
@@ -27,14 +34,14 @@ export default {
     }
   },
 
-  created() {
-    this.id = this.$utilService.makeCmpId()
-  },
-
   computed: {
     defaultImg() {
       return `https://graffiti-online.co.il/images/notfound.png`
     },
+  },
+
+  created() {
+    this.id = this.$utilService.makeCmpId()
   },
 
   methods: {
@@ -54,7 +61,5 @@ export default {
       this.$emit('upload', imgUrl)
     },
   },
-
-  components: {AppSpinner},
 }
 </script>

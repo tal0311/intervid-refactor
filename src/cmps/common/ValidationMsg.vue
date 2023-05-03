@@ -1,11 +1,14 @@
 <template>
-  <span class="validation" v-if="error"> {{ $getTrans(error) }} </span>
+  <span v-if="error" class="validation"> {{ $getTrans(error) }} </span>
 </template>
 
 <script>
 export default {
-  props: ['error'],
-
-  methods: {},
+  props: {
+    error: {
+      type: String,
+      default: null,
+    },
+  },
 }
 </script>

@@ -61,7 +61,7 @@
         &::before,
         &::after {
           border: 5px solid transparent;
-          content: "";
+          content: '';
           display: block;
         }
 
@@ -83,7 +83,7 @@
     font-size: 0.875rem;
     padding-bottom: 10px;
 
-    >section:not(.card) {
+    > section:not(.card) {
       display: grid;
       align-items: center;
       border-bottom: 1px solid $lightest-gray;
@@ -92,7 +92,7 @@
       padding: 20px 15px;
       background: #fff;
 
-      >*:not(.status):not(.actions) {
+      > *:not(.status):not(.actions) {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow-x: hidden;
@@ -103,7 +103,7 @@
       padding-inline-end: calc(40px - 0.5rem);
       gap: 0.25em;
 
-      >section:not(.card) {
+      > section:not(.card) {
         padding: 20px;
         border-radius: 4px;
 

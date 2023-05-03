@@ -34,33 +34,45 @@
     </h2>
     <div class="overview-header">
       <div class="search-filter-container">
-        <SearchBox :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-jobs" />
+        <SearchBox :value="filterBy.txt" placeholder="search-jobs" @input="onSetFilterByKey" />
         <FilterBox
-          @set-filter="onSetFilter"
-          @reset-filters="resetFilters"
           :filter-by="filterBy"
           :filtered-job-count="filteredJobCount"
+          @set-filter="onSetFilter"
+          @reset-filters="resetFilters"
         />
       </div>
-
-      <ListActions
-        :selected-item-count="selectedItems.length"
-        :filter-by="filterBy"
+      <AppPagination
         :item-count="filteredJobCount || 0"
-        :curr-page="filterBy.currPage || 0"
         :page-count="pageCount || 0"
+        :curr-page="filterBy.currPage || 0"
         :items-per-page="filterBy.itemsPerPage"
-        @archive="onArchiveSelected"
-        @remove="onRemoveSelected"
         @change-page="onChangePage"
       />
+    </div>
+    <div v-if="selectedItems.length" class="actions-container grid">
+      <div class="flex-center iteams-count">{{ selectedItems.length }}</div>
+      <section class="inner-actions-container grid">
+        <div class="flex justify-content-center">
+          <h4>Iteams Selected</h4>
+          <ItemsIndicator :selectedItems="selectedItems" />
+        </div>
+        <ActionsList
+          :selected-item-count="selectedItems.length"
+          :filter-by="filterBy"
+          @archive="onArchiveSelected"
+          @remove="onRemoveSelected"
+          @change-page="onChangePage"
+        />
+      </section>
+      <div @click="clearSelectedItems" class="pointer flex-center close-btn" v-html="$getSvg('close')"></div>
     </div>
 
     <div class="filter-count" :class="{shown: tagList.length || filterBy.txt}">
       <span>{{ tagList.length || filterBy.txt ? filterCount : '' }}</span>
 
       <div class="tag-list">
-        <div class="tag-preview" v-for="tag in tagList" :key="tag.name">
+        <div v-for="tag in tagList" :key="tag.name" class="tag-preview">
           <span>{{ tag.name }}</span>
           <i class="material-icons" @click="onRemoveTag(tag)"> close </i>
         </div>
@@ -97,9 +109,12 @@ import {useRoute} from 'vue-router'
 // cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
 import SearchBox from '@/cmps/common/SearchBox.vue'
-import ListActions from '@/cmps/backoffice/ListActions.vue'
+import ActionsList from '@/cmps/common/ActionsList.vue'
 import TemplatePicker from '@/cmps/backoffice/job/TemplatePicker.vue'
 import FilterBox from '@/cmps/common/FilterBox.vue'
+import ItemsIndicator from '@/cmps/backoffice/ItemsIndicator.vue'
+import AppPagination from '@/cmps/common/AppPagination.vue'
+
 // composables
 import {useFilter} from '@/composables/overview/useFilter'
 import {useSort} from '@/composables/overview/useSort'
@@ -113,6 +128,13 @@ import {useLoadItems} from '@/composables/overview/useLoadItems'
 import {msgService} from '@/services/msgService'
 
 export default {
+  components: {
+    TableList,
+    SearchBox,
+    ListActions,
+    TemplatePicker,
+    FilterBox,
+  },
   setup() {
     const route = useRoute()
     const {filterBy, onSetFilter, onSetFilterByKey, resetFilters, setFilterFromRoute} = useFilter('job/loadJobs')
@@ -161,11 +183,6 @@ export default {
       // setSelectedItems,
     }
   },
-  async created() {
-    this.setPreferredView()
-    await this.loadJobs()
-    await this.$store.dispatch('template/loadDefaultTemplates')
-  },
 
   computed: {
     jobs() {
@@ -173,6 +190,7 @@ export default {
     },
 
     pageCount() {
+      console.log(this.$store.getters['job/pageCount'])
       return this.$store.getters['job/pageCount']
     },
 
@@ -206,6 +224,25 @@ export default {
           : `${$getTrans('showing')} ${$getTrans('job').toLowerCase()} ${this.filteredJobCount}`
       } else return ''
     },
+  },
+
+  watch: {
+    $route() {
+      this.clearSelectedItems()
+      this.setFilterFromRoute()
+      this.loadJobs()
+    },
+    sort: {
+      handler() {
+        this.loadJobs()
+      },
+      deep: true,
+    },
+  },
+  async created() {
+    this.setPreferredView()
+    await this.loadJobs()
+    await this.$store.dispatch('template/loadDefaultTemplates')
   },
 
   methods: {
@@ -252,7 +289,6 @@ export default {
       this.$store.commit('job/setViewType', {viewType: preferredViewType})
     },
   },
-
   watch: {
     $route() {
       this.clearSelectedItems()
@@ -266,13 +302,14 @@ export default {
       deep: true,
     },
   },
-
   components: {
     TableList,
     SearchBox,
-    ListActions,
+    ActionsList,
     TemplatePicker,
     FilterBox,
+    ItemsIndicator,
+    AppPagination,
   },
 }
 </script>

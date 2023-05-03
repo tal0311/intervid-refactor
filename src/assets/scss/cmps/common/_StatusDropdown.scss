@@ -5,8 +5,8 @@
   height: 100%;
   text-align: end;
 
-  &.full-width{
-    .status-btn{
+  &.full-width {
+    .status-btn {
       width: 100%;
     }
   }
@@ -27,7 +27,7 @@
 
     &.recruitment {
       &::after {
-        content: "R";
+        content: 'R';
         aspect-ratio: 1;
         height: 100%;
         background: #0002;
@@ -51,7 +51,7 @@
 
       display: none;
 
-      @include from-mobile-layout{
+      @include from-mobile-layout {
         display: initial;
       }
     }
@@ -99,7 +99,7 @@
       border-radius: 4px;
       font-weight: initial;
 
-      &:hover{
+      &:hover {
         filter: brightness(1.05);
       }
 
@@ -107,7 +107,7 @@
       &:nth-child(7),
       &:nth-child(8) {
         &::after {
-          content: "R";
+          content: 'R';
           aspect-ratio: 1;
           height: 100%;
           background: #0002;

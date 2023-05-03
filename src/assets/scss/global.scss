@@ -10,24 +10,25 @@
 @import 'basics/modals';
 @import 'basics/inputs';
 @import 'basics/buttons';
+@import 'basics/helpers';
 
 // Views
-@import "views/InterviewApp";
-@import "views/Backoffice";
-@import "views/JobEdit";
-@import "views/TemplateDetails";
-@import "views/TemplateEdit";
-@import "views/TemplateOverview";
-@import "views/ApplicantDetails";
-@import "views/AccountOverview";
-@import "views/Login";
-@import "views/SignUp";
-@import "views/UserMgmt";
-@import "views/NotSupported";
-@import "views/NotFound";
-@import "views/NoMobileScreenShare";
-@import "views/InterviewError";
-@import "views/VerifyEmail";
+@import 'views/InterviewApp';
+@import 'views/Backoffice';
+@import 'views/JobEdit';
+@import 'views/TemplateDetails';
+@import 'views/TemplateEdit';
+@import 'views/TemplateOverview';
+@import 'views/ApplicantDetails';
+@import 'views/AccountOverview';
+@import 'views/Login';
+@import 'views/SignUp';
+@import 'views/UserMgmt';
+@import 'views/NotSupported';
+@import 'views/NotFound';
+@import 'views/NoMobileScreenShare';
+@import 'views/InterviewError';
+@import 'views/VerifyEmail';
 
 // Components
 @import 'cmps/ForgotPassword';
@@ -36,6 +37,7 @@
 @import 'cmps/SideNav';
 @import 'cmps/VideoRecorder';
 @import 'cmps/GoogleBtn';
+@import 'cmps/Action-list';
 
 @import 'cmps/modals/MobileModal';
 @import 'cmps/modals/Screen';
@@ -58,6 +60,7 @@
 @import 'cmps/common/LngMenu';
 @import 'cmps/common/UserMenu';
 @import 'cmps/common/LongText';
+@import 'cmps/common/ActionsModal';
 
 @import 'cmps/backoffice/BackofficeToggle';
 @import 'cmps/backoffice/EmptyList';

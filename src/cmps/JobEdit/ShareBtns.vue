@@ -16,14 +16,16 @@
       </div>
 
       <div class="media-wrapper">
+        <!-- TODO: find out WTF v-html is doing on these components and why? -->
+        <!-- eslint-disable vue/no-v-text-v-html-on-component -->
         <ShareNetwork
-          @open="closeModal"
           tag="button"
           network="whatsapp"
           title="We're seeking for you!"
           :url="invitationUrl"
           :description="`${companyName} is seeking for ${jobTitle}. Click the link to start the interview via Intervid.`"
           :image="jobImg"
+          @open="closeModal"
           v-html="svgs.whatsapp"
         ></ShareNetwork>
         <span>{{ $getTrans('whatsapp') }}</span>
@@ -31,13 +33,13 @@
 
       <div class="media-wrapper">
         <ShareNetwork
-          @open="closeModal"
           tag="button"
           network="facebook"
           :url="invitationUrl"
           title="We're seeking for you!"
           quote="We're seeking for you! Click to start the interview."
           hashtags="hiring"
+          @open="closeModal"
           v-html="svgs.facebook"
         ></ShareNetwork>
         <span>{{ $getTrans('facebook') }}</span>
@@ -45,15 +47,16 @@
 
       <div class="media-wrapper">
         <ShareNetwork
-          @open="closeModal"
           tag="button"
           network="email"
           :title="`Intervid invition- ${jobTitle} at ${companyName} `"
           :url="invitationUrl"
           :description="`${companyName} is seeking for ${jobTitle}. Click the link to start the interview via Intervid.`"
+          @open="closeModal"
         >
           <i class="material-icons">mail_outline</i>
         </ShareNetwork>
+        <!-- es-lint-enable vue/no-v-text-v-html-on-component -->
         <span>{{ $getTrans('email') }}</span>
       </div>
     </div>
@@ -68,7 +71,17 @@ import {useMeta} from 'vue-meta'
 import config from '@/config'
 
 export default {
-  props: ['job', 'data'],
+  components: {ShareNetwork},
+  props: {
+    job: {
+      type: Object,
+      required: true,
+    },
+    data: {
+      type: Object,
+      default: null,
+    },
+  },
 
   // TODO: REMOVE DATA FROM HERE
   data() {
@@ -78,19 +91,6 @@ export default {
         facebook: '',
       },
     }
-  },
-
-  created() {
-    this.svgs.whatsapp = this.$getSvg('whatsappIcon')
-    this.svgs.facebook = this.$getSvg('facebookIcon')
-    useMeta({
-      title: `${this.companyName} - ${this.jobTitle}`,
-      description: `${this.companyName} is seeking for ${this.jobTitle}`,
-    })
-  },
-
-  unmounted() {
-    useMeta({title: ''})
   },
 
   computed: {
@@ -118,6 +118,19 @@ export default {
     jobImg() {
       return this.jobToshow.info.coverUrl
     },
+  },
+
+  created() {
+    this.svgs.whatsapp = this.$getSvg('whatsappIcon')
+    this.svgs.facebook = this.$getSvg('facebookIcon')
+    useMeta({
+      title: `${this.companyName} - ${this.jobTitle}`,
+      description: `${this.companyName} is seeking for ${this.jobTitle}`,
+    })
+  },
+
+  unmounted() {
+    useMeta({title: ''})
   },
 
   methods: {
@@ -152,7 +165,5 @@ export default {
       this.closeModal()
     },
   },
-
-  components: {ShareNetwork},
 }
 </script>

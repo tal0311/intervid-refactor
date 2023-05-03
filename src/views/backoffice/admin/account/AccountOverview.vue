@@ -1,14 +1,12 @@
 <template>
   <section class="account-overview overview">
     <div class="overview-header">
-      <i @click="onAddUser" class="material-icons add-btn">add</i>
 
-      <ListActions
-        :selected-item-count="selectedItems.length"
-        :filter-by="filterBy"
+      <i @click="onAddUser" class="material-icons add-btn">add</i>
+      <AppPagination
         :item-count="usersToShow.length"
         :curr-page="filterBy.currPage || 0"
-        :items-per-page="filterBy.itemsPerPage"
+        :items-per-page="filterBy.itemsPerPage || 10"
         @change-page="onChangePage"
       />
     </div>
@@ -30,7 +28,7 @@
 <script>
 // cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
-import ListActions from '@/cmps/backoffice/ListActions.vue'
+import AppPagination from '@/cmps/common/AppPagination.vue'
 // composables
 import {useFilter} from '@/composables/overview/useFilter'
 import {useSort} from '@/composables/overview/useSort'
@@ -38,6 +36,7 @@ import {useSelection} from '@/composables/overview/useSelection'
 import {usePagination} from '@/composables/overview/usePagination'
 
 export default {
+  components: {TableList, ListActions},
   setup() {
     const {filterBy, onSetFilterByKey} = useFilter()
     const {sort, onSort, sortFunc} = useSort()
@@ -45,9 +44,6 @@ export default {
     const {onChangePage} = usePagination({filterBy, onSetFilterByKey})
 
     return {filterBy, onChangePage, sort, onSort, sortFunc, selectedItems, isSelected}
-  },
-  async created() {
-    await this.loadUsers()
   },
 
   computed: {
@@ -63,12 +59,13 @@ export default {
       return this.$store.getters['user/isFetching']
     },
   },
-
+  async created() {
+    await this.loadUsers()
+  },
   methods: {
     async loadUsers() {
       await this.$store.dispatch('user/loadUsers')
     },
-
     onAddUser() {
       this.$store.dispatch('app/toggleModal', {
         type: 'AccountEdit',
@@ -76,6 +73,6 @@ export default {
       })
     },
   },
-  components: {TableList, ListActions},
+  components: {TableList, AppPagination},
 }
 </script>

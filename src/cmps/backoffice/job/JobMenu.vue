@@ -1,10 +1,10 @@
 <template>
-  <section class="action-menu" ref="modalWrapper">
+  <section ref="modalWrapper" class="action-menu">
     <button class="menu-btn" @click="toggleModal">
       <span class="material-icons"> more_horiz </span>
     </button>
 
-    <div class="menu-modal" :ref="job._id" @contextmenu.stop.prevent="" :style="modalStyle" :class="modalClass">
+    <div :ref="job._id" class="menu-modal" :style="modalStyle" :class="modalClass" @contextmenu.stop.prevent="">
       <template v-if="!job.archivedAt">
         <div @click="onCopyUrl">{{ $getTrans('copy-invitation-url') }}</div>
         <div @click="onGoToPage({name: 'JobEdit', params: {jobId: job._id}})">
@@ -25,8 +25,8 @@
     <MobileModal
       v-if="isOpen && isMobile"
       cmp-name="job-actions"
-      @on-close="toggleModal"
       :job="job"
+      @on-close="toggleModal"
       @on-clone-job="onCloneJob"
       @on-open-preview="onOpenPreview"
       @on-share="onShare"
@@ -39,7 +39,7 @@
 
 <script>
 // core
-import {ref, computed, toRefs, watch} from 'vue'
+import {ref, computed, toRefs} from 'vue'
 // lib
 import {useStore} from 'vuex'
 // import { useStore } from 'vuex'
@@ -53,7 +53,20 @@ import MobileModal from '@/cmps/common/modals/MobileModal.vue'
 import config from '@/config'
 
 export default {
-  props: ['job', 'mousePos'],
+  components: {
+    MobileModal,
+  },
+  props: {
+    job: {
+      type: Object,
+      required: true,
+    },
+    mousePos: {
+      type: Object,
+      default: null,
+    },
+  },
+  emits: ['archive', 'modal-closed', 'load-jobs', 'remove'],
 
   setup(props, {emit}) {
     const {mousePos} = toRefs(props)
@@ -111,6 +124,17 @@ export default {
 
     jobTitle() {
       return this.job.info.title
+    },
+  },
+
+  watch: {
+    mousePos: {
+      handler() {
+        if (this.mousePos) {
+          this.toggleModal()
+        }
+      },
+      deep: true,
     },
   },
 
@@ -178,20 +202,6 @@ export default {
         })
       }
     },
-  },
-
-  watch: {
-    mousePos: {
-      handler() {
-        if (this.mousePos) {
-          this.toggleModal()
-        }
-      },
-      deep: true,
-    },
-  },
-  components: {
-    MobileModal,
   },
 }
 </script>

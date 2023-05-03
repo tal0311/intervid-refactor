@@ -13,38 +13,33 @@
           get: () => filterBy.value.txt,
           set:  onSetFilterByKey,
         }) -->
-        <SearchBox :value="filterBy.txt" @input="onSetFilterByKey" placeholder="search-applicants" />
+        <SearchBox :value="filterBy.txt" placeholder="search-applicants" @input="onSetFilterByKey" />
         <FilterBox
-          @set-filter="onSetFilter"
-          @reset-filters="resetFilters"
           :filter-by="filterBy"
           :is-applicant-overview="true"
           :filtered-applicant-count="filteredApplicantCount"
+          @set-filter="onSetFilter"
+          @reset-filters="resetFilters"
         />
       </div>
       <div class="overview-actions">
-        <ListActions
-          :selected-item-count="selectedItems && selectedItems.length"
-          :is-locked-item-selected="isLockedItemSelected"
-          :filter-by="filterBy"
+        <AppPagination
+          v-if="pageCount > 1"
           :item-count="filteredApplicantCount"
+          :page-count="pageCount || 0"
           :curr-page="filterBy.currPage || 0"
           :items-per-page="filterBy.itemsPerPage"
-          :page-count="pageCount || 0"
-          :is-read="isAllSelectedRead"
-          @archive="onArchiveSelected"
-          @remove="onRemoveSelected"
           @change-page="onChangePage"
-          @toggle-read="toggleIsRead"
         />
-        <ShareJob v-if="job && job.applicantSummary.applicantCount" :job="job" />
+     
+        <share-job v-if="job && job.applicantSummary.applicantCount" :job="job" />
       </div>
     </div>
 
     <div class="filter-count" :class="{shown: tagList.length || filterBy.txt}">
       <span>{{ tagList.length || filterBy.txt ? filterCount : '' }}</span>
       <div class="tag-list">
-        <div class="tag-preview" v-for="tag in tagList" :key="tag.name">
+        <div v-for="tag in tagList" :key="tag.name" class="tag-preview">
           <span>{{ tag.name }}</span>
           <i class="material-icons" @click="onRemoveTag(tag)"> close </i>
         </div>
@@ -68,6 +63,28 @@
       @select="onSelectItem"
       @load-next-items="onLoadNextApplicants"
     />
+
+    <div v-if="selectedItems.length" class="actions-container grid">
+      <div class="flex-center iteams-count">{{ selectedItems.length }}</div>
+      <section class="inner-actions-container grid">
+        <div class="flex justify-content-center">
+          <h4>Iteams Selected</h4>
+          <ItemsIndicator :selectedItems="selectedItems" />
+        </div>
+        <ActionsList
+          :items="applicants"
+          :selected-item-count="selectedItems && selectedItems.length"
+          :filter-by="filterBy"
+          :is-locked-item-selected="isLockedItemSelected"
+          @select-all="onSelectAll"
+          @archive="onArchiveSelected"
+          @toggle-read="toggleIsRead"
+          @remove="onRemoveSelected"
+          @select="onSelectItem"
+        />
+      </section>
+      <div @click="clearSelectedItems" class="pointer flex-center close-btn" v-html="$getSvg('close')"></div>
+    </div>
   </section>
 </template>
 
@@ -78,10 +95,13 @@ import {watch} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute} from 'vue-router'
 // cmps
+import AppPagination from '@/cmps/common/AppPagination.vue'
+import ActionsList from '@/cmps/common/ActionsList.vue'
 import TableList from '@/cmps/backoffice/TableList.vue'
 import SearchBox from '@/cmps/common/SearchBox.vue'
 import FilterBox from '@/cmps/common/FilterBox.vue'
-import ListActions from '@/cmps/backoffice/ListActions.vue'
+// import ListActions from '@/cmps/backoffice/ListActions.vue'
+import ItemsIndicator from '@/cmps/backoffice/ItemsIndicator.vue'
 import ShareJob from '@/cmps/common/ShareJob.vue'
 // composables
 import {useFilter} from '@/composables/overview/useFilter'
@@ -98,6 +118,14 @@ import {advancedPermsMap} from '@/services/constData'
 
 export default {
   name: 'ApplicantOverview',
+
+  components: {
+    TableList,
+    SearchBox,
+    FilterBox,
+    ListActions,
+    ShareJob,
+  },
   setup() {
     const store = useStore()
     const route = useRoute()
@@ -163,7 +191,6 @@ export default {
       })
     }
   },
-
   computed: {
     job() {
       return this.$store.getters['job/job']
@@ -231,6 +258,46 @@ export default {
     },
   },
 
+  watch: {
+    // 'this.$route.query': {
+    //   handler() {
+    //     console.log('route changed')
+    //     this.clearSelectedItems()
+    //     this.setFilterFromRoute()
+    //     this.loadApplicants()
+    //   },
+    //   deep: true,
+    // },
+    sort: {
+      handler() {
+        this.loadApplicants()
+      },
+      deep: true,
+    },
+    // applicants: {
+    //   handler() {
+    //     if (this.selectedItems) {
+    //       const updatedApplicants = []
+    //       for (const applicant of this.selectedItems) {
+    //         const updatedApplicant = this.applicants.find(_applicant => _applicant.id === applicant.id)
+    //         updatedApplicants.push(updatedApplicant)
+    //       }
+    //       this.selectedItems = updatedApplicants
+    //     }
+    //   },
+    //   deep: true,
+    // }
+  },
+  async created() {
+    this.loadApplicants()
+    this.loadJob()
+    if (this.job) {
+      this.$nextTick(() => {
+        document.title = 'Intervid | ' + this.job.info.title
+      })
+    }
+  },
+
   methods: {
     async loadJob() {
       const {jobId} = this.$route.params
@@ -283,7 +350,6 @@ export default {
       })
     },
   },
-
   watch: {
     // 'this.$route.query': {
     //   handler() {
@@ -314,13 +380,14 @@ export default {
     //   deep: true,
     // }
   },
-
   components: {
     TableList,
     SearchBox,
     FilterBox,
-    ListActions,
     ShareJob,
+    AppPagination,
+    ActionsList,
+    ItemsIndicator,
   },
 }
 </script>
