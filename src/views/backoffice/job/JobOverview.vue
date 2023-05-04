@@ -103,9 +103,9 @@
 
 <script>
 // core
-import {watch} from 'vue'
+// import {watch} from 'vue'
 // lib
-import {useRoute} from 'vue-router'
+// import {useRoute} from 'vue-router'
 // cmps
 import TableList from '@/cmps/backoffice/TableList.vue'
 import SearchBox from '@/cmps/common/SearchBox.vue'
@@ -140,7 +140,7 @@ export default {
     AppPagination,
   },
   setup() {
-    const route = useRoute()
+    // const route = useRoute()
     const {filterBy, onSetFilter, onSetFilterByKey, resetFilters, setFilterFromRoute} = useFilter('job/loadJobs')
     const {sort, onSort} = useSort()
     const {selectedItems, onSelectAll, onSelectItem, isSelected, clearSelectedItems} = useSelection()
@@ -155,11 +155,11 @@ export default {
       shouldGather,
       setShouldGather,
     })
-    watch(route, () => {
-      clearSelectedItems()
-      // this.setFilterFromRoute()
-      loadJobs()
-    })
+    // watch(route, () => {
+    //   clearSelectedItems()
+    //   // this.setFilterFromRoute()
+    //   loadJobs()
+    // })
 
     // async function  loadJobs() {
 
@@ -230,19 +230,6 @@ export default {
     },
   },
 
-  watch: {
-    $route() {
-      this.clearSelectedItems()
-      this.setFilterFromRoute()
-      this.loadJobs()
-    },
-    sort: {
-      handler() {
-        this.loadJobs()
-      },
-      deep: true,
-    },
-  },
   watch: {
     $route() {
       this.clearSelectedItems()

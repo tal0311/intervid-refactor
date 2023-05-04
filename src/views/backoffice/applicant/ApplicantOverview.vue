@@ -281,36 +281,6 @@ export default {
     //   deep: true,
     // }
   },
-  watch: {
-    // 'this.$route.query': {
-    //   handler() {
-    //     console.log('route changed')
-    //     this.clearSelectedItems()
-    //     this.setFilterFromRoute()
-    //     this.loadApplicants()
-    //   },
-    //   deep: true,
-    // },
-    sort: {
-      handler() {
-        this.loadApplicants()
-      },
-      deep: true,
-    },
-    // applicants: {
-    //   handler() {
-    //     if (this.selectedItems) {
-    //       const updatedApplicants = []
-    //       for (const applicant of this.selectedItems) {
-    //         const updatedApplicant = this.applicants.find(_applicant => _applicant.id === applicant.id)
-    //         updatedApplicants.push(updatedApplicant)
-    //       }
-    //       this.selectedItems = updatedApplicants
-    //     }
-    //   },
-    //   deep: true,
-    // }
-  },
   async created() {
     this.loadApplicants()
     this.loadJob()
