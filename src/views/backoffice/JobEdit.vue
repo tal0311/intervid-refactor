@@ -1,7 +1,13 @@
 <template>
   <section v-if="job" class="job-edit">
-    <form v-if="!isFetching" ref="jobForm" novalidate class="form" @input="handleChange" @submit.prevent="">
-      <JobForm :job="job" :errors="jobEditErrors" @update-job="validateForm" @validate-field="validateField" />
+    <form v-if="!isFetching" ref="jobForm" novalidate class="form" @submit.prevent="" @input="handleChange">
+      <JobForm
+        :job="job"
+        :errors="jobEditErrors"
+        @update-job="validateForm"
+        @validate-field="validateField"
+        @update-job-field="setNewJob"
+      />
 
       <div class="quest-list">
         <draggable
@@ -144,6 +150,10 @@ export default {
   },
 
   methods: {
+    setNewJob(job) {
+      this.job = {...job}
+      console.log(this.job)
+    },
     async loadJob() {
       const {jobId} = this.$route.params
       await this.$store.dispatch('job/loadJobToEdit', {jobId})
@@ -187,9 +197,9 @@ export default {
     },
 
     validateField({target}) {
-      if (!target.value) {
-        this.setDefaultValue(target.name)
-      }
+      // if (!target.value) {
+      //   this.setDefaultValue(target.name)
+      // }
       if (!target.form) return
       if (!this.jobEditErrors.length) return
       this.$store.commit('job/setJobEditErrors', {

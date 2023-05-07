@@ -15,7 +15,7 @@
       :name="inputName"
       :placeholder="placeholder || ' '"
       :validate="validate"
-      :value="$attrs.modelValue"
+      :value="modelValue"
       :min="$attrs.min"
       :max="$attrs.max"
       spellcheck="false"
@@ -54,6 +54,10 @@ export default {
   components: {ValidationMsg},
   inheritAttrs: false,
   props: {
+    modelValue: {
+      type: [String, Number],
+      default: '',
+    },
     inputName: {
       type: String,
       required: true,
@@ -107,6 +111,7 @@ export default {
 
   methods: {
     onChange(ev) {
+      console.log(ev.target.value)
       this.$emit('update:modelValue', ev.target.value)
       this.$emit('change', ev)
     },

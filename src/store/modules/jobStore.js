@@ -321,9 +321,9 @@ export const job = {
         commit('setIsFetching', true)
         const user = rootGetters['user/loggedInUser']
         const jobToEdit = jobId ? await jobService.getById(jobId, user) : jobService.getEmptyJob(user)
-        if (!jobToEdit.title) {
-          jobToEdit.title = getTrans('untitled-job', rootGetters['app/lang'])
-        }
+        // if (!jobToEdit.title) {
+        //   jobToEdit.title = getTrans('untitled-job', rootGetters['app/lang'])
+        // }
         if (!jobToEdit.company) {
           jobToEdit.company = getTrans('company', rootGetters['app/lang'])
         }
