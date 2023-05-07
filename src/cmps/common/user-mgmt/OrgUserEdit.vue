@@ -9,7 +9,7 @@
       <div class="form-content">
         <div class="user-info">
           <div class="input-container">
-            <main-input
+            <MainInput
               v-if="!onlyEmail"
               v-model.trim="user.fName"
               type="text"
@@ -20,7 +20,7 @@
               :errors="errors"
               styled="basic"
             />
-            <main-input
+            <MainInput
               v-if="!onlyEmail"
               v-model.trim="user.lName"
               input-name="lastName"
@@ -28,7 +28,7 @@
               type="text"
               styled="basic"
             />
-            <main-input
+            <MainInput
               v-if="!onlyName"
               v-model.trim="user.email"
               input-name="email"

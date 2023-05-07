@@ -2,7 +2,7 @@
   <section v-if="!isFetching" class="template-edit">
     <h2>{{ $getTrans('create-new-template') }}</h2>
     <form novalidate class="template-container" @submit.prevent="onSaveTemplate">
-      <main-input
+      <MainInput
         v-if="templateToEdit"
         v-model.trim="templateToEdit.title"
         input-name="title"

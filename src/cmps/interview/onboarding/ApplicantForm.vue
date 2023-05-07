@@ -24,7 +24,7 @@
         </p>
         <div class="inputs">
           <div class="input-group">
-            <main-input
+            <MainInput
               v-model.trim="applicantInfo.fName"
               input-name="firstname"
               :label="$getTrans('first-name')"
@@ -34,7 +34,7 @@
               styled="main"
             />
 
-            <main-input
+            <MainInput
               v-model.trim="applicantInfo.lName"
               input-name="lastname"
               :label="$getTrans('last-name')"
@@ -45,7 +45,7 @@
             />
           </div>
 
-          <main-input
+          <MainInput
             v-model.trim="applicantInfo.email"
             input-name="email"
             type="email"
@@ -56,7 +56,7 @@
             styled="main"
           />
 
-          <main-input
+          <MainInput
             v-model.trim="applicantInfo.hometown"
             input-name="hometown"
             :label="$getTrans('hometown')"
@@ -66,7 +66,7 @@
             styled="main"
           />
 
-          <main-input
+          <MainInput
             v-model.trim="applicantInfo.phone"
             input-name="phone"
             type="tel"

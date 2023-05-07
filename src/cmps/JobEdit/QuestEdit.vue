@@ -28,7 +28,7 @@
 
     <div class="quest-content">
       <div class="quest-title">
-        <main-input
+        <MainInput
           v-model.trim="mutableQuest.txt"
           :input-name="`quest-title-${mutableQuest.id}`"
           :placeholder="$getTrans('question')"

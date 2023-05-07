@@ -4,7 +4,7 @@
       <h2>{{ $getTrans('login-title') }}</h2>
 
       <form novalidate @submit.prevent="onLogin">
-        <main-input
+        <MainInput
           v-model.trim="email"
           input-name="email"
           :placeholder="$getTrans('email')"
@@ -17,7 +17,7 @@
           autocomplete="email"
         />
 
-        <main-input
+        <MainInput
           v-model.trim="password"
           input-name="password"
           :placeholder="$getTrans('password')"
