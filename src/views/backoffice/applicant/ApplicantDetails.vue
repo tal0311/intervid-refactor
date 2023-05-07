@@ -238,7 +238,7 @@ export default {
       // #HANDLE CANCEL
       const key = 'job/getApplicantVideos'
       const cancelToken = await this.$store.dispatch('app/handleCancelRequest', key)
-
+      if (!this.job?._id || !applicantId) return
       const data = await jobService.getApplicantVideos(applicantId, this.job._id, cancelToken)
       if (!data) return
       const {answerMap} = data
