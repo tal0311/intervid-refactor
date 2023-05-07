@@ -3,7 +3,7 @@
     :class="{
       'main-input': styled === 'main',
       'basic-input': styled === 'basic',
-      number: $attrs.type === 'number',
+      number: type === 'number',
       textarea: isTextarea,
     }"
   >
@@ -11,13 +11,13 @@
       v-if="!isTextarea"
       :id="inputName"
       ref="password"
-      :type="$attrs.type || 'text'"
+      :type="type"
       :name="inputName"
       :placeholder="placeholder || ' '"
       :validate="validate"
       :value="modelValue"
-      :min="$attrs.min"
-      :max="$attrs.max"
+      :min="min"
+      :max="max"
       spellcheck="false"
       @input="onChange"
       @blur="onInputBlur"
@@ -26,12 +26,12 @@
     <textarea
       v-else
       :id="inputName"
-      :type="$attrs.type || 'text'"
+      :type="type"
       :name="inputName"
       :placeholder="placeholder || ' '"
       :validate="validate"
       :value="modelValue || ''"
-      :rows="$attrs.rows"
+      :rows="rows"
       spellcheck="false"
       @input="onChange"
       @blur="onInputBlur"
@@ -39,7 +39,7 @@
 
     <label v-if="label" :for="inputName">{{ label }}</label>
 
-    <span v-if="$attrs.type === 'password'" class="material-icons eye" @click="togglePassword">
+    <span v-if="type === 'password'" class="material-icons eye" @click="togglePassword">
       {{ isPasswordShown ? 'visibility_off' : 'visibility' }}
     </span>
 
@@ -57,6 +57,10 @@ export default {
     modelValue: {
       type: [String, Number],
       default: '',
+    },
+    type: {
+      type: String,
+      default: 'text',
     },
     inputName: {
       type: String,
@@ -88,6 +92,18 @@ export default {
     },
     onBlur: {
       type: Function,
+      default: null,
+    },
+    min: {
+      type: Number,
+      default: null,
+    },
+    max: {
+      type: Number,
+      default: null,
+    },
+    rows: {
+      type: Number,
       default: null,
     },
   },
