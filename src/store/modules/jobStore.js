@@ -341,6 +341,11 @@ export const job = {
         commit('setJobToEdit', {jobToEdit: job})
         const jobToSave = utilService.deepCopyAndTrim(job)
         const addedJob = await jobService.add(jobToSave)
+        const newJobToEdit = {
+          ...job,
+          _id: addedJob._id,
+        }
+        commit('setJobToEdit', {jobToEdit: newJobToEdit})
         commit('addJob', {job: addedJob})
         // dispatch('activity/addActivity', activityMap.job({ type: 'add', meta: { jobId: addedJob._id } }), {
         // root: true,
