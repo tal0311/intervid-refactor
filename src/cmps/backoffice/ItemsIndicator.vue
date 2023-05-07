@@ -16,7 +16,12 @@
 import {statusMap} from '@/services/constData'
 
 export default {
-  props: ['selectedItems'],
+  props: {
+    selectedItems: {
+      type: Array,
+      required: true,
+    },
+  },
   methods: {
     getColorByStatus(item) {
       return item.status ? statusMap[item.status].color : 'gray'
