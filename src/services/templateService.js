@@ -54,7 +54,7 @@ function getDefaultTemplate() {
   }
 }
 
-function createQuest(txt = getTrans('question'), desc = '', ansRule, timeLimit = 5) {
+function createQuest(txt = '', desc = '', ansRule, timeLimit = 5) {
   return {
     id: utilService.makeId(),
     txt,
