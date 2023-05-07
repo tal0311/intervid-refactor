@@ -40,6 +40,26 @@
 
 <script>
 export default {
-  props: ['selectedItemCount', 'isLockedItemSelected', 'itemCount', 'filterBy', 'isRead'],
+  props: {
+    selectedItemCount: {
+      type: Number,
+      required: true,
+    },
+    isLockedItemSelected: {
+      type: Boolean,
+    },
+    filterBy: {
+      type: Object,
+      required: true,
+    },
+    isRead: {
+      type: Boolean,
+    },
+    itemCount: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['archive'],
 }
 </script>
