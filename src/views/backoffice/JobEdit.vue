@@ -90,7 +90,6 @@ export default {
 
   computed: {
     jobToEdit() {
-      console.log('jobToEdit', this.$store.getters['job/jobToEdit'])
       return this.$store.getters['job/jobToEdit']
     },
 
@@ -152,7 +151,6 @@ export default {
   methods: {
     setNewJob(job) {
       this.job = {...job}
-      console.log(this.job)
     },
     async loadJob() {
       const {jobId} = this.$route.params

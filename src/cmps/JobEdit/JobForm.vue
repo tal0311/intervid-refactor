@@ -140,28 +140,17 @@ export default {
   watch: {
     job: {
       handler() {
-        console.log(this.job)
         this.mutableJob = this.$utilService.deepClone(this.job)
       },
       immediate: true,
-      deep: true,
-    },
-    'mutableJob.info': {
-      handler() {
-        console.log('mutableJob', this.mutableJob)
-      },
       deep: true,
     },
   },
   created() {
     this.id = this.$utilService.makeCmpId()
   },
-  updated() {
-    console.log('updated', this.mutableJob)
-  },
   methods: {
-    updateJobField(field, value) {
-      // this.mutableJob[field] = value
+    updateJobField() {
       this.$emit('update-job-field', this.mutableJob)
     },
 
@@ -171,7 +160,7 @@ export default {
 
     onSetImg(imgUrl) {
       this.mutableJob.company.logoUrl = imgUrl
-      this.$emit('update-job-field', this.mutableJob)
+      this.updateJobField()
     },
 
     onSetCover(url) {
