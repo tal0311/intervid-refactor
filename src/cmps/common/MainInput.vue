@@ -30,7 +30,7 @@
       :name="inputName"
       :placeholder="placeholder || ' '"
       :validate="validate"
-      :value="$attrs.modelValue || ''"
+      :value="modelValue || ''"
       :rows="$attrs.rows"
       spellcheck="false"
       @input="onChange"

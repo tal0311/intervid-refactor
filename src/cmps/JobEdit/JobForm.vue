@@ -43,7 +43,7 @@
       <div v-if="isDesc" class="textarea-container">
         <i class="icon material-icons remove-btn" @click="onClearDesc">close</i>
         <MainInput
-          v-model.trim="mutableJob.info.desc"
+          v-model="mutableJob.info.desc"
           input-name="description"
           :placeholder="$getTrans('description')"
           validate="required"
@@ -151,6 +151,7 @@ export default {
   },
   methods: {
     updateJobField() {
+      console.log('updateJobField', this.mutableJob)
       this.$emit('update-job-field', this.mutableJob)
     },
 
