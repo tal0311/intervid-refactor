@@ -3,7 +3,7 @@
     <h1>{{ $getTrans('forgot-password') }}</h1>
     <form class="enter-email-form" @submit.prevent="handleSubmit">
       <h2>{{ $getTrans('enter-email-address') }}</h2>
-      <main-input
+      <MainInput
         v-model.trim="email"
         type="email"
         input-name="email"

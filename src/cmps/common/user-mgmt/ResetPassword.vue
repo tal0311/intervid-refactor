@@ -2,7 +2,7 @@
   <div class="org-user-edit">
     <h2>Change Password</h2>
     <form novalidate @submit.prevent="onChangePassword">
-      <main-input
+      <MainInput
         v-if="isChange"
         v-model.trim="password.current"
         input-name="currPassword"
@@ -13,7 +13,7 @@
         :errors="errors"
         styled="main"
       />
-      <main-input
+      <MainInput
         v-if="isChange"
         v-model.trim="password.updated"
         input-name="newPassword"
@@ -24,7 +24,7 @@
         :errors="errors"
         styled="main"
       />
-      <main-input
+      <MainInput
         v-model.trim="password.verifyUpdated"
         input-name="verifyPassword"
         label="Verify New Password"

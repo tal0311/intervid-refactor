@@ -2,7 +2,7 @@
   <section>
     <h1>{{ $getTrans('change-your-password') }}</h1>
     <form class="change-password-form" @submit.prevent="handleSubmit">
-      <main-input
+      <MainInput
         v-model.trim="updated"
         input-name="password"
         :placeholder="$getTrans('new-password')"
@@ -11,7 +11,7 @@
         :errors="errors"
         styled="basic"
       />
-      <main-input
+      <MainInput
         v-model.trim="verifyUpdated"
         input-name="confirmPassword"
         :placeholder="$getTrans('confirm-password')"

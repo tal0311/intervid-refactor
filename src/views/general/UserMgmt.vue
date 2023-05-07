@@ -25,7 +25,7 @@
             <p v-if="!isUserEdit">
               {{ userToEdit.fName || `${$getTrans('add-fname')}` }}
             </p>
-            <main-input
+            <MainInput
               v-else
               v-model.trim="userToEdit.fName"
               input-name="firstName"
@@ -42,7 +42,7 @@
             <p v-if="!isUserEdit">
               {{ userToEdit.lName || $getTrans('add-lname') }}
             </p>
-            <main-input
+            <MainInput
               v-else
               v-model.trim="userToEdit.lName"
               input-name="lName"
@@ -68,7 +68,7 @@
         <div class="row">
           <label for="email">{{ $getTrans('email-address') }}</label>
           <p v-if="!isUserEdit">{{ userToEdit.email }}</p>
-          <main-input
+          <MainInput
             v-else
             v-model.trim="userToEdit.email"
             input-name="email"
@@ -87,7 +87,7 @@
           <p v-if="!isUserEdit">
             {{ userToEdit.phone || `${$getTrans('add-phone-number')}` }}
           </p>
-          <main-input
+          <MainInput
             v-else
             v-model.trim="userToEdit.phone"
             input-name="phone"
@@ -104,7 +104,7 @@
           <p v-if="!isUserEdit">
             {{ userToEdit.address || `${$getTrans('add-home-address')}` }}
           </p>
-          <main-input
+          <MainInput
             v-else
             v-model.trim="userToEdit.address"
             input-name="address"
@@ -130,7 +130,7 @@
           <p v-if="!isCompanyEdit">
             {{ userToEdit.companyName || `${$getTrans('add-company-name')}` }}
           </p>
-          <main-input
+          <MainInput
             v-else
             v-model.trim="userToEdit.companyName"
             input-name="company-name"

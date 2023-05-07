@@ -36,7 +36,7 @@
         </div>
         <form novalidate @submit.prevent="onSignup">
           <div class="input-container">
-            <main-input
+            <MainInput
               v-model.trim="userCred.fName"
               type="text"
               input-name="fName"
@@ -46,7 +46,7 @@
               :errors="errors"
               styled="basic"
             />
-            <main-input
+            <MainInput
               v-model.trim="userCred.lName"
               type="text"
               input-name="lName"
@@ -58,7 +58,7 @@
             />
           </div>
 
-          <main-input
+          <MainInput
             v-model.trim="userCred.email"
             type="email"
             input-name="email"
@@ -69,7 +69,7 @@
             styled="basic"
           />
 
-          <main-input
+          <MainInput
             v-model.trim="userCred.password"
             type="password"
             input-name="password"
@@ -80,7 +80,7 @@
             styled="basic"
             autocomplete="new-password"
           />
-          <main-input
+          <MainInput
             v-model.trim="confirmPassword"
             type="password"
             input-name="confirmPassword"
