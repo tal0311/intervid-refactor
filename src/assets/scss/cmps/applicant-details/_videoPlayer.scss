@@ -86,13 +86,11 @@
     }
   }
 
-  .player-controls{
-
-    [data-tooltip]{
-
-      &::before{
+  .player-controls {
+    [data-tooltip] {
+      &::before {
         @include from-mobile-layout {
-        display: none;
+          display: none;
         }
       }
     }
