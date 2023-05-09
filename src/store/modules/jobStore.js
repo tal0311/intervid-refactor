@@ -2,8 +2,6 @@ import {jobService} from '@/services/jobService.js'
 import {loggerService} from '@/services/loggerService'
 import {mutationHistory} from '../mutationHistory'
 import {msgService} from '@/services/msgService'
-// import { activityMap } from '@/services/activityService'
-import {getTrans} from '../../services/i18nService'
 import {utilService} from '@/services/utilService'
 
 export const job = {
@@ -324,9 +322,9 @@ export const job = {
         // if (!jobToEdit.title) {
         //   jobToEdit.title = getTrans('untitled-job', rootGetters['app/lang'])
         // }
-        if (!jobToEdit.company) {
-          jobToEdit.company = getTrans('company', rootGetters['app/lang'])
-        }
+        // if (!jobToEdit.company) {
+        //   jobToEdit.company = getTrans('company', rootGetters['app/lang'])
+        // }
         commit('setJobToEdit', {jobToEdit})
       } catch (err) {
         loggerService.error('[JobStore] [loadJobToEdit] Failed to load job', err)
