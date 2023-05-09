@@ -4,20 +4,10 @@
       <h2 class="overview-title">
         {{ $getTrans('jobs') }}
         <div class="view-btns">
-          <i
-            class="material-icons info-tooltip"
-            :data-tooltip="$getTrans('list-view')"
-            :class="{selected: viewType === 'list'}"
-            @click="setView('list')"
-            >view_list</i
-          >
-          <i
-            class="material-icons info-tooltip"
-            :data-tooltip="$getTrans('card-view')"
-            :class="{selected: viewType === 'cards'}"
-            @click="setView('cards')"
-            >view_module</i
-          >
+          <i class="material-icons info-tooltip" :data-tooltip="$getTrans('list-view')"
+            :class="{selected: viewType === 'list'}" @click="setView('list')">view_list</i>
+          <i class="material-icons info-tooltip" :data-tooltip="$getTrans('card-view')"
+            :class="{selected: viewType === 'cards'}" @click="setView('cards')">view_module</i>
         </div>
       </h2>
 
@@ -35,35 +25,21 @@
     <div class="overview-header">
       <div class="search-filter-container">
         <SearchBox :value="filterBy.txt" placeholder="search-jobs" @input="onSetFilterByKey" />
-        <FilterBox
-          :filter-by="filterBy"
-          :filtered-job-count="filteredJobCount"
-          @set-filter="onSetFilter"
-          @reset-filters="resetFilters"
-        />
+        <FilterBox :filter-by="filterBy" :filtered-job-count="filteredJobCount" @set-filter="onSetFilter"
+          @reset-filters="resetFilters" />
       </div>
-      <AppPagination
-        :item-count="filteredJobCount || 0"
-        :page-count="pageCount || 0"
-        :curr-page="filterBy.currPage || 0"
-        :items-per-page="filterBy.itemsPerPage"
-        @change-page="onChangePage"
-      />
+      <AppPagination :item-count="filteredJobCount || 0" :page-count="pageCount || 0" :curr-page="filterBy.currPage || 0"
+        :items-per-page="filterBy.itemsPerPage" @change-page="onChangePage" />
     </div>
     <div v-if="selectedItems.length" class="actions-container grid">
-      <div class="flex-center iteams-count">{{ selectedItems.length }}</div>
+      <div class="flex-center items-count">{{ selectedItems.length }}</div>
       <section class="inner-actions-container grid">
         <div class="flex justify-content-center">
-          <h4>Iteams Selected</h4>
+          <h4>items Selected</h4>
           <ItemsIndicator :selected-items="selectedItems" />
         </div>
-        <ActionsList
-          :selected-item-count="selectedItems.length"
-          :filter-by="filterBy"
-          @archive="onArchiveSelected"
-          @remove="onRemoveSelected"
-          @change-page="onChangePage"
-        />
+        <ActionsList :selected-item-count="selectedItems.length" :filter-by="filterBy" @archive="onArchiveSelected"
+          @remove="onRemoveSelected" @change-page="onChangePage" />
       </section>
       <div class="pointer flex-center close-btn" @click="clearSelectedItems" v-html="$getSvg('close')"></div>
     </div>
@@ -79,25 +55,11 @@
       </div>
     </div>
 
-    <TableList
-      :items="jobs"
-      :selected-item-count="selectedItems.length"
-      :total-item-count="totalJobCount"
-      :should-gather="shouldGather"
-      :items-per-page="filterBy.itemsPerPage"
-      :max-item-count="totalJobCount"
-      :filter-by="filterBy"
-      :sort="sort"
-      :is-fetching="isFetching"
-      :is-selected="isSelected"
-      :filtered-item-count="filteredJobCount"
-      @select-all="onSelectAll"
-      @sort="onSort"
-      @select="onSelectItem"
-      @load-next-items="onLoadNextJobs"
-      @load-items="loadJobs"
-      @remove="onRemoveSelected"
-    />
+    <TableList :items="jobs" :selected-item-count="selectedItems.length" :total-item-count="totalJobCount"
+      :should-gather="shouldGather" :items-per-page="filterBy.itemsPerPage" :max-item-count="totalJobCount"
+      :filter-by="filterBy" :sort="sort" :is-fetching="isFetching" :is-selected="isSelected"
+      :filtered-item-count="filteredJobCount" @select-all="onSelectAll" @sort="onSort" @select="onSelectItem"
+      @load-next-items="onLoadNextJobs" @load-items="loadJobs" @remove="onRemoveSelected" />
   </section>
 </template>
 

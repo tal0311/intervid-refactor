@@ -28,18 +28,24 @@
 
     <div class="quest-content">
       <div class="quest-title">
-        <main-input
-          v-model.trim="mutableQuest.txt"
+        <MainInput
+          v-model="mutableQuest.txt"
           :input-name="`quest-title-${mutableQuest.id}`"
           :placeholder="$getTrans('question')"
           validate="required"
           :on-blur="validateField"
           :errors="errors"
           styled="main"
+          @update:model-value="onUpdateQuest"
         />
       </div>
 
-      <TextEditor v-model.trim="mutableQuest.desc" placeholder="Elaborate (optional)" :tools="['code', 'link']" />
+      <TextEditor
+        v-model="mutableQuest.desc"
+        placeholder="Elaborate (optional)"
+        :tools="['code', 'link']"
+        @update:model-value="onUpdateQuest"
+      />
     </div>
 
     <div class="quest-actions">
@@ -127,7 +133,7 @@ export default {
     },
 
     onUpdateQuest() {
-      this.$emit('update-quest')
+      this.$emit('update-quest', this.mutableQuest)
     },
 
     onDuplicateQuest() {

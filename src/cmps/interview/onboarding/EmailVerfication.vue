@@ -2,7 +2,7 @@
   <section class="email-verify-step">
     <div class="content">
       <h1>We have sent a code to your email address, please enter it below</h1>
-      <main-input
+      <MainInput
         v-model.trim="code"
         input-name="code"
         type="text"

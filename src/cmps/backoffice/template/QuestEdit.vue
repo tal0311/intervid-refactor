@@ -6,7 +6,7 @@
     </div>
 
     <div class="quest-content">
-      <main-input
+      <MainInput
         v-model.trim="mutableQuest.txt"
         :input-name="`txt-${mutableQuest.id}`"
         :placeholder="$getTrans('question')"
@@ -32,7 +32,7 @@
 
       <div class="time-limit">
         <i class="material-icons">schedule</i>
-        <main-input
+        <MainInput
           v-model.trim="mutableQuest.timeLimit"
           input-name="timeLimit"
           type="number"

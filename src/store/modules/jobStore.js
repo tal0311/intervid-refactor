@@ -321,9 +321,9 @@ export const job = {
         commit('setIsFetching', true)
         const user = rootGetters['user/loggedInUser']
         const jobToEdit = jobId ? await jobService.getById(jobId, user) : jobService.getEmptyJob(user)
-        if (!jobToEdit.title) {
-          jobToEdit.title = getTrans('untitled-job', rootGetters['app/lang'])
-        }
+        // if (!jobToEdit.title) {
+        //   jobToEdit.title = getTrans('untitled-job', rootGetters['app/lang'])
+        // }
         if (!jobToEdit.company) {
           jobToEdit.company = getTrans('company', rootGetters['app/lang'])
         }
@@ -338,9 +338,15 @@ export const job = {
     async addJob({commit}, {job}) {
       // { dispatch }
       try {
-        const addedJob = await jobService.add(job)
+        commit('setJobToEdit', {jobToEdit: job})
+        const jobToSave = utilService.deepCopyAndTrim(job)
+        const addedJob = await jobService.add(jobToSave)
+        const newJobToEdit = {
+          ...job,
+          _id: addedJob._id,
+        }
+        commit('setJobToEdit', {jobToEdit: newJobToEdit})
         commit('addJob', {job: addedJob})
-        commit('setJobToEdit', {jobToEdit: addedJob})
         // dispatch('activity/addActivity', activityMap.job({ type: 'add', meta: { jobId: addedJob._id } }), {
         // root: true,
         // })
@@ -370,11 +376,13 @@ export const job = {
         // commit('updateJob', { job })
         const jobToEdit = isUndo ? state.prevJobToEdit : job
         commit('setIsSaving', true)
-        commit('setJobToEdit', {jobToEdit})
+        commit('setJobToEdit', {jobToEdit: jobToEdit})
+        const jobToSave = utilService.deepCopyAndTrim(jobToEdit)
+        console.log('jobToSave', jobToSave)
         // dispatch('activity/addActivity', activityMap.job({ type: 'update', meta: { jobId: jobToEdit._id } }), {
         // root: true,
         // })
-        await jobService.update([jobToEdit])
+        await jobService.update([jobToSave])
         commit('setIsSaving', false)
       } catch (err) {
         loggerService.error('[jobStore] [updateJob] Failed to update job', err)
@@ -501,6 +509,7 @@ export const job = {
       // { dispatch }
       commit('setIsFetching', true)
       try {
+        if (!jobId || !applicantId) return
         const job = await jobService.getJobWithApplicant(jobId, applicantId)
         commit('setJob', {job: job})
         // dispatch(
@@ -512,7 +521,12 @@ export const job = {
         // )
       } catch (err) {
         loggerService.error('[JobStore] [loadJobWithApplicant] Failed to add job', err)
-        commit('app/setAlertData', {alertData: msgService.failArchive('job')}, {root: true})
+        // In the great tapestry of human communication, context is king.
+        // Words, like chameleons, adapt shift, and morph their meanings based on their surroundings.
+        // Yet, even in this fluid world of language, some phrases bear a widely accepted significance.
+        // So, when the phrase "Failed to add job" apears in the log, followed by an alert branded with 'failArchive',
+        // one can't help but feel a sudden urge to launch a dictionary as a gentle reminder of the beauty of linguistic accuracy.
+        // commit('app/setAlertData', {alertData: msgService.failArchive('job')}, {root: true})
       } finally {
         commit('setIsFetching', false)
       }

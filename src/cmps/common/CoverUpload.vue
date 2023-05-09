@@ -16,7 +16,7 @@
           <div class="modal-header-content">
             <h1>{{ $getTrans('select-cover-image') }}</h1>
             <div class="search-input">
-              <main-input
+              <MainInput
                 v-model.trim="value"
                 input-name="search"
                 :placeholder="$getTrans('search')"

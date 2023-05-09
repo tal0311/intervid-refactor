@@ -1,44 +1,49 @@
 <template>
-  <div class="job-form">
+  <div v-if="mutableJob" class="job-form">
     <CoverUpload :id="id" :initial-cover="mutableJob.info.coverUrl" @upload="onSetCover" />
     <section class="job-info">
       <div class="form-title">
         <MainInput
-          v-model.trim="mutableJob.info.title"
-          input-name="title"
+          v-model="mutableJob.info.title"
           :placeholder="$getTrans('job-title')"
+          input-name="title"
           validate="required"
           :on-blur="validateField"
           :errors="errors"
           styled="main"
+          @update:model-value="updateJobField('info.title', $event)"
         />
+        <!-- :model-value="mutableJob.info.title"
+          @update:model-value="mutableJob.info.title = $event" -->
       </div>
 
       <div class="input-container">
         <ImgUpload :initial-img="job.company.logoUrl" @upload="onSetImg" />
         <MainInput
-          v-model.trim="mutableJob.company.name"
+          v-model="mutableJob.company.name"
           input-name="company"
           :label="$getTrans('company-name')"
           validate="required"
           :on-blur="validateField"
           :errors="errors"
           styled="main"
+          @update:model-value="updateJobField('info.company', $event)"
         />
         <MainInput
-          v-model.trim="mutableJob.info.location"
+          v-model="mutableJob.info.location"
           input-name="location"
           :label="$getTrans('location')"
           :on-blur="validateField"
           :errors="errors"
           styled="main"
+          @update:model-value="updateJobField('info.location', $event)"
         />
       </div>
 
       <div v-if="isDesc" class="textarea-container">
         <i class="icon material-icons remove-btn" @click="onClearDesc">close</i>
         <MainInput
-          v-model.trim="mutableJob.info.desc"
+          v-model="mutableJob.info.desc"
           input-name="description"
           :placeholder="$getTrans('description')"
           validate="required"
@@ -46,6 +51,7 @@
           styled="main"
           :on-blur="validateField"
           :is-textarea="true"
+          @update:model-value="updateJobField('description', $event)"
         />
       </div>
 
@@ -86,7 +92,6 @@
 
 <script>
 import {tooltips} from '@/services/constData.js'
-
 import ImgUpload from '@/cmps/common/ImgUpload.vue'
 import CoverUpload from '@/cmps/common/CoverUpload.vue'
 import MainInput from '@/cmps/common/MainInput.vue'
@@ -103,11 +108,12 @@ export default {
       required: true,
     },
   },
-  emits: ['update-job', 'validate-field'],
+  emits: ['update-job', 'validate-field', 'update-job-field'],
+
   data() {
     return {
       isDesc: this.job.info.desc,
-      mutableJob: this.job,
+      mutableJob: null,
     }
   },
 
@@ -131,18 +137,31 @@ export default {
       return this.modal.type === 'change-cover' && this.modal.data.modalId === this.id
     },
   },
-
+  watch: {
+    job: {
+      handler() {
+        this.mutableJob = this.$utilService.deepClone(this.job)
+      },
+      immediate: true,
+      deep: true,
+    },
+  },
   created() {
     this.id = this.$utilService.makeCmpId()
   },
-
   methods: {
+    updateJobField() {
+      console.log('updateJobField', this.mutableJob)
+      this.$emit('update-job-field', this.mutableJob)
+    },
+
     validateField(ev) {
       this.$emit('validate-field', ev)
     },
 
     onSetImg(imgUrl) {
       this.mutableJob.company.logoUrl = imgUrl
+      this.updateJobField()
     },
 
     onSetCover(url) {
