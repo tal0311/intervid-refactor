@@ -14,12 +14,23 @@
           set:  onSetFilterByKey,
         }) -->
         <SearchBox :value="filterBy.txt" placeholder="search-applicants" @input="onSetFilterByKey" />
-        <FilterBox :filter-by="filterBy" :is-applicant-overview="true" :filtered-applicant-count="filteredApplicantCount"
-          @set-filter="onSetFilter" @reset-filters="resetFilters" />
+        <FilterBox
+          :filter-by="filterBy"
+          :is-applicant-overview="true"
+          :filtered-applicant-count="filteredApplicantCount"
+          @set-filter="onSetFilter"
+          @reset-filters="resetFilters"
+        />
       </div>
       <div class="overview-actions">
-        <AppPagination v-if="pageCount > 1" :item-count="filteredApplicantCount" :page-count="pageCount || 0"
-          :curr-page="filterBy.currPage || 0" :items-per-page="filterBy.itemsPerPage" @change-page="onChangePage" />
+        <AppPagination
+          v-if="pageCount > 1"
+          :item-count="filteredApplicantCount"
+          :page-count="pageCount || 0"
+          :curr-page="filterBy.currPage || 0"
+          :items-per-page="filterBy.itemsPerPage"
+          @change-page="onChangePage"
+        />
 
         <ShareJob v-if="job && job.applicantSummary.applicantCount" :job="job" />
       </div>
@@ -35,11 +46,23 @@
       </div>
     </div>
 
-    <TableList :items="applicants" :selected-item-count="selectedItems && selectedItems.length"
-      :total-item-count="applicants && applicants.length" :max-item-count="applicantCount"
-      :filtered-item-count="filteredApplicantCount" :items-per-page="filterBy.itemsPerPage" :sort="sort"
-      :filter-by="filterBy" :is-fetching="isFetching" :should-gather="shouldGather" :is-selected="isSelected"
-      @select-all="onSelectAll" @sort="onSort" @select="onSelectItem" @load-next-items="onLoadNextApplicants" />
+    <TableList
+      :items="applicants"
+      :selected-item-count="selectedItems && selectedItems.length"
+      :total-item-count="applicants && applicants.length"
+      :max-item-count="applicantCount"
+      :filtered-item-count="filteredApplicantCount"
+      :items-per-page="filterBy.itemsPerPage"
+      :sort="sort"
+      :filter-by="filterBy"
+      :is-fetching="isFetching"
+      :should-gather="shouldGather"
+      :is-selected="isSelected"
+      @select-all="onSelectAll"
+      @sort="onSort"
+      @select="onSelectItem"
+      @load-next-items="onLoadNextApplicants"
+    />
 
     <div v-if="selectedItems.length" class="actions-container grid">
       <div class="flex-center items-count">{{ selectedItems.length }}</div>
@@ -48,9 +71,17 @@
           <h4>items Selected</h4>
           <ItemsIndicator :selected-items="selectedItems" />
         </div>
-        <ActionsList :items="applicants" :selected-item-count="selectedItems && selectedItems.length"
-          :filter-by="filterBy" :is-locked-item-selected="isLockedItemSelected" @select-all="onSelectAll"
-          @archive="onArchiveSelected" @toggle-read="toggleIsRead" @remove="onRemoveSelected" @select="onSelectItem" />
+        <ActionsList
+          :items="applicants"
+          :selected-item-count="selectedItems && selectedItems.length"
+          :filter-by="filterBy"
+          :is-locked-item-selected="isLockedItemSelected"
+          @select-all="onSelectAll"
+          @archive="onArchiveSelected"
+          @toggle-read="toggleIsRead"
+          @remove="onRemoveSelected"
+          @select="onSelectItem"
+        />
       </section>
       <div class="pointer flex-center close-btn" @click="clearSelectedItems" v-html="$getSvg('close')"></div>
     </div>
