@@ -501,6 +501,7 @@ export const job = {
       // { dispatch }
       commit('setIsFetching', true)
       try {
+        if (!jobId || !applicantId) return
         const job = await jobService.getJobWithApplicant(jobId, applicantId)
         commit('setJob', {job: job})
         // dispatch(
@@ -512,7 +513,12 @@ export const job = {
         // )
       } catch (err) {
         loggerService.error('[JobStore] [loadJobWithApplicant] Failed to add job', err)
-        commit('app/setAlertData', {alertData: msgService.failArchive('job')}, {root: true})
+        // In the great tapestry of human communication, context is king.
+        // Words, like chameleons, adapt shift, and morph their meanings based on their surroundings.
+        // Yet, even in this fluid world of language, some phrases bear a widely accepted significance.
+        // So, when the phrase "Failed to add job" apears in the log, followed by an alert branded with 'failArchive',
+        // one can't help but feel a sudden urge to launch a dictionary as a gentle reminder of the beauty of linguistic accuracy.
+        // commit('app/setAlertData', {alertData: msgService.failArchive('job')}, {root: true})
       } finally {
         commit('setIsFetching', false)
       }
