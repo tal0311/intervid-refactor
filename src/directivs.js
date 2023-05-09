@@ -24,7 +24,7 @@ export const clickOutside = {
 // @shachar - had problems with other directive lol
 export const clickOutsideCalc = {
   mounted(el, {value: cb, modifiers}) {
-    el.clickOutside = (ev) => {
+    el.clickOutsideCalc = (ev) => {
       if (modifiers.prevent) ev.preventDefault()
       if (modifiers.stop) ev.stopPropagation()
       const {clientX, clientY} = ev
@@ -37,10 +37,10 @@ export const clickOutsideCalc = {
       }
     }
     queueMicrotask(() => {
-      document.addEventListener('click', el.clickOutside)
+      document.addEventListener('click', el.clickOutsideCalc)
     })
   },
   unmounted(el) {
-    document.removeEventListener('click', el.clickOutside)
+    document.removeEventListener('click', el.clickOutsideCalc)
   },
 }
