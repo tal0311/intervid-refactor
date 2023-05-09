@@ -1,7 +1,13 @@
 <template>
   <section v-if="job" class="job-edit">
-    <form v-if="!isFetching" ref="jobForm" novalidate class="form" @input="handleChange" @submit.prevent="">
-      <JobForm :job="job" :errors="jobEditErrors" @update-job="validateForm" @validate-field="validateField" />
+    <form v-if="!isFetching" ref="jobForm" novalidate class="form" @submit.prevent="" @input="handleChange">
+      <JobForm
+        :job="job"
+        :errors="jobEditErrors"
+        @update-job="validateForm"
+        @validate-field="validateField"
+        @update-job-field="setNewJob"
+      />
 
       <div class="quest-list">
         <draggable
@@ -84,7 +90,6 @@ export default {
 
   computed: {
     jobToEdit() {
-      console.log('jobToEdit', this.$store.getters['job/jobToEdit'])
       return this.$store.getters['job/jobToEdit']
     },
 
@@ -121,6 +126,10 @@ export default {
   watch: {
     jobToEdit() {
       this.job = this.$utilService.deepClone(this.jobToEdit)
+      if (this.$route.fullPath.includes('create') && this.jobToEdit._id) {
+        this.$router.push(`/create/${this.jobToEdit._id}`)
+      }
+      // if(this.$route.name.i)
     },
   },
 
@@ -144,6 +153,9 @@ export default {
   },
 
   methods: {
+    setNewJob(job) {
+      this.job = {...job}
+    },
     async loadJob() {
       const {jobId} = this.$route.params
       await this.$store.dispatch('job/loadJobToEdit', {jobId})
@@ -169,8 +181,11 @@ export default {
       this.$nextTick(this.validateForm)
     },
 
-    async onUpdateQuest() {
+    async onUpdateQuest(newQuest) {
+      const questIdx = this.job.quests.findIndex((quest) => quest.id === newQuest.id)
+      this.job.quests.splice(questIdx, 1, newQuest)
       await this.validateForm()
+      console.log(this.job)
     },
 
     async onDuplicateQuest({txt, desc, ansRule, timeLimit}) {
@@ -187,9 +202,9 @@ export default {
     },
 
     validateField({target}) {
-      if (!target.value) {
-        this.setDefaultValue(target.name)
-      }
+      // if (!target.value) {
+      //   this.setDefaultValue(target.name)
+      // }
       if (!target.form) return
       if (!this.jobEditErrors.length) return
       this.$store.commit('job/setJobEditErrors', {

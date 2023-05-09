@@ -28,6 +28,7 @@ export const utilService = {
   isPlainObject,
   isArray,
   extractStateFromModules,
+  deepCopyAndTrim,
 }
 
 // added this back here temporarly to prevent error until migration of useSort is done
@@ -279,6 +280,39 @@ function extractStateFromModules(modules, state = {}) {
     }
   })
   return state
+}
+
+function deepCopyAndTrim(obj) {
+  // If the value is null or not an object, return the value as-is
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+
+  let copy
+  // Check if the object is an array
+  if (Array.isArray(obj)) {
+    // Create a new array by mapping over the original array and deep copying its elements
+    copy = obj.map((elem) => this.deepCopyAndTrim(elem))
+  } else {
+    // Create an empty object for the copy
+    copy = {}
+    // Iterate over the object's keys
+    for (const key in obj) {
+      // Check if the key is a property of the object, not its prototype
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        const value = obj[key]
+        // If the value is a string, trim it and add it to the copy object
+        if (typeof value === 'string') {
+          copy[key] = value.trim()
+        } else {
+          // Otherwise, recursively copy the value and add it to the copy object
+          copy[key] = this.deepCopyAndTrim(value)
+        }
+      }
+    }
+  }
+  // Return the copy object
+  return copy
 }
 // THIS CHANGE WAS DONE ALREADY, LEAVING THIS HERE FOR REFERENCE
 // This function is by no means a utility function, it should be moved to a different file, probably the store file,
