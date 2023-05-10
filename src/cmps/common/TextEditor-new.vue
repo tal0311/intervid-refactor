@@ -134,8 +134,6 @@ export default {
     onEditorChange({html}) {
       // {quill, html, text}
       this.htmlContent = html
-      // console.log('text', text)
-      // console.log('htmlContent', html)
       // this.$emit("input", text)
     },
 

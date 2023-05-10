@@ -20,7 +20,6 @@ export function useSelection() {
   }
 
   const onSelectItem = (item) => {
-    console.log('selectedItems', selectedItems)
     _logger('info', 'onSelectItem')
     const idKey = item.id ? 'id' : '_id'
     const itemIdx = selectedItems.value.findIndex((i) => i[idKey] === item[idKey])

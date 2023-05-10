@@ -127,7 +127,6 @@ export default {
 
   methods: {
     onChange(ev) {
-      console.log(ev.target.value)
       this.$emit('update:modelValue', ev.target.value)
       this.$emit('change', ev)
     },

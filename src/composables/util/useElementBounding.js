@@ -37,7 +37,6 @@ export function useElementBounding({elementRef, listeners, scrollContainerSelect
   let _listenersToRemove = []
 
   function _updateBounding(bundingClientRect) {
-    // console.log('updating bounding')
     if (!elementRef?.value) return
     bounding.value = bundingClientRect
   }

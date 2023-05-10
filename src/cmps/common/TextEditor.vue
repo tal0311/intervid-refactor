@@ -88,7 +88,6 @@ export default {
     this.setup()
     const scrollHeight = this.editor.scroll.domNode.scrollHeight
     this.editor.scroll.domNode.style.maxHeight = scrollHeight + 'px'
-    console.log(this.modeValue)
   },
   created() {
     this.id = this.$utilService.makeCmpId()

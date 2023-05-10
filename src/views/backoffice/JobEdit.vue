@@ -185,7 +185,6 @@ export default {
       const questIdx = this.job.quests.findIndex((quest) => quest.id === newQuest.id)
       this.job.quests.splice(questIdx, 1, newQuest)
       await this.validateForm()
-      console.log(this.job)
     },
 
     async onDuplicateQuest({txt, desc, ansRule, timeLimit}) {
