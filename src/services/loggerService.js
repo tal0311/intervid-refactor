@@ -1,4 +1,5 @@
 import httpService from './httpService'
+import store from '@/store'
 
 const BASE_URL = 'record'
 const STORAGE_LOGS = 'storageLogs'
@@ -21,7 +22,6 @@ export const loggerService = {
 }
 
 async function doLog(level = 'DEBUG', ...lines) {
-  const {default: store} = await import('../store/index.js')
   const appState = {
     applicant: store.getters['applicant/applicant'],
     user: store.getters['user/loggedInUser'],
