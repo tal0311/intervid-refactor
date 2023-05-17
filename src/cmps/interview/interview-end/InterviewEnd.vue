@@ -126,6 +126,7 @@ export default {
   data() {
     return {
       donePercent: 0,
+      isAnimationDone: false,
     }
   },
 

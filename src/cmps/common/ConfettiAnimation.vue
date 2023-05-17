@@ -1,5 +1,5 @@
 <template>
-  <div class="confetti-animation">
+  <div class="confetti-animation" :class="{['animation-started']: isAnimationstarted}">
     <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
     ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
     ><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span
@@ -17,14 +17,30 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      isAnimationstarted: false,
+    }
+  },
+
+  mounted() {
+    setTimeout(() => {
+      this.isAnimationstarted = true
+    }, 1000)
+  },
+}
 </script>
 
 <style lang="scss" scoped>
+.animation-started {
+  top: 100vh !important;
+}
 .confetti-animation {
   position: fixed;
-  inset: 0;
+  inset: -10px 0 0 0;
   z-index: 505;
+  transition: top 5s ease-in;
 
   span {
     width: 10px;
