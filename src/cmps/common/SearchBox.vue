@@ -117,7 +117,6 @@ export default {
   },
   watch: {
     txt() {
-      console.log(this.txt)
       if (this.txt === this.value) return
       this.onInput(this.txt)
     },

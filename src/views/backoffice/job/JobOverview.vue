@@ -194,7 +194,6 @@ export default {
     },
 
     pageCount() {
-      console.log(this.$store.getters['job/pageCount'])
       return this.$store.getters['job/pageCount']
     },
 

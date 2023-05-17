@@ -85,7 +85,6 @@ export function useFilter(initialValue) {
    * @param {*} value - The value to assign to the key in the filter object.
    */
   function onSetFilterByKey(key, value) {
-    // console.log('onSetFilterByKey', key, value)
     const filterValue = value === filterBy.value[key] && key !== 'currPage' ? '' : value
     const newFilterBy = {...filterBy.value, [key]: filterValue}
     if (key !== 'currPage') newFilterBy.currPage = 0

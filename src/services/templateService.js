@@ -66,7 +66,7 @@ function createQuest(txt = '', desc = '', ansRule, timeLimit = 5) {
 }
 
 function getDefaultQuests() {
-  return [createQuest('Introduce yourself', '<p>Tell us a bit about yourself</p>')]
+  return [createQuest('', '')]
 }
 
 function createAns() {

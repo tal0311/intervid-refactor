@@ -137,7 +137,6 @@ export default {
     },
     resTime() {
       if (!this.ans) return ''
-      console.log(this.ans)
       return this.ans
     },
   },

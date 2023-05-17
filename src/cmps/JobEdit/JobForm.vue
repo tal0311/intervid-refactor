@@ -151,7 +151,6 @@ export default {
   },
   methods: {
     updateJobField() {
-      console.log('updateJobField', this.mutableJob)
       this.$emit('update-job-field', this.mutableJob)
     },
 

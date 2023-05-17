@@ -9,7 +9,6 @@ export function useShareJob() {
     const jobToEdit = store.getters['job/jobToEdit']
     const jobEditErrors = store.getters['job/jobEditErrors']
     const isMobile = store.getters['app/isMobile']
-    console.log(config.baseUrl)
     const invitationUrl = `${config.baseUrl}interview/${jobToEdit._id}`
 
     if (!jobToEdit._id || jobEditErrors?.length) return

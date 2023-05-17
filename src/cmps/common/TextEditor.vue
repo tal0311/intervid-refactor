@@ -34,14 +34,13 @@ import 'quill/dist/quill.snow.css'
 
 export default {
   props: {
-    value: {
+    modelValue: {
       type: String,
       default: '',
     },
     currQuestIdx: {
       type: Number,
       default: null,
-      // required: true,
     },
     placeholder: {
       type: String,
@@ -53,11 +52,10 @@ export default {
     },
     tools: {
       type: Array,
-      default: null,
+      default: () => [],
     },
   },
-  emits: ['input'],
-
+  emits: ['update:modelValue'],
   data() {
     return {
       editor: null,
@@ -75,31 +73,31 @@ export default {
     },
 
     textLength() {
-      if (!this.editor) return this.value && this.value.length
+      if (!this.editor) return this.modelValue && this.modelValue.length
       return this.getLengthNoTags(this.editor.getText()) - 1
     },
   },
 
   watch: {
     currQuestIdx() {
-      this.initEditor()
+      this.setup()
     },
+  },
+
+  mounted() {
+    this.setup()
+    const scrollHeight = this.editor.scroll.domNode.scrollHeight
+    this.editor.scroll.domNode.style.maxHeight = scrollHeight + 'px'
   },
   created() {
     this.id = this.$utilService.makeCmpId()
   },
-  mounted() {
-    this.initEditor()
-    const scrollHeight = this.editor.scroll.domNode.scrollHeight
-    this.editor.scroll.domNode.style.maxHeight = scrollHeight + 'px'
-  },
-
   beforeUnmount() {
     this.editor.off('text-change', this.update)
   },
 
   methods: {
-    initEditor() {
+    setup() {
       this.editor = new Quill(this.$refs.editor, {
         modules: {
           toolbar: '#toolbar' + this.id,
@@ -107,7 +105,7 @@ export default {
         placeholder: this.placeholder,
         theme: 'snow',
       })
-      this.editor.root.innerHTML = this.value || ''
+      this.editor.root.innerHTML = this.modelValue || ''
       this.editor.on('text-change', this.update)
     },
 
@@ -115,8 +113,8 @@ export default {
       if (this.remainingCharCount <= 0) {
         return this.editor.deleteText(this.charLimit, this.editor.getLength())
       }
-      if (this.editor.root.innerHTML === this.value) return
-      this.$emit('input', this.editor.getText().length !== 1 ? this.editor.root.innerHTML : '')
+      if (this.editor.root.innerHTML === this.modelValue) return
+      this.$emit('update:modelValue', this.editor.getText().length !== 1 ? this.editor.root.innerHTML : '')
       const scrollHeight = this.editor.scroll.domNode.scrollHeight
       this.editor.scroll.domNode.style.maxHeight = scrollHeight + 'px'
     },
