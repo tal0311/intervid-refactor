@@ -43,7 +43,7 @@
       {{ isPasswordShown ? 'visibility_off' : 'visibility' }}
     </span>
 
-    <ValidationMsg :error="error" />
+    <ValidationMsg v-if="error && isDirty" :error="error" />
   </div>
 </template>
 
@@ -110,6 +110,7 @@ export default {
   emits: ['update:modelValue', 'change'],
   data() {
     return {
+      isDirty: false,
       isPasswordShown: false,
     }
   },
@@ -126,7 +127,10 @@ export default {
   },
 
   methods: {
+    // @OPTION 2: change isDirty to true every time a user enters something, if it isn't already dirty.
+    // I like this one a bit better then the watcher one, since this function is called regardless of our addition, it's still not great but it's readable.
     onChange(ev) {
+      if (!this.isDirty && ev.target.value) this.isDirty = true
       console.log(ev.target.value)
       this.$emit('update:modelValue', ev.target.value)
       this.$emit('change', ev)
