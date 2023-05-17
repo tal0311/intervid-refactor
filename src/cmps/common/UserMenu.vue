@@ -1,9 +1,15 @@
 <template>
   <div class="user-menu">
-    <div v-if="loggedInUser" class="user-avatar" @click="toggleModal">
+    <div v-if="loggedInUser" class="user-avatar" @click.stop="toggleModal">
       <ApplicantAvatar :size="35" :src="loggedInUser.imgUrl || loggedInUser.logoUrl" :username="userFullName" />
     </div>
-    <div :class="{open: isOpen && !isMobile && loggedInUser}" class="user-modal">
+
+    <div
+      v-if="isOpen && !isMobile"
+      v-click-outside-calc="closeModal"
+      :class="{open: isOpen && !isMobile && loggedInUser}"
+      class="user-modal"
+    >
       <button @click="onGoTo('ApplicantOverview')">
         {{ $getTrans('backoffice') }}
       </button>
@@ -17,18 +23,44 @@
       <button @click="onGoTo('UserMgmt')">{{ $getTrans('profile') }}</button>
       <button @click="onLogout">{{ $getTrans('logout') }}</button>
     </div>
+    <!-- </Teleport> -->
     <RouterLink v-if="!loggedInUser" class="link" :to="authPath.to">{{ authPath.txt }}</RouterLink>
 
-    <MobileModal v-if="isOpen && isMobile" cmp-name="user-menu" @on-close="toggleModal" />
+    <MobileModal
+      v-if="isOpen && isMobile"
+      v-click-outside-calc="closeModal"
+      cmp-name="user-menu"
+      @on-close="toggleModal"
+    />
   </div>
 </template>
 
 <script>
+import {onMounted} from 'vue'
+// import {useIntersectionObserver} from '@/composables/util/useIntersectionObserver'
 import ApplicantAvatar from './ApplicantAvatar.vue'
 import MobileModal from './modals/MobileModal.vue'
+import {useStore} from 'vuex'
 
 export default {
   components: {ApplicantAvatar, MobileModal},
+  setup() {
+    const store = useStore()
+    // const {observe} = useIntersectionObserver(closeModal)
+
+    onMounted(() => {
+      // observe('.header-content.container')
+    })
+
+    function closeModal() {
+      // if (this.isMobile || !this.isOpen) return
+      console.log('closing')
+      store.dispatch('app/toggleModal', null)
+    }
+    return {
+      closeModal,
+    }
+  },
   computed: {
     loggedInUser() {
       return this.$store.getters['user/loggedInUser']

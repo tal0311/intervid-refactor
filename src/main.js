@@ -24,7 +24,7 @@ import {loggerService} from './services/loggerService'
 import MainInput from '@/cmps/common/MainInput.vue'
 import CheckboxInput from '@/cmps/common/CheckboxInput.vue'
 import BasicSelect from '@/cmps/common/BasicSelect.vue'
-import {clickOutside} from './directivs'
+import {clickOutside, clickOutsideCalc} from './directivs'
 
 import './assets/scss/global.scss'
 // import {getTrans} from './services/i18nService'
@@ -109,6 +109,7 @@ app.component('BasicSelect', BasicSelect)
 app.component('CheckboxInput', CheckboxInput)
 
 app.directive('click-outside', clickOutside)
+app.directive('click-outside-calc', clickOutsideCalc)
 app.directive('observe-visibility', ObserveVisibility)
 
 // ?delete
