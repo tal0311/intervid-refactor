@@ -15,7 +15,7 @@
         {{ $getTrans('filter-btn') }}
       </button>
 
-      <div v-click-outside="onResetFilter" class="filter-modal" :class="{open: isFilterModalOpen}">
+      <div v-click-outside-calc="onResetFilter" class="filter-modal" :class="{open: isFilterModalOpen}">
         <div v-if="isApplicantOverview" class="filter-container status-filter">
           <h3 class="filter-title">{{ $getTrans('by-status') }}</h3>
           <div class="filter-list">
