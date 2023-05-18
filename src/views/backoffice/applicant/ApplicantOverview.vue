@@ -150,7 +150,7 @@ export default {
       clearSelectedItems()
       // this.setFilterFromRoute()
       loadApplicants()
-    })
+    },{flush:'post'})
     async function loadApplicants() {
       const {jobId} = route.params
       if (jobId) onSetFilterByKey('jobId', jobId)
