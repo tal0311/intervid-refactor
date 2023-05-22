@@ -149,11 +149,12 @@ export default {
     watch(
       route,
       () => {
+        if (route.fullPath.split('/').includes('details')) return
         clearSelectedItems()
         // this.setFilterFromRoute()
         loadApplicants()
       },
-      {flush: 'post'},
+      // {flush: 'post'},
     )
     async function loadApplicants() {
       const {jobId} = route.params
