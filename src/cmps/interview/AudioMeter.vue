@@ -19,7 +19,7 @@ export default {
       intervalId: null,
       isAudio: false,
       noAudioTimeout: null,
-      MIN_VOLUME: 0.15,
+      MIN_VOLUME: 0.10,
       displayVolume: 0,
     }
   },
