@@ -146,11 +146,15 @@ export default {
     //   setShouldGather,
     // })
 
-    watch(route, () => {
-      clearSelectedItems()
-      // this.setFilterFromRoute()
-      loadApplicants()
-    },{flush:'post'})
+    watch(
+      route,
+      () => {
+        clearSelectedItems()
+        // this.setFilterFromRoute()
+        loadApplicants()
+      },
+      {flush: 'post'},
+    )
     async function loadApplicants() {
       const {jobId} = route.params
       if (jobId) onSetFilterByKey('jobId', jobId)
