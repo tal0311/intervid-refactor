@@ -141,7 +141,7 @@ export default {
   },
   setup() {
     // const route = useRoute()
-    const {filterBy, onSetFilter, onSetFilterByKey, resetFilters, setFilterFromRoute} = useFilter('job/loadJobs')
+    const {filterBy, onSetFilter, onSetFilterByKey, resetFilters, setFilterFromRoute} = useFilter()
     const {sort, onSort} = useSort()
     const {selectedItems, onSelectAll, onSelectItem, isSelected, clearSelectedItems} = useSelection()
     const {shouldGather, setShouldGather} = useShouldGather()
@@ -243,6 +243,7 @@ export default {
     },
   },
   async created() {
+    this.onSetFilterByKey('currPage', 0)
     this.setPreferredView()
     await this.loadJobs()
     await this.$store.dispatch('template/loadDefaultTemplates')
