@@ -73,7 +73,6 @@ export default {
 
   mounted() {
     this.initUploadBtn()
-    console.log('ref', typeof this.$refs.elDragDrop)
   },
 
   methods: {

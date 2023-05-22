@@ -118,7 +118,7 @@ export default {
       errors: null,
       isDrag: false,
       changeClass: false,
-      num: 0,
+      dragInsideFormCounter: 0,
     }
   },
 
@@ -193,15 +193,14 @@ export default {
 
     changeUploadBox() {
       if (this.isDrag) {
-        if (this.num < 2) this.num++
+        if (this.dragInsideFormCounter < 2) this.dragInsideFormCounter++
         this.changeClass = true
       }
     },
 
     onDragleave() {
-      this.num--
-      console.log(this.num)
-      if (this.num === 0 && this.isDrag) {
+      this.dragInsideFormCounter--
+      if (this.dragInsideFormCounter === 0 && this.isDrag) {
         this.changeClass = false
       }
     },
