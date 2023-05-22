@@ -20,13 +20,13 @@
 export default {
   data() {
     return {
-      isAnimationstarted: false,
+      isAnimationStarted: false,
     }
   },
 
   mounted() {
     setTimeout(() => {
-      this.isAnimationstarted = true
+      this.isAnimationStarted = true
     }, 1000)
   },
 }
