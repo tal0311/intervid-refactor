@@ -1,5 +1,5 @@
 <template>
-  <section class="applicant-form">
+  <section class="applicant-form" :class="{draggeble: changeClass}">
     <div class="applicant-form-content">
       <div class="header">
         <!-- <img :src="coverUrl" alt="" /> -->
@@ -17,8 +17,8 @@
         </div>
       </div>
       <h3>{{ $getTrans('before-the-interview-we-need-to-know-you') }}</h3>
-      <ApplicationIndex />
-      <form ref="form" novalidate @submit.prevent="validateForm">
+      <ApplicationIndex @dragenter="changeClass = false" />
+      <form ref="form" novalidate @submit.prevent="validateForm" @dragenter="changeUploadBox" @dragleave="onDragleave">
         <p class="form-title">
           {{ $getTrans('fill-in-your-personal-details') }}
         </p>
@@ -78,7 +78,11 @@
           />
 
           <div :class="{disabled: !applicantInfo.fName || !applicantInfo.lName}">
-            <CvUpload :errors="errors" :applicant-cv-name="applicantFullName" @uploaded="onCvUploaded" />
+            <CvUpload
+              :errors="errors"
+              :applicant-cv-name="applicantFullName"
+              @uploaded="onCvUploaded"
+              @uploadClick="toggleDrag"/>
           </div>
         </div>
         <div class="btn-container">
@@ -112,6 +116,9 @@ export default {
         cv: '',
       },
       errors: null,
+      isDrag: false,
+      changeClass: false,
+      dragInsideFormCounter: 0,
     }
   },
 
@@ -182,6 +189,25 @@ export default {
       if (!ev.target.form) return
       if (!this.errors) return
       this.errors = validate(ev.target.form)
+    },
+
+    changeUploadBox() {
+      if (this.isDrag) {
+        if (this.dragInsideFormCounter < 2) this.dragInsideFormCounter++
+        this.changeClass = true
+      }
+    },
+
+    onDragleave() {
+      this.dragInsideFormCounter--
+      if (this.dragInsideFormCounter === 0 && this.isDrag) {
+        this.changeClass = false
+      }
+    },
+
+    toggleDrag(isDrag) {
+      this.isDrag = isDrag
+      if (!isDrag) this.changeClass = isDrag
     },
   },
 }

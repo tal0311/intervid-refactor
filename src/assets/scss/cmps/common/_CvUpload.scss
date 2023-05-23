@@ -25,7 +25,8 @@
       color: $dark-gray;
       border: 1px solid $dark-gray;
       border-radius: 4px;
-      padding: 0.5em 1em;
+      // padding: 0.5em 1em;
+      padding: 5px;
 
       > .uppy-DragDrop-inner {
         > svg {
@@ -38,6 +39,16 @@
         color: #fff;
         border: 1px solid transparent;
       }
+    }
+
+    .draggeble & {
+      color: grey;
+      display: inline-block;
+      background-color: rgb(234, 231, 231);
+      padding: 5px;
+      width: 100%;
+      border: 1px dashed gray;
+      border-radius: 4px;
     }
   }
 
