@@ -2,9 +2,9 @@
   <div class="cv-upload">
     <h4>{{ $getTrans('resume') }}</h4>
     <small>{{ $getTrans('be-sure-include-updated-resume') }}</small>
-    <div v-if="cvUploadProgress === 0" ref="elDragDrop" class="drag-drop"></div>
+    <div v-if="cvUploadProgress === 0" ref="elDragDrop" class="drag-drop" @click="toggleDrag(true)"></div>
     <ValidationMsg v-if="error" :error="error" />
-    <small v-if="cvUploadProgress === 0">DOC, DOCX, PDF (4MB)</small>
+    <small v-if="cvUploadProgress === 0">PDF (4MB)</small>
     <div class="progress-container">
       <div v-if="cvUploadProgress !== 0" class="success">
         <div class="left">
@@ -50,7 +50,7 @@ export default {
       required: true,
     },
   },
-  emits: ['uploaded'],
+  emits: ['uploaded', 'uploadClick'],
   data() {
     return {
       cvUploadProgress: 0,
@@ -94,6 +94,9 @@ export default {
             dropHereOr: this.$getTrans('upload-resume'),
           },
         },
+        onDrop: () => {
+          this.toggleDrag(false)
+        },
       })
 
       uppy.on('file-added', (file) => {
@@ -119,6 +122,10 @@ export default {
       if (this.$refs.elDragDrop) this.$refs.elDragDrop.innerHTML = ''
       this.$emit('uploaded', {})
       nextTick(this.initUploadBtn)
+    },
+
+    toggleDrag(isDrag) {
+      this.$emit('uploadClick', isDrag)
     },
   },
 }
