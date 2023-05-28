@@ -76,7 +76,7 @@ export default {
   },
 
   mounted() {
-    this.applicantToEdit = this.$utilService.deepClone(this.applicant)
+    this.applicantToEdit = this.$utilService.cloneDeep(this.applicant)
   },
 
   methods: {

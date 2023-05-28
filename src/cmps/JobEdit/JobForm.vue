@@ -107,7 +107,6 @@ import {tooltips} from '@/services/constData.js'
 import ImgUpload from '@/cmps/common/ImgUpload.vue'
 import CoverUpload from '@/cmps/common/CoverUpload.vue'
 import MainInput from '@/cmps/common/MainInput.vue'
-import cloneDeep from 'lodash.clonedeep'
 
 export default {
   components: {ImgUpload, CoverUpload, MainInput},
@@ -153,7 +152,7 @@ export default {
   watch: {
     job: {
       handler() {
-        this.mutableJob = cloneDeep(this.job)
+        this.mutableJob = this.$utilService.cloneDeep(this.job)
       },
       immediate: true,
       deep: true,
