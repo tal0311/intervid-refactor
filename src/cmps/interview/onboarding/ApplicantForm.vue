@@ -82,7 +82,8 @@
               :errors="errors"
               :applicant-cv-name="applicantFullName"
               @uploaded="onCvUploaded"
-              @uploadClick="toggleDrag"/>
+              @uploadClick="toggleDrag"
+            />
           </div>
         </div>
         <div class="btn-container">

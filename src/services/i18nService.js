@@ -984,7 +984,6 @@ const gTrans = {
     en: 'Send interview to applicants',
     he: 'שלח את הראיון למועמדים',
   },
-  
 
   // PAGE - INTERVIEW COMPOSE - INVITE CANDIDATES
   'invitation-link-is-ready': {

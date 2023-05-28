@@ -16,7 +16,13 @@
           <p v-if="jobEditErrors.length" class="saving error">
             {{ $getTrans('required-fields-missing') }}
           </p>
-          <i v-if="jobToEdit._id" class="material-icons-outlined bottom-tooltip" @click="openPreview" :data-tooltip="$getTrans('visibility-tooltip')">visibility</i>
+          <i
+            v-if="jobToEdit._id"
+            class="material-icons-outlined bottom-tooltip"
+            :data-tooltip="$getTrans('visibility-tooltip')"
+            @click="openPreview"
+            >visibility</i
+          >
           <button
             class="send-btn bottom-tooltip"
             :class="[
@@ -25,8 +31,8 @@
               },
               {selected: modal.isDarkScreen},
             ]"
-            @click="onShare" 
             :data-tooltip="$getTrans('send-tooltip')"
+            @click="onShare"
           >
             {{ $getTrans('send') }}
           </button>
@@ -37,13 +43,19 @@
           <RouterLink
             to="/backoffice/applicant"
             class="backoffice-nav bottom-tooltip"
-            :class="{selected: currRouteName === 'ApplicantOverview'}" :data-tooltip="$getTrans('applicants-tooltip')"
+            :class="{selected: currRouteName === 'ApplicantOverview'}"
+            :data-tooltip="$getTrans('applicants-tooltip')"
           >
-            <i class="material-icons-outlined" >group</i>
+            <i class="material-icons-outlined">group</i>
             <span>{{ $getTrans('applications') }}</span>
           </RouterLink>
 
-          <RouterLink to="/backoffice/job" class="backoffice-nav bottom-tooltip" :class="{selected: currRouteName === 'JobOverview'}" :data-tooltip="$getTrans('jobs-tooltip')">
+          <RouterLink
+            to="/backoffice/job"
+            class="backoffice-nav bottom-tooltip"
+            :class="{selected: currRouteName === 'JobOverview'}"
+            :data-tooltip="$getTrans('jobs-tooltip')"
+          >
             <i class="material-icons-round">work_outline</i>
             <span>{{ $getTrans('jobs') }}</span>
           </RouterLink>
