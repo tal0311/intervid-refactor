@@ -110,9 +110,10 @@ export default {
     },
 
     update() {
-      if (this.remainingCharCount <= 0) {
-        return this.editor.deleteText(this.charLimit, this.editor.getLength())
-      }
+      //This code causes a bug in the quest description. I'm not sure what its purpose is, but I will leave a comment in case another bug pops up.
+      // if (this.remainingCharCount <= 0) {
+      //   return this.editor.deleteText(this.charLimit, this.editor.getLength())
+      // }
       if (this.editor.root.innerHTML === this.modelValue) return
       this.$emit('update:modelValue', this.editor.getText().length !== 1 ? this.editor.root.innerHTML : '')
       const scrollHeight = this.editor.scroll.domNode.scrollHeight
