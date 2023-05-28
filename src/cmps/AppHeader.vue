@@ -16,16 +16,17 @@
           <p v-if="jobEditErrors.length" class="saving error">
             {{ $getTrans('required-fields-missing') }}
           </p>
-          <i v-if="jobToEdit._id" class="material-icons-outlined" @click="openPreview">visibility</i>
+          <i v-if="jobToEdit._id" class="material-icons-outlined bottom-tooltip" @click="openPreview" :data-tooltip="$getTrans('visibility-tooltip')">visibility</i>
           <button
-            class="send-btn"
+            class="send-btn bottom-tooltip"
             :class="[
               {
                 disabled: !jobToEdit._id || (jobEditErrors && jobEditErrors.length),
               },
               {selected: modal.isDarkScreen},
             ]"
-            @click="onShare"
+            @click="onShare" 
+            :data-tooltip="$getTrans('send-tooltip')"
           >
             {{ $getTrans('send') }}
           </button>
@@ -35,14 +36,14 @@
         <div v-if="!!loggedInUser" class="backoffice-nav-container">
           <RouterLink
             to="/backoffice/applicant"
-            class="backoffice-nav"
-            :class="{selected: currRouteName === 'ApplicantOverview'}"
+            class="backoffice-nav bottom-tooltip"
+            :class="{selected: currRouteName === 'ApplicantOverview'}" :data-tooltip="$getTrans('applicants-tooltip')"
           >
-            <i class="material-icons-outlined">group</i>
+            <i class="material-icons-outlined" >group</i>
             <span>{{ $getTrans('applications') }}</span>
           </RouterLink>
 
-          <RouterLink to="/backoffice/job" class="backoffice-nav" :class="{selected: currRouteName === 'JobOverview'}">
+          <RouterLink to="/backoffice/job" class="backoffice-nav bottom-tooltip" :class="{selected: currRouteName === 'JobOverview'}" :data-tooltip="$getTrans('jobs-tooltip')">
             <i class="material-icons-round">work_outline</i>
             <span>{{ $getTrans('jobs') }}</span>
           </RouterLink>

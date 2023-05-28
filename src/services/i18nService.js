@@ -968,6 +968,23 @@ const gTrans = {
     en: 'Send',
     he: 'שלח',
   },
+  'jobs-tooltip': {
+    en: 'See your jobs',
+    he: 'צפה במשרות שלך',
+  },
+  'applicants-tooltip': {
+    en: 'See your applicants',
+    he: 'צפה במועמדים שלך',
+  },
+  'visibility-tooltip': {
+    en: 'Preview and test your interview',
+    he: 'צפה ונסה את הראיון שלך',
+  },
+  'send-tooltip': {
+    en: 'Send interview to applicants',
+    he: 'שלח את הראיון למועמדים',
+  },
+  
 
   // PAGE - INTERVIEW COMPOSE - INVITE CANDIDATES
   'invitation-link-is-ready': {
