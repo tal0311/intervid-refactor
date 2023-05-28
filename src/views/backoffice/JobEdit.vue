@@ -125,7 +125,7 @@ export default {
 
   watch: {
     jobToEdit() {
-      this.job = this.$utilService.deepClone(this.jobToEdit)
+      this.job = this.$utilService.cloneDeep(this.jobToEdit)
       if (this.$route.fullPath.includes('create') && this.jobToEdit._id) {
         this.$router.push(`/create/${this.jobToEdit._id}`)
       }
@@ -135,7 +135,7 @@ export default {
 
   async created() {
     await this.loadJob()
-    this.job = this.$utilService.deepClone(this.jobToEdit)
+    this.job = this.$utilService.cloneDeep(this.jobToEdit)
     if (this.$route.query.templateId) await this.loadTemplateQuests()
   },
 

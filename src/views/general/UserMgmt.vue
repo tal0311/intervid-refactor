@@ -204,7 +204,7 @@ export default {
     },
   },
   mounted() {
-    this.userToEdit = this.$utilService.deepClone(this.loggedInUser)
+    this.userToEdit = this.$utilService.cloneDeep(this.loggedInUser)
   },
 
   methods: {

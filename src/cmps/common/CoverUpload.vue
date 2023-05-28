@@ -159,12 +159,12 @@ export default {
 
   watch: {
     loggedInUser() {
-      this.user = this.$utilService.deepClone(this.loggedInUser)
+      this.user = this.$utilService.cloneDeep(this.loggedInUser)
     },
   },
 
   created() {
-    this.user = this.$utilService.deepClone(this.loggedInUser)
+    this.user = this.$utilService.cloneDeep(this.loggedInUser)
   },
 
   methods: {

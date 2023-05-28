@@ -225,7 +225,7 @@ export default {
         return
       }
       this.applicant = {
-        ...this.$utilService.deepClone(this.job.applicant),
+        ...this.$utilService.cloneDeep(this.job.applicant),
         jobInfo: {
           title: this.job.info.title,
           jobId: this.job._id,
@@ -282,7 +282,7 @@ export default {
 
     async saveApplicant() {
       return await this.$store.dispatch('job/updateApplicants', {
-        applicants: [this.$utilService.deepClone(this.applicant)],
+        applicants: [this.$utilService.cloneDeep(this.applicant)],
       })
     },
 
@@ -341,10 +341,10 @@ export default {
     },
 
     async removeNoteEvent(noteId) {
-      const timelineToSave = this.$utilService.deepClone(
+      const timelineToSave = this.$utilService.cloneDeep(
         this.applicant.timeline.filter((timeEvent) => timeEvent.type !== 'note' || timeEvent.noteId !== noteId),
       )
-      const notesToSave = this.$utilService.deepClone(this.applicant.notes.filter((note) => note.id !== noteId))
+      const notesToSave = this.$utilService.cloneDeep(this.applicant.notes.filter((note) => note.id !== noteId))
       this.applicant = {
         ...this.applicant,
         timeline: timelineToSave,

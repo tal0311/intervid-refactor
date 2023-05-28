@@ -36,13 +36,13 @@ export default {
   watch: {
     optsToEdit() {
       if (this.optsToEdit) {
-        this.opts = this.$utilService.deepClone(this.optsToEdit)
+        this.opts = this.$utilService.cloneDeep(this.optsToEdit)
       }
     },
   },
 
   created() {
-    this.opts = this.$utilService.deepClone(this.optsToEdit)
+    this.opts = this.$utilService.cloneDeep(this.optsToEdit)
   },
 
   methods: {
