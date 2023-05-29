@@ -150,7 +150,7 @@ export default {
 
     async onCloneJob() {
       this.toggleModal()
-      const jobToSave = this.$utilService.deepClone(this.job)
+      const jobToSave = this.$utilService.cloneDeep(this.job)
       delete jobToSave._id
       delete jobToSave.createdAt
       jobToSave.applicants = []

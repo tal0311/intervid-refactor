@@ -138,13 +138,13 @@ export default {
   watch: {
     userToEdit() {
       if (this.userToEdit) {
-        this.user = this.$utilService.deepClone(this.userToEdit)
+        this.user = this.$utilService.cloneDeep(this.userToEdit)
       }
     },
   },
 
   created() {
-    if (this.data?.userToEdit) this.user = this.$utilService.deepClone(this.data.userToEdit)
+    if (this.data?.userToEdit) this.user = this.$utilService.cloneDeep(this.data.userToEdit)
     if (!this.user.advancedPrm) this.user.advancedPrm = {}
   },
 

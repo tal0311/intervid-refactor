@@ -308,7 +308,7 @@ export default {
       this.resetFilter()
     },
     resetFilter() {
-      this.updatedFilterBy = this.$utilService.deepClone(this.filterBy)
+      this.updatedFilterBy = this.$utilService.cloneDeep(this.filterBy)
     },
 
     async getExpectedEntityCount(key, value) {

@@ -58,7 +58,13 @@
       <div class="toggle-container">
         <div class="main-toggle">
           <label> {{ $getTrans('candidate-cv') }}</label>
-          <input id="cv" v-model="mutableJob.rule.isCvRequired" type="checkbox" name="cv" />
+          <input
+            id="cv"
+            v-model="mutableJob.rule.isCvRequired"
+            type="checkbox"
+            name="cv"
+            @input="updateCheckbox('isCvRequired', $event)"
+          />
           <div class="outer">
             <div class="inner"></div>
             <p>{{ $getTrans('not-required') }}</p>
@@ -68,7 +74,13 @@
 
         <div class="main-toggle">
           <label> {{ $getTrans('video-recording') }}</label>
-          <input id="one-try" v-model="mutableJob.rule.isOneTry" type="checkbox" name="one-try" />
+          <input
+            id="one-try"
+            v-model="mutableJob.rule.isOneTry"
+            type="checkbox"
+            name="one-try"
+            @input="updateCheckbox('isOneTry', $event)"
+          />
           <div class="outer">
             <div class="inner"></div>
             <p>{{ $getTrans('allow-multiple-tries') }}</p>
@@ -140,7 +152,7 @@ export default {
   watch: {
     job: {
       handler() {
-        this.mutableJob = this.$utilService.deepClone(this.job)
+        this.mutableJob = this.$utilService.cloneDeep(this.job)
       },
       immediate: true,
       deep: true,
@@ -150,6 +162,11 @@ export default {
     this.id = this.$utilService.makeCmpId()
   },
   methods: {
+    updateCheckbox(target, ev) {
+      //Function to update checkbox in the right order (not working with v-model: first change the job in editJob component and then changes the mutableJob)
+      this.mutableJob.rule[target] = ev.target.checked
+      this.updateJobField()
+    },
     updateJobField() {
       this.$emit('update-job-field', this.mutableJob)
     },
