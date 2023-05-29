@@ -65,7 +65,7 @@
               {{ `${$getTrans('show-all')}` }}
             </label>
 
-            <label :class="{selected: updatedFilterBy.incomplete}" @input="() => {getExpectedEntityCount('incomplete')}">
+            <label :class="{selected: updatedFilterBy.incomplete}" @input="() => {getExpectedEntityCount('incomplete', true)}">
               <input
                 v-model="updatedFilterBy.incomplete"
                 name="view"
@@ -260,9 +260,7 @@ export default {
 
   watch: {
     updatedFilterBy: {
-      handler() {
-        console.log('hay')
-      },
+      handler() {},
       deep: true,
       immediate: true,
     },
@@ -315,7 +313,6 @@ export default {
       if (key === 'showArchived') this.updatedFilterBy[key] = !this.updatedFilterBy[key]
       else this.updatedFilterBy[key] = value
       const filterBy = this.updatedFilterBy
-      console.log('filterBy', filterBy)
       this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
     },
     async onClearFilter() {
