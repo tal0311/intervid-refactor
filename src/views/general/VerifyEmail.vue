@@ -7,6 +7,11 @@
       <p>
         {{ `${$getTrans('confirm-to-activate')}` }} <span>{{ email }}</span>
       </p>
+      <RouterLink to="user">
+        <button>
+          {{ $getTrans('not-your-email') }}
+        </button>
+      </RouterLink>
       <button @click="sendEmailAgain">
         {{ $getTrans('send-email-again') }}
       </button>

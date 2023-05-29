@@ -526,6 +526,10 @@ const gTrans = {
     en: 'Enter your email address',
     he: 'הזן את כתובת האימייל שלך',
   },
+  'not-your-email': {
+    en: 'Not your email?',
+    he: 'לא האימייל שלך?',
+  },
   'enter-the-code-we-sent-to': {
     en: 'Enter the code we sent to',
     he: 'יש להקליד את הקוד החד פעמי שנשלח לכתובת האימייל',
