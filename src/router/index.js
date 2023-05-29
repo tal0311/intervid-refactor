@@ -113,6 +113,9 @@ const routes = [
         name: 'UserMgmt',
         path: '/user',
         component: UserMgmt,
+        meta: {
+          public: true,
+        },
       },
       {
         path: '/backoffice',
