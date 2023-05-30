@@ -127,7 +127,7 @@
       :filtered-job-count="filteredJobCount"
       :entity="entity"
       :updated-filter-by="updatedFilterBy"
-      @edit-filter="(key, term) => (updatedFilterBy[key] = term)"
+      @edit-filter="(key, value) => getExpectedEntityCount(key, value)"
       @set-filter="onSetFilter"
       @reset-filter="onClearFilter"
       @select-status="onSelectStatus"
@@ -307,6 +307,7 @@ export default {
     },
     resetFilter() {
       this.updatedFilterBy = this.$utilService.cloneDeep(this.filterBy)
+      console.log(this.updatedFilterBy)
     },
 
     async getExpectedEntityCount(key, value) {
@@ -319,6 +320,8 @@ export default {
       this.$emit('reset-filters')
       this.$nextTick(() => {
         this.resetFilter()
+        const filterBy = this.updatedFilterBy
+        this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
       })
     },
   },
