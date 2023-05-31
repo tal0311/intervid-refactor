@@ -715,6 +715,19 @@
       transform: translateX(calc(-50% * var(--dir))) translateY(-120%);
     }
   }
+  &.top-player-tooltip {
+    &::before {
+      // top: calc(100% + 10px);
+      inset-inline-start: 50%;
+      opacity: 0;
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    &:hover::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-120%);
+    }
+  }
   &.top-right-tooltip {
     &::before {
       // top: calc(100% + 10px);
@@ -728,6 +741,19 @@
       transform: translateX(calc(0% * var(--dir))) translateY(-120%);
     }
   }
+  &.top-right-player-tooltip {
+    &::before {
+      // top: calc(100% + 10px);
+      inset-inline-start: 50%;
+      opacity: 0;
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    &:hover::before {
+      opacity: 1;
+      transform: translateX(0%) translateY(-120%);
+    }
+  }
   &.top-left-tooltip {
     &::before {
       // top: calc(100% + 10px);
@@ -739,6 +765,19 @@
     &:hover::before {
       opacity: 1;
       transform: translateX(calc(-100% * var(--dir))) translateY(-120%);
+    }
+  }
+  &.top-left-player-tooltip {
+    &::before {
+      // top: calc(100% + 10px);
+      inset-inline-start: 50%;
+      opacity: 0;
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    &:hover::before {
+      opacity: 1;
+      transform: translateX(-100%) translateY(-120%);
     }
   }
 

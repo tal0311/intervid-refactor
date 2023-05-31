@@ -11,13 +11,13 @@
     <div class="btn-container">
       <div class="controls">
         <button class="play" :disabled="!isPlayerReady" @click="$emit('toggle-play')">
-          <i class="material-icons top-right-tooltip" :data-tooltip="$getTrans('pause-video')">{{
+          <i class="material-icons top-right-player-tooltip" :data-tooltip="$getTrans('pause-video')">{{
             playerState.isPlaying ? 'pause' : 'play_arrow'
           }}</i>
         </button>
 
         <div class="volume">
-          <i :data-tooltip="$getTrans('volume')" class="material-icons top-tooltip" @click="toggleMute">{{
+          <i :data-tooltip="$getTrans('volume')" class="material-icons top-player-tooltip" @click="toggleMute">{{
             volumeIcon
           }}</i>
           <input
@@ -36,7 +36,7 @@
       <div class="settings-container">
         <div class="speed-container">
           <button class="setting-btn speed-btn" @click="toggleSpeedModal">
-            <i :data-tooltip="$getTrans('speed')" class="material-icons top-tooltip">speed</i>
+            <i :data-tooltip="$getTrans('speed')" class="material-icons top-player-tooltip">speed</i>
           </button>
 
           <div class="speed-modal" :class="{open: isSpeedOpen}">
@@ -57,7 +57,7 @@
           class="setting-btn draggable-btn"
           @click="$emit('toggle-is-draggable-shown')"
         >
-          <i :data-tooltip="$getTrans('add-screen')" class="material-icons top-tooltip">desktop_windows</i>
+          <i :data-tooltip="$getTrans('add-screen')" class="material-icons top-player-tooltip">desktop_windows</i>
         </button>
 
         <button
@@ -65,15 +65,15 @@
           class="setting-btn switch-btn"
           @click="$emit('toggle-main-video')"
         >
-          <i :data-tooltip="$getTrans('switch-screen')" class="material-icons top-tooltip">cameraswitch</i>
+          <i :data-tooltip="$getTrans('switch-screen')" class="material-icons top-player-tooltip">cameraswitch</i>
         </button>
 
         <button class="setting-btn rotate-btn" @click="$emit('rotate-main-video')">
-          <i :data-tooltip="$getTrans('rotate-screen')" class="material-icons top-tooltip">rotate_right</i>
+          <i :data-tooltip="$getTrans('rotate-screen')" class="material-icons top-player-tooltip">rotate_right</i>
         </button>
 
         <button class="setting-btn fullscreen-btn" @click="$emit('toggle-fullscreen')">
-          <i :data-tooltip="$getTrans('full-screen')" class="material-icons top-left-tooltip">{{
+          <i :data-tooltip="$getTrans('full-screen')" class="material-icons top-left-player-tooltip">{{
             playerState.isFullScreen ? 'fullscreen' : 'fullscreen_exit'
           }}</i>
         </button>
