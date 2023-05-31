@@ -2,7 +2,7 @@
   <div class="cv-upload">
     <h4>{{ $getTrans('resume') }}</h4>
     <small>{{ $getTrans('be-sure-include-updated-resume') }}</small>
-    <div v-if="cvUploadProgress === 0" ref="elDragDrop" class="drag-drop" @click="toggleDrag(true)"></div>
+    <div v-if="cvUploadProgress === 0" ref="elDragDrop" :class="{close:!isUploadCvClicked}" class="drag-drop" @click="toggleDrag(true)"></div>
     <ValidationMsg v-if="error" :error="error" />
     <small v-if="cvUploadProgress === 0">PDF (4MB)</small>
     <div class="progress-container">
@@ -58,6 +58,7 @@ export default {
       uppy: null,
       uploadedAt: null,
       fileId: null,
+      isUploadCvClicked: false,
     }
   },
 
@@ -80,6 +81,7 @@ export default {
       const restrictions = {
         maxFileSize: 5000000,
         maxNumberOfFiles: 1,
+        closeAfterFinish: true,
         allowedFileTypes: ['application/pdf', 'application/msword'],
       }
 
@@ -122,10 +124,12 @@ export default {
       if (this.$refs.elDragDrop) this.$refs.elDragDrop.innerHTML = ''
       this.$emit('uploaded', {})
       nextTick(this.initUploadBtn)
+      this.isUploadCvClicked = false
     },
 
     toggleDrag(isDrag) {
       this.$emit('uploadClick', isDrag)
+      this.isUploadCvClicked = true
     },
   },
 }

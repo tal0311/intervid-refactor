@@ -112,8 +112,9 @@
           <a class="clear-filters-btn" :class="{bold: isFiltering}" :disabled="!isFiltering" @click="onClearFilter">
             {{ $getTrans('clear-filters') }}
           </a>
-          <button class="set-filter-btn" @click="onSetFilter">
-            {{ showCount }}
+          <button class="set-filter-btn" :disabled="isDisabled" @click="onSetFilter">
+            <div v-if="isloading" class="loading"></div>
+            <p v-else>{{ showCount }}</p>
           </button>
         </div>
       </div>
@@ -127,7 +128,7 @@
       :filtered-job-count="filteredJobCount"
       :entity="entity"
       :updated-filter-by="updatedFilterBy"
-      @edit-filter="(key, term) => (updatedFilterBy[key] = term)"
+      @edit-filter="(key, value) => getExpectedEntityCount(key, value)"
       @set-filter="onSetFilter"
       @reset-filter="onClearFilter"
       @select-status="onSelectStatus"
@@ -162,6 +163,8 @@ export default {
       updatedFilterBy: {...this.filterBy},
       isFilterEdited: false,
       svgs: {filter: ''},
+      isloading: false,
+      isNoResults: false,
     }
   },
 
@@ -176,6 +179,11 @@ export default {
 
     filterDates() {
       return filterDates
+    },
+
+    isDisabled() {
+      if (this.isNoResults || this.isloading) return true
+      return false
     },
 
     // isFilterByDate() {
@@ -283,13 +291,17 @@ export default {
       this.toggleModal(null)
     },
 
-    onSelectStatus(statusCode) {
+    async onSelectStatus(statusCode) {
       if (!this.updatedFilterBy.statuses) this.updatedFilterBy.statuses = []
       if (this.isStatusSelected(statusCode)) {
         this.updatedFilterBy.statuses = this.updatedFilterBy?.statuses.filter((status) => status !== statusCode)
       } else this.updatedFilterBy.statuses = [...this.updatedFilterBy.statuses, statusCode]
       const filterBy = this.updatedFilterBy
-      this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
+      this.isloading = true
+      await this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
+      if (this.expectedEntityCount === 0) this.isNoResults = true
+      else this.isNoResults = false
+      this.isloading = false
     },
 
     isStatusSelected(statusCode) {
@@ -307,18 +319,25 @@ export default {
     },
     resetFilter() {
       this.updatedFilterBy = this.$utilService.cloneDeep(this.filterBy)
+      console.log(this.updatedFilterBy)
     },
 
     async getExpectedEntityCount(key, value) {
       if (key === 'showArchived') this.updatedFilterBy[key] = !this.updatedFilterBy[key]
       else this.updatedFilterBy[key] = value
       const filterBy = this.updatedFilterBy
-      this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
+      this.isloading = true
+      await this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
+      if (this.expectedEntityCount === 0) this.isNoResults = true
+      else this.isNoResults = false
+      this.isloading = false
     },
     async onClearFilter() {
       this.$emit('reset-filters')
       this.$nextTick(() => {
         this.resetFilter()
+        const filterBy = this.updatedFilterBy
+        this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
       })
     },
   },
