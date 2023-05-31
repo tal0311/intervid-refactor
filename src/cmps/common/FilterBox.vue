@@ -29,17 +29,19 @@
         <div class="filter-container date-filter">
           <h3 class="filter-title">{{ $getTrans('by-date') }}</h3>
           <div class="filter-list">
-            <label :class="{selected: !updatedFilterBy.daysAgo}">
-              <input v-model="updatedFilterBy.daysAgo" type="radio" value="" :checked="!updatedFilterBy.daysAgo" />
+            <label :class="{selected: !updatedFilterBy.daysAgo}" @input="() => {getExpectedEntityCount('daysAgo', null)}">
+              <input v-model="updatedFilterBy.daysAgo" name="date" type="radio" value="" :checked="!updatedFilterBy.daysAgo" />
               {{ $getTrans('all') }}
             </label>
             <label
               v-for="date in filterDates"
               :key="date.id"
               :class="{selected: updatedFilterBy.daysAgo == date.daysAgo}"
+              @input="() => {getExpectedEntityCount('daysAgo', date.daysAgo)}"
             >
               <input
                 v-model="updatedFilterBy.daysAgo"
+                name="date"
                 type="radio"
                 :value="date.daysAgo"
                 :checked="updatedFilterBy.daysAgo == date.daysAgo"
@@ -52,9 +54,10 @@
         <div v-if="isApplicantOverview" class="filter-container view-filter">
           <h3 class="filter-title">{{ $getTrans('view-only') }}</h3>
           <div class="filter-list">
-            <label :class="{selected: updatedFilterBy.incomplete === undefined}">
+            <label :class="{selected: updatedFilterBy.incomplete === undefined}" @input="() => {getExpectedEntityCount('incomplete', undefined)}">
               <input
                 v-model="updatedFilterBy.incomplete"
+                name="view"
                 type="radio"
                 :checked="updatedFilterBy.incomplete === undefined"
                 :value="undefined"
@@ -62,21 +65,23 @@
               {{ `${$getTrans('show-all')}` }}
             </label>
 
-            <label :class="{selected: updatedFilterBy.incomplete}">
+            <label :class="{selected: updatedFilterBy.incomplete}" @input="() => {getExpectedEntityCount('incomplete', true)}">
               <input
                 v-model="updatedFilterBy.incomplete"
+                name="view"
                 type="radio"
                 :value="true"
-                :checked="updatedFilterBy.incomplete === false"
+                :checked="updatedFilterBy.incomplete"
               />
               {{ $getTrans('show-incomplete') }}
             </label>
-            <label :class="{selected: updatedFilterBy.incomplete === false}">
+            <label :class="{selected: updatedFilterBy.incomplete === false}" @input="() => {getExpectedEntityCount('incomplete', false)}">
               <input
                 v-model="updatedFilterBy.incomplete"
+                name="view"
                 type="radio"
                 :value="false"
-                :checked="updatedFilterBy.incomplete"
+                :checked="updatedFilterBy.incomplete === false"
               />
               {{ $getTrans('show-complete') }}
             </label>
@@ -86,7 +91,8 @@
           <h3 class="filter-title">{{ $getTrans('show-archived') }}</h3>
           <div class="toggle-option">
             <div class="main-toggle">
-              <label for="show-archived">
+              <label for="show-archived" @input="() => {getExpectedEntityCount('showArchived', true)}">
+              <!-- <label for="show-archived"> -->
                 <input
                   id="show-archived"
                   v-model="updatedFilterBy.showArchived"
@@ -106,8 +112,9 @@
           <a class="clear-filters-btn" :class="{bold: isFiltering}" :disabled="!isFiltering" @click="onClearFilter">
             {{ $getTrans('clear-filters') }}
           </a>
-          <button class="set-filter-btn" @click="onSetFilter">
-            {{ showCount }}
+          <button class="set-filter-btn" :disabled="isDisabled" @click="onSetFilter">
+            <div v-if="isloading" class="loading"></div>
+            <p v-else>{{ showCount }}</p>
           </button>
         </div>
       </div>
@@ -121,7 +128,7 @@
       :filtered-job-count="filteredJobCount"
       :entity="entity"
       :updated-filter-by="updatedFilterBy"
-      @edit-filter="(key, term) => (updatedFilterBy[key] = term)"
+      @edit-filter="(key, value) => getExpectedEntityCount(key, value)"
       @set-filter="onSetFilter"
       @reset-filter="onClearFilter"
       @select-status="onSelectStatus"
@@ -156,6 +163,8 @@ export default {
       updatedFilterBy: {...this.filterBy},
       isFilterEdited: false,
       svgs: {filter: ''},
+      isloading: false,
+      isNoResults: false,
     }
   },
 
@@ -170,6 +179,11 @@ export default {
 
     filterDates() {
       return filterDates
+    },
+
+    isDisabled() {
+      if (this.isNoResults || this.isloading) return true
+      return false
     },
 
     // isFilterByDate() {
@@ -233,10 +247,10 @@ export default {
 
     showCount() {
       const {$getTrans} = this
-      if (this.expectedEntityCount > 1)
+      if (this.expectedEntityCount > 1) {
         return `${$getTrans('show')} ${this.expectedEntityCount} 
           ${$getTrans(`${this.entity}s`.toLowerCase()).toLowerCase()}`
-      else if (this.expectedEntityCount === 1) {
+      } else if (this.expectedEntityCount === 1) {
         return this.lng === 'en'
           ? `${$getTrans('show')} ${this.expectedEntityCount} ${$getTrans(
               `${this.entity}`.toLowerCase(),
@@ -254,9 +268,7 @@ export default {
 
   watch: {
     updatedFilterBy: {
-      handler(newFilter) {
-        this.getExpectedEntityCount(newFilter)
-      },
+      handler() {},
       deep: true,
       immediate: true,
     },
@@ -265,6 +277,8 @@ export default {
   created() {
     // this.resetFilter()
     // this.svgs.filter = this.$getSvg('filter')
+    const filterBy = this.updatedFilterBy
+    this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
   },
 
   methods: {
@@ -277,11 +291,17 @@ export default {
       this.toggleModal(null)
     },
 
-    onSelectStatus(statusCode) {
+    async onSelectStatus(statusCode) {
       if (!this.updatedFilterBy.statuses) this.updatedFilterBy.statuses = []
       if (this.isStatusSelected(statusCode)) {
         this.updatedFilterBy.statuses = this.updatedFilterBy?.statuses.filter((status) => status !== statusCode)
       } else this.updatedFilterBy.statuses = [...this.updatedFilterBy.statuses, statusCode]
+      const filterBy = this.updatedFilterBy
+      this.isloading = true
+      await this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
+      if (this.expectedEntityCount === 0) this.isNoResults = true
+      else this.isNoResults = false
+      this.isloading = false
     },
 
     isStatusSelected(statusCode) {
@@ -298,16 +318,26 @@ export default {
       this.resetFilter()
     },
     resetFilter() {
-      this.updatedFilterBy = this.$utilService.deepClone(this.filterBy)
+      this.updatedFilterBy = this.$utilService.cloneDeep(this.filterBy)
+      console.log(this.updatedFilterBy)
     },
 
-    async getExpectedEntityCount(filterBy) {
-      this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
+    async getExpectedEntityCount(key, value) {
+      if (key === 'showArchived') this.updatedFilterBy[key] = !this.updatedFilterBy[key]
+      else this.updatedFilterBy[key] = value
+      const filterBy = this.updatedFilterBy
+      this.isloading = true
+      await this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
+      if (this.expectedEntityCount === 0) this.isNoResults = true
+      else this.isNoResults = false
+      this.isloading = false
     },
     async onClearFilter() {
       this.$emit('reset-filters')
       this.$nextTick(() => {
         this.resetFilter()
+        const filterBy = this.updatedFilterBy
+        this.$store.dispatch(`job/getExpected${this.entity}Count`, {filterBy})
       })
     },
   },

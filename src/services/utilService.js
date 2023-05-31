@@ -1,5 +1,5 @@
-import {markRaw} from 'vue'
 import {breakpoint} from './constData'
+import lodashCloneDeep from 'lodash.clonedeep'
 
 export const utilService = {
   getFullName,
@@ -22,7 +22,7 @@ export const utilService = {
   isEmpty,
   getVideoLength,
   isMobile,
-  deepClone,
+  cloneDeep,
   isEqual,
   isObject,
   isPlainObject,
@@ -215,22 +215,22 @@ function getVideoLength(videoUrl) {
   })
 }
 
-function deepClone(val) {
-  if (typeof val !== 'object' || val === null) {
-    return val
-  }
-
-  if (Array.isArray(val)) {
-    return val.map((item) => deepClone(item))
-  }
-
-  const clonedObj = markRaw({})
-  for (const key in val) {
-    if (Object.prototype.hasOwnProperty.call(val, key)) {
-      clonedObj[key] = deepClone(val[key])
-    }
-  }
-  return clonedObj
+function cloneDeep(val) {
+  return lodashCloneDeep(val)
+  // This impl might now work, leaving it here for now
+  // if (typeof val !== 'object' || val === null) {
+  //   return val
+  // }
+  // if (Array.isArray(val)) {
+  //   return val.map((item) => deepClone(item))
+  // }
+  // const clonedObj = {}
+  // for (const key in val) {
+  //   if (Object.prototype.hasOwnProperty.call(val, key)) {
+  //     clonedObj[key] = deepClone(val[key])
+  //   }
+  // }
+  // return clonedObj
 }
 
 // NOTE: This function can't handle complex objects, like maps, sets, promises etc.

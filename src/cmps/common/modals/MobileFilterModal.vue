@@ -19,7 +19,7 @@
               v-model="mutableUpdatedFilterBy.daysAgo"
               type="radio"
               value=""
-              :checked="!mutableUpdatedFilterBy.daysAgo"
+              :checked="!updatedFilterBy.daysAgo"
             />
             {{ $getTrans('all') }}
           </label>
@@ -33,7 +33,7 @@
               v-model="mutableUpdatedFilterBy.daysAgo"
               type="radio"
               :value="date.daysAgo"
-              :checked="mutableUpdatedFilterBy.daysAgo == date.daysAgo"
+              :checked="updatedFilterBy.daysAgo == date.daysAgo"
             />
             {{ $getTrans(date.label) }}
           </label>
@@ -48,14 +48,14 @@
             @input="
               () => {
                 $emit('edit-filter', 'incomplete', undefined)
-                $emit('edit-filter', 'showArchived', false)
+                // $emit('edit-filter', 'showArchived', false)
               }
             "
           >
             <input
               v-model="mutableUpdatedFilterBy.incomplete"
               type="radio"
-              :checked="mutableUpdatedFilterBy.incomplete === undefined"
+              :checked="updatedFilterBy.incomplete === undefined"
               :value="undefined"
             />
             {{ $getTrans('show-all') }}
@@ -64,26 +64,26 @@
           <label
             v-if="isApplicantOverview"
             :class="{selected: mutableUpdatedFilterBy.incomplete}"
-            @input="$emit('edit-filter', 'incomplete', $event.target.checked)"
+            @input="$emit('edit-filter', 'incomplete', true)"
           >
             <input
               v-model="mutableUpdatedFilterBy.incomplete"
               type="radio"
               :value="true"
-              :checked="mutableUpdatedFilterBy.incomplete === false"
+              :checked="updatedFilterBy.incomplete"
             />
             {{ $getTrans('show-incomplete') }}
           </label>
           <label
             v-if="isApplicantOverview"
             :class="{selected: mutableUpdatedFilterBy.incomplete}"
-            @input="$emit('edit-filter', 'incomplete', !$event.target.checked)"
+            @input="$emit('edit-filter', 'incomplete', false)"
           >
             <input
               v-model="mutableUpdatedFilterBy.incomplete"
               type="radio"
               :value="false"
-              :checked="mutableUpdatedFilterBy.incomplete"
+              :checked="updatedFilterBy.incomplete === false"
             />
             {{ $getTrans('show-complete') }}
           </label>
@@ -105,7 +105,7 @@
                 v-model="mutableUpdatedFilterBy.showArchived"
                 type="checkbox"
                 name="show-archived"
-                :checked="mutableUpdatedFilterBy.showArchived"
+                :checked="updatedFilterBy.showArchived"
                 @input="$emit('edit-filter', 'showArchived', $event.target.checked)"
               />
               <div class="outer">

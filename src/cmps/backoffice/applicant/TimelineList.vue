@@ -39,7 +39,7 @@ export default {
   emits: ['remove-note-event'],
   computed: {
     timelineToShow() {
-      const timelineToShow = this.$utilService.deepClone(this.timeline)
+      const timelineToShow = this.$utilService.cloneDeep(this.timeline)
       return timelineToShow.reverse()
     },
   },

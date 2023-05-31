@@ -7,7 +7,7 @@
     font-size: 20px;
   }
 
-  > small {
+  small {
     font-size: 14px;
     color: $light-gray;
   }
@@ -18,26 +18,40 @@
   }
 
   .drag-drop {
-    align-self: flex-start;
-
-    > button {
-      background: #fff;
-      color: $dark-gray;
-      border: 1px solid $dark-gray;
-      border-radius: 4px;
-      padding: 0.5em 1em;
-
-      > .uppy-DragDrop-inner {
-        > svg {
-          display: none;
+    border: 1px transparent solid;
+    padding-top: 5px;
+    
+    &.close{
+      align-self: flex-start;
+      button {
+        background: #fff;
+        color: $dark-gray;
+        border: 1px solid $dark-gray;
+        border-radius: 4px;
+        // padding: 0.5em 1em;
+        padding: 5px;
+  
+        .uppy-DragDrop-inner {
+          svg {
+            display: none;
+          }
         }
-      }
+  
+        &:hover {
+          background: $dark-gray;
+          color: #fff;
+          border: 1px solid transparent;
+        }
+    }
+    }
 
-      &:hover {
-        background: $dark-gray;
-        color: #fff;
-        border: 1px solid transparent;
-      }
+    .draggeble & {
+      color: grey;
+      display: inline-block;
+      background-color: rgb(234, 231, 231);
+      width: 100%;
+      border: 1px dashed gray;
+      border-radius: 4px;
     }
   }
 
