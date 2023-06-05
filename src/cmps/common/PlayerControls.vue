@@ -10,17 +10,16 @@
 
     <div class="btn-container">
       <div class="controls">
-        <button
-          class="play"
-          :disabled="!isPlayerReady"
-          :data-tooltip="$getTrans('pause-video')"
-          @click="$emit('toggle-play')"
-        >
-          <i class="material-icons">{{ playerState.isPlaying ? 'pause' : 'play_arrow' }}</i>
+        <button class="play" :disabled="!isPlayerReady" @click="$emit('toggle-play')">
+          <i class="material-icons top-right-player-tooltip" :data-tooltip="$getTrans('pause-video')">{{
+            playerState.isPlaying ? 'pause' : 'play_arrow'
+          }}</i>
         </button>
 
-        <div class="volume" :data-tooltip="$getTrans('volume')">
-          <i class="material-icons" @click="toggleMute">{{ volumeIcon }}</i>
+        <div class="volume">
+          <i :data-tooltip="$getTrans('volume')" class="material-icons top-player-tooltip" @click="toggleMute">{{
+            volumeIcon
+          }}</i>
           <input
             type="range"
             class="volume-input"
@@ -36,9 +35,8 @@
 
       <div class="settings-container">
         <div class="speed-container">
-          <button class="setting-btn speed-btn" :data-tooltip="$getTrans('speed')" @click="toggleSpeedModal">
-            <i class="material-icons">speed</i>
-            <span>{{ $getTrans('speed') }}</span>
+          <button class="setting-btn speed-btn" @click="toggleSpeedModal">
+            <i :data-tooltip="$getTrans('speed')" class="material-icons top-player-tooltip">speed</i>
           </button>
 
           <div class="speed-modal" :class="{open: isSpeedOpen}">
@@ -57,39 +55,27 @@
         <button
           v-if="!isDraggableShown && isSecVideo"
           class="setting-btn draggable-btn"
-          :data-tooltip="$getTrans('add-screen')"
           @click="$emit('toggle-is-draggable-shown')"
         >
-          <i class="material-icons">desktop_windows</i>
-          <span>{{ $getTrans('add-screen') }}</span>
+          <i :data-tooltip="$getTrans('add-screen')" class="material-icons top-player-tooltip">desktop_windows</i>
         </button>
 
         <button
           v-if="isDraggableShown && isSecVideo"
           class="setting-btn switch-btn"
-          :data-tooltip="$getTrans('switch-screen')"
           @click="$emit('toggle-main-video')"
         >
-          <i class="material-icons">cameraswitch</i>
-          <span>{{ $getTrans('switch-screen') }}</span>
+          <i :data-tooltip="$getTrans('switch-screen')" class="material-icons top-player-tooltip">cameraswitch</i>
         </button>
 
-        <button
-          class="setting-btn rotate-btn"
-          :data-tooltip="$getTrans('rotate-screen')"
-          @click="$emit('rotate-main-video')"
-        >
-          <i class="material-icons">rotate_right</i>
-          <span>{{ $getTrans('rotate-screen') }}</span>
+        <button class="setting-btn rotate-btn" @click="$emit('rotate-main-video')">
+          <i :data-tooltip="$getTrans('rotate-screen')" class="material-icons top-player-tooltip">rotate_right</i>
         </button>
 
-        <button
-          class="setting-btn fullscreen-btn"
-          :data-tooltip="$getTrans('full-screen')"
-          @click="$emit('toggle-fullscreen')"
-        >
-          <i class="material-icons">{{ playerState.isFullScreen ? 'fullscreen' : 'fullscreen_exit' }}</i>
-          <span>{{ $getTrans('full-screen') }}</span>
+        <button class="setting-btn fullscreen-btn" @click="$emit('toggle-fullscreen')">
+          <i :data-tooltip="$getTrans('full-screen')" class="material-icons top-left-player-tooltip">{{
+            playerState.isFullScreen ? 'fullscreen' : 'fullscreen_exit'
+          }}</i>
         </button>
       </div>
     </div>
