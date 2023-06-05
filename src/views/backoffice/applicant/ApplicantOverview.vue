@@ -149,6 +149,7 @@ export default {
     watch(
       route,
       () => {
+        if (route.fullPath.split('/').includes('details')) return
         clearSelectedItems()
         // this.setFilterFromRoute()
         loadApplicants()
