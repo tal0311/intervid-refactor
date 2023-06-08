@@ -219,7 +219,7 @@ export default {
       })
       if (this.jobEditErrors.length) return
       if (this.isFirstChange) this.$store.commit('job/setIsFirstChange', false)
-      await this.saveJob()
+      else this.saveJob()
     },
     // v model on components
 
