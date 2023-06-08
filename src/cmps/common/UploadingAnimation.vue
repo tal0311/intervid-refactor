@@ -16,7 +16,7 @@
 export default {
   data() {
     return {
-      svgs: {laptop: '', video: ''},
+      svgs: { laptop: '', video: '' },
     }
   },
 
@@ -70,12 +70,14 @@ $animation-duration: 10s;
       box-shadow: inset -3px 3px 0px 3px lighten(#bbe9f7, 10%);
 
       @keyframes cloud {
+
         0%,
         10%,
         50%,
         100% {
           transform: scale(1);
         }
+
         30% {
           transform: scale(1.1);
         }
@@ -100,7 +102,7 @@ $animation-duration: 10s;
         right: 0;
         width: 60%;
         height: 70%;
-        animation-delay: calc(#{$animation-duration} / 150 * 3 +#{$animation-duration} / 5);
+        animation-delay: calc(#{$animation-duration} / 150 * 3 + #{$animation-duration} / 5);
       }
     }
   }
@@ -140,9 +142,11 @@ $animation-duration: 10s;
       0% {
         transform: translatex($size * -2) translatey(#{$size * 1.7});
       }
+
       6% {
         transform: translatey(#{$size * 1.7});
       }
+
       50%,
       100% {
         transform: translatey(#{$size * -2.5});
@@ -153,9 +157,11 @@ $animation-duration: 10s;
       0% {
         transform: translatex($size * 2) translatey(#{$size * 1.7});
       }
+
       6% {
         transform: translatey(#{$size * 1.7});
       }
+
       50%,
       100% {
         transform: translatey(#{$size * -2.5});
@@ -169,5 +175,4 @@ $animation-duration: 10s;
     z-index: -1;
     width: $size * 2.4;
   }
-}
-</style>
+}</style>
