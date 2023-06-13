@@ -4,6 +4,8 @@ import development from './development'
 
 var config
 
+console.log('special env:', import.meta.env.VITE_SPECIAL_TAL)
+
 if (import.meta.env.PROD) {
   // TODO: find the vite equivalent of import.meta.env.VUE_APP_ENV
   if (import.meta.env.VUE_APP_ENV === 'staging') {
