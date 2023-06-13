@@ -20,8 +20,8 @@
   .drag-drop {
     border: 1px transparent solid;
     padding-top: 5px;
-    
-    &.close{
+
+    &.close {
       align-self: flex-start;
       button {
         background: #fff;
@@ -30,19 +30,19 @@
         border-radius: 4px;
         // padding: 0.5em 1em;
         padding: 5px;
-  
+
         .uppy-DragDrop-inner {
           svg {
             display: none;
           }
         }
-  
+
         &:hover {
           background: $dark-gray;
           color: #fff;
           border: 1px solid transparent;
         }
-    }
+      }
     }
 
     .draggeble & {

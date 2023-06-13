@@ -16,7 +16,7 @@
 export default {
   data() {
     return {
-      svgs: { laptop: '', video: '' },
+      svgs: {laptop: '', video: ''},
     }
   },
 
@@ -70,7 +70,6 @@ $animation-duration: 10s;
       box-shadow: inset -3px 3px 0px 3px lighten(#bbe9f7, 10%);
 
       @keyframes cloud {
-
         0%,
         10%,
         50%,
@@ -175,4 +174,5 @@ $animation-duration: 10s;
     z-index: -1;
     width: $size * 2.4;
   }
-}</style>
+}
+</style>
