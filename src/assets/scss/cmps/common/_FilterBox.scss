@@ -1,11 +1,11 @@
 @-webkit-keyframes rotation {
   from {
     -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -15,11 +15,11 @@
   gap: 15px;
   height: 32px;
 
-  .loading{
+  .loading {
     border: 3px solid rgba(255, 255, 255, 0.5);
     border-top-color: $cta;
     border-radius: 50%;
-    animation: rotation .8s linear infinite;
+    animation: rotation 0.8s linear infinite;
     width: 1.1rem;
     height: 1.1rem;
     margin-left: auto;
@@ -194,7 +194,6 @@
             // color: $btn-disable-color;
           }
 
-
           &.bold {
             font-weight: 700;
           }
@@ -210,7 +209,7 @@
           &[disabled] {
             background-color: $btn-disable-background;
             color: $btn-disable-color;
-            cursor:default;
+            cursor: default;
           }
 
           &:hover {

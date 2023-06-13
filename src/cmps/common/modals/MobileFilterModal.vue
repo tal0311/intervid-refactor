@@ -15,12 +15,7 @@
         <h3 class="filter-title">{{ $getTrans('by-date') }}</h3>
         <div class="filter-list">
           <label :class="{selected: !mutableUpdatedFilterBy.daysAgo}" @input="$emit('edit-filter', 'daysAgo', '')">
-            <input
-              v-model="mutableUpdatedFilterBy.daysAgo"
-              type="radio"
-              value=""
-              :checked="!updatedFilterBy.daysAgo"
-            />
+            <input v-model="mutableUpdatedFilterBy.daysAgo" type="radio" value="" :checked="!updatedFilterBy.daysAgo" />
             {{ $getTrans('all') }}
           </label>
           <label
