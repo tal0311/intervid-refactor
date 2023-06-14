@@ -84,7 +84,11 @@ import {svgPlugin} from './plugins/svg.plugin'
 })()
 
 window.addEventListener('resize', () => {
-  store.commit({type: 'app/setIsMobile', isMobileScreen: utilService.isMobileScreen(), isMobile:utilService.isMobile()})
+  store.commit({
+    type: 'app/setIsMobile',
+    isMobileScreen: utilService.isMobileScreen(),
+    isMobile: utilService.isMobile(),
+  })
 })
 
 window.onerror = function (message) {

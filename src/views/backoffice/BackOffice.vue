@@ -22,7 +22,9 @@ export default {
     },
 
     isFullscreenLayout() {
-      return this.isMobileScreen && (this.$route.fullPath.includes('create') || this.$route.fullPath.includes('details'))
+      return (
+        this.isMobileScreen && (this.$route.fullPath.includes('create') || this.$route.fullPath.includes('details'))
+      )
     },
 
     isMobileToggleShown() {
