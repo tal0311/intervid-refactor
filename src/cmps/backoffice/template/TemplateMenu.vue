@@ -15,7 +15,7 @@
     </div>
 
     <MobileModal
-      v-if="isOpen && isMobile"
+      v-if="isOpen && isMobileScreen"
       :template="template"
       cmp-name="template-menu"
       @on-edit-template="onEditTemplate"
@@ -55,8 +55,8 @@ export default {
       modalId: props.template._id,
     })
 
-    const isMobile = computed(() => {
-      return store.getters['app/isMobile']
+    const isMobileScreen = computed(() => {
+      return store.getters['app/isMobileScreen']
     })
 
     const modalStyle = computed(() => {
@@ -68,7 +68,7 @@ export default {
 
     const modalClass = computed(() => {
       return {
-        open: isOpen.value && !isMobile.value,
+        open: isOpen.value && !isMobileScreen.value,
         top: isBottom.value,
       }
     })
@@ -77,7 +77,7 @@ export default {
       modalStyle,
       modalClass,
       isOpen,
-      isMobile,
+      isMobileScreen,
     }
   },
 

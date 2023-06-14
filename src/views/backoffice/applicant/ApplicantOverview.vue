@@ -251,8 +251,8 @@ export default {
       return !this.$store.getters['auth/verifyPerm'](advancedPermsMap.UNLIMITED_INTERVIEWS)
     },
 
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
   },
 

@@ -121,7 +121,7 @@
     </div>
 
     <MobileModal
-      v-if="isMobile && modal.type === 'MobileFilter'"
+      v-if="isMobileScreen && modal.type === 'MobileFilter'"
       cmp-name="filter"
       :filter-by="filterBy"
       :expected-entity-count="expectedEntityCount"
@@ -241,8 +241,8 @@ export default {
       return this.$store.getters['app/modal']
     },
 
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     showCount() {

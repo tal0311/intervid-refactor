@@ -110,8 +110,8 @@ export default {
   },
 
   computed: {
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     timeLimits() {

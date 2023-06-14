@@ -1,13 +1,13 @@
 <template>
-  <div :class="['cv-menu', {selected: isOpen && !isMobile}]">
+  <div :class="['cv-menu', {selected: isOpen && !isMobileScreen}]">
     <button ref="elDragDrop" class="menu-btn" :class="cvInfo.class" @click="cvInfo.method"></button>
 
-    <div class="menu-modal" :class="{open: isOpen && !isMobile}">
+    <div class="menu-modal" :class="{open: isOpen && !isMobileScreen}">
       <CvUpload :applicant-cv-name="applicantCvName" @uploaded="$emit('on-cv-uploaded', $event)" />
     </div>
 
     <MobileModal
-      v-if="isOpen && isMobile"
+      v-if="isOpen && isMobileScreen"
       cmp-name="upload-cv"
       :applicant-cv-name="applicantCvName"
       @on-close="toggleModal('upload-cv')"
@@ -35,8 +35,8 @@ export default {
   emits: ['on-cv-uploaded'],
 
   computed: {
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     cvInfo() {

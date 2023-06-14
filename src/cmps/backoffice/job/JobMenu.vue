@@ -23,7 +23,7 @@
     </div>
 
     <MobileModal
-      v-if="isOpen && isMobile"
+      v-if="isOpen && isMobileScreen"
       cmp-name="job-actions"
       :job="job"
       @on-close="toggleModal"
@@ -87,7 +87,7 @@ export default {
       listContainerSelector: '.backoffice-content',
     })
 
-    const isMobile = computed(() => store.getters['app/isMobile'])
+    const isMobileScreen = computed(() => store.getters['app/isMobileScreen'])
 
     const modalStyle = computed(() => {
       return {
@@ -98,13 +98,13 @@ export default {
 
     const modalClass = computed(() => {
       return {
-        open: isOpen.value && !isMobile.value,
+        open: isOpen.value && !isMobileScreen.value,
         top: modalPos.value.isBottom,
       }
     })
 
     return {
-      isMobile,
+      isMobileScreen,
       isOpen,
       modalStyle,
       modalClass,
@@ -189,7 +189,7 @@ export default {
 
     onShare() {
       this.toggleModal()
-      if (this.isMobile && navigator.share) {
+      if (this.isMobileScreen && navigator.share) {
         navigator.share({
           title: 'Interview invitation via Intervid',
           text: `${this.companyName} is seeking for ${this.jobTitle}. Click the link to start your interview`,

@@ -5,9 +5,9 @@
     </div>
 
     <div
-      v-if="isOpen && !isMobile"
+      v-if="isOpen && !isMobileScreen"
       v-click-outside-calc="closeModal"
-      :class="{open: isOpen && !isMobile && loggedInUser}"
+      :class="{open: isOpen && !isMobileScreen && loggedInUser}"
       class="user-modal"
     >
       <button @click="onGoTo('ApplicantOverview')">
@@ -27,7 +27,7 @@
     <RouterLink v-if="!loggedInUser" class="link" :to="authPath.to">{{ authPath.txt }}</RouterLink>
 
     <MobileModal
-      v-if="isOpen && isMobile"
+      v-if="isOpen && isMobileScreen"
       v-click-outside-calc="closeModal"
       cmp-name="user-menu"
       @on-close="toggleModal"
@@ -53,7 +53,7 @@ export default {
     })
 
     function closeModal() {
-      // if (this.isMobile || !this.isOpen) return
+      // if (this.isMobileScreen || !this.isOpen) return
       console.log('closing')
       store.dispatch('app/toggleModal', null)
     }
@@ -71,8 +71,8 @@ export default {
       return this.$utilService.getFullName(this.loggedInUser)
     },
 
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     modal() {
