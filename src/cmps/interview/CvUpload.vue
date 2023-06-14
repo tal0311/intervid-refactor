@@ -2,7 +2,13 @@
   <div class="cv-upload">
     <h4>{{ $getTrans('resume') }}</h4>
     <small>{{ $getTrans('be-sure-include-updated-resume') }}</small>
-    <div v-if="cvUploadProgress === 0" ref="elDragDrop" :class="{close:!isUploadCvClicked}" class="drag-drop" @click="toggleDrag(true)"></div>
+    <div
+      v-if="cvUploadProgress === 0"
+      ref="elDragDrop"
+      :class="{close: !isUploadCvClicked}"
+      class="drag-drop"
+      @click="toggleDrag(true)"
+    ></div>
     <ValidationMsg v-if="error" :error="error" />
     <small v-if="cvUploadProgress === 0">PDF (4MB)</small>
     <div class="progress-container">

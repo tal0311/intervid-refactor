@@ -29,15 +29,32 @@
         <div class="filter-container date-filter">
           <h3 class="filter-title">{{ $getTrans('by-date') }}</h3>
           <div class="filter-list">
-            <label :class="{selected: !updatedFilterBy.daysAgo}" @input="() => {getExpectedEntityCount('daysAgo', null)}">
-              <input v-model="updatedFilterBy.daysAgo" name="date" type="radio" value="" :checked="!updatedFilterBy.daysAgo" />
+            <label
+              :class="{selected: !updatedFilterBy.daysAgo}"
+              @input="
+                () => {
+                  getExpectedEntityCount('daysAgo', null)
+                }
+              "
+            >
+              <input
+                v-model="updatedFilterBy.daysAgo"
+                name="date"
+                type="radio"
+                value=""
+                :checked="!updatedFilterBy.daysAgo"
+              />
               {{ $getTrans('all') }}
             </label>
             <label
               v-for="date in filterDates"
               :key="date.id"
               :class="{selected: updatedFilterBy.daysAgo == date.daysAgo}"
-              @input="() => {getExpectedEntityCount('daysAgo', date.daysAgo)}"
+              @input="
+                () => {
+                  getExpectedEntityCount('daysAgo', date.daysAgo)
+                }
+              "
             >
               <input
                 v-model="updatedFilterBy.daysAgo"
@@ -54,7 +71,14 @@
         <div v-if="isApplicantOverview" class="filter-container view-filter">
           <h3 class="filter-title">{{ $getTrans('view-only') }}</h3>
           <div class="filter-list">
-            <label :class="{selected: updatedFilterBy.incomplete === undefined}" @input="() => {getExpectedEntityCount('incomplete', undefined)}">
+            <label
+              :class="{selected: updatedFilterBy.incomplete === undefined}"
+              @input="
+                () => {
+                  getExpectedEntityCount('incomplete', undefined)
+                }
+              "
+            >
               <input
                 v-model="updatedFilterBy.incomplete"
                 name="view"
@@ -65,7 +89,14 @@
               {{ `${$getTrans('show-all')}` }}
             </label>
 
-            <label :class="{selected: updatedFilterBy.incomplete}" @input="() => {getExpectedEntityCount('incomplete', true)}">
+            <label
+              :class="{selected: updatedFilterBy.incomplete}"
+              @input="
+                () => {
+                  getExpectedEntityCount('incomplete', true)
+                }
+              "
+            >
               <input
                 v-model="updatedFilterBy.incomplete"
                 name="view"
@@ -75,7 +106,14 @@
               />
               {{ $getTrans('show-incomplete') }}
             </label>
-            <label :class="{selected: updatedFilterBy.incomplete === false}" @input="() => {getExpectedEntityCount('incomplete', false)}">
+            <label
+              :class="{selected: updatedFilterBy.incomplete === false}"
+              @input="
+                () => {
+                  getExpectedEntityCount('incomplete', false)
+                }
+              "
+            >
               <input
                 v-model="updatedFilterBy.incomplete"
                 name="view"
@@ -91,8 +129,15 @@
           <h3 class="filter-title">{{ $getTrans('show-archived') }}</h3>
           <div class="toggle-option">
             <div class="main-toggle">
-              <label for="show-archived" @input="() => {getExpectedEntityCount('showArchived', true)}">
-              <!-- <label for="show-archived"> -->
+              <label
+                for="show-archived"
+                @input="
+                  () => {
+                    getExpectedEntityCount('showArchived', true)
+                  }
+                "
+              >
+                <!-- <label for="show-archived"> -->
                 <input
                   id="show-archived"
                   v-model="updatedFilterBy.showArchived"

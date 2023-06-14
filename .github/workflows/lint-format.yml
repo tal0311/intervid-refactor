@@ -1,4 +1,4 @@
-name: Lint
+name: Lint & Format
 
 on:
   # Trigger the workflow on push or pull request,
@@ -29,7 +29,4 @@ jobs:
         run: npm ci
 
       - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
-          prettier: true
+        run: npm run check-lint-format
