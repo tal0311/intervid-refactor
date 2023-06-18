@@ -243,7 +243,8 @@ export default {
     },
   },
   async created() {
-    this.onSetFilterByKey('currPage', 0)
+    this.setFilterFromRoute()
+    this.onSetFilterByKey('currPage', this.filterBy.currPage)
     this.setPreferredView()
     await this.loadJobs()
     await this.$store.dispatch('template/loadDefaultTemplates')

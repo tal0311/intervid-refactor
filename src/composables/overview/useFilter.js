@@ -106,6 +106,7 @@ export function useFilter(initialValue) {
   function onDeleteFilterByKey(key) {
     // I hate this, but I left it here as to not break anything and change too much logic atm
     const newFilterBy = {...filterBy.value}
+    console.log(newFilterBy)
     delete newFilterBy[key]
     onSetFilter(newFilterBy)
   }

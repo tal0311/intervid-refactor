@@ -283,6 +283,7 @@ function extractStateFromModules(modules, state = {}) {
 }
 
 function deepCopyAndTrim(obj) {
+  console.log(obj)
   // If the value is null or not an object, return the value as-is
   if (obj === null || typeof obj !== 'object') {
     return obj
