@@ -73,11 +73,11 @@ function _createLog(level, line, appState) {
   }
 
   if (applicant?.id) {
-    const {id, info} = applicant
-    log.meta.applicant = {id, info}
+    const { id, info } = applicant
+    log.meta.applicant = { id, info }
   } else if (user?._id) {
-    const {_id, fName, lName, companyName, email, perm, role} = user
-    log.meta.user = {_id, fName, lName, companyName, email, perm, role}
+    const { _id, fName, lName, companyName, email, perm, role } = user
+    log.meta.user = { _id, fName, lName, companyName, email, perm, role }
   }
   return log
 }
