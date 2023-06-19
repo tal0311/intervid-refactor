@@ -1,5 +1,5 @@
 <template>
-  <aside v-if="!isMobile" class="side-nav">
+  <aside v-if="!isMobileScreen" class="side-nav">
     <section class="nav-links">
       <RouterLink class="nav-item" :to="'/backoffice/applicant'" :class="{active: isActive('applicant')}">
         <div class="nav-item-header">
@@ -188,8 +188,8 @@ export default {
       return this.$store.getters['job/applicantCount']
     },
 
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     isAdmin() {

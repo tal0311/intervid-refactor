@@ -6,7 +6,7 @@
       <i class="expand material-icons">expand_more</i>
     </button>
 
-    <div v-if="!isMobile" class="timelimit-modal">
+    <div v-if="!isMobileScreen" class="timelimit-modal">
       <button
         v-for="timelimit in timelimits"
         :key="timelimit.value"
@@ -60,8 +60,8 @@ export default {
       return this.modal.type === 'timelimit-menu' && this.modal.data.modalId === this.mutableQuest.id
     },
 
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     timelimits() {

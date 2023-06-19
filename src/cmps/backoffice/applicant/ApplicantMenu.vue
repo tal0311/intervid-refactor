@@ -4,7 +4,7 @@
       <i class="material-icons">more_horiz</i>
     </button>
 
-    <div class="menu-modal" :class="{open: isOpen && !isMobile}">
+    <div class="menu-modal" :class="{open: isOpen && !isMobileScreen}">
       <button @click="$emit('on-archive-applicant')">
         <i class="archive-btn material-icons-outlined">archive</i>
         {{ $getTrans('archive') }}
@@ -15,7 +15,7 @@
     </div>
 
     <MobileModal
-      v-if="isOpen && isMobile"
+      v-if="isOpen && isMobileScreen"
       cmp-name="applicant-menu"
       @on-close="toggleModal"
       @on-archive-applicant="$emit('on-archive-applicant')"
@@ -31,8 +31,8 @@ export default {
   components: {MobileModal},
   emits: ['on-archive-applicant', 'on-edit-applicant'],
   computed: {
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     modal() {

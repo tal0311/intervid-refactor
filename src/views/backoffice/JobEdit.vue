@@ -102,8 +102,8 @@ export default {
       }
     },
 
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     isFetching() {
@@ -250,7 +250,7 @@ export default {
     onShare() {
       this.onShareJob()
       // if (!this.jobToEdit._id || (this.jobEditErrors && this.jobEditErrors.length)) return
-      // if (this.isMobile && navigator.share) {
+      // if (this.isMobileScreen && navigator.share) {
       //   navigator.share({
       //     title: 'Interview invitation via Intervid',
       //     text: `${this.jobToEdit.company.name} is seeking for ${this.jobToEdit.info.title}. Click the link to start your interview`,

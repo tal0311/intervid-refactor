@@ -2,12 +2,12 @@
   <div class="quest-menu">
     <button type="button" class="menu-btn material-icons" @click="toggleModal">more_horiz</button>
 
-    <div class="menu-modal" :class="{open: isOpen && !isMobile}">
+    <div class="menu-modal" :class="{open: isOpen && !isMobileScreen}">
       <button @click="onRemoveQuest">{{ $getTrans('delete') }}</button>
     </div>
 
     <MobileModal
-      v-if="isOpen && isMobile"
+      v-if="isOpen && isMobileScreen"
       cmp-name="quest-menu"
       :quest="quest"
       @on-close="toggleModal"
@@ -30,8 +30,8 @@ export default {
   emits: ['on-remove-quest'],
 
   computed: {
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     modal() {

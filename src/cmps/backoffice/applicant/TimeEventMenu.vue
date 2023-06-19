@@ -4,14 +4,14 @@
       <i class="material-icons">more_horiz</i>
     </button>
 
-    <div class="menu-modal" :class="{open: isOpen && !isMobile}">
+    <div class="menu-modal" :class="{open: isOpen && !isMobileScreen}">
       <button @click="$emit('on-remove-note-event')">
         {{ $getTrans('remove') }}
       </button>
     </div>
 
     <MobileModal
-      v-if="isOpen && isMobile"
+      v-if="isOpen && isMobileScreen"
       cmp-name="time-event-menu"
       @on-close="toggleModal"
       @on-remove-note-event="$emit('on-remove-note-event')"
@@ -33,8 +33,8 @@ export default {
   emits: ['on-remove-note-event'],
 
   computed: {
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     modal() {
