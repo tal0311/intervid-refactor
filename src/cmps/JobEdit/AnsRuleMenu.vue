@@ -17,7 +17,7 @@
         <i class="expand material-icons">expand_more</i>
       </button>
 
-      <div v-if="!isMobile" class="answer-modal">
+      <div v-if="!isMobileScreen" class="answer-modal">
         <button
           v-for="ansRule in ansRules"
           :key="ansRule.txt"
@@ -97,8 +97,8 @@ export default {
       return ansRules
     },
 
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
   },
 

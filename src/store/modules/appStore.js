@@ -15,6 +15,7 @@ export const app = {
     actionsData: null,
     isMobile: utilService.isMobile(),
     isMobileDevice: utilService.isMobileDevice(),
+    isMobileScreen: utilService.isMobileScreen(),
     browser: detect(),
     progressBar: {
       isShown: false,
@@ -53,6 +54,10 @@ export const app = {
       return state.isMobileDevice
     },
 
+    isMobileScreen(state) {
+      return state.isMobileScreen
+    },
+
     browser(state) {
       return state.browser
     },
@@ -82,7 +87,8 @@ export const app = {
       state.progressBar = progressBar
     },
 
-    setIsMobile(state, {isMobile}) {
+    setIsMobile(state, {isMobile, isMobileScreen}) {
+      state.isMobileScreen = isMobileScreen
       state.isMobile = isMobile
     },
 

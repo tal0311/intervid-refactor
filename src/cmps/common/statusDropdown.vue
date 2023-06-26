@@ -4,7 +4,7 @@
       ref="status-btn"
       class="status-btn"
       :class="{
-        open: isOpen && !isMobile,
+        open: isOpen && !isMobileScreen,
         recruitment: isRecruitmentStatus,
         top: modalPos.isBottom,
       }"
@@ -31,7 +31,7 @@
     </div>
 
     <MobileModal
-      v-if="isOpen && isMobile"
+      v-if="isOpen && isMobileScreen"
       cmp-name="update status"
       :applicant="applicant"
       @on-close="toggleModal"
@@ -85,8 +85,8 @@ export default {
       listContainerSelector: '.list-content',
     })
 
-    const isMobile = computed(() => {
-      return store.getters['app/isMobile']
+    const isMobileScreen = computed(() => {
+      return store.getters['app/isMobileScreen']
     })
 
     const modalStyle = computed(() => {
@@ -98,7 +98,7 @@ export default {
 
     const modalClass = computed(() => {
       return {
-        open: isOpen.value && !isMobile.value,
+        open: isOpen.value && !isMobileScreen.value,
         top: modalPos.value.isBottom,
       }
     })
@@ -109,7 +109,7 @@ export default {
       modalClass,
       modalStyle,
       modalPos,
-      isMobile,
+      isMobileScreen,
     }
   },
 

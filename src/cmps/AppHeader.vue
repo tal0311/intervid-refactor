@@ -101,8 +101,8 @@ export default {
   },
 
   computed: {
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
     modal() {
       return this.$store.getters['app/modal']
@@ -140,7 +140,7 @@ export default {
     },
 
     logoURL() {
-      return this.isJobEdit && this.isMobile
+      return this.isJobEdit && this.isMobileScreen
         ? 'https://res.cloudinary.com/intervid/image/upload/v1672757755/Frontend/mini-logo_kib4oh.png'
         : 'https://res.cloudinary.com/intervid/image/upload/v1661181884/Frontend/logo-color_kftsor.png'
     },

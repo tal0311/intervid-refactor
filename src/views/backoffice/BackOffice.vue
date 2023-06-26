@@ -17,12 +17,14 @@ import {socketService, SOCKET_ON_DONE_INTERVIEW, SOCKET_ON_SAVE_APPLICANT} from 
 
 export default {
   computed: {
-    isMobile() {
-      return this.$store.getters['app/isMobile']
+    isMobileScreen() {
+      return this.$store.getters['app/isMobileScreen']
     },
 
     isFullscreenLayout() {
-      return this.isMobile && (this.$route.fullPath.includes('create') || this.$route.fullPath.includes('details'))
+      return (
+        this.isMobileScreen && (this.$route.fullPath.includes('create') || this.$route.fullPath.includes('details'))
+      )
     },
 
     isMobileToggleShown() {
