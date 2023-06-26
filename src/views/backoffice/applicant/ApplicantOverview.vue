@@ -159,6 +159,7 @@ export default {
     async function loadApplicants() {
       const {jobId} = route.params
       if (jobId) onSetFilterByKey('jobId', jobId)
+      console.log('filterBy.value', filterBy.value)
       await store.dispatch('job/loadApplicants', {
         filterBy: filterBy.value,
         sort: sort.value,
@@ -287,6 +288,7 @@ export default {
     // }
   },
   async created() {
+    this.setFilterFromRoute()
     this.loadApplicants()
     this.loadJob()
     if (this.job) {
