@@ -376,7 +376,6 @@ export const job = {
         commit('setIsSaving', true)
         commit('setJobToEdit', {jobToEdit: jobToEdit})
         const jobToSave = utilService.deepCopyAndTrim(jobToEdit)
-        console.log('jobToSave', jobToSave)
         // dispatch('activity/addActivity', activityMap.job({ type: 'update', meta: { jobId: jobToEdit._id } }), {
         // root: true,
         // })

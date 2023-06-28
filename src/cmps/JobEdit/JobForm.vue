@@ -182,7 +182,7 @@ export default {
 
     onSetCover(url) {
       this.mutableJob.info.coverUrl = url
-      console.log('this.mutableJob',this.mutableJob);
+      this.$emit('update-job-field', this.mutableJob)
       this.$emit('update-job')
     },
 

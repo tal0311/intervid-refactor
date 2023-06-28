@@ -16,13 +16,8 @@
           <div class="modal-header-content">
             <h1>{{ $getTrans('select-cover-image') }}</h1>
             <div class="search-input">
-              <MainInput
-                v-model.trim="value"
-                input-name="search"
-                :placeholder="$getTrans('search')"
-                styled="basic"
-                />
-                <!-- @input="onGetImgs" -->
+              <MainInput v-model.trim="value" input-name="search" :placeholder="$getTrans('search')" styled="basic" />
+              <!-- @input="onGetImgs" -->
               <i class="material-icons">search</i>
             </div>
           </div>
@@ -189,7 +184,6 @@ export default {
     onSelectImg(img) {
       this.selectedImg = img
       this.$emit('upload', img.regular)
-      console.log(img.regular);
     },
 
     onAddCover() {
@@ -220,6 +214,9 @@ export default {
     },
 
     toggleModal(type) {
+      if (this.isOpen) {
+        this.selectedImg = null
+      }
       const modalId = this.isOpen ? null : this.id
       this.$store.dispatch('app/toggleModal', {type, data: {modalId}})
     },
