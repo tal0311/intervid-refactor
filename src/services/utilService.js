@@ -1,4 +1,4 @@
-import {breakpoint} from './constData'
+import { breakpoint } from './constData'
 import lodashCloneDeep from 'lodash.clonedeep'
 
 export const utilService = {
@@ -50,11 +50,11 @@ function getSortFunc(sort) {
 function verifyBeforeExit(e) {
   e.preventDefault()
   var confirmationMessage = 'Are you sure you want to quit?'
-  ;(e || window.event).returnValue = confirmationMessage // Gecko + IE
+    ; (e || window.event).returnValue = confirmationMessage // Gecko + IE
   return confirmationMessage // Webkit, Safari, Chrome
 }
 
-function secondsToTime(seconds, {isMinutes} = {}) {
+function secondsToTime(seconds, { isMinutes } = {}) {
   const hrs = `${Math.floor(seconds / (60 * 60))}`
   const divisorForMins = seconds % (60 * 60)
   const mins = `${Math.floor(divisorForMins / 60)}`
@@ -184,9 +184,8 @@ function isPasswordValid(password) {
 
 function getFullName(user) {
   if (!user?.fName) return ''
-  return `${user.fName.charAt(0).toUpperCase() + user.fName.substring(1)} ${
-    user.lName.charAt(0).toUpperCase() + user.lName.substring(1) || ''
-  }`
+  return `${user.fName.charAt(0).toUpperCase() + user.fName.substring(1)} ${user.lName.charAt(0).toUpperCase() + user.lName.substring(1) || ''
+    }`
 }
 
 function getInitials(username) {
@@ -285,7 +284,6 @@ function extractStateFromModules(modules, state = {}) {
 }
 
 function deepCopyAndTrim(obj) {
-  console.log(obj)
   // If the value is null or not an object, return the value as-is
   if (obj === null || typeof obj !== 'object') {
     return obj

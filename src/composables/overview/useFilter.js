@@ -1,9 +1,9 @@
 // core
-import {ref, computed, onMounted, watch} from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 // composables
-import {useQuery} from '@/composables/util/useQuery.js'
+import { useQuery } from '@/composables/util/useQuery.js'
 // services & data
-import {getDefaultFilter} from '@/services/constData.js'
+import { getDefaultFilter } from '@/services/constData.js'
 /**
  * A composable for managing filters in the application.
  *
@@ -32,7 +32,7 @@ import {getDefaultFilter} from '@/services/constData.js'
  * </template>
  */
 export function useFilter(initialValue) {
-  const {route, onSetQuery} = useQuery()
+  const { route, onSetQuery } = useQuery()
   /**
    * The reactive filter object.
    *
@@ -86,7 +86,7 @@ export function useFilter(initialValue) {
    */
   function onSetFilterByKey(key, value) {
     const filterValue = value === filterBy.value[key] && key !== 'currPage' ? '' : value
-    const newFilterBy = {...filterBy.value, [key]: filterValue}
+    const newFilterBy = { ...filterBy.value, [key]: filterValue }
     if (key !== 'currPage') newFilterBy.currPage = 0
     onSetFilter(newFilterBy)
   }
@@ -105,8 +105,7 @@ export function useFilter(initialValue) {
    */
   function onDeleteFilterByKey(key) {
     // I hate this, but I left it here as to not break anything and change too much logic atm
-    const newFilterBy = {...filterBy.value}
-    console.log(newFilterBy)
+    const newFilterBy = { ...filterBy.value }
     delete newFilterBy[key]
     onSetFilter(newFilterBy)
   }
@@ -132,7 +131,7 @@ export function useFilter(initialValue) {
    *  Sets the filter object.
    * @param {Object} filter - The filter object to apply.
    */
-  const _setFilter = (filter) => (filterBy.value = {...filter})
+  const _setFilter = (filter) => (filterBy.value = { ...filter })
 
   onMounted(() => {
     setFilterFromRoute()
