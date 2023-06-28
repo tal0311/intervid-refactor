@@ -21,8 +21,8 @@
                 input-name="search"
                 :placeholder="$getTrans('search')"
                 styled="basic"
-                @input="onGetImgs"
-              />
+                />
+                <!-- @input="onGetImgs" -->
               <i class="material-icons">search</i>
             </div>
           </div>
@@ -188,6 +188,8 @@ export default {
 
     onSelectImg(img) {
       this.selectedImg = img
+      this.$emit('upload', img.regular)
+      console.log(img.regular);
     },
 
     onAddCover() {

@@ -167,6 +167,7 @@ export default {
     },
 
     async updateJob() {
+      console.log('this.job',this.job);
       await this.$store.dispatch('job/updateJob', {job: this.job})
     },
 
@@ -213,6 +214,7 @@ export default {
 
     async validateForm() {
       const target = this.$refs.jobForm
+      console.log('target',target);
       if (!target) return
       this.$store.commit('job/setJobEditErrors', {
         jobEditErrors: validate(target),
