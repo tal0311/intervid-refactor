@@ -23,7 +23,7 @@ export function useTags({onSetFilterByKey} = useFilter()) {
         tags.push(tag)
       }
       if (key === 'showArchived' && queries[key] === 'true')
-        tags.push({name: getTrans('archived'), type: 'showArchived'})
+        tags.push({name: getTrans('archive'), type: 'showArchived'})
       if (key === 'tag' && queries[key]) {
         const tag = queries[key].split(',')
         tag.forEach((t) => {

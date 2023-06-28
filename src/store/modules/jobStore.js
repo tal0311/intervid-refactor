@@ -391,7 +391,7 @@ export const job = {
 
     async toggleArchiveJob({commit, state}, {jobs}) {
       const cachedJobs = state.jobs
-      const jobsCopy = utilService.deepClone(jobs)
+      const jobsCopy = utilService.cloneDeep(jobs)
       const updatedJobs = jobsCopy.map((job) => {
         job.archivedAt = job.archivedAt ? null : Date.now()
         return job
@@ -474,7 +474,7 @@ export const job = {
     async toggleArchiveApplicant({commit, state}, {applicants, isAllSelected}) {
       // { dispatch }
       const cachedApplicants = state.applicants
-      const applicantsCopy = utilService.deepClone(applicants)
+      const applicantsCopy = utilService.cloneDeep(applicants)
       const updatedApplicants = applicantsCopy.map((applicant) => {
         applicant.archivedAt = applicant.archivedAt ? null : Date.now()
         return applicant

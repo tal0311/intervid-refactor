@@ -151,7 +151,7 @@ export default {
       () => {
         if (route.fullPath.split('/').includes('details')) return
         clearSelectedItems()
-        // this.setFilterFromRoute()
+        setFilterFromRoute()
         loadApplicants()
       },
       // {flush: 'post'},
@@ -159,12 +159,12 @@ export default {
     async function loadApplicants() {
       const {jobId} = route.params
       if (jobId) onSetFilterByKey('jobId', jobId)
-      else onDeleteFilterByKey('jobId')
       await store.dispatch('job/loadApplicants', {
         filterBy: filterBy.value,
         sort: sort.value,
         shouldGather: shouldGather.value,
       })
+      if (!jobId) onDeleteFilterByKey('jobId')
       if (shouldGather.value) setShouldGather(false)
     }
     return {
@@ -287,6 +287,7 @@ export default {
     // }
   },
   async created() {
+    this.setFilterFromRoute()
     this.loadApplicants()
     this.loadJob()
     if (this.job) {
