@@ -1,13 +1,13 @@
 import axios from 'axios'
-import {utilService} from '@/services/utilService'
-import {setLang} from '@/services/i18nService'
-import {detect} from 'detect-browser'
+import { utilService } from '@/services/utilService'
+import { setLang } from '@/services/i18nService'
+import { detect } from 'detect-browser'
 export const app = {
   namespaced: true,
 
   state: {
     modal: {
-      type: '',
+      type: 'UserFeedback',
       data: null,
       isDarkScreen: false,
     },
@@ -72,14 +72,14 @@ export const app = {
       state.modal = modal
     },
 
-    setCancelRequest(state, {cancel, key}) {
+    setCancelRequest(state, { cancel, key }) {
       state.cancelRequestMap[key] = cancel
     },
 
-    setAlertData(state, {alertData}) {
+    setAlertData(state, { alertData }) {
       state.alertData = alertData
     },
-    setActionsData(state, {actionsData}) {
+    setActionsData(state, { actionsData }) {
       state.actionsData = actionsData
     },
 
@@ -87,38 +87,39 @@ export const app = {
       state.progressBar = progressBar
     },
 
-    setIsMobile(state, {isMobile, isMobileScreen}) {
+    setIsMobile(state, { isMobile, isMobileScreen }) {
       state.isMobileScreen = isMobileScreen
       state.isMobile = isMobile
     },
 
-    setLang(state, {lang}) {
+    setLang(state, { lang }) {
       state.lang = lang
       setLang(lang)
     },
   },
 
   actions: {
-    handleCancelRequest({commit, dispatch}, key) {
+    handleCancelRequest({ commit, dispatch }, key) {
       const source = axios.CancelToken.source()
       dispatch('cancelRequest', key)
-      commit('setCancelRequest', {cancel: source.cancel, key})
+      commit('setCancelRequest', { cancel: source.cancel, key })
       return source.token
     },
-    cancelRequest({state}, key) {
+    cancelRequest({ state }, key) {
       if (!state.cancelRequestMap[key]) return
       state.cancelRequestMap[key](`Request ${key} Cancelled`)
     },
 
-    toggleModal({commit, state}, modal) {
+    toggleModal({ commit, state }, modal) {
       const modalType = state.modal.type ? '' : modal?.type
       const modalData = state.modal.type ? null : modal?.data
       const isDarkScreen = state.modal.isDarkScreen ? false : modal?.isDarkScreen
-      commit('setModal', {type: modalType, data: modalData, isDarkScreen})
+      commit('setModal', { type: modalType, data: modalData, isDarkScreen })
+      console.log('state.modal:', state.modal)
     },
 
-    setLang({commit}, {lang}) {
-      commit('setLang', {lang})
+    setLang({ commit }, { lang }) {
+      commit('setLang', { lang })
       const elBody = document.querySelector('body')
       elBody.classList.remove('he')
       if (lang === 'he') elBody.classList.add('he')

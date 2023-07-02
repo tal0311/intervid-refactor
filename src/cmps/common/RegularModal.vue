@@ -15,7 +15,8 @@ import OrgUserEdit from '@/cmps/common/user-mgmt/OrgUserEdit.vue'
 import ResetPassword from '@/cmps/common/user-mgmt/ResetPassword.vue'
 import ApplicationIndex from '@/cmps/interview/onboarding/ApplicationIndex.vue'
 import ShareBtns from '@/cmps/JobEdit/ShareBtns.vue'
-const modalTypes = ['TimeUp', 'AccountEdit', 'ResetPassword', 'ShareBtns', 'Application']
+import UserFeedback from '@/cmps/common/modals/UserFeedback.vue'
+const modalTypes = ['UserFeedback', 'TimeUp', 'AccountEdit', 'ResetPassword', 'ShareBtns', 'Application']
 
 export default {
   components: {
@@ -24,6 +25,7 @@ export default {
     ResetPassword,
     ShareBtns,
     ApplicationIndex,
+    UserFeedback
   },
   computed: {
     modal() {
@@ -42,6 +44,8 @@ export default {
       switch (this.modal.type) {
         case 'TimeUp':
           return TimeUp
+        case 'UserFeedback':
+          return UserFeedback
         case 'AccountEdit':
           return OrgUserEdit
         case 'ResetPassword':
