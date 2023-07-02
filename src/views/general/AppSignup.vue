@@ -9,19 +9,19 @@
 
         <div class="advantages">
           <p>
-            <i class="material-icons"> check_circle </i>
+            <i class="material-icons"> done </i>
             <span>{{ $getTrans('free-10-video-trial') }}</span>
           </p>
           <p>
-            <i class="material-icons"> check_circle </i>
+            <i class="material-icons"> done </i>
             <span>{{ $getTrans('no-credit-card-required') }}</span>
           </p>
           <p>
-            <i class="material-icons"> check_circle </i>
+            <i class="material-icons"> done </i>
             <span>{{ $getTrans('EasyToUse') }}</span>
           </p>
           <p>
-            <i class="material-icons"> check_circle </i>
+            <i class="material-icons"> done </i>
             <span>{{ $getTrans('recruit-anywhere-with-mobile') }}</span>
           </p>
         </div>

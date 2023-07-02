@@ -7,7 +7,7 @@
   color: $darkest-gray;
 
   @include from-mobile-layout {
-    background-image: url('https://res.cloudinary.com/intervid/image/upload/v1661183521/Frontend/login-background_xypzsg.png');
+    background-image: url('https://res.cloudinary.com/intervid/image/upload/v1688295242/Login-Background_dzesok.png');
     background-size: 100% 100%;
     justify-content: center;
   }
@@ -44,7 +44,7 @@
     .content {
       display: none;
       flex-direction: column;
-      justify-content: space-between;
+      gap: 100px;
       padding: 35px 40px;
 
       @include from-mobile-layout {
@@ -100,10 +100,11 @@
           display: flex;
           align-items: center;
           gap: 10px;
-          color: #fff;
+          color: #262626;
 
           > i {
             font-size: 30px;
+            color: $cta;
           }
 
           @media (min-resolution: 1.25dppx) {
