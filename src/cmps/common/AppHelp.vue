@@ -19,5 +19,6 @@ export default {
   position: fixed;
   inset-block-end: 0.2em;
   inset-inline-start: 0.2em;
+  cursor: pointer;
 }
 </style>

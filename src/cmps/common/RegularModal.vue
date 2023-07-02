@@ -1,6 +1,6 @@
 <template>
   <section v-if="isOpen" class="modal-wrapper" @mousedown="closeModal">
-    <div class="modal-content" @mousedown.stop="" @click.stop="">
+    <div class="modal-content" :class="{'user-feedback': isUserFeedback}" @mousedown.stop="" @click.stop="">
       <button v-if="isCloseable" class="dismiss" @click="closeModal">
         <i class="material-icons md-dark">close</i>
       </button>
@@ -25,7 +25,7 @@ export default {
     ResetPassword,
     ShareBtns,
     ApplicationIndex,
-    UserFeedback
+    UserFeedback,
   },
   computed: {
     modal() {
@@ -38,6 +38,10 @@ export default {
 
     isCloseable() {
       return this.modal.data?.isCloseable || false
+    },
+
+    isUserFeedback() {
+      return this.modal.type === 'UserFeedback'
     },
 
     cmp() {

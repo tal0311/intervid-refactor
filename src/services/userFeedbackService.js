@@ -7,6 +7,6 @@ export const userFeedbackService = {
 const ROUTE = 'feedback'
 
 function postFeedback(userFeedback) {
-  console.log('Feedback received successfully', userFeedback)
+  console.log('Feedback received successfully', userFeedback.userMsg)
   // return httpService.post(`${ROUTE}`, userFeedback) // Later, connect the logic to the backend
 }

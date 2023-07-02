@@ -1,63 +1,92 @@
 <template>
-  <section class="user-feedback">
-    <header class="modal-header">
-      <button @click="closeModal">
-        <span class="material-symbols-outlined"> close </span>
-      </button>
-      <p>You can send feedback to Inter-vid</p>
+  <section class="user-feedback-content">
+    <header class="feedback-modal-header">
+      <div class="flex flex-grow">
+        <span class="flex flex-grow flex-start">myInterview</span>
+        <button @click="closeModal">
+          <!--Change the icon later -->
+          <span class="material-symbols-outlined"> close </span>
+        </button>
+      </div>
+      <div class="flex flex-column">
+        <p class="title">
+          Hi {{ loggedInUser?.fName || '' }} 👋
+          <br />
+          How can we help?
+        </p>
+
+        <form @submit.prevent="onSubmit">
+          <MainInput
+            class="flex align-items-center"
+            :isTextarea="true"
+            input-name="feedback-txt"
+            @update:modelValue="onUserInput"
+          />
+          <!-- <button v-if="formStep > 1" @click="onScreenCaption">Add screen caption</button> -->
+          <!--Change the icon later -->
+          <button class="flex-center">></button>
+        </form>
+      </div>
     </header>
-    <form @submit.prevent="onSubmit">
-      <MainInput :isTextarea="true" input-name="feedback-txt" @update:modelValue="onUserInput" />
-      <button v-if="formStep > 1" @click="onScreenCaption">Add screen caption</button>
-      <button>Send</button>
-    </form>
-    <footer class="modal-footer">
+
+    <main class="feedback-modal-main">some more content</main>
+
+    <footer class="feedback-modal-footer">
       <p>some privacy text</p>
     </footer>
   </section>
 </template>
 
-<script setup>
+<script >
 import MainInput from '../MainInput.vue'
-import {ref} from 'vue'
+import {ref, computed} from 'vue'
 import {useStore} from 'vuex'
 
-const store = useStore()
+export default {
+  setup() {
+    const store = useStore()
 
-function closeModal() {
-  store.dispatch('app/toggleModal', null)
+    const loggedInUser = computed(() => store.state.user.loggedInUser)
+    // const loggedInUser = computed(() => store.getters.loggedInUser)
+
+    function closeModal() {
+      store.dispatch('app/toggleModal', null)
+    }
+
+    function onSubmit(ev) {
+      const userFeedback = {
+        userMsg: ev.target[0].value,
+        // TODO: screenCaption,
+      }
+
+      store.dispatch({type: 'app/handleUserFeedbackModal', userFeedback})
+    }
+
+    function onUserInput(userInput) {
+      console.log('onUserInput', userInput)
+    }
+
+    // steps:
+    const formStep = ref(1)
+    function nextStep() {
+      formStep.value++
+    }
+
+    // TODO: add screen caption:
+    // screen caption:
+    // const isScreenCaption = ref(false)
+    // function onScreenCaption() {
+    //   console.log('caption')
+    // }
+
+    return {
+      MainInput,
+      loggedInUser,
+      formStep,
+      onSubmit,
+      onUserInput,
+      closeModal,
+    }
+  },
 }
-
-function onSubmit(ev) {
-  const userFeedback = {
-    userMsg: ev.target[0].value,
-    // TODO: screenCaption,
-  }
-
-  store.dispatch('app/handleUserFeedbackModal', userFeedback)
-}
-
-function onUserInput(userInput) {
-  console.log('onUserInput', userInput)
-}
-
-// steps:
-const formStep = ref(1)
-function nextStep() {
-  formStep.value++
-}
-
-// TODO: add screen caption:
-// screen caption:
-// const isScreenCaption = ref(false)
-// function onScreenCaption() {
-//   console.log('caption')
-// }
 </script>
-
-<style lang="scss">
-// .user-feedback[open] {
-//  inset-inline-start: calc(-100% + 278px);
-//  inset-block-start: 0;
-// }
-</style>

@@ -186,7 +186,7 @@
     animation: scalein 0.3s ease-in-out;
     border-radius: 5px;
 
-    & > * {
+    &>* {
       max-width: 100%;
     }
 
@@ -199,7 +199,78 @@
       inset-inline-end: 5px;
       transition: 0.4s all;
     }
+
+
+    &.user-feedback {
+      position: absolute;
+      top: 65px;
+      left: 4px;
+      bottom: 0;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .user-feedback-content {
+      display: grid;
+      grid-template-rows: 60% 1fr 60px;
+      height: 100%;
+
+      &>* {
+        padding: 20px;
+      }
+
+      .feedback-modal-header {
+        background-image: linear-gradient(180deg, rgb(88, 175, 255, 1) 50%, rgba(88, 174, 255, 0));
+        color: white;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 60px;
+        letter-spacing: 1px;
+
+        button {
+          height: fit-content;
+          font-size: 1.5em;
+        }
+      }
+
+      .title {
+        font-size: 1.3em;
+        font-weight: 500;
+      }
+
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.907);
+        border-radius: 5px;
+        height: 100px;
+
+        &>* {
+          height: 100%;
+          background-color: unset;
+        }
+
+        button {
+          color: rgba(88, 174, 255);
+          font-weight: 500;
+        }
+
+        textarea {
+          padding: 0;
+          height: 100%;
+          border: none;
+        }
+      }
+
+      .main-input {
+        margin-block-end: 0;
+      }
+    }
+
   }
+
 }
 
 .confirmation-modal {
@@ -221,12 +292,12 @@
     gap: 20px;
     padding: 15px;
 
-    > i {
+    >i {
       display: none;
       font-size: 2.5em;
     }
 
-    > div {
+    >div {
       gap: 15px;
       display: flex;
       flex-direction: column;
@@ -238,7 +309,7 @@
     font-size: 1.2em;
   }
 
-  > .btns {
+  >.btns {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -246,7 +317,7 @@
     padding: 15px;
     border-top: 1px solid #e3e3e3;
 
-    > button {
+    >button {
       padding: 0.8em;
       border-radius: 4px;
 
@@ -275,7 +346,7 @@
       }
     }
 
-    > .btns {
+    >.btns {
       button {
         padding: 0.5em 0.8em;
 
@@ -288,6 +359,7 @@
 }
 
 @keyframes load4 {
+
   0%,
   100% {
     box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em,
@@ -331,6 +403,7 @@
 }
 
 @keyframes load5 {
+
   0%,
   100% {
     box-shadow: 0em -2.6em 0em 0em #ffffff, 1.8em -1.8em 0 0em rgba(255, 255, 255, 0.2),
@@ -702,6 +775,7 @@
       transform: translateX(calc(-50% * var(--dir))) translateY(120%);
     }
   }
+
   &.top-tooltip {
     &::before {
       // top: calc(100% + 10px);
@@ -715,6 +789,7 @@
       transform: translateX(calc(-50% * var(--dir))) translateY(-120%);
     }
   }
+
   &.top-player-tooltip {
     &::before {
       // top: calc(100% + 10px);
@@ -728,6 +803,7 @@
       transform: translateX(-50%) translateY(-120%);
     }
   }
+
   &.top-right-tooltip {
     &::before {
       // top: calc(100% + 10px);
@@ -741,6 +817,7 @@
       transform: translateX(calc(0% * var(--dir))) translateY(-120%);
     }
   }
+
   &.top-right-player-tooltip {
     &::before {
       // top: calc(100% + 10px);
@@ -754,6 +831,7 @@
       transform: translateX(0%) translateY(-120%);
     }
   }
+
   &.top-left-tooltip {
     &::before {
       // top: calc(100% + 10px);
@@ -767,6 +845,7 @@
       transform: translateX(calc(-100% * var(--dir))) translateY(-120%);
     }
   }
+
   &.top-left-player-tooltip {
     &::before {
       // top: calc(100% + 10px);
@@ -830,7 +909,9 @@
       .right-side {
         display: none;
       }
-    } @else {
+    }
+
+    @else {
       clip: rect(auto, auto, auto, auto);
 
       .right-side {
@@ -916,7 +997,9 @@
       &.progress-#{$i} {
         @include draw-progress($i, $light-blue);
       }
-    } @else {
+    }
+
+    @else {
       &.progress-#{$i} {
         @include draw-progress($i, #75df75);
       }
