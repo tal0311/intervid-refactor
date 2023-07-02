@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { utilService } from '@/services/utilService'
+import { userFeedbackService } from '@/services/userFeedbackService'
 import { setLang } from '@/services/i18nService'
 import { detect } from 'detect-browser'
 export const app = {
@@ -125,5 +126,10 @@ export const app = {
       if (lang === 'he') elBody.classList.add('he')
       localStorage.setItem('userLang', lang)
     },
+
+    handleUserFeedbackModal({ dispatch }, { userFeedback }) { // Consider relocating this later & update the state using mutations if needed 
+      userFeedbackService.postFeedback(userFeedback)
+      dispatch('toggleModal', null)
+    }
   },
 }
