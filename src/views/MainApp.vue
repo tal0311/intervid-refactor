@@ -18,7 +18,7 @@ export default {
     AppHeader,
     AppModal,
     AppScreen,
-    AppHelp
+    AppHelp,
   },
 }
 </script>

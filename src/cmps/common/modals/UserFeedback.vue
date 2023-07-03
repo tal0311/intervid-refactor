@@ -18,7 +18,7 @@
         <form @submit.prevent="onSubmit">
           <MainInput
             class="flex align-items-center"
-            :isTextarea="true"
+            :is-textarea="true"
             input-name="feedback-txt"
             @update:modelValue="onUserInput"
           />
@@ -37,9 +37,9 @@
   </section>
 </template>
 
-<script >
+<script>
 import MainInput from '../MainInput.vue'
-import {ref, computed} from 'vue'
+import {computed} from 'vue'
 import {useStore} from 'vuex'
 
 export default {
@@ -67,10 +67,10 @@ export default {
     }
 
     // steps:
-    const formStep = ref(1)
-    function nextStep() {
-      formStep.value++
-    }
+    // const formStep = ref(1)
+    // function nextStep() {
+    //   formStep.value++
+    // }
 
     // TODO: add screen caption:
     // screen caption:
@@ -82,7 +82,6 @@ export default {
     return {
       MainInput,
       loggedInUser,
-      formStep,
       onSubmit,
       onUserInput,
       closeModal,

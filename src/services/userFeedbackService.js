@@ -1,10 +1,10 @@
-import httpService from './httpService'
+// import httpService from './httpService'
 
 export const userFeedbackService = {
   postFeedback,
 }
 
-const ROUTE = 'feedback'
+// const ROUTE = 'feedback'
 
 function postFeedback(userFeedback) {
   console.log('Feedback received successfully', userFeedback.userMsg)
