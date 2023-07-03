@@ -155,6 +155,7 @@ export default {
   methods: {
     setNewJob(job) {
       this.job = {...job}
+      this.saveJob()
     },
     async loadJob() {
       const {jobId} = this.$route.params
