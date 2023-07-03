@@ -27,88 +27,94 @@
         </div>
       </div>
 
-      <div class="form-container">
-        <h2>{{ $getTrans('create-your-account') }}</h2>
+      <section class="right-section">
+        <div class="form-container">
+          <h2>{{ $getTrans('create-your-account') }}</h2>
 
-        <div class="small">
-          <p>{{ $getTrans('get-10-video-for-free') }}</p>
-          <p>{{ $getTrans('no-credit-card-required') }}</p>
-        </div>
-        <form novalidate @submit.prevent="onSignup">
-          <div class="input-container">
+          <div class="small">
+            <p>{{ $getTrans('get-10-video-for-free') }}</p>
+            <p>{{ $getTrans('no-credit-card-required') }}</p>
+          </div>
+          <form novalidate @submit.prevent="onSignup">
+            <div class="input-container">
+              <MainInput
+                v-model.trim="userCred.fName"
+                type="text"
+                input-name="fName"
+                :placeholder="$getTrans('first-name')"
+                validate="required"
+                :on-blur="validateField"
+                :errors="errors"
+                styled="basic"
+              />
+              <MainInput
+                v-model.trim="userCred.lName"
+                type="text"
+                input-name="lName"
+                :placeholder="$getTrans('last-name')"
+                validate="required"
+                :on-blur="validateField"
+                :errors="errors"
+                styled="basic"
+              />
+            </div>
+
             <MainInput
-              v-model.trim="userCred.fName"
-              type="text"
-              input-name="fName"
-              :placeholder="$getTrans('first-name')"
+              v-model.trim="userCred.email"
+              type="email"
+              input-name="email"
+              :placeholder="$getTrans('email')"
+              validate="required|email"
+              :on-blur="validateField"
+              :errors="errors"
+              styled="basic"
+            />
+
+            <MainInput
+              v-model.trim="userCred.password"
+              type="password"
+              input-name="password"
+              :placeholder="$getTrans('password') + ' ' + $getTrans('at-least-6-char')"
+              validate="required|password"
+              :on-blur="validateField"
+              :errors="errors"
+              styled="basic"
+              autocomplete="new-password"
+            />
+            <MainInput
+              v-model.trim="confirmPassword"
+              type="password"
+              input-name="confirmPassword"
+              :placeholder="$getTrans('confirm-password')"
               validate="required"
               :on-blur="validateField"
               :errors="errors"
               styled="basic"
             />
-            <MainInput
-              v-model.trim="userCred.lName"
-              type="text"
-              input-name="lName"
-              :placeholder="$getTrans('last-name')"
-              validate="required"
-              :on-blur="validateField"
-              :errors="errors"
-              styled="basic"
-            />
+
+            <div v-if="authError" class="form-errors" :class="{active: authError}">
+              {{ $getTrans(authError) }}
+            </div>
+
+            <button>{{ $getTrans('signup') }}</button>
+          </form>
+          <div class="login-container">
+            <span @click="$router.push({name: 'Login'})">
+              {{ $getTrans('already-have-an-account') }}
+            </span>
           </div>
 
-          <MainInput
-            v-model.trim="userCred.email"
-            type="email"
-            input-name="email"
-            :placeholder="$getTrans('email')"
-            validate="required|email"
-            :on-blur="validateField"
-            :errors="errors"
-            styled="basic"
-          />
+          <div class="seperator">{{ $getTrans('or') }}</div>
 
-          <MainInput
-            v-model.trim="userCred.password"
-            type="password"
-            input-name="password"
-            :placeholder="$getTrans('password') + ' ' + $getTrans('at-least-6-char')"
-            validate="required|password"
-            :on-blur="validateField"
-            :errors="errors"
-            styled="basic"
-            autocomplete="new-password"
-          />
-          <MainInput
-            v-model.trim="confirmPassword"
-            type="password"
-            input-name="confirmPassword"
-            :placeholder="$getTrans('confirm-password')"
-            validate="required"
-            :on-blur="validateField"
-            :errors="errors"
-            styled="basic"
-          />
-
-          <div v-if="authError" class="form-errors" :class="{active: authError}">
-            {{ $getTrans(authError) }}
+          <div class="auth-providers">
+            <GoogleBtn ref="google-btn" @google-success="onGoogleSignup"></GoogleBtn>
           </div>
-
-          <button>{{ $getTrans('signup') }}</button>
-        </form>
-        <div class="login-container">
-          <span @click="$router.push({name: 'Login'})">
-            {{ $getTrans('already-have-an-account') }}
-          </span>
         </div>
-
-        <div class="seperator">{{ $getTrans('or') }}</div>
-
-        <div class="auth-providers">
-          <GoogleBtn ref="google-btn" @google-success="onGoogleSignup"></GoogleBtn>
+        <div class="apps-badges hidden">
+          <img src="../../assets/icons/app-store-badge.png" alt=""/>
+          <img src="../../assets/icons/google-play-badge.png" alt=""/>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
