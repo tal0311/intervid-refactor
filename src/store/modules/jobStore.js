@@ -390,7 +390,7 @@ export const job = {
 
     async toggleArchiveJob({commit, state}, {jobs}) {
       const cachedJobs = state.jobs
-      const jobsCopy = utilService.deepClone(jobs)
+      const jobsCopy = utilService.cloneDeep(jobs)
       const updatedJobs = jobsCopy.map((job) => {
         job.archivedAt = job.archivedAt ? null : Date.now()
         return job
