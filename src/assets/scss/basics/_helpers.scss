@@ -2,6 +2,7 @@
 .flex {
   display: flex;
 }
+
 .grid {
   display: grid;
 }
@@ -20,6 +21,14 @@
 
 .justify-content-center {
   justify-content: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .flex-center {

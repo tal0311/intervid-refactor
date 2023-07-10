@@ -1,6 +1,6 @@
 <template>
   <section v-if="isOpen" class="modal-wrapper" @mousedown="closeModal">
-    <div class="modal-content" @mousedown.stop="" @click.stop="">
+    <div class="modal-content" :class="{'user-feedback': isUserFeedback}" @mousedown.stop="" @click.stop="">
       <button v-if="isCloseable" class="dismiss" @click="closeModal">
         <i class="material-icons md-dark">close</i>
       </button>
@@ -15,7 +15,8 @@ import OrgUserEdit from '@/cmps/common/user-mgmt/OrgUserEdit.vue'
 import ResetPassword from '@/cmps/common/user-mgmt/ResetPassword.vue'
 import ApplicationIndex from '@/cmps/interview/onboarding/ApplicationIndex.vue'
 import ShareBtns from '@/cmps/JobEdit/ShareBtns.vue'
-const modalTypes = ['TimeUp', 'AccountEdit', 'ResetPassword', 'ShareBtns', 'Application']
+import UserFeedback from '@/cmps/common/modals/UserFeedback.vue'
+const modalTypes = ['UserFeedback', 'TimeUp', 'AccountEdit', 'ResetPassword', 'ShareBtns', 'Application']
 
 export default {
   components: {
@@ -24,6 +25,7 @@ export default {
     ResetPassword,
     ShareBtns,
     ApplicationIndex,
+    UserFeedback,
   },
   computed: {
     modal() {
@@ -38,10 +40,16 @@ export default {
       return this.modal.data?.isCloseable || false
     },
 
+    isUserFeedback() {
+      return this.modal.type === 'UserFeedback'
+    },
+
     cmp() {
       switch (this.modal.type) {
         case 'TimeUp':
           return TimeUp
+        case 'UserFeedback':
+          return UserFeedback
         case 'AccountEdit':
           return OrgUserEdit
         case 'ResetPassword':

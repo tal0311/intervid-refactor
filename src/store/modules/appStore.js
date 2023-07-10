@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {utilService} from '@/services/utilService'
+import {userFeedbackService} from '@/services/userFeedbackService'
 import {setLang} from '@/services/i18nService'
 import {detect} from 'detect-browser'
 export const app = {
@@ -7,7 +8,7 @@ export const app = {
 
   state: {
     modal: {
-      type: '',
+      type: 'UserFeedback',
       data: null,
       isDarkScreen: false,
     },
@@ -115,6 +116,7 @@ export const app = {
       const modalData = state.modal.type ? null : modal?.data
       const isDarkScreen = state.modal.isDarkScreen ? false : modal?.isDarkScreen
       commit('setModal', {type: modalType, data: modalData, isDarkScreen})
+      console.log('state.modal:', state.modal)
     },
 
     setLang({commit}, {lang}) {
@@ -123,6 +125,12 @@ export const app = {
       elBody.classList.remove('he')
       if (lang === 'he') elBody.classList.add('he')
       localStorage.setItem('userLang', lang)
+    },
+
+    handleUserFeedbackModal({dispatch}, {userFeedback}) {
+      // Consider relocating this later & update the state using mutations if needed
+      userFeedbackService.postFeedback(userFeedback)
+      dispatch('toggleModal', null)
     },
   },
 }
