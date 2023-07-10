@@ -42,6 +42,7 @@
       <div class="add add-quest" @click="onAddQuest">
         <i class="material-icons">add_circle_outline</i>
         {{ $getTrans('add-question') }}
+        <div v-html="$getSvg('eran')"></div>
       </div>
 
       <button
