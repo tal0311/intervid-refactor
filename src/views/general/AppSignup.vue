@@ -111,8 +111,8 @@
           </div>
         </div>
         <div class="apps-badges hidden">
-          <img src="../../assets/icons/app-store-badge.png" alt=""/>
-          <img src="../../assets/icons/google-play-badge.png" alt=""/>
+          <img src="../../assets/icons/app-store-badge.png" alt="app-store-badge" />
+          <img src="../../assets/icons/google-play-badge.png" alt="google-play-badge" />
         </div>
       </section>
     </div>
