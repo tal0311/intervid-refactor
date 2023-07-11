@@ -231,6 +231,8 @@ export default {
 
   watch: {
     $route() {
+      // checking if the changed url is still relevent to this cmp
+      if (this.$route.fullPath.split('/').includes('applicant')) return
       this.clearSelectedItems()
       this.setFilterFromRoute()
       this.loadJobs()

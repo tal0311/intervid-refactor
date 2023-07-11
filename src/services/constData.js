@@ -98,7 +98,8 @@ const defaultFilters = {
     daysAgo: '',
     currPage: 0,
     itemsPerPage: 30,
-    jobId: null,
+    // jobId: null,
+    showArchived: false,
   },
 
   JobOverview: {
@@ -135,6 +136,7 @@ const defaultFilters = {
 }
 
 export function getDefaultFilter(cmpName) {
+  // console.log(defaultFilters[cmpName])
   return defaultFilters[cmpName] || {}
 }
 
