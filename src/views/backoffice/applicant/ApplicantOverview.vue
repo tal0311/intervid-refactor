@@ -132,7 +132,8 @@ export default {
     const store = useStore()
     const route = useRoute()
 
-    const {filterBy, onSetFilterByKey, onSetFilter, setFilterFromRoute, resetFilters, onDeleteFilterByKey} = useFilter()
+    // const {filterBy, onSetFilterByKey, onSetFilter, setFilterFromRoute, resetFilters, onDeleteFilterByKey} = useFilter()
+    const {filterBy, onSetFilterByKey, onSetFilter, setFilterFromRoute, resetFilters} = useFilter()
     const {sort, onSort} = useSort()
     const {selectedItems, setSelectedItems, onSelectAll, isSelected, onSelectItem, clearSelectedItems} = useSelection()
     const {shouldGather, setShouldGather} = useShouldGather()
@@ -146,26 +147,37 @@ export default {
     //   setShouldGather,
     // })
 
-    watch(
-      route,
-      () => {
-        if (route.fullPath.split('/').includes('details')) return
-        clearSelectedItems()
-        setFilterFromRoute()
-        loadApplicants()
-      },
-      // {flush: 'post'},
-    )
+    watch(route, async () => {
+      // checking if the changed url is still relevent to this cmp
+      if (route.fullPath.split('/').includes('details') || route.fullPath.split('/').includes('job')) return
+      // if there is no jobId taking filter from url
+      const {jobId} = route.params
+      if (!jobId) setFilterFromRoute()
+      // no currPage means url does not includs the filter onSetFilter() updates the url as well
+      if (!route.query.currPage) onSetFilter(setFilterFromRoute())
+      loadApplicants()
+      // updating the store with the currJob
+      loadJob(route)
+    })
+
     async function loadApplicants() {
       const {jobId} = route.params
       if (jobId) onSetFilterByKey('jobId', jobId)
+      if (jobId && !route.query.currPage) return
       await store.dispatch('job/loadApplicants', {
         filterBy: filterBy.value,
         sort: sort.value,
         shouldGather: shouldGather.value,
       })
-      if (!jobId) onDeleteFilterByKey('jobId')
       if (shouldGather.value) setShouldGather(false)
+    }
+
+    async function loadJob(route) {
+      const {jobId} = route.params
+      if (!jobId) return store.commit('job/setJob', {job: null})
+      await store.dispatch('job/loadJob', {
+        jobId,
+      })
     }
     return {
       filterBy,
@@ -187,6 +199,7 @@ export default {
       shouldGather,
       setShouldGather,
       loadApplicants,
+      loadJob,
     }
   },
   computed: {
@@ -287,9 +300,16 @@ export default {
     // }
   },
   async created() {
-    this.setFilterFromRoute()
-    this.loadApplicants()
-    this.loadJob()
+    //checking if the url is with params or not
+    const {jobId} = this.$route.params
+    // if there is jobId the params are ready there no need in changing them
+    // so loadApplicants() will run from here and not from url watcher
+    const filter = jobId ? false : this.setFilterFromRoute()
+    // onSetFilter() update the url and by that url watcher will activate
+    if (filter) this.onSetFilter(filter)
+    else this.loadApplicants()
+    // updating the store with the currJob
+    this.loadJob(this.$route)
     if (this.job) {
       this.$nextTick(() => {
         document.title = 'Intervid | ' + this.job.info.title
@@ -298,13 +318,13 @@ export default {
   },
 
   methods: {
-    async loadJob() {
-      const {jobId} = this.$route.params
-      if (!jobId) return this.$store.commit('job/setJob', {job: null})
-      await this.$store.dispatch('job/loadJob', {
-        jobId,
-      })
-    },
+    // async loadJob() {
+    //   const {jobId} = this.$route.params
+    //   if (!jobId) return this.$store.commit('job/setJob', {job: null})
+    //   await this.$store.dispatch('job/loadJob', {
+    //     jobId,
+    //   })
+    // },
 
     onLoadNextApplicants() {
       this.filterBy.currPage = this.filterBy.currPage + 1

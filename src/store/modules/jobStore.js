@@ -11,7 +11,7 @@ export const job = {
     jobs: null,
     jobToEdit: null,
     prevJobToEdit: null,
-    isFetching: false,
+    isFetching: true,
     isSaving: false,
     pageCount: 0,
     totalJobCount: 0,
@@ -268,17 +268,21 @@ export const job = {
           if (jobs.length === 0) return
           jobs = [...state.jobs, ...jobs]
         }
-        await commit('setJobs', {
+        commit('setJobs', {
           jobs,
           pageCount,
           filteredJobCount,
           totalJobCount,
         })
+        // when this commit is in finally it does not work properly
+        commit('setIsFetching', false)
       } catch (err) {
         loggerService.error('[JobStore] [loadJobs] Failed to load jobs', err)
-      } finally {
+        // when this commit is in finally it does not work properly
         commit('setIsFetching', false)
       }
+      // finally {
+      // }
     },
 
     async loadJob({commit}, {jobId}) {
@@ -291,6 +295,7 @@ export const job = {
     },
 
     async loadApplicants({commit, dispatch, state}, {filterBy = {}, sort = {}, shouldGather = false}) {
+      commit('setApplicants', {applicants: null, filteredApplicantCount: 0, pageCount: 0, applicantCount: 0})
       commit('setIsFetching', true)
       try {
         const key = 'job/getApplicants'
@@ -307,11 +312,15 @@ export const job = {
           filteredApplicantCount,
           pageCount,
         })
+        // when this commit is in finally it does not work properly
+        commit('setIsFetching', false)
       } catch (err) {
         loggerService.error('[JobStore] [loadJobs] Failed to load applicants', err)
-      } finally {
+        // when this commit is in finally it does not work properly
         commit('setIsFetching', false)
       }
+      // finally {
+      // }
     },
 
     async loadJobToEdit({commit, rootGetters}, {jobId}) {
